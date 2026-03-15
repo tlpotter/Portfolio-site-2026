@@ -38,8 +38,8 @@ nav{
   justify-content:flex-start;padding-top:140px;
   overflow:visible;background:transparent;z-index:3;
 }
-/* Canvas extends below hero so the black hole straddles the section boundary */
-#bhCanvas{position:absolute;top:0;left:0;right:0;bottom:-9vw;z-index:0;pointer-events:none}
+/* Canvas sized by JS — extends below hero so the black hole straddles the section boundary */
+#bhCanvas{position:absolute;top:0;left:0;z-index:0;pointer-events:none}
 
 .hero-content{position:relative;z-index:2;text-align:center;display:flex;flex-direction:column;align-items:center}
 

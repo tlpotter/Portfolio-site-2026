@@ -454,11 +454,15 @@ const bh = document.getElementById('bhCanvas');
 const bhOpts = { originY: .88, maxR: .62, sphereR: .068, starCount: 220, discCount: 280, shooters: true, lensing: true };
 
 function resizeBH() {
-  bh.width  = bh.offsetWidth;
-  bh.height = bh.offsetHeight;
-  // Canvas extends 9vw below the hero section (CSS bottom: -9vw)
-  // Compute fold position as fraction of total canvas height
-  bhOpts.originY = bh.parentElement.offsetHeight / bh.height;
+  // Size directly from window — bypasses CSS layout timing issues entirely.
+  // Canvas height = hero height + 9vw extension so the sphere straddles the fold.
+  const heroH = document.getElementById('hero').offsetHeight || window.innerHeight;
+  const ext   = window.innerWidth * 0.09;
+  bh.width  = window.innerWidth;
+  bh.height = Math.round(heroH + ext);
+  bh.style.width  = bh.width  + 'px';
+  bh.style.height = bh.height + 'px';
+  bhOpts.originY  = heroH / bh.height;
 }
 resizeBH();
 window.addEventListener('resize', resizeBH);
