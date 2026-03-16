@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Interos Supply Chain Risk — Ted Potter</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+  <meta name="robots" content="noindex"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fraunces:ital,wght@0,300;0,600;1,300;1,600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css"/>
+  <link rel="stylesheet" href="css/styles.css"/>
+  <link rel="stylesheet" href="css/case-study.css"/>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="curRing"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">Ted Potter</a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#work">Work</a></li>
+    <li><a href="index.html#skills">Skills</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <a href="index.html#work" class="nav-back"><span class="nav-back-arrow">←</span> All work</a>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="cs-hero">
+  <div class="cs-hero-inner">
+    <div class="cs-num">03 — Case Study</div>
+    <div class="work-tags" style="margin-bottom:16px">
+      <span class="work-tag">Enterprise</span>
+      <span class="work-tag">Data Visualization</span>
+      <span class="work-tag">B2B SaaS</span>
+    </div>
+    <h1 class="cs-title">Interos Supply Chain <em>Risk Intelligence</em></h1>
+    <p class="cs-lead">UX Feature Lead on a B2B SaaS supply chain risk platform — redesigning the homescreen, company profile, and alerts system for enterprise analysts managing global supplier networks.</p>
+    <div class="cs-meta">
+      <div class="cs-meta-item">
+        <span class="cs-meta-lbl">Client</span>
+        <span class="cs-meta-val">Interos</span>
+      </div>
+      <div class="cs-meta-item">
+        <span class="cs-meta-lbl">Agency</span>
+        <span class="cs-meta-val">Neudesic</span>
+      </div>
+      <div class="cs-meta-item">
+        <span class="cs-meta-lbl">Role</span>
+        <span class="cs-meta-val">UX Feature Lead</span>
+      </div>
+      <div class="cs-meta-item">
+        <span class="cs-meta-lbl">Timeline</span>
+        <span class="cs-meta-val">2021 · 18 months</span>
+      </div>
+      <div class="cs-meta-item">
+        <span class="cs-meta-lbl">Platform</span>
+        <span class="cs-meta-val">Web App · Enterprise SaaS</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── HERO IMAGE ── -->
+<section class="cs-section" style="padding-top:0;padding-bottom:0">
+  <img src="figma-export/Interos/homescreen_mockup.png" alt="Interos platform homescreen" class="cs-hero-img" style="border-radius:0;max-height:560px;object-fit:cover;object-position:top"/>
+</section>
+
+<!-- ── THE PROBLEM ── -->
+<section class="cs-section">
+  <div class="cs-section-inner">
+    <div class="sec-label">The Problem</div>
+    <h2 class="sec-title">An <em>excel sheet</em> pretending to be a platform</h2>
+    <div class="cs-two-col">
+      <div class="cs-body">
+        <p>Interos's legacy platform presented supply chain risk data like an Excel spreadsheet — rows and rows of data points with no narrative, no hierarchy, and no path to action. Users were barraged with information and left to interpret it entirely on their own. For enterprise analysts managing thousands of suppliers across global tiers, this wasn't just frustrating — it was a genuine risk.</p>
+      </div>
+      <div class="cs-body">
+        <p>The new platform needed to do the opposite: condense complex datasets into meaningful aggregates, provide continuous monitoring through events and risk score changes, and give users clear exploration paths from a high-level overview down into the details that matter. I joined Interos as a consultant through Neudesic in early 2021, embedded in their product team.</p>
+      </div>
+    </div>
+    <div class="cs-img-frame landscape" style="margin-top:32px">
+      <a href="figma-export/Interos/homescreen/legacy_platform.png" class="glightbox" data-title="Legacy platform — data-heavy, no narrative">
+        <img src="figma-export/Interos/homescreen/legacy_platform.png" alt="Interos legacy platform"/>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── USERS ── -->
+<section class="cs-section">
+  <div class="cs-section-inner">
+    <div class="sec-label">Users</div>
+    <h2 class="sec-title">Who was <em>using it</em></h2>
+    <div class="cs-two-col-3">
+      <div class="cs-stat-card glass">
+        <div class="cs-stat-num">Analysts</div>
+        <div class="cs-stat-lbl">Supply chain and procurement analysts — power users who lived in the platform daily, tracking risk across hundreds of suppliers</div>
+      </div>
+      <div class="cs-stat-card glass">
+        <div class="cs-stat-num">Managers</div>
+        <div class="cs-stat-lbl">Program managers responsible for identifying supplier risk exposure and maintaining regulatory compliance</div>
+      </div>
+      <div class="cs-stat-card glass">
+        <div class="cs-stat-num">Execs</div>
+        <div class="cs-stat-lbl">C-suite and VP-level approvers of platform licensing — needed high-level aggregates, not raw data</div>
+      </div>
+    </div>
+    <div class="cs-body" style="max-width:640px;margin-top:32px">
+      <p>All three user types needed the same platform to work differently for them — executives wanted a birds-eye view, analysts needed to drill deep, managers needed actionable monitoring. Designing for that range without fragmenting the experience was the core challenge.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── WORK DELIVERED ── -->
+<section class="cs-section">
+  <div class="cs-section-inner">
+    <div class="sec-label">Scope</div>
+    <h2 class="sec-title">Three features, <em>one platform</em></h2>
+    <div class="cs-body" style="max-width:640px;margin-bottom:32px">
+      <p>Over 18 months I led UX across five distinct workstreams — embedded in agile sprints alongside PMs, engineers, and Interos's internal design team. The three flagship features were the platform homescreen, the company profile, and the events/alerts system.</p>
+    </div>
+
+    <div class="cs-phase">
+      <div class="cs-phase-label">May – July 2021 · 4 months</div>
+      <div class="cs-phase-title">Platform Homescreen</div>
+      <div class="cs-phase-body">Redesigned the core homescreen from scratch — the first thing users see when they log in. Designed to provide a high-level aggregate of supply chain health with clear drill-down paths.</div>
+      <div class="cs-phase-tags">
+        <span class="cs-phase-tag">Homescreen</span>
+        <span class="cs-phase-tag">Risk Overview</span>
+        <span class="cs-phase-tag">Dashboard</span>
+      </div>
+    </div>
+
+    <div class="cs-phase">
+      <div class="cs-phase-label">May – July 2021 · 2 months</div>
+      <div class="cs-phase-title">Company Profile</div>
+      <div class="cs-phase-body">Improved an in-progress dark UI design that had poor visual hierarchy and poor execution of dark design best practices. Collaborated with a junior designer in a tag-team arrangement across time zones.</div>
+      <div class="cs-phase-tags">
+        <span class="cs-phase-tag">Company Profile</span>
+        <span class="cs-phase-tag">Risk Scores</span>
+        <span class="cs-phase-tag">Dark UI</span>
+      </div>
+    </div>
+
+    <div class="cs-phase">
+      <div class="cs-phase-label">May – July 2021 · 8 months</div>
+      <div class="cs-phase-title">Events, Alerts &amp; Notifications</div>
+      <div class="cs-phase-body">Designed continuous monitoring through in-app alerts, an events feed, and a branded email notification system — so users could stay aware of risk changes outside the platform.</div>
+      <div class="cs-phase-tags">
+        <span class="cs-phase-tag">Alerts</span>
+        <span class="cs-phase-tag">Email Design</span>
+        <span class="cs-phase-tag">Events Timeline</span>
+      </div>
+    </div>
+
+    <div class="cs-phase">
+      <div class="cs-phase-label">2021 · 1 month</div>
+      <div class="cs-phase-title">Data Lifecycle Discovery</div>
+      <div class="cs-phase-body">Led a research engagement interviewing all department heads across the Interos data acquisition lifecycle — mapping the process end-to-end, identifying pain points, and delivering good/better/best recommendations.</div>
+      <div class="cs-phase-tags">
+        <span class="cs-phase-tag">Research</span>
+        <span class="cs-phase-tag">Journey Mapping</span>
+        <span class="cs-phase-tag">Stakeholder Interviews</span>
+      </div>
+    </div>
+
+    <div class="cs-phase">
+      <div class="cs-phase-label">2021 · 2 weeks</div>
+      <div class="cs-phase-title">Events Timeline</div>
+      <div class="cs-phase-body">Redesigned a third-party-created events timeline — simplifying elements, improving visual hierarchy, and restructuring the layout to surface the most important information first.</div>
+      <div class="cs-phase-tags">
+        <span class="cs-phase-tag">Timeline</span>
+        <span class="cs-phase-tag">Visual Design</span>
+        <span class="cs-phase-tag">Information Architecture</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── HOMESCREEN ── -->
+<section class="cs-section">
+  <div class="cs-section-inner">
+    <div class="sec-label">Feature 01</div>
+    <h2 class="sec-title">Designing the <em>homescreen</em></h2>
+    <div class="cs-body" style="max-width:640px;margin-bottom:32px">
+      <p>The homescreen is the most valuable real estate in any platform — it sets the mental model for everything else. The legacy homescreen was an overwhelming data dump. The redesign started with one question: what does a user need to know within 30 seconds of logging in? The answer shaped every design decision from layout to information hierarchy.</p>
+    </div>
+    <div class="cs-img-frame landscape" style="margin-bottom:12px">
+      <a href="figma-export/Interos/homescreen/sketching.png" class="glightbox" data-title="Early sketching — homescreen concepts">
+        <img src="figma-export/Interos/homescreen/sketching.png" alt="Homescreen sketches" style="object-position:center"/>
+      </a>
+    </div>
+    <div class="cs-img-trio">
+      <div class="cs-img-frame landscape">
+        <a href="figma-export/Interos/homescreen/homescreen v1.png" class="glightbox" data-title="Homescreen v1 — initial direction">
+          <img src="figma-export/Interos/homescreen/homescreen v1.png" alt="Homescreen v1"/>
+        </a>
+      </div>
+      <div class="cs-img-frame landscape">
+        <a href="figma-export/Interos/homescreen/homescreen v2.png" class="glightbox" data-title="Homescreen v2 — refined layout">
+          <img src="figma-export/Interos/homescreen/homescreen v2.png" alt="Homescreen v2"/>
+        </a>
+      </div>
+      <div class="cs-img-frame landscape">
+        <a href="figma-export/Interos/homescreen/homescreen v3.png" class="glightbox" data-title="Homescreen v3 — final design">
+          <img src="figma-export/Interos/homescreen/homescreen v3.png" alt="Homescreen v3 final"/>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── COMPANY PROFILE ── -->
+<section class="cs-section">
+  <div class="cs-section-inner">
+    <div class="sec-label">Feature 02</div>
+    <h2 class="sec-title">Dark UI done <em>right</em></h2>
+    <div class="cs-two-col">
+      <div class="cs-body">
+        <p>I joined the company profile midway through development. The existing design had poor contrast, inconsistent hierarchy, and wasn't following dark design best practices — text was hard to read, interactive elements weren't distinguishable, and the risk score data didn't breathe. I collaborated with a junior designer on the east coast in a tag-team arrangement — when he logged off, I took over.</p>
+        <p>The redesign established a proper dark UI system: layered backgrounds, consistent elevation, and a clear typographic hierarchy that made the risk scores legible and actionable.</p>
+      </div>
+      <div>
+        <div class="cs-img-frame landscape" style="margin-bottom:8px">
+          <a href="figma-export/Interos/company profile/Profile - Risk Profile - Overview – 4.png" class="glightbox" data-title="Company profile — risk profile overview">
+            <img src="figma-export/Interos/company profile/Profile - Risk Profile - Overview – 4.png" alt="Company risk profile overview"/>
+          </a>
+        </div>
+        <div class="cs-img-frame landscape">
+          <a href="figma-export/Interos/Sub Factor Narrative Enhancements - Expanded Components.png" class="glightbox" data-title="Sub factor narrative — progressive disclosure">
+            <img src="figma-export/Interos/Sub Factor Narrative Enhancements - Expanded Components.png" alt="Sub factor narrative enhancements"/>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="cs-quote">
+      <p>In the previous version, users had just a list of attributes — essentially data points. No context, no narrative. The redesign used progressive disclosure: show the user what they need to understand their current situation, let them drill down from there.</p>
+      <cite>— Design principle, Interos Company Profile</cite>
+    </div>
+  </div>
+</section>
+
+<!-- ── ALERTS & NOTIFICATIONS ── -->
+<section class="cs-section">
+  <div class="cs-section-inner">
+    <div class="sec-label">Feature 03</div>
+    <h2 class="sec-title">Staying aware <em>outside the app</em></h2>
+    <div class="cs-body" style="max-width:640px;margin-bottom:32px">
+      <p>Supply chain risk doesn't wait for you to log in. The alerts system was designed to keep users aware of critical changes — a Tier 2 supplier breached by ransomware, a country hit by sanctions — through in-app alerts, an events feed, and a branded email digest. The challenge was signal-to-noise: for large supply chains, the volume of events could reach into the hundreds per day. The design had to be ruthlessly prioritized.</p>
+    </div>
+    <div class="cs-img-trio">
+      <div class="cs-img-frame landscape">
+        <a href="figma-export/Interos/alerts/Alerts Config - Risk Category config with tiers.png" class="glightbox" data-title="Alerts configuration — risk category and tiers">
+          <img src="figma-export/Interos/alerts/Alerts Config - Risk Category config with tiers.png" alt="Alerts configuration"/>
+        </a>
+      </div>
+      <div class="cs-img-frame landscape">
+        <a href="figma-export/Interos/alerts/Email Alert Visual Design v5 - Events.png" class="glightbox" data-title="Email alert — supply chain cyber attack notification">
+          <img src="figma-export/Interos/alerts/Email Alert Visual Design v5 - Events.png" alt="Email alert design"/>
+        </a>
+      </div>
+      <div class="cs-img-frame landscape">
+        <a href="figma-export/Interos/alerts/Profile - Events Feed - 3 column.png" class="glightbox" data-title="Events feed — 3 column layout">
+          <img src="figma-export/Interos/alerts/Profile - Events Feed - 3 column.png" alt="Events feed"/>
+        </a>
+      </div>
+    </div>
+    <a href="figma-export/Interos/alerts/alertsflow.png" class="glightbox" data-title="Alerts — user flow diagram">
+      <img src="figma-export/Interos/alerts/alertsflow.png" alt="Alerts flow diagram" class="cs-img" style="margin-top:16px;background:rgba(255,255,255,.03);border-radius:16px;padding:24px"/>
+    </a>
+  </div>
+</section>
+
+<!-- ── EVENTS TIMELINE ── -->
+<section class="cs-section">
+  <div class="cs-section-inner">
+    <div class="sec-label">Feature 04</div>
+    <h2 class="sec-title">Before and <em>after</em></h2>
+    <div class="cs-body" style="max-width:640px;margin-bottom:24px">
+      <p>A third-party company had produced designs for the events timeline — a view showing a chronological history of supply chain events across your ecosystem. The designs were visually complex and hard to parse. My task: simplify elements, fix the visual hierarchy so filters were prominent, and streamline the timeline to surface the most important information.</p>
+    </div>
+    <div class="cs-two-col">
+      <div>
+        <div class="cs-meta-lbl" style="margin-bottom:8px">Before</div>
+        <div class="cs-img-frame landscape">
+          <a href="figma-export/Interos/Expiro Events Timeline - Before.png" class="glightbox" data-title="Events timeline — before (third-party design)">
+            <img src="figma-export/Interos/Expiro Events Timeline - Before.png" alt="Events timeline before"/>
+          </a>
+        </div>
+      </div>
+      <div>
+        <div class="cs-meta-lbl" style="color:rgba(168,255,120,.6);margin-bottom:8px">After</div>
+        <div class="cs-img-frame landscape">
+          <a href="figma-export/Interos/Events Timeline Updates - After.png" class="glightbox" data-title="Events timeline — after redesign">
+            <img src="figma-export/Interos/Events Timeline Updates - After.png" alt="Events timeline after"/>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── DATA DISCOVERY ── -->
+<section class="cs-section">
+  <div class="cs-section-inner">
+    <div class="sec-label">Research</div>
+    <h2 class="sec-title">Mapping the <em>data lifecycle</em></h2>
+    <div class="cs-body" style="max-width:640px;margin-bottom:32px">
+      <p>Alongside the feature work, I led a one-month research engagement to address a critical internal problem: Interos had no single source of truth for understanding which data sources they'd purchased, their status, or who owned what. I interviewed every department head across the data acquisition lifecycle — identifying all the teams involved, mapping the process end-to-end across every Jira board it touched, gathering pain points, and delivering recommendations in good/better/best format.</p>
+    </div>
+    <a href="figma-export/Interos/Interos Data Sources Lifecycle - Interos Data Acquisition Journey Map.jpg" class="glightbox" data-title="Data acquisition lifecycle — journey map">
+      <img src="figma-export/Interos/Interos Data Sources Lifecycle - Interos Data Acquisition Journey Map.jpg" alt="Data acquisition journey map" class="cs-img" style="background:rgba(255,255,255,.03);border-radius:16px;padding:24px"/>
+    </a>
+  </div>
+</section>
+
+<!-- ── CHALLENGES ── -->
+<section class="cs-section">
+  <div class="cs-section-inner">
+    <div class="sec-label">Challenges</div>
+    <h2 class="sec-title">Nothing went <em>exactly to plan</em></h2>
+    <div class="cs-two-col">
+      <div class="glass" style="padding:28px;border-radius:16px">
+        <div class="cs-meta-lbl" style="margin-bottom:12px">Growing Pains</div>
+        <div class="cs-body">
+          <p>Interos had grown rapidly — adding over 200 employees in two years — and the process hadn't kept up. Keeping 5–10 product pods aligned without a formal design process meant a lot of coordination overhead. Design decisions that should have taken a day sometimes took a week to get in front of the right people.</p>
+        </div>
+      </div>
+      <div class="glass" style="padding:28px;border-radius:16px">
+        <div class="cs-meta-lbl" style="color:rgba(168,255,120,.6);margin-bottom:12px">Engineering Communication</div>
+        <div class="cs-body">
+          <p>Engineering estimations were largely done by the CTO, with minimal input from the development team. Communication between engineering and UX was poor when I joined. Part of my value was bridging that gap — being specific enough in handoffs that ambiguity didn't become a blocker downstream.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── OUTCOMES ── -->
+<section class="cs-section">
+  <div class="cs-section-inner">
+    <div class="sec-label">Outcomes</div>
+    <h2 class="sec-title">What we <em>shipped</em></h2>
+    <div class="cs-two-col-3">
+      <div class="cs-stat-card glass">
+        <div class="cs-stat-num">V2</div>
+        <div class="cs-stat-lbl">Platform launched July 2021 — the first major redesign of the Interos product experience</div>
+      </div>
+      <div class="cs-stat-card glass">
+        <div class="cs-stat-num">5</div>
+        <div class="cs-stat-lbl">Distinct workstreams delivered across homescreen, profile, alerts, research, and events timeline</div>
+      </div>
+      <div class="cs-stat-card glass">
+        <div class="cs-stat-num">18mo</div>
+        <div class="cs-stat-lbl">Embedded engagement across three feature teams at a unicorn-valuation B2B SaaS company</div>
+      </div>
+    </div>
+    <div class="cs-img-frame landscape" style="margin-top:32px">
+      <a href="figma-export/Interos/interos_companyprofile_mockup.png" class="glightbox" data-title="Interos company profile — final design">
+        <img src="figma-export/Interos/interos_companyprofile_mockup.png" alt="Interos company profile mockup"/>
+      </a>
+    </div>
+    <div class="cs-two-col" style="margin-top:12px">
+      <div class="cs-img-frame landscape">
+        <a href="figma-export/Interos/interos_alerts_mockup.png" class="glightbox" data-title="Interos alerts — final design">
+          <img src="figma-export/Interos/interos_alerts_mockup.png" alt="Interos alerts mockup"/>
+        </a>
+      </div>
+      <div class="cs-img-frame landscape">
+        <a href="figma-export/Interos/homescreen_mockup.png" class="glightbox" data-title="Interos homescreen — final design">
+          <img src="figma-export/Interos/homescreen_mockup.png" alt="Interos homescreen mockup"/>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── REFLECTION ── -->
+<section class="cs-section">
+  <div class="cs-section-inner">
+    <div class="sec-label">Reflection</div>
+    <h2 class="sec-title">What I <em>learned</em></h2>
+    <div class="cs-body" style="max-width:640px">
+      <p>Interos taught me what it looks like to do UX inside a fast-growing startup that's outpacing its own process. The product was ambitious, the team was smart, and the design challenges were genuinely hard — but the infrastructure to support good design (clear requirements, stable handoffs, design review rituals) was still being built in real time.</p>
+      <p>The most valuable skill I developed here was designing for data density — finding the right level of abstraction for complex enterprise data so it becomes legible without losing fidelity. Supply chain risk data is inherently complex; the job is to give it just enough structure that users can act on it.</p>
+      <p>If I were starting over, I'd push harder earlier to establish a shared design system. Across five workstreams and multiple collaborators, the lack of a unified component library created inconsistency that we spent time reconciling rather than eliminating.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── NEXT ── -->
+<section id="cs-next">
+  <div class="cs-next-inner">
+    <a href="index.html#work" class="cs-next-back">← Back to all work</a>
+    <a href="case-study-vasa.html" class="cs-next-link">
+      <span class="cs-next-lbl">Next case study</span>
+      <span class="cs-next-title">VASA Fitness Mobile App →</span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <p>Ted Potter — Senior UX Designer</p>
+  <p>Phoenix, AZ</p>
+  <p>© 2026</p>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+<script>GLightbox({ touchNavigation: true, loop: true, zoomable: true });</script>
+</body>
+</html>

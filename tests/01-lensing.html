@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>01 – Gravitational Lensing</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#020608;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;overflow:hidden}
+.lbl{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.2);font:600 10px/1 sans-serif;letter-spacing:.14em;text-transform:uppercase}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="lbl">01 — Gravitational Lensing Warp</div>
+<script>
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+const S = Math.min(Math.min(window.innerWidth, window.innerHeight) * .92, 680);
+canvas.width = canvas.height = S;
+const cx = S / 2, cy = S / 2;
+const rs = S * .068;
+const STRENGTH = S * S * .034;
+
+// ── Offscreen star field ──
+const osc = document.createElement('canvas');
+osc.width = osc.height = S;
+const octx = osc.getContext('2d');
+const STARS = Array.from({length: 2200}, () => ({
+  x: Math.random() * S, y: Math.random() * S,
+  r: .2 + Math.random() * 1.4,
+  base: .15 + Math.random() * .85,
+  ph: Math.random() * Math.PI * 2,
+  sp: .005 + Math.random() * .018
+}));
+
+// ── Pre-compute warp LUT — one-time cost ──
+// For each output pixel, store which source pixel to sample (stars appear bent away from hole)
+const lut = new Uint16Array(S * S * 2);
+for (let y = 0; y < S; y++) {
+  for (let x = 0; x < S; x++) {
+    const dx = x - cx, dy = y - cy;
+    const r2 = dx * dx + dy * dy;
+    const r = Math.sqrt(r2);
+    let sx = x, sy = y;
+    if (r > rs) {
+      const def = Math.min(STRENGTH / r2, 2.8);
+      sx = Math.max(0, Math.min(S - 1, Math.round(x - dx * def)));
+      sy = Math.max(0, Math.min(S - 1, Math.round(y - dy * def)));
+    }
+    lut[(y * S + x) * 2]     = sx;
+    lut[(y * S + x) * 2 + 1] = sy;
+  }
+}
+
+let t = 0, fc = 0;
+
+function drawStars() {
+  octx.fillStyle = '#020608';
+  octx.fillRect(0, 0, S, S);
+  STARS.forEach(s => {
+    s.ph += s.sp;
+    const a = s.base * (.4 + Math.sin(s.ph) * .6);
+    octx.beginPath(); octx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    octx.fillStyle = `rgba(255,255,255,${a})`; octx.fill();
+    // Cross spikes on bright stars
+    if (s.r > 1 && a > .5) {
+      octx.strokeStyle = `rgba(255,255,255,${a * .25})`; octx.lineWidth = .5;
+      octx.beginPath(); octx.moveTo(s.x - s.r * 5, s.y); octx.lineTo(s.x + s.r * 5, s.y); octx.stroke();
+      octx.beginPath(); octx.moveTo(s.x, s.y - s.r * 5); octx.lineTo(s.x, s.y + s.r * 5); octx.stroke();
+    }
+  });
+}
+
+function applyLens() {
+  const src = octx.getImageData(0, 0, S, S).data;
+  const dst = ctx.createImageData(S, S);
+  const dd = dst.data;
+  const n = S * S;
+  for (let i = 0; i < n; i++) {
+    const sx = lut[i * 2], sy = lut[i * 2 + 1];
+    const di = i * 4, si = (sy * S + sx) * 4;
+    dd[di] = src[si]; dd[di+1] = src[si+1]; dd[di+2] = src[si+2]; dd[di+3] = 255;
+  }
+  ctx.putImageData(dst, 0, 0);
+}
+
+function drawFX() {
+  // Accretion glow
+  const glow = ctx.createRadialGradient(cx, cy, rs * .85, cx, cy, rs * 3.2);
+  glow.addColorStop(0,   `rgba(255,220,80,${.72 + Math.sin(t*2)*.1})`);
+  glow.addColorStop(.28, `rgba(255,85,0,${.42 + Math.sin(t*1.5)*.07})`);
+  glow.addColorStop(.62, `rgba(0,180,255,${.16 + Math.sin(t)*.04})`);
+  glow.addColorStop(1,   'rgba(0,0,0,0)');
+  ctx.beginPath(); ctx.arc(cx, cy, rs * 3.2, 0, Math.PI * 2);
+  ctx.fillStyle = glow; ctx.fill();
+
+  // Photon ring
+  ctx.save();
+  ctx.shadowBlur = 34; ctx.shadowColor = `rgba(255,200,60,.9)`;
+  ctx.strokeStyle = `rgba(255,240,130,${.88 + Math.sin(t*2.2)*.1})`;
+  ctx.lineWidth = 2.6;
+  ctx.beginPath(); ctx.arc(cx, cy, rs * 1.06, 0, Math.PI * 2); ctx.stroke();
+  ctx.restore();
+
+  // Event horizon
+  const sg = ctx.createRadialGradient(cx-rs*.2, cy-rs*.2, rs*.04, cx, cy, rs);
+  sg.addColorStop(0, '#050301'); sg.addColorStop(1, '#010101');
+  ctx.beginPath(); ctx.arc(cx, cy, rs, 0, Math.PI * 2);
+  ctx.fillStyle = sg; ctx.fill();
+}
+
+function frame() {
+  t += .012; fc++;
+  if (fc % 2 === 0) drawStars(); // twinkle stars every other frame
+  applyLens();
+  drawFX();
+  requestAnimationFrame(frame);
+}
+
+drawStars();
+frame();
+</script>
+</body>
+</html>

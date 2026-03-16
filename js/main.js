@@ -23,9 +23,16 @@ function drawPortal(canvas, opts) {
   let W = canvas.width, H = canvas.height;
   let t = 0, fc = 0;
 
-  // ── Stars (normalized 0–1 so resize doesn't misplace them) ──
-  const stars = Array.from({ length: opts.starCount || 180 }, () => ({
-    nx: Math.random(), ny: Math.random(),
+  // ── Stars — stratified jitter grid so stars spread evenly with no clumping ──
+  const starCount = opts.starCount || 180;
+  const cols = Math.ceil(Math.sqrt(starCount));
+  const rows = Math.ceil(starCount / cols);
+  const starIndices = Array.from({ length: cols * rows }, (_, i) => i)
+    .sort(() => Math.random() - .5)
+    .slice(0, starCount);
+  const stars = starIndices.map(idx => ({
+    nx: (idx % cols + Math.random()) / cols,
+    ny: (Math.floor(idx / cols) + Math.random()) / rows,
     r: .15 + Math.random() * 1.2, a: .1 + Math.random() * .85,
     phase: Math.random() * Math.PI * 2, speed: .004 + Math.random() * .022
   }));
@@ -53,7 +60,7 @@ function drawPortal(canvas, opts) {
       angle: (i / 280) * Math.PI * 2,
       speed: (.007 + Math.random() * .005) * (layer % 2 === 0 ? 1 : -1) * (1 - layer * .15),
       r: .048 + layer * .022 + (Math.random() - .5) * .014,
-      size: .4 + Math.random() * 1.6,
+      size: 1.2 + Math.random() * 3.6,
       brightness: .3 + Math.random() * .7,
       layer, phase: Math.random() * Math.PI * 2
     };
@@ -61,7 +68,7 @@ function drawPortal(canvas, opts) {
 
   // ── CSS-style full rotating rings with orbiting hot spots ──
   const fullRings = Array.from({ length: 5 }, (_, i) => ({
-    radiusFrac:  .10 + i * .16,
+    radiusFrac:  (i === 0 ? .025 : .05 + i * .08),
     hotAngle:    Math.random() * Math.PI * 2,
     hotSpeed:    (.003 + Math.random() * .004) * (Math.random() > .5 ? 1 : -1),
     isOrange:    i % 2 === 0
@@ -221,6 +228,12 @@ function drawPortal(canvas, opts) {
     const maxR = W * (opts.maxR || .65);
     const minR = sR * 2.4;
 
+    // Clip all background effects above the horizon line
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(0, 0, W, oy + 4);
+    ctx.clip();
+
     // ── Background gradient ──
     const bg = ctx.createLinearGradient(0, 0, 0, H);
     bg.addColorStop(0, '#010205'); bg.addColorStop(.45, '#020610'); bg.addColorStop(1, '#030b1a');
@@ -286,8 +299,8 @@ function drawPortal(canvas, opts) {
 
     // ── Ground energy pool ──
     const pool = ctx.createRadialGradient(ox, oy, 0, ox, oy, W * .6);
-    pool.addColorStop(0,   `rgba(255,140,20,${.32 + Math.sin(t * .7) * .06})`);
-    pool.addColorStop(.18, `rgba(255,70,0,${.20 + Math.sin(t * .5) * .04})`);
+    pool.addColorStop(0,   `rgba(0,80,160,${.32 + Math.sin(t * .7) * .06})`);
+    pool.addColorStop(.18, `rgba(0,50,120,${.20 + Math.sin(t * .5) * .04})`);
     pool.addColorStop(.4,  `rgba(0,150,255,${.13 + Math.sin(t * .4) * .03})`);
     pool.addColorStop(.7,  'rgba(0,60,180,.04)');
     pool.addColorStop(1,   'rgba(0,10,40,0)');
@@ -362,11 +375,14 @@ function drawPortal(canvas, opts) {
     const hline = ctx.createLinearGradient(ox - maxR, oy, ox + maxR, oy);
     hline.addColorStop(0,   'rgba(0,212,255,0)');
     hline.addColorStop(.22, `rgba(0,212,255,${.32 + Math.sin(t) * .05})`);
-    hline.addColorStop(.5,  `rgba(255,175,0,${.88 + Math.sin(t * 1.2) * .1})`);
+    hline.addColorStop(.5,  `rgba(0,212,255,${.88 + Math.sin(t * 1.2) * .1})`);
     hline.addColorStop(.78, `rgba(0,212,255,${.32 + Math.sin(t) * .05})`);
     hline.addColorStop(1,   'rgba(0,212,255,0)');
-    ctx.save(); ctx.shadowBlur = 26; ctx.shadowColor = 'rgba(255,120,0,.9)';
+    ctx.save(); ctx.shadowBlur = 26; ctx.shadowColor = 'rgba(0,180,255,.9)';
     ctx.fillStyle = hline; ctx.fillRect(ox - maxR, oy - 2.5, maxR * 2, 5 * (1 + Math.sin(t * 1.3) * .1));
+    ctx.restore();
+
+    // Remove clip — sphere, glow, and particles render freely below the horizon
     ctx.restore();
 
     // ── Disc back half ──
@@ -377,38 +393,74 @@ function drawPortal(canvas, opts) {
       const py = oy + Math.sin(p.angle) * W * p.r * .26;
       if (Math.sin(p.angle) < 0) {
         const heat = p.brightness * (.7 + Math.sin(p.phase) * .3);
-        const isBlue = p.layer % 2 === 0;
-        const rC = isBlue ? 0 : 255, gC = isBlue ? 212 : 98, bC = isBlue ? 255 : 0;
-        ctx.beginPath(); ctx.arc(px, py, p.size * (1 + Math.sin(p.phase) * .3), 0, Math.PI * 2);
+        const frac = Math.max(0, Math.min(1, (p.r - .041) / .08));
+        const rC = frac < .7 ? Math.round(255 - 255 * (frac / .7)) : 0;
+        const gC = frac < .7 ? Math.round(100 + 112 * (frac / .7)) : Math.round(212 - 172 * ((frac - .7) / .3));
+        const bC = frac < .7 ? Math.round(255 * (frac / .7)) : Math.round(255 - 105 * ((frac - .7) / .3));
+        ctx.beginPath(); ctx.arc(px, py, p.size * .7 * (1 + Math.sin(p.phase) * .3), 0, Math.PI * 2);
         ctx.fillStyle = `rgba(${rC},${gC},${bC},${heat * .8})`;
         ctx.shadowBlur = p.size * 9; ctx.shadowColor = `rgba(${rC},${gC},${bC},.7)`; ctx.fill();
       }
     });
     ctx.restore();
 
-    // ── Photon ring glow ──
-    const pg = ctx.createRadialGradient(ox, oy, sR * .75, ox, oy, sR * 1.6);
-    pg.addColorStop(0,   `rgba(255,230,100,${.78 + Math.sin(t * 2) * .12})`);
-    pg.addColorStop(.28, `rgba(255,100,0,${.55 + Math.sin(t * 1.6) * .08})`);
-    pg.addColorStop(.65, `rgba(0,210,255,${.22 + Math.sin(t) * .05})`);
-    pg.addColorStop(1,   'rgba(0,100,200,0)');
-    ctx.beginPath(); ctx.arc(ox, oy, sR * 1.6, 0, Math.PI * 2); ctx.fillStyle = pg; ctx.fill();
+    // ── Photon ring glow — enlarged and brighter ──
+    const pg = ctx.createRadialGradient(ox, oy, sR * .6, ox, oy, sR * 2.8);
+    pg.addColorStop(0,   `rgba(255,160,40,${.95 + Math.sin(t * 2) * .05})`);
+    pg.addColorStop(.18, `rgba(255,120,10,${.8 + Math.sin(t * 1.6) * .1})`);
+    pg.addColorStop(.45, `rgba(220,80,0,${.45 + Math.sin(t) * .06})`);
+    pg.addColorStop(.72, `rgba(140,40,0,${.18})`);
+    pg.addColorStop(1,   'rgba(80,20,0,0)');
+    ctx.beginPath(); ctx.arc(ox, oy, sR * 2.8, 0, Math.PI * 2); ctx.fillStyle = pg; ctx.fill();
+
+    // Inner orange haze — tight warm band right at the event horizon
+    const ih = ctx.createRadialGradient(ox, oy, sR * .92, ox, oy, sR * 1.45);
+    ih.addColorStop(0,   `rgba(255,200,100,${.6 + Math.sin(t * 2.5) * .12})`);
+    ih.addColorStop(.4,  `rgba(255,150,30,${.4 + Math.sin(t * 1.8) * .08})`);
+    ih.addColorStop(1,   'rgba(255,80,0,0)');
+    ctx.beginPath(); ctx.arc(ox, oy, sR * 1.45, 0, Math.PI * 2); ctx.fillStyle = ih; ctx.fill();
 
     ctx.save();
-    ctx.shadowBlur = 36; ctx.shadowColor = `rgba(255,210,60,${.95 + Math.sin(t * 2) * .05})`;
-    ctx.strokeStyle = `rgba(255,240,140,${.88 + Math.sin(t * 2.2) * .12})`;
-    ctx.lineWidth = 2.8;
+    ctx.shadowBlur = 52; ctx.shadowColor = `rgba(255,140,20,${.98 + Math.sin(t * 2) * .02})`;
+    ctx.strokeStyle = `rgba(255,160,50,${.9 + Math.sin(t * 2.2) * .1})`;
+    ctx.lineWidth = 3.2;
     ctx.beginPath(); ctx.arc(ox, oy, sR * 1.02, 0, Math.PI * 2); ctx.stroke();
     ctx.restore();
 
     // ── Black sphere ──
-    const sG = ctx.createRadialGradient(ox - sR * .25, oy - sR * .25, sR * .05, ox, oy, sR);
-    sG.addColorStop(0, 'rgba(6,3,1,1)'); sG.addColorStop(.7, 'rgba(2,1,1,1)'); sG.addColorStop(1, 'rgba(1,1,1,1)');
+    // Base: deep shadow on lower-right, slightly lighter upper-left for depth
+    const sG = ctx.createRadialGradient(ox - sR * .38, oy - sR * .38, sR * .02, ox + sR * .2, oy + sR * .2, sR * 1.05);
+    sG.addColorStop(0,   'rgba(22,14,8,1)');
+    sG.addColorStop(.35, 'rgba(8,5,3,1)');
+    sG.addColorStop(.75, 'rgba(2,1,1,1)');
+    sG.addColorStop(1,   'rgba(0,0,0,1)');
     ctx.beginPath(); ctx.arc(ox, oy, sR, 0, Math.PI * 2); ctx.fillStyle = sG; ctx.fill();
 
-    const shine = ctx.createRadialGradient(ox - sR * .35, oy - sR * .35, 0, ox, oy, sR);
-    shine.addColorStop(0, 'rgba(0,212,255,.1)'); shine.addColorStop(.5, 'rgba(0,170,255,.04)'); shine.addColorStop(1, 'rgba(0,0,0,0)');
-    ctx.beginPath(); ctx.arc(ox, oy, sR, 0, Math.PI * 2); ctx.fillStyle = shine; ctx.fill();
+    // Rim light — orange from disc on lower edge, blue on upper-left
+    ctx.save();
+    ctx.clip();
+    const rimO = ctx.createRadialGradient(ox, oy + sR * .72, sR * .3, ox, oy + sR * .72, sR * 1.1);
+    rimO.addColorStop(0, 'rgba(255,110,20,.55)');
+    rimO.addColorStop(.5, 'rgba(255,60,0,.18)');
+    rimO.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.beginPath(); ctx.arc(ox, oy, sR, 0, Math.PI * 2);
+    ctx.fillStyle = rimO; ctx.fill();
+
+    const rimB = ctx.createRadialGradient(ox - sR * .7, oy - sR * .55, 0, ox - sR * .7, oy - sR * .55, sR * 1.1);
+    rimB.addColorStop(0, 'rgba(0,200,255,.22)');
+    rimB.addColorStop(.5, 'rgba(0,150,220,.08)');
+    rimB.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.beginPath(); ctx.arc(ox, oy, sR, 0, Math.PI * 2);
+    ctx.fillStyle = rimB; ctx.fill();
+
+    // Specular highlight — small sharp spot upper-left
+    const spec = ctx.createRadialGradient(ox - sR * .42, oy - sR * .44, 0, ox - sR * .42, oy - sR * .44, sR * .38);
+    spec.addColorStop(0,   'rgba(180,230,255,.18)');
+    spec.addColorStop(.45, 'rgba(100,180,255,.06)');
+    spec.addColorStop(1,   'rgba(0,0,0,0)');
+    ctx.beginPath(); ctx.arc(ox, oy, sR, 0, Math.PI * 2);
+    ctx.fillStyle = spec; ctx.fill();
+    ctx.restore();
 
     // ── Disc front half ──
     ctx.save();
@@ -417,23 +469,17 @@ function drawPortal(canvas, opts) {
       const py = oy + Math.sin(p.angle) * W * p.r * .26;
       if (Math.sin(p.angle) >= 0) {
         const heat = p.brightness * (.7 + Math.sin(p.phase) * .3);
-        const isBlue = p.layer % 2 === 0;
-        const rC = isBlue ? 0 : 255, gC = isBlue ? 212 : 98, bC = isBlue ? 255 : 0;
-        ctx.beginPath(); ctx.arc(px, py, p.size * (1 + Math.sin(p.phase) * .3), 0, Math.PI * 2);
+        const frac = Math.max(0, Math.min(1, (p.r - .041) / .08));
+        const rC = frac < .7 ? Math.round(255 - 255 * (frac / .7)) : 0;
+        const gC = frac < .7 ? Math.round(100 + 112 * (frac / .7)) : Math.round(212 - 172 * ((frac - .7) / .3));
+        const bC = frac < .7 ? Math.round(255 * (frac / .7)) : Math.round(255 - 105 * ((frac - .7) / .3));
+        ctx.beginPath(); ctx.arc(px, py, p.size * .7 * (1 + Math.sin(p.phase) * .3), 0, Math.PI * 2);
         ctx.fillStyle = `rgba(${rC},${gC},${bC},${heat})`;
         ctx.shadowBlur = p.size * 10; ctx.shadowColor = `rgba(${rC},${gC},${bC},.8)`; ctx.fill();
       }
     });
     ctx.restore();
 
-    // ── Light pillar ──
-    const col = ctx.createLinearGradient(ox, oy, ox, oy - H * .62);
-    col.addColorStop(0,   `rgba(255,100,0,${.18 + Math.sin(t) * .05})`);
-    col.addColorStop(.28, `rgba(0,200,255,${.1 + Math.sin(t * .8) * .025})`);
-    col.addColorStop(.65, 'rgba(0,130,220,.025)');
-    col.addColorStop(1,   'rgba(0,20,60,0)');
-    const cW = W * .042 * (1 + Math.sin(t * .9) * .05);
-    ctx.fillStyle = col; ctx.fillRect(ox - cW / 2, oy - H * .62, cW, H * .62);
 
     // ── Top fade ──
     const fade = ctx.createLinearGradient(0, 0, 0, H * .4);
@@ -451,13 +497,13 @@ const bh = document.getElementById('bhCanvas');
 
 // Mutable opts object — originY is recomputed on resize so sphere center
 // always sits exactly on the hero/about section boundary
-const bhOpts = { originY: .88, maxR: .62, sphereR: .068, starCount: 220, discCount: 280, shooters: true, lensing: true };
+const bhOpts = { originY: .88, maxR: .43, sphereR: .048, starCount: 420, discCount: 480, shooters: true, lensing: true };
 
 function resizeBH() {
   // Size directly from window — bypasses CSS layout timing issues entirely.
   // Canvas height = hero height + 9vw extension so the sphere straddles the fold.
   const heroH = document.getElementById('hero').offsetHeight || window.innerHeight;
-  const ext   = window.innerWidth * 0.09;
+  const ext   = window.innerWidth * 0.12;
   bh.width  = window.innerWidth;
   bh.height = Math.round(heroH + ext);
   bh.style.width  = bh.width  + 'px';

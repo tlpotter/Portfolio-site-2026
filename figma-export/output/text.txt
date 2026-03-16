@@ -1,0 +1,5405 @@
+[Ted Potter]
+Ted Potter
+
+---
+
+[Product/UX Portfolio]
+Product/UX Portfolio
+
+---
+
+[Senior UX Consultant / Product Design / Project Lead]
+Senior UX Consultant / Product Design / 
+Project Lead
+
+---
+
+[2018 - 2022]
+2018 - 2022
+
+---
+
+[About Me]
+About Me
+
+---
+
+[Ted Potter TL;DR]
+Ted Potter
+TL;DR
+
+---
+
+[14 years of design experience]
+14 years of design experience
+
+---
+
+[5 years of ux, product, & enterprise software design]
+5 years of ux, product, & enterprise software design 
+
+---
+
+[Professionally: designer, creative, nerd Descriptors: Chill vibes, Curiosity, Thinker, patiently relentless, Collaborative]
+Professionally: designer, creative, nerd
+Descriptors: Chill vibes, Curiosity, Thinker, patiently relentless, Collaborative
+
+---
+
+[Capabilities Highlights Product Design Visual Design Information Architecture User Research Leader / Mentor Strategy Design Sprints Workshop Facilitator Project Management]
+Capabilities Highlights
+Product Design
+Visual Design
+Information Architecture
+User Research
+Leader / Mentor
+Strategy
+Design Sprints
+Workshop Facilitator
+Project Management
+
+---
+
+[Product Skills]
+Product Skills
+
+---
+
+[.Discovery]
+.Discovery
+
+---
+
+[I create a deep understanding of the problem(s) I am creating a solution for through research, direct communication to the users, and stakeholders.]
+I create a deep understanding of the problem(s) I am creating a solution for through research, direct communication to the users, and stakeholders.
+
+---
+
+[.Define]
+.Define
+
+---
+
+[Organizing complex pieces of information, gathering requirements, building out wireframes and flows, creates structure and definition for product solutions, before jumping into the design phase.]
+Organizing complex pieces of information, gathering requirements, building out wireframes and flows, creates structure and definition for product solutions, before jumping into the design phase.
+
+---
+
+[.Design]
+.Design
+
+---
+
+[Design is my deepest skillset area. I create design that utilizes best practices and research informed decisions, that looks great and evokes the desired emotional tone for your brand.]
+Design is my deepest skillset area. I create design that utilizes best practices and research informed decisions, that looks great and evokes the desired emotional tone for your brand.
+
+---
+
+[.DeliverY (development)]
+.DeliverY (development)
+
+---
+
+[I stay with the project until launch and work with the developers and stakeholders throughout development to collaboratively solve problems and improve on the output in an agile and efficient manor.]
+I stay with the project until launch and work with the developers and stakeholders throughout development to collaboratively solve problems and improve on the output in an agile and efficient manor.
+
+---
+
+[.PROJECT mANAGEMENT]
+.PROJECT mANAGEMENT
+
+---
+
+[The majority of the time I support project management with making recomendations for process, team ceremony meetings, and good communication and culture on the team. I have also run the project on a few smaller projects when there was a need for that.]
+The majority of the time I support project management with making recomendations for process, team ceremony meetings, and good communication and culture on the team. I have also run the project on a few smaller projects when there was a need for that.
+
+---
+
+[.BACKLOG DEVELOPMENT]
+.BACKLOG DEVELOPMENT
+
+---
+
+[I have written the backlog, epics, and user stories for a number of my projects. At minimum I will participate in the maintaining of an active backlog and if the project calls for it I can create it entirely myself as well.]
+I have written the backlog, epics, and user stories for a number of my projects. At minimum I will participate in the maintaining of an active backlog and if the project calls for it I can create it entirely myself as well.
+
+---
+
+[UX Methodology]
+UX Methodology 
+
+---
+
+[Project]
+Project
+
+---
+
+[How I work]
+How I work
+
+---
+
+[.UNDERSTAND]
+.UNDERSTAND
+
+---
+
+[Understand the problem we are building solutions for. Understand the company. Understand the technology and potential constraints, the curent state of any apps. Understand the team and culture. Building as much of a deep understanding upfront helps drive towards the highest value output.]
+Understand the problem we are building solutions for. Understand the company. Understand the technology and potential constraints, the curent state of any apps. Understand the team and culture. Building as much of a deep understanding upfront helps drive towards the highest value output. 
+
+---
+
+[MINDSET]
+MINDSET
+
+---
+
+[.Communicate & Callaborate]
+.Communicate & 
+Callaborate
+
+---
+
+[Define a cross functional team that has a clear mission, goals, and area of focus. Have roles and areas of ownership clearly defined. Bring the whole team into the design process early on to help inform goals, find the highest value features, create mutual accountibility through regular touchpoints.]
+Define a cross functional team that has a clear mission, goals, and area of focus. Have roles and areas of ownership clearly defined. Bring the whole team into the design process early on to help inform goals, find the highest value features, create mutual accountibility through regular touchpoints. 
+
+---
+
+[.Iterate]
+.Iterate
+
+---
+
+[The first pass at any solution, likely won’t be the best. Start with a hypothesis, and continue to iterate improve, or completely pivot to get to the best answer. Keep an open mind for feedback from anyone on the team and the users. You never know where a great idea or mind blowing thought may come from.]
+The first pass at any solution, likely won’t be the best. Start with a hypothesis, and continue to iterate improve, or completely pivot to get to the best answer. Keep an open mind for feedback from anyone on the team and the users. You never know where a great idea or mind blowing thought may come from. 
+
+---
+
+[.TEST & Enhance]
+.TEST & Enhance
+
+---
+
+[Validate our hypothesis and assumptions that we start with in design review, in user testing, and circulating with various stakeholder groups in the company. When new insights are gained, continue to iterate.]
+Validate our hypothesis and assumptions that we start with in design review, in user testing, and circulating with various stakeholder groups in the company. When new insights are gained, continue to iterate.
+
+---
+
+[User Interviews Competitive Analysis Current State Analysis Problem Statements Journey Maps]
+User Interviews
+Competitive Analysis
+Current State Analysis
+Problem Statements
+Journey Maps
+
+---
+
+[Design Sprints Project kickoff Standup Meetings]
+Design Sprints
+Project kickoff 
+Standup Meetings
+
+---
+
+[Wireframes Concept Designs Design Review]
+Wireframes
+Concept Designs
+Design Review
+
+---
+
+[User Testing Analytics]
+User Testing
+Analytics 
+
+---
+
+[A few examples:]
+A few examples:
+
+---
+
+[How I Collaborate]
+How I Collaborate
+
+---
+
+[.OPEN COMMUNICATION]
+.OPEN COMMUNICATION
+
+---
+
+[Understand the problem we are building solutions for. Understand the company. Understand the technology and potential constraints, the curent state of any apps. Understand the team and culture. Building as much of a deep understanding upfront helps drive towards the highest value output.]
+Understand the problem we are building solutions for. Understand the company. Understand the technology and potential constraints, the curent state of any apps. Understand the team and culture. Building as much of a deep understanding upfront helps drive towards the highest value output. 
+
+---
+
+[.WORKSHOPS]
+.WORKSHOPS
+
+---
+
+[Define a cross functional team that has a clear mission, goals, and area of focus. Have roles and areas of ownership clearly defined. Bring the whole team into the design process early on to help inform goals, find the highest value features, create mutual accountibility through regular touchpoints.]
+Define a cross functional team that has a clear mission, goals, and area of focus. Have roles and areas of ownership clearly defined. Bring the whole team into the design process early on to help inform goals, find the highest value features, create mutual accountibility through regular touchpoints. 
+
+---
+
+[.EVERYONE HAS A SEAT AT THE TABLE]
+.EVERYONE HAS A SEAT 
+AT THE TABLE
+
+---
+
+[The first pass at any solution, likely won’t be the best. Start with a hypothesis, and continue to iterate improve, or completely pivot to get to the best answer. Keep an open mind for feedback from anyone on the team and the users. You never know where a great idea or mind blowing thought may come from.]
+The first pass at any solution, likely won’t be the best. Start with a hypothesis, and continue to iterate improve, or completely pivot to get to the best answer. Keep an open mind for feedback from anyone on the team and the users. You never know where a great idea or mind blowing thought may come from. 
+
+---
+
+[.FOCUS ON THE WHY]
+.FOCUS ON THE WHY
+
+---
+
+[Validate our hypothesis and assumptions that we start with in design review, in user testing, and circulating with various stakeholder groups in the company. When new insights are gained, continue to iterate.]
+Validate our hypothesis and assumptions that we start with in design review, in user testing, and circulating with various stakeholder groups in the company. When new insights are gained, continue to iterate.
+
+---
+
+[User Interviews Competitive Analysis Current State Analysis Problem Statements Journey Maps]
+User Interviews
+Competitive Analysis
+Current State Analysis
+Problem Statements
+Journey Maps
+
+---
+
+[Design Sprints Project kickoff Standup Meetings]
+Design Sprints
+Project kickoff 
+Standup Meetings
+
+---
+
+[Wireframes Concept Designs Design Review]
+Wireframes
+Concept Designs
+Design Review
+
+---
+
+[User Testing Analytics]
+User Testing
+Analytics 
+
+---
+
+[A few examples:]
+A few examples:
+
+---
+
+[MINDSET]
+MINDSET
+
+---
+
+[How I Lead]
+How I Lead
+
+---
+
+[.SERVANT LEADERSHIP]
+.SERVANT LEADERSHIP
+
+---
+
+[Understand the problem we are building solutions for. Understand the company. Understand the technology and potential constraints, the curent state of any apps. Understand the team and culture. Building as much of a deep understanding upfront helps drive towards the highest value output.]
+Understand the problem we are building solutions for. Understand the company. Understand the technology and potential constraints, the curent state of any apps. Understand the team and culture. Building as much of a deep understanding upfront helps drive towards the highest value output. 
+
+---
+
+[.EMPOWER TEAM MEMBERS]
+.EMPOWER TEAM MEMBERS
+
+---
+
+[Define a cross functional team that has a clear mission, goals, and area of focus. Have roles and areas of ownership clearly defined. Bring the whole team into the design process early on to help inform goals, find the highest value features, create mutual accountibility through regular touchpoints.]
+Define a cross functional team that has a clear mission, goals, and area of focus. Have roles and areas of ownership clearly defined. Bring the whole team into the design process early on to help inform goals, find the highest value features, create mutual accountibility through regular touchpoints. 
+
+---
+
+[.EVERYONE HAS A SEAT AT THE TABLE]
+.EVERYONE HAS A SEAT 
+AT THE TABLE
+
+---
+
+[The first pass at any solution, likely won’t be the best. Start with a hypothesis, and continue to iterate improve, or completely pivot to get to the best answer. Keep an open mind for feedback from anyone on the team and the users. You never know where a great idea or mind blowing thought may come from.]
+The first pass at any solution, likely won’t be the best. Start with a hypothesis, and continue to iterate improve, or completely pivot to get to the best answer. Keep an open mind for feedback from anyone on the team and the users. You never know where a great idea or mind blowing thought may come from. 
+
+---
+
+[.AUTONOMY]
+.AUTONOMY
+
+---
+
+[Validate our hypothesis and assumptions that we start with in design review, in user testing, and circulating with various stakeholder groups in the company. When new insights are gained, continue to iterate.]
+Validate our hypothesis and assumptions that we start with in design review, in user testing, and circulating with various stakeholder groups in the company. When new insights are gained, continue to iterate.
+
+---
+
+[User Interviews Competitive Analysis Current State Analysis Problem Statements Journey Maps]
+User Interviews
+Competitive Analysis
+Current State Analysis
+Problem Statements
+Journey Maps
+
+---
+
+[Design Sprints Project kickoff Standup Meetings]
+Design Sprints
+Project kickoff 
+Standup Meetings
+
+---
+
+[Wireframes Concept Designs Design Review]
+Wireframes
+Concept Designs
+Design Review
+
+---
+
+[User Testing Analytics]
+User Testing
+Analytics 
+
+---
+
+[A few examples:]
+A few examples:
+
+---
+
+[MINDSET]
+MINDSET
+
+---
+
+[.Define]
+.Define
+
+---
+
+[Organizing complex pieces of information, gathering requirements, building out wireframes and flows, creates structure and definition for product solutions, before jumping into the design phase.]
+Organizing complex pieces of information, gathering requirements, building out wireframes and flows, creates structure and definition for product solutions, before jumping into the design phase.
+
+---
+
+[.Design]
+.Design
+
+---
+
+[Design is my deepest skillset area. I create design that utilizes best practices and research informed decisions, that looks great and evokes the desired emotional tone for your brand.]
+Design is my deepest skillset area. I create design that utilizes best practices and research informed decisions, that looks great and evokes the desired emotional tone for your brand.
+
+---
+
+[.DeliverY (development)]
+.DeliverY (development)
+
+---
+
+[I stay with the project until launch and work with the developers and stakeholders throughout development to collaboratively solve problems and improve on the output in an agile and efficient manor.]
+I stay with the project until launch and work with the developers and stakeholders throughout development to collaboratively solve problems and improve on the output in an agile and efficient manor.
+
+---
+
+[Leadership Skills]
+Leadership Skills
+
+---
+
+[.Vision]
+.Vision
+
+---
+
+[I collaborate with the team to create product and feature vision, advocating for the highest value features, informed by research and the collective intelligence of the team.]
+I collaborate with the team to create product and feature vision, advocating for the highest value features, informed by research and the collective intelligence of the team. 
+
+---
+
+[.Process & Planning]
+.Process & Planning
+
+---
+
+[Working efficiently in a solidified and communally adopted process creates the best outcomes. Planning creatures priority and a clear plan of action. I have worked in envionrments that have solid process, or relatively primordial enviorments where I can build or contribute towards the proper process with the team.]
+Working efficiently in a solidified and communally adopted process creates the best outcomes. Planning creatures priority and a clear plan of action. I have worked in envionrments that have solid process, or relatively primordial enviorments where I can build or contribute towards the proper process with the team. 
+
+---
+
+[.CRAFT & TOOLS]
+.CRAFT & TOOLS
+
+---
+
+[I am extremely versatile with tools using apps like photoshop, sketch, XD, figma, miro, and more. Whatever a team uses I can adopt. I am always learning the newest and most powerful tool that helps to create the most efficienct workflow.]
+I am extremely versatile with tools using apps like photoshop, sketch, XD, figma, miro, and more. Whatever a team uses I can adopt. I am always learning the newest and most powerful tool that helps to create the most efficienct workflow. 
+
+---
+
+[.PROJECT LEAD]
+.PROJECT LEAD
+
+---
+
+[I have been the UX Lead on projects and at times the entire project from a delivery standpoint. I always strive to create a positive and productive team culture that helps projects run smoothly.]
+I have been the UX Lead on projects and at times the entire project from a delivery standpoint. I always strive to create a positive and productive team culture that helps projects run smoothly. 
+
+---
+
+[.Mentoring]
+.Mentoring
+
+---
+
+[I work with the junior team members on my projects and on the larger neudesic team to help them grow their skillset quickly. I offer feedback for any stage of the project and meet them at their current experience levels.]
+I work with the junior team members on my projects and on the larger neudesic team to help them grow their skillset quickly. I offer feedback for any stage of the project and meet them at their current experience levels.
+
+---
+
+[.COLLABORATION & Culture]
+.COLLABORATION & Culture
+
+---
+
+[Teams that enjoy working together creatre the best products. I do my best to always try to create and contribute to a positive team atmosphere, and makes it enjoyable for everyone on the team to come to work everyday. Collaboration also creates the highest quality in our outcomes. 10 minds are far more intelligent than one, no matter how skilled the one individual is.]
+Teams that enjoy working together creatre the best products. I do my best to always try to create and contribute to a positive team atmosphere, and makes it enjoyable for everyone on the team to come to work everyday. Collaboration also creates the highest quality in our outcomes. 10 minds are far more intelligent than one, no matter how skilled the one individual is.
+
+---
+
+[Strategy]
+Strategy
+
+---
+
+[Team]
+Team
+
+---
+
+[2022]
+2022
+
+---
+
+[Web App]
+Web App
+
+---
+
+[Features Homescreen Dashboard Company Profile Alerts, Events, & Notifications Visualizations]
+Features
+Homescreen Dashboard
+Company Profile
+Alerts, Events, & Notifications
+Visualizations
+
+---
+
+[Slide 11]
+Slide 11
+
+---
+
+[2018]
+2018
+
+---
+
+[Projects Sales/Marketing Website Internal Web App]
+Projects
+Sales/Marketing Website
+Internal Web App
+
+---
+
+[Slide 27]
+Slide 27
+
+---
+
+[2018]
+2018
+
+---
+
+[Projects Greyhound Consumer Mobile App Concept]
+Projects
+Greyhound Consumer Mobile App 
+Concept
+
+---
+
+[Slide 30]
+Slide 30
+
+---
+
+[2018]
+2018
+
+---
+
+[Projects Discount Tire Consumer Mobile App POC]
+Projects
+Discount Tire Consumer 
+Mobile App POC
+
+---
+
+[Slide 31]
+Slide 31
+
+---
+
+[2021]
+2021
+
+---
+
+[Projects Consumer Mobile App - Xamarin Internal Web App Internal Website]
+Projects
+Consumer Mobile App - Xamarin
+Internal Web App
+Internal Website
+
+---
+
+[Slide 19]
+Slide 19
+
+---
+
+[2020]
+2020
+
+---
+
+[Projects Consumer Mobile App - iOS/Android Tablet Web App Support Web App]
+Projects
+Consumer Mobile App - iOS/Android
+Tablet Web App
+Support Web App
+
+---
+
+[Slide 15]
+Slide 15
+
+---
+
+[2019]
+2019
+
+---
+
+[Projects Consumer Web App Internal Web App x2]
+Projects
+Consumer Web App
+Internal Web App x2
+
+---
+
+[Slide 23]
+Slide 23
+
+---
+
+[Project Glossary]
+Project Glossary
+
+---
+
+[.Vision]
+.Vision
+
+---
+
+[I collaborate with the team to create product and feature vision, advocating for the highest value features, informed by research and the collective intelligence of the team.]
+I collaborate with the team to create product and feature vision, advocating for the highest value features, informed by research and the collective intelligence of the team. 
+
+---
+
+[.Process & Planning]
+.Process & Planning
+
+---
+
+[Working efficiently in a solidified and communally adopted process creates the best outcomes. Planning creatures priority and a clear plan of action. I have worked in envionrments that have solid process, or relatively primordial enviorments where I can build or contribute towards the proper process with the team.]
+Working efficiently in a solidified and communally adopted process creates the best outcomes. Planning creatures priority and a clear plan of action. I have worked in envionrments that have solid process, or relatively primordial enviorments where I can build or contribute towards the proper process with the team. 
+
+---
+
+[.CRAFT & TOOLS]
+.CRAFT & TOOLS
+
+---
+
+[I am extremely versatile with tools using apps like photoshop, sketch, XD, figma, miro, and more. Whatever a team uses I can adopt. I am always learning the newest and most powerful tool that helps to create the most efficienct workflow.]
+I am extremely versatile with tools using apps like photoshop, sketch, XD, figma, miro, and more. Whatever a team uses I can adopt. I am always learning the newest and most powerful tool that helps to create the most efficienct workflow. 
+
+---
+
+[.PROJECT LEAD]
+.PROJECT LEAD
+
+---
+
+[I have been the UX Lead on projects and at times the entire project from a delivery standpoint. I always strive to create a positive and productive team culture that helps projects run smoothly.]
+I have been the UX Lead on projects and at times the entire project from a delivery standpoint. I always strive to create a positive and productive team culture that helps projects run smoothly. 
+
+---
+
+[.Mentoring]
+.Mentoring
+
+---
+
+[I work with the junior team members on my projects and on the larger neudesic team to help them grow their skillset quickly. I offer feedback for any stage of the project and meet them at their current experience levels.]
+I work with the junior team members on my projects and on the larger neudesic team to help them grow their skillset quickly. I offer feedback for any stage of the project and meet them at their current experience levels.
+
+---
+
+[.COLLABORATION & Culture]
+.COLLABORATION & Culture
+
+---
+
+[Teams that enjoy working together creatre the best products. I do my best to always try to create and contribute to a positive team atmosphere, and makes it enjoyable for everyone on the team to come to work everyday. Collaboration also creates the highest quality in our outcomes. 10 minds are far more intelligent than one, no matter how skilled the one individual is.]
+Teams that enjoy working together creatre the best products. I do my best to always try to create and contribute to a positive team atmosphere, and makes it enjoyable for everyone on the team to come to work everyday. Collaboration also creates the highest quality in our outcomes. 10 minds are far more intelligent than one, no matter how skilled the one individual is.
+
+---
+
+[Strategy]
+Strategy
+
+---
+
+[Team]
+Team
+
+---
+
+[Discovery]
+Discovery
+
+---
+
+[.Deliverables]
+.Deliverables
+
+---
+
+[Problem Statement Competitive Analysis User Personas Epic Backlog Journey Map Recomended Core, Elevate, Differentiate User Surveys]
+Problem Statement
+Competitive Analysis
+User Personas
+Epic Backlog
+Journey Map
+Recomended Core, Elevate, Differentiate
+User Surveys
+
+---
+
+[.Activities]
+.Activities
+
+---
+
+[Stakeholder Interviews User Interviews Competitive Analysis Heuristic Analysis​ User & System Map User Surveys Sprint Activities What is the goal? How Might we Fail How Might We Whiteboarding Workshops Card Sorts Review Current Environment & Systems]
+Stakeholder Interviews
+User Interviews
+Competitive Analysis
+Heuristic Analysis​
+User & System Map
+User Surveys
+Sprint Activities
+What is the goal?
+How Might we Fail
+How Might We
+Whiteboarding Workshops
+Card Sorts
+Review Current Environment & Systems
+
+---
+
+[Define]
+Define
+
+---
+
+[.Deliverables]
+.Deliverables
+
+---
+
+[Identify Future State Technical Requirements​ Capture User & Technical Requirements Business Process Workflow Analysis ​ Wireframes App Maps, Site Maps]
+Identify Future State Technical Requirements​
+Capture User & Technical Requirements 
+Business Process Workflow Analysis ​
+Wireframes
+App Maps, Site Maps
+
+---
+
+[.Activities]
+.Activities
+
+---
+
+[Storyboarding Mind Maps Define Scenarios Sketching Ideation Workshop Priorities Workshops Project Planning]
+Storyboarding
+Mind Maps
+Define Scenarios
+Sketching
+Ideation Workshop
+Priorities Workshops
+Project Planning
+
+---
+
+[Design]
+Design
+
+---
+
+[.Deliverables]
+.Deliverables
+
+---
+
+[Style Tiles Moodboards Interactive Prototypes High Fidelity Design Comps Infographics Promotional Imagery Responsive Designs Interactive Prototypes]
+Style Tiles
+Moodboards
+Interactive Prototypes
+High Fidelity Design Comps
+Infographics
+Promotional Imagery
+Responsive Designs
+Interactive Prototypes
+
+---
+
+[.Activities]
+.Activities
+
+---
+
+[Design Competitive Analysis UX Design Review Ideation Workshops Design Moodboards]
+Design Competitive Analysis
+UX Design Review
+Ideation Workshops
+Design Moodboards
+
+---
+
+[Deliver]
+Deliver
+
+---
+
+[.Deliverables]
+.Deliverables
+
+---
+
+[Backlog user stories epics backlog management Design Updates Design Iterations]
+Backlog
+user stories
+epics
+backlog management
+Design Updates
+Design Iterations
+
+---
+
+[.Activities]
+.Activities
+
+---
+
+[UX / Design review with Developers Assisting with QA and testing efforts Negotiating with developers and solving and supporting solving tech challenges]
+UX / Design review with Developers
+Assisting with QA and testing efforts
+Negotiating with developers and solving and supporting solving tech challenges
+
+---
+
+[VASA mobile app - iOS]
+VASA mobile app - iOS
+
+---
+
+[Carol - Werner IT Program Manager]
+Carol - Werner IT Program Manager
+
+---
+
+[12 Products Launched / Redesigned]
+12 Products 
+Launched / Redesigned
+
+---
+
+[Platform Homescreen Web dashboard 2 months]
+Platform Homescreen
+Web dashboard
+2 months
+
+---
+
+[Company Profile Web app 2 months]
+Company Profile 
+Web app
+2 months
+
+---
+
+[Events, Alerts, Notifications Web app pages, Emails 6 months]
+Events, Alerts, Notifications
+Web app pages, Emails
+6 months
+
+
+---
+
+[March 2021 - Jan 2022 ongoing to present day]
+March 2021 - Jan 2022
+ongoing to present day
+
+---
+
+[Back to Project Glossary]
+Back to Project Glossary
+
+---
+
+[July 2019 - June 2021 About 18 months across this timeframe]
+July 2019 - June 2021
+About 18 months across this timeframe
+
+---
+
+[Consumer Mobile App iOS / Android native mobile apps 13 months]
+Consumer Mobile App
+iOS / Android native mobile apps
+13 months
+
+---
+
+[Guest Kiosk App Web app run on tablets 2 months]
+Guest Kiosk App 
+Web app run on tablets
+2 months
+
+---
+
+[Self Service Support Site Responsive web site 3 months]
+Self Service Support Site 
+Responsive web site
+3 months
+
+
+---
+
+[Back to Project Glossary]
+Back to Project Glossary
+
+---
+
+[July 2019 - August 2021 13 months]
+July 2019 - August 2021
+13 months
+
+---
+
+[VASA Mobile App iOS / Android native mobile apps. 13 months, 5-10 updates and enhancements]
+VASA Mobile App
+iOS / Android native mobile apps.
+13 months,  5-10 updates and enhancements
+
+---
+
+[Users: VASA gym members]
+Users:
+VASA gym members
+
+---
+
+[Goals: Migrate away from a white-labled template based app to a custom app fully managed by VASA Integrate with customer data much more closely Create more direct communicaiton channel to customers Improve digital experience for customers, thereby reducing membership churn Allow members to manage their membership details through the app Provide more membership sales through member referrals and improve retention for existing members]
+Goals:
+Migrate away from a white-labled template based app to a custom app fully managed by VASA
+Integrate with customer data much more closely
+Create more direct communicaiton channel to customers
+Improve digital experience for customers, thereby reducing membership churn
+Allow members to manage their membership details through the app
+Provide more membership sales through member referrals and improve retention for existing members
+
+---
+
+[Roles & Responsibilities: UX Project Lead Guide and lead the project from conception to go live in the app store Redefine and expand branding and work closely with the client to develop it Present/Pitch work to a variety of client roles from middle management to C suite Produce Visual Design artifacts Conduct User testing and research Create information architecture artifacts Write the backlog and support it’s managament Collaborate closely with a cross funcitonal team Write app store update content, and respond to reviews Video editing with After Effects]
+Roles & Responsibilities:
+UX Project Lead
+Guide and lead the project from conception to go live in the app store
+Redefine and expand branding and work closely with the client to develop it
+Present/Pitch work to a variety of client roles from middle management to C suite
+Produce Visual Design artifacts
+Conduct User testing and research
+Create information architecture artifacts
+Write the backlog and support it’s managament 
+Collaborate closely with a cross funcitonal team
+Write app store update content, and respond to reviews
+Video editing with After Effects
+
+---
+
+[Back to Project Glossary]
+Back to Project Glossary
+
+---
+
+[May 2021 - Jul 2021 Roughly 2 months]
+May 2021 - Jul 2021
+Roughly 2 months
+
+---
+
+[Interos Home Dashboard Web App 2 months]
+Interos Home Dashboard
+Web App
+2 months
+
+---
+
+[Users: Interos customers Risk Analysts / Supply Chain Analysts Procurement Managers C suite leadership]
+Users:
+Interos customers
+Risk Analysts / Supply Chain Analysts
+Procurement Managers
+C suite leadership
+
+---
+
+[Goals: Provide a high level aggregate and overview of the customers ecosystem and the risk it contains Provide drill down paths throughout the platform Make it easy for users to quickly understand their companies risk at a high level]
+Goals:
+Provide a high level aggregate and overview of the customers ecosystem and the risk it contains
+Provide drill down paths throughout the platform
+Make it easy for users to quickly understand their companies risk at a high level
+
+---
+
+[Roles & Responsibilities: UX Feature Lead Guide and lead the project Run through full 4d UX Process Facilitate Design thinking workshops Help define requirements and vision Review with stakeholders across the company Collaborate with researchers and support studies Produce Visual Design artifacts Create information architecture artifacts Collaborate closely with a cross funcitonal team]
+Roles & Responsibilities:
+UX Feature Lead
+Guide and lead the project
+Run through full 4d UX Process
+Facilitate Design thinking workshops
+Help define requirements and vision
+Review with stakeholders across the company
+Collaborate with researchers and support studies
+Produce Visual Design artifacts
+Create information architecture artifacts
+Collaborate closely with a cross funcitonal team
+
+---
+
+[Back to Project Glossary]
+Back to Project Glossary
+
+---
+
+[May 2021 - Jul 2021 6 months]
+May 2021 - Jul 2021
+6 months
+
+---
+
+[Interos Alerts Web App, Emails 6 months]
+Interos Alerts
+Web App, Emails
+6 months
+
+---
+
+[Users: Interos customers Risk Analysts / Supply Chain Analysts Procurement Managers C suite leadership]
+Users:
+Interos customers
+Risk Analysts / Supply Chain Analysts
+Procurement Managers
+C suite leadership
+
+---
+
+[Goals: Provide continuous monitoring of high risk alerts on the changes occuring in a customers company’s ecosystem Offer specialized relevant content that is actionable Help the user stay aware of ongoing changes Notify the user outside of the app]
+Goals:
+Provide continuous monitoring of high risk alerts on the changes occuring in a customers company’s ecosystem
+Offer specialized relevant content that is actionable
+Help the user stay aware of ongoing changes
+Notify the user outside of the app
+
+---
+
+[Roles & Responsibilities: UX Feature Lead Guide and lead the feature Run through full 4d UX Process Facilitate Design thinking workshops Help define requirements and vision Review with stakeholders across the company Collaborate with researchers and support studies Produce Visual Design artifacts Create information architecture artifacts Collaborate closely with a cross funcitonal team]
+Roles & Responsibilities:
+UX Feature Lead
+Guide and lead the feature
+Run through full 4d UX Process
+Facilitate Design thinking workshops
+Help define requirements and vision
+Review with stakeholders across the company
+Collaborate with researchers and support studies
+Produce Visual Design artifacts
+Create information architecture artifacts
+Collaborate closely with a cross funcitonal team
+
+---
+
+[Back to Project Glossary]
+Back to Project Glossary
+
+---
+
+[May 2021 - Jul 2021 2 months]
+May 2021 - Jul 2021
+ 2 months
+
+---
+
+[Interos Company Profile Web App 2 months]
+Interos Company Profile
+Web App
+2 months
+
+---
+
+[Users: Interos customers Risk Analysts / Supply Chain Analysts Procurement Managers C suite leadership]
+Users:
+Interos customers
+Risk Analysts / Supply Chain Analysts
+Procurement Managers
+C suite leadership
+
+---
+
+[Goals: Provide a high level aggregate and overview of the customers ecosystem and the risk it contains Provide drill down paths throughout the platform Make it easy for users to quickly understand their companies risk at a high level]
+Goals:
+Provide a high level aggregate and overview of the customers ecosystem and the risk it contains
+Provide drill down paths throughout the platform
+Make it easy for users to quickly understand their companies risk at a high level
+
+---
+
+[Roles & Responsibilities: UX Feature Lead Guide and lead the project Work with other designers on the visual design Help define requirements and vision Review with stakeholders across the company Collaborate with researchers and support studies Produce Visual Design artifacts Enhance existing dark design with dark design best practices Collaborate closely with a cross funcitonal team]
+Roles & Responsibilities:
+UX Feature Lead
+Guide and lead the project
+Work with other designers on the visual design
+Help define requirements and vision
+Review with stakeholders across the company
+Collaborate with researchers and support studies
+Produce Visual Design artifacts
+Enhance existing dark design with dark design best practices
+Collaborate closely with a cross funcitonal team
+
+---
+
+[Back to Project Glossary]
+Back to Project Glossary
+
+---
+
+[Isalife - Consumer Mobile App Xamarin mobile app 10 months]
+Isalife - Consumer Mobile App
+Xamarin mobile app
+10 months
+
+---
+
+[Users: Isagenix Associates Isagenix Consumers]
+Users:
+Isagenix Associates
+Isagenix Consumers
+
+---
+
+[Goals: Help customers reach their wellness and fitness goals Make following the Isagenix weight loss program with the app as easy as possible, so they will continue their membership Create onboarding and trianing materials Enhance daily checklist features]
+Goals:
+Help customers reach their wellness and fitness goals
+Make following the Isagenix weight loss program with the app as easy as possible, so they will continue their membership
+Create onboarding and trianing materials
+Enhance daily checklist features
+
+---
+
+[Roles & Responsibilities: UX Project Lead Design enhancements to existing app Design future vision Concepts Facilitate Design thinking workshops Produce Visual Design artifacts Create information architecture artifacts Collaborate closely with a cross funcitonal team]
+Roles & Responsibilities:
+UX Project Lead
+Design enhancements to existing app
+Design future vision Concepts
+Facilitate Design thinking workshops
+Produce Visual Design artifacts
+Create information architecture artifacts
+Collaborate closely with a cross funcitonal team
+
+---
+
+[April 2020 - March 2021 11 months]
+April 2020 - March 2021
+11 months
+
+---
+
+[Back to Project Glossary]
+Back to Project Glossary
+
+---
+
+[Consumer Tracking Link Responsive web app 4 months]
+Consumer Tracking Link
+Responsive web app
+4 months
+
+---
+
+[Users: End customers recieving deliveries]
+Users:
+End customers recieving deliveries
+
+---
+
+[Goals: Help end customers easily understand shipping status across a complex shipping journey Increase communication in an automated approach to the end customer, therby reducing support team workload and saving money]
+Goals:
+Help end customers easily understand shipping status across a complex shipping journey
+Increase communication in an automated approach to the end customer, therby reducing support team workload and saving money
+
+---
+
+[Roles & Responsibilities: UX team member Design new app concept and produce visual design artifacts Create information architecture artifacts Participation in Ideation sessions Participate in User Research Analysis Collaborate closely with a cross funcitonal team Support writing of user stories Participate in grooming sessions]
+Roles & Responsibilities:
+UX team member
+Design new app concept and produce visual design artifacts
+Create information architecture artifacts
+Participation in Ideation sessions
+Participate in User Research Analysis
+Collaborate closely with a cross funcitonal team
+Support writing of user stories
+Participate in grooming sessions
+
+---
+
+[April 2020 - March 2021 11 months]
+April 2020 - March 2021
+11 months
+
+---
+
+[Back to Project Glossary]
+Back to Project Glossary
+
+---
+
+[FSA Marketing Website Responsive website 4 months]
+FSA Marketing Website
+Responsive website
+4 months
+
+---
+
+[Users: Prospect FSA Customers]
+Users:
+Prospect FSA Customers
+
+---
+
+[Goals: Create a major update to the FSA Brand that was guided by a content strategy Redesign their website to provide resources for recruiting, product solutions, and FSA tools]
+Goals:
+Create a major update to the FSA Brand that was guided by a content strategy
+Redesign their website to provide resources for recruiting, product solutions, and FSA tools
+
+---
+
+[Roles & Responsibilities: UX team member Create Visual Design artifacts Participate in a content strategy workshop series Present designs to FSA C-suite Collaborate closely with a cross funcitonal team Support writing of user stories Provide component direction to development]
+Roles & Responsibilities:
+UX team member
+Create Visual Design artifacts
+Participate in a content strategy workshop series
+Present designs to FSA C-suite
+Collaborate closely with a cross funcitonal team
+Support writing of user stories
+Provide component direction to development
+
+---
+
+[Feb 2018 - April 2018 3 Months]
+Feb 2018 - April 2018
+3 Months
+
+---
+
+[Back to Project Glossary]
+Back to Project Glossary
+
+---
+
+[FSA Ordering App Responsive website 4 months]
+FSA Ordering App
+Responsive website
+4 months
+
+---
+
+[Users: FSA Customers]
+Users:
+FSA Customers
+
+---
+
+[Goals: Create an easy and streamlined experience for customers to make their food orders]
+Goals:
+Create an easy and streamlined experience for customers to make their food orders
+
+---
+
+[Roles & Responsibilities: UX Lead Support current state application Design future vision of ordering app Create Visual Design artifacts Collaborate closely with a cross funcitonal team Support writing of user stories]
+Roles & Responsibilities:
+UX Lead
+Support current state application
+Design future vision of ordering app
+Create Visual Design artifacts
+Collaborate closely with a cross funcitonal team
+Support writing of user stories
+
+---
+
+[May 2018 - August 2018 3 Months]
+May 2018 - August 2018
+3 Months
+
+---
+
+[Back to Project Glossary]
+Back to Project Glossary
+
+---
+
+[Carrier Portal Responsive web app 5 months]
+Carrier Portal
+Responsive web app
+5 months
+
+---
+
+[Users: Carrier Agents Third party local carrier company team members Local carrier companies: companies that deliver large furniture]
+Users:
+Carrier Agents
+Third party local carrier company team members 
+Local carrier companies: companies that deliver large furniture
+
+---
+
+[Goals: Decrease the number of exceptions on shipments Increaes the volume of shipments agents can process Offload shipping operations management to third party carriers Increase automation of shipment tracking]
+Goals:
+Decrease the number of exceptions on shipments
+Increaes the volume of shipments agents can process
+Offload shipping operations management to third party carriers
+Increase automation of shipment tracking
+
+---
+
+[Roles & Responsibilities: UX team member Design new app concept and produce visual design artifacts Create information architecture artifacts Participation in Ideation sessions Participate in User Research Analysis Collaborate closely with a cross funcitonal team Support writing of user stories Participate in grooming sessions]
+Roles & Responsibilities:
+UX team member
+Design new app concept and produce visual design artifacts
+Create information architecture artifacts
+Participation in Ideation sessions
+Participate in User Research Analysis
+Collaborate closely with a cross funcitonal team
+Support writing of user stories
+Participate in grooming sessions
+
+---
+
+[April 2020 - March 2021 11 months]
+April 2020 - March 2021
+11 months
+
+---
+
+[Back to Project Glossary]
+Back to Project Glossary
+
+---
+
+[Location Search Responsive Web app 6 weeks]
+Location Search
+Responsive Web app
+6 weeks
+
+---
+
+[Users: Werner partner companies team members Internal Werner employees]
+Users:
+Werner partner companies team members
+Internal Werner employees
+
+---
+
+[Goals: Provide a solution to search any Werner Location Perform a technical upgrade for the current applicaiton]
+Goals:
+Provide a solution to search any Werner Location
+Perform a technical upgrade for the current applicaiton
+
+---
+
+[Roles & Responsibilities: UX team member Design new app concept and produce visual design artifacts Create information architecture artifacts Participation in Ideation sessions Participate in User Research Analysis Collaborate closely with a cross funcitonal team Support writing of user stories Participate in grooming sessions]
+Roles & Responsibilities:
+UX team member
+Design new app concept and produce visual design artifacts
+Create information architecture artifacts
+Participation in Ideation sessions
+Participate in User Research Analysis
+Collaborate closely with a cross funcitonal team
+Support writing of user stories
+Participate in grooming sessions
+
+---
+
+[April 2020 - March 2021 11 months]
+April 2020 - March 2021
+11 months
+
+---
+
+[Back to Project Glossary]
+Back to Project Glossary
+
+---
+
+[Rank Advancement Dashboard Web app 2 months]
+Rank Advancement Dashboard
+Web app
+2 months
+
+---
+
+[Users: Isagenix Associates]
+Users:
+Isagenix Associates
+
+---
+
+[Goals: Help Isagenix associates understand their rank bonus status quickly and easily Apply new branding to the existing design concept]
+Goals:
+Help Isagenix associates understand their rank bonus status quickly and easily
+Apply new branding to the existing design concept
+
+---
+
+[Roles & Responsibilities: UX Project Lead Design enhancements to existing design concepts Work iteratively with cross functional team Produce Visual Design artifacts Collaborate closely with a cross funcitonal team Help define an MVP dashboard with room for future enhancement]
+Roles & Responsibilities:
+UX Project Lead
+Design enhancements to existing design concepts
+Work iteratively with cross functional team
+Produce Visual Design artifacts
+Collaborate closely with a cross funcitonal team
+Help define an MVP dashboard with room for future enhancement
+
+---
+
+[April 2020 - March 2021 3 months]
+April 2020 - March 2021
+3 months
+
+---
+
+[Back to Project Glossary]
+Back to Project Glossary
+
+---
+
+[International Resources Web app 2 months]
+International Resources
+Web app
+2 months
+
+---
+
+[Users: Isagenix Assocaites Isagenix Sales]
+Users:
+Isagenix Assocaites
+Isagenix Sales
+
+---
+
+[Goals: Provide a central resource location for international resources Apply new branding to the existing design concept]
+Goals:
+Provide a central resource location for international resources
+Apply new branding to the existing design concept
+
+---
+
+[Roles & Responsibilities: UX Project Lead Design enhancements to existing design concepts Work iteratively with cross functional team Produce Visual Design artifacts Collaborate closely with a cross funcitonal team]
+Roles & Responsibilities:
+UX Project Lead
+Design enhancements to existing design concepts
+Work iteratively with cross functional team
+Produce Visual Design artifacts
+Collaborate closely with a cross funcitonal team
+
+---
+
+[April 2020 - March 2021 2 months]
+April 2020 - March 2021
+2 months
+
+---
+
+[Back to Project Glossary]
+Back to Project Glossary
+
+---
+
+[April 2020 - June 2020 3 months]
+April 2020 - June 2020
+3 months
+
+---
+
+[Guest Kiosk Tool Web app run exclusively on tablets 2 months]
+Guest Kiosk Tool
+Web app run exclusively on tablets
+2 months
+
+---
+
+[Users: VASA gym prospects (potential customers) VASA Member Experience Specialists (employees)]
+Users:
+VASA gym prospects (potential customers)
+VASA Member Experience Specialists (employees)
+
+---
+
+[Goals: Allow prospects to purchase members via self service in a streamlined flow inside the gym Present a quick questionaire to prospects about their fitness goals and gym amenities they are interested in to inform a gym tour Reduce reliance on sales staff to drive sales by automating more of the tour and purchase process for prospective members]
+Goals:
+Allow prospects to purchase members via self service in a streamlined flow inside the gym
+Present a quick questionaire to prospects about their fitness goals and gym amenities they are interested in to inform a gym tour
+Reduce reliance on sales staff to drive sales by automating more of the tour and purchase process for prospective members
+
+---
+
+[Roles & Responsibilities: UX Project Lead Project Management Enhance existing sales tool Update and Improve upon existing branding and design direction Guide and lead the project from conception to go live Produce Visual Design artifacts Create information architecture artifacts Write the backlog and manage it throughout the project Collaborate closely with a cross funcitonal team]
+Roles & Responsibilities:
+UX Project Lead
+Project Management
+Enhance existing sales tool
+Update and Improve upon existing branding and design direction
+Guide and lead the project from conception to go live
+Produce Visual Design artifacts
+Create information architecture artifacts
+Write the backlog and manage it throughout the project
+Collaborate closely with a cross funcitonal team
+
+---
+
+[Back to Project Glossary]
+Back to Project Glossary
+
+---
+
+[July 2020 - August 2020 2 months]
+July 2020 - August 2020
+2 months
+
+---
+
+[Self Service Support Site Responsive web app 2 months]
+Self Service Support Site
+Responsive web app
+2 months
+
+---
+
+[Users: VASA gym members]
+Users:
+VASA gym members
+
+---
+
+[Goals: Automate the most frequent support call tasks in a self service app, saving VASA money Allow VASA to continue to scale without needing to hire more call center support personel Reduce load on customer service team Integrate with Zendesk for support articles that can be managed by VASA staff updating content inside zendesk CMS Support members who did not want to use the mobile app]
+Goals:
+Automate the most frequent support call tasks in a self service app, saving VASA money
+Allow VASA to continue to scale without needing to hire more call center support personel
+Reduce load on customer service team
+Integrate with Zendesk for support articles that can be managed by VASA staff updating content inside zendesk CMS
+Support members who did not want to use the mobile app 
+
+---
+
+[Roles & Responsibilities: UX Project Lead Guide and lead the project from conception to go live Produce Visual Design artifacts Create information architecture artifacts Write the backlog and manage it Collaborate closely with a cross funcitonal team]
+Roles & Responsibilities:
+UX Project Lead
+Guide and lead the project from conception to go live
+Produce Visual Design artifacts
+Create information architecture artifacts
+Write the backlog and manage it
+Collaborate closely with a cross funcitonal team
+
+---
+
+[Back to Project Glossary]
+Back to Project Glossary
+
+---
+
+[April 2020 - March 2021 11 Months]
+April 2020 - March 2021
+11 Months
+
+---
+
+[Consumer Mobile App Xamarin iOS / Android app 11 months]
+Consumer Mobile App
+Xamarin iOS / Android app
+11 months
+
+---
+
+[Rank Advancement Dashboard Web dashboard 3 months]
+Rank Advancement Dashboard
+Web dashboard
+3 months
+
+---
+
+[International Resources Site Responsive web site 2 months]
+International Resources Site
+Responsive web site
+2 months
+
+
+---
+
+[Back to Project Glossary]
+Back to Project Glossary
+
+---
+
+[September 2018 - July 2021 11 Months]
+September 2018 - July 2021
+11 Months
+
+---
+
+[Consumer Tracking Link Xamarin iOS / Android app 4 months]
+Consumer Tracking Link
+Xamarin iOS / Android app
+4 months
+
+---
+
+[Carrier Portal Web dashboard 5 months]
+Carrier Portal
+Web dashboard
+5 months
+
+---
+
+[Locations Search Responsive web site 6 weeks]
+Locations Search
+Responsive web site
+6 weeks
+
+
+---
+
+[Back to Project Glossary]
+Back to Project Glossary
+
+---
+
+[Feb 2018 - August 2018 6 Months]
+Feb 2018 - August 2018
+6 Months
+
+---
+
+[FSA Marketing Website Responsive Website 3 months]
+FSA Marketing Website
+Responsive Website
+3 months
+
+---
+
+[FSA Ordering app web app 3 months]
+FSA Ordering app
+web app
+3 months
+
+
+---
+
+[Back to Project Glossary]
+Back to Project Glossary
+
+---
+
+[Greyhound Adventures Concept Mobile app concept 1 month]
+Greyhound Adventures 
+Concept
+Mobile app concept
+1 month
+
+---
+
+[Users: Greyhound Bus Customers]
+Users:
+Greyhound Bus Customers
+
+---
+
+[Goals: Create a digital product transformation vision for the future of Greyhound that was pitched to Greyhound in response to an RFP]
+Goals:
+Create a digital product transformation vision for the future of Greyhound that was pitched to Greyhound in response to an RFP
+
+---
+
+[Roles & Responsibilities: UX team member Design new app concept and produce visual design artifacts Create information architecture artifacts Participation in Ideation sessions Create Infographics to illustrate the app concept, and prove out our knowledge of Greyhound User Research Video Editing]
+Roles & Responsibilities:
+UX team member
+Design new app concept and produce visual design artifacts
+Create information architecture artifacts
+Participation in Ideation sessions
+Create Infographics to illustrate the app concept, and prove out our knowledge of Greyhound
+User Research
+Video Editing
+
+---
+
+[April 2018 1 Month]
+April 2018
+1 Month
+
+---
+
+[Back to Project Glossary]
+Back to Project Glossary
+
+---
+
+[Discount Tire POC Mobile app proof of concept 1 month]
+Discount Tire POC
+Mobile app proof of concept
+1 month
+
+---
+
+[Users: Discount Tire Customers Discount Tire customer rep Discount Tire Technician]
+Users:
+Discount Tire Customers 
+Discount Tire customer rep
+Discount Tire Technician
+
+---
+
+[Goals: Create a mobile app product vision to pitch to Discount Tire Create more communicaiton touchpoints for Discount Tire with their customers Prove out the POC technucal feature of trip tracking via mobile device]
+Goals:
+Create a mobile app product vision to pitch to Discount Tire
+Create more communicaiton touchpoints for Discount Tire with their customers
+Prove out the POC technucal feature of trip tracking via mobile device
+
+---
+
+[Roles & Responsibilities: UX Lead Design new app concept and produce visual design artifacts Create information architecture artifacts Participation in Ideation sessions Create Infographics to illustrate the app concept User Research Present concept to CTO at Discount Tire]
+Roles & Responsibilities:
+UX Lead
+Design new app concept and produce visual design artifacts
+Create information architecture artifacts
+Participation in Ideation sessions
+Create Infographics to illustrate the app concept
+User Research
+Present concept to CTO at Discount Tire
+
+---
+
+[February 2018 2 weeks]
+February 2018
+2 weeks
+
+---
+
+[Back to Project Glossary]
+Back to Project Glossary
+
+---
+
+[Ted Potter Senior UX Designer - Product - Enterprise 14 Years of Design Experience - 5 years in UX / Product]
+Ted Potter
+Senior UX Designer - Product - Enterprise
+14 Years of Design Experience - 5 years in UX / Product
+
+---
+
+[experience]
+MISSIon
+
+---
+
+[I create a deep understanding of the business I’m working with through various collaborative user experience activities including design sprints, research and testing, and using a user centric empathy driven approach to create the ideal solution for any business problem. As a UX lead, I guide my cross functional teams to the best outcomes through collaboration, improved processes, and clearly defined goals and requirements. The best outcomes are achieved when a team communicates well, has fun, and has alignment in goal and purpose.]
+I create a deep understanding of the business I’m working with through various collaborative user experience activities including design sprints, research and testing, and using a user centric empathy driven approach to create the ideal solution for any business problem. 
+
+As a UX lead, I guide my cross functional teams to the best outcomes through collaboration, improved processes, and clearly defined goals and requirements. The best outcomes are achieved when a team communicates well, has fun, and has alignment in goal and purpose. 
+
+---
+
+[experience]
+experience
+
+---
+
+[Senior UX consultant]
+Senior UX consultant
+
+---
+
+[neudesic]
+neudesic
+
+---
+
+[Feb 2018 - Current - 4 yrs 1 mos]
+Feb 2018 - Current - 4 yrs 1 mos
+
+---
+
+[UX lead on various projects with different clients in completely differnet industries and product scenarios. Collaborate with cross functional teams across the entire software design and development process. Companies I’ve worked with: Interos, Isagenix, VASA, Werner Final Mile, Food Services of America (FSA), Discount Tire, and Greyhound End to End product design process - Worked from discovery phase on new software development projects all the way to a new or existing product launching. Work on continuous updates after initial launch with some clients. Wide variety of product types - I’ve designed mobile apps that relased into both app stores, internal business software and tools, B2B software solutions, sales websites, and web apps. UX Artifacts - Producing a wide variety of artifacts including visual design artifacts, defining complex flows and organizing complex information sets, and conducting research and testing. Team Collaboration - Work with other designers on my projects with many cross functional team members such as engineers, project managers, product managers, product owners, QA, c suite leaders, and product leaders. Workshop Facilitator - Faciltitate design sprints and various types of workshops for ideation, defining priorities, design sprint activities such as ‘what is the goal?’. Leader / Mentor - Work in the UX Lead role on various projects. Work with junior team members on my projects and larger neudesic teams to help them quickly improve their skills.]
+UX lead on various projects with different clients in completely differnet industries and product scenarios. Collaborate with cross functional teams across the entire software design and development process. 
+
+Companies I’ve worked with: Interos, Isagenix, VASA, Werner Final Mile, Food Services of America (FSA), Discount Tire, and Greyhound
+
+End to End product design process - Worked from discovery phase on new software development projects all the way to a new or existing product launching. Work on continuous updates after initial launch with some clients. 
+Wide variety of product types - I’ve designed mobile apps that relased into both app stores, internal business software and tools, B2B software solutions, sales websites, and web apps. 
+UX Artifacts - Producing a wide variety of artifacts including visual design artifacts, defining complex flows and organizing complex information sets, and conducting research and testing.
+Team Collaboration - Work with other designers on my projects with many cross functional team members such as engineers, project managers, product managers, product owners, QA, c suite leaders, and product leaders. 
+Workshop Facilitator - Faciltitate design sprints and various types of workshops for ideation, defining priorities, design sprint activities such as ‘what is the goal?’. 
+Leader / Mentor - Work in the UX Lead role on various projects. Work with junior team members on my projects and larger neudesic teams to help them quickly improve their skills. 
+
+---
+
+[Visual Designer]
+Visual Designer
+
+---
+
+[Limelight Networks]
+Limelight Networks
+
+---
+
+[Feb 2014 - Nov 2017 · 3 yrs 10 mos]
+Feb 2014 - Nov 2017 · 3 yrs 10 mos
+
+---
+
+[Working on a marketing creative team to redesign, manage, write front end code, and update the limelight corporate website, branding, print materials, and assorted graphic needs throughout the company. Visual Design – Creating numerous visual designs for new webpages, landing pages, email campaigns, banner ads, etc. Responsive Design & Code - Design & Front End Code produced for various web pages with optimal viewing experience for all devices. HTML bootstrap structure and CSS styles written, updated, and tested. UX Research – Researching best UX and design practices for various design details and functionality on the web. Using the research to inform design decisions and communicating key ideas of that research to project stakeholders. Using an iterative process to consistently improve these details overtime on the website. Illustration - Producing custom art assets from scratch for use in web designs or within animation/video context. Trade Show Booth Design & Print – Produce tradeshow booth designs that are used in various tech related tradeshows around the world. As well as designs for print materials, such as white papers, data sheets, logos, posters, pop up banners, etc.]
+Working on a marketing creative team to redesign, manage, write front end code, and update the limelight corporate website, branding, print materials, and assorted graphic needs throughout the company.
+
+Visual Design – Creating numerous visual designs for new webpages, landing pages, email campaigns, banner ads, etc.
+Responsive Design & Code - Design & Front End Code produced for various web pages with optimal viewing experience for all devices. HTML bootstrap structure and CSS styles written, updated, and tested.
+UX Research – Researching best UX and design practices for various design details and functionality on the web. Using the research to inform design decisions and communicating key ideas of that research to project stakeholders. Using an iterative process to consistently improve these details overtime on the website. 
+Illustration - Producing custom art assets from scratch for use in web designs or within animation/video context. 
+Trade Show Booth Design & Print – Produce tradeshow booth designs that are used in various tech related tradeshows around the world. As well as designs for print materials, such as white papers, data sheets, logos, posters, pop up banners, etc. 
+
+---
+
+[UX / UI Designer / Developer / Illustrator]
+UX / UI Designer / Developer / Illustrator
+
+---
+
+[Freelance]
+Freelance
+
+---
+
+[Aug 2012 - Jan 2019 · 6 yrs 6 mos]
+Aug 2012 - Jan 2019 · 6 yrs 6 mos
+
+---
+
+[Working with various clients including individuals, small businesses, and agencies to produce various creative and UX materials. Project Planning - Put together project plans for several month-long projects with different phases in the project and including many project milestones and dates for specific deliverables. Research & Analysis - Researching usability best practices, doing competitive analysis. Performing heuristic evaluations of websites and making recommendations based on findings.]
+Working with various clients including individuals, small businesses, and agencies to produce various creative and UX materials.
+
+Project Planning - Put together project plans for several month-long projects with different phases in the project and including many project milestones and dates for specific deliverables.
+Research & Analysis - Researching usability best practices, doing competitive analysis. Performing heuristic evaluations of websites and making recommendations based on findings.
+
+---
+
+[tedpotter23@gmail.com 602 - 515 - 8362 linkedin.com/in/tedlpotter]
+tedpotter23@gmail.com
+602 - 515 - 8362
+linkedin.com/in/tedlpotter
+
+---
+
+[experience]
+SKILLS OVERVIEW
+
+---
+
+[Product Design Visual Design Information Architecture User Research Leader / Mentor UX Lead Strategy Design Sprints Workshop Facilitator Project Management]
+Product Design
+Visual Design
+Information Architecture
+User Research
+Leader / Mentor
+UX Lead
+Strategy
+Design Sprints
+Workshop Facilitator
+Project Management
+
+---
+
+[experience]
+design SKILLS
+
+---
+
+[Storyboarding Sketching Workshops Style Tiles Moodboards Interactive Prototypes High Fidelity Design Comps Infographics Promotional Imagery Responsive Designs Interactive Prototypes Card Sorts Problem Statements]
+Storyboarding
+Sketching
+Workshops
+Style Tiles
+Moodboards
+Interactive Prototypes
+High Fidelity Design Comps
+Infographics
+Promotional Imagery
+Responsive Designs
+Interactive Prototypes
+Card Sorts
+Problem Statements
+
+---
+
+[experience]
+RESEARCH SKILLS
+
+---
+
+[User Interviews Competitive Analysis Current State Analysis Journey Maps User Testing Users Surveys Personas Empathy maps]
+User Interviews
+Competitive Analysis
+Current State Analysis
+Journey Maps
+User Testing 
+Users Surveys
+Personas
+Empathy maps
+
+
+---
+
+[experience]
+PROJECT SKILLS
+
+---
+
+[Requirements Gathering Project Management User Story Writing Backlog Management Standardized Processess]
+Requirements Gathering
+Project Management
+User Story Writing
+Backlog Management
+Standardized Processess
+
+
+---
+
+[Acting as a UX lead producing visual design artifacts, conducting research and testing, and supporting organizing and leading a mobile app development delivery team. Collaborating with a diverse team including developers, architects, QA, project managers, and interns. Help drive and maintain quality from conceptual design stage to product release with design product going live on the app store. Frequently presenting work to the internal team, product owners, and C suite with clients, and various other stakeholders. Support and encourage the growth and professional development of team members. Working in a variety of platforms releasing consumer facing mobile applications, enterprise software, marketing websites, responsive websites, and other software scenarios. Creating numerous user experience artifacts throughout the software development workflow including user research materials, user testing materials, ideation exercises, design concepts, wireframes, high fidelity design and interaction prototypes, agile user stories, and more.]
+Acting as a UX lead producing visual design artifacts, conducting research and testing, and supporting organizing and leading a mobile app development delivery team. Collaborating with a diverse team including developers, architects, QA, project managers, and interns. Help drive and maintain quality from conceptual design stage to product release with design product going live on the app store. Frequently presenting work to the internal team, product owners, and C suite with clients, and various other stakeholders. Support and encourage the growth and professional development of team members.
+
+Working in a variety of platforms releasing consumer facing mobile applications, enterprise software, marketing websites, responsive websites, and other software scenarios. Creating numerous user experience artifacts throughout the software development workflow including user research materials, user testing materials, ideation exercises, design concepts, wireframes, high fidelity design and interaction prototypes, agile user stories, and more.
+
+---
+
+[Continued from previous page Information Architecture - Produced optimized site maps, and app flows, to visualize optimized Information Architecture. Wirefames - Created wireframes informed by research for various website projects. Design & Development - Utilizing Visual design skillset produced numerous high-fidelity design comps, and created prototypes with those design comps. Worked with developers and developing front end code myself as well. Worked on numerous projects from start to finish. Client Communication - Experience communicating with various types of clientele such as project managers, small business owners, IT specialists, etc. Illustration - Created illustrations for two full length children’s books. One is available on amazon as an ebook.]
+Continued from previous page
+
+Information Architecture - Produced optimized site maps, and app flows, to visualize optimized Information Architecture.
+Wirefames - Created wireframes informed by research for various website projects.
+Design & Development - Utilizing Visual design skillset produced numerous high-fidelity design comps, and created prototypes with those design comps. Worked with developers and developing front end code myself as well. Worked on numerous projects from start to finish.
+Client Communication - Experience communicating with various types of clientele such as project managers, small business owners, IT specialists, etc.
+Illustration - Created illustrations for two full length children’s books. One is available on amazon as an ebook.
+
+---
+
+[Multimedia Designer]
+Multimedia Designer
+
+---
+
+[PetSmart]
+PetSmart
+
+---
+
+[Apr 2013 - Jan 2014 · 10 mos]
+Apr 2013 - Jan 2014 · 10 mos
+
+---
+
+[Working with a diverse team of instructional designers to produce illustrations, animations, miscellaneous graphics, and graphic design for use in education and learning materials delivered internally to retail store associates. Instructional Design - Combining UX design skills and multimedia art production skills to create visually engaging and functionally sound eLearning Materials. Illustration: Producing custom art work from scratch often in a character focused narrative context to create a stylized and compelling look and feel. Animation: Creating custom animations of both character art or a presentational nature to dramatically increase the quality level of new eLearning materials to create a higher level of interest and engagement among retail associates.]
+Working with a diverse team of instructional designers to produce illustrations, animations, miscellaneous graphics, and graphic design for use in education and learning materials delivered internally to retail store associates. 
+
+Instructional Design - Combining UX design skills and multimedia art production skills to create visually engaging and functionally sound eLearning Materials. 
+Illustration: Producing custom art work from scratch often in a character focused narrative context to create a stylized and compelling look and feel.
+Animation: Creating custom animations of both character art or a presentational nature to dramatically increase the quality level of new eLearning materials to create a higher level of interest and engagement among retail associates.
+
+---
+
+[Multimedia Specialist]
+Multimedia Specialist
+
+---
+
+[Edgenuity Inc.]
+Edgenuity Inc.
+
+---
+
+[Oct 2010 - Nov 2012 · 2 yrs 2 mos]
+Oct 2010 - Nov 2012 · 2 yrs 2 mos
+
+---
+
+[Worked in a variety of applications to produce designs, illustrations, and code for the company in a variety of capacities from simple image requests to complex and detailed interactive applications. Produced numerous short educational interactives (simple games, projects, virtual labs) in flash or HTML and JavaScript. Corresponded with many different departments to fulfill image requests for variety of image types such as maps, character illustrations, diagrams, and many more. Worked with marketing department to make modest contributions to design direction of education 2020 brand. Involved in conceptual process with other graphics team members and other departments to help create visual direction for parts of education2020 application.]
+Worked in a variety of applications to produce designs, illustrations, and code for the company in a variety of capacities from simple image requests to complex and detailed interactive applications.
+
+Produced numerous short educational interactives (simple games, projects, virtual labs) in flash or HTML and JavaScript.
+Corresponded with many different departments to fulfill image requests for variety of image types such as maps, character illustrations, diagrams, and many more.
+Worked with marketing department to make modest contributions to design direction of education 2020 brand.
+Involved in conceptual process with other graphics team members and other departments to help create visual direction for parts of education2020 application.
+
+---
+
+[Graphic Designer]
+Graphic Designer
+
+---
+
+[Webflo Studios]
+Webflo Studios
+
+---
+
+[2008 - Aug 2010 · 2 yrs 8 mos]
+2008 - Aug 2010 · 2 yrs 8 mos
+
+---
+
+[Worked on Print design such as brochures business cards and logo design Interacted personally with clients to update frequently throughout project to ensure client satisfaction]
+Worked on Print design such as brochures business cards and logo design
+Interacted personally with clients to update frequently throughout project to ensure client satisfaction
+
+---
+
+[For my referrals, visit my linkedin profile at linkedin.com/in/tedlpotter]
+For my referrals, visit my linkedin profile at linkedin.com/in/tedlpotter
+
+---
+
+[experience]
+TOOLS
+
+---
+
+[Figma Adobe XD Sketch Miro Adobe CC Suite Zepplin MS Devops Jira]
+Figma
+Adobe XD
+Sketch
+Miro
+Adobe CC Suite
+Zepplin
+MS Devops
+Jira
+
+---
+
+[experience]
+Awards
+
+---
+
+[Issued by Neudesic]
+Issued by Neudesic 
+
+---
+
+[Jun 2020]
+Jun 2020
+
+---
+
+[Q2 2020 - Phoenix - Customer Experience]
+Q2 2020 - Phoenix - Customer Experience
+
+---
+
+[experience]
+EDUCATIOn
+
+---
+
+[Bachelors of Digital Art]
+Bachelors of Digital Art
+
+---
+
+[2004 - 2009]
+2004 - 2009
+
+---
+
+[Arizona State University]
+Arizona State University
+
+---
+
+[5 years of ux, product, & enterprise software design]
+5 years of ux, product, & enterprise software design 
+
+---
+
+[Professionally: designer, creative, nerd Descriptors: Chill vibes, Curiosity, Thinker, patiently relentless, Collaborative]
+Professionally: designer, creative, nerd
+Descriptors: Chill vibes, Curiosity, Thinker, patiently relentless, Collaborative
+
+---
+
+[Capabilities Highlights Product Design Visual Design Information Architecture User Research Leader / Mentor Strategy Design Sprints Workshop Facilitator Project Management]
+Capabilities Highlights
+Product Design
+Visual Design
+Information Architecture
+User Research
+Leader / Mentor
+Strategy
+Design Sprints
+Workshop Facilitator
+Project Management
+
+---
+
+[Consumer Mobile App iOS / Android native mobile apps 13 months]
+Consumer Mobile App
+iOS / Android native mobile apps
+13 months
+
+---
+
+[Guest Kiosk App Web app run on tablets 2 months]
+Guest Kiosk App 
+Web app run on tablets
+2 months
+
+---
+
+[Self Service Support Site Responsive web app 3 months]
+Self Service Support Site 
+Responsive web app
+3 months
+
+
+---
+
+[VASA Members were frustrated with the Netpulse VASA app, they couldn’t access their gym accounts or manage them inside the app, and VASA had limited access to improve the experience as it was a white labeled template based application.]
+VASA Members were frustrated with the Netpulse VASA app, they couldn’t access their gym accounts or manage them inside the app, and VASA had limited access to improve the experience as it was a white labeled template based application.
+
+---
+
+[The Problem with Netpulse]
+The Problem with Netpulse
+
+---
+
+[June 2019]
+June 2019
+
+---
+
+[VASA’s Existing Mobile app]
+VASA’s Existing Mobile app
+
+---
+
+[Mobile App Discovery]
+Mobile App Discovery
+
+---
+
+[Insights Highlights Average member dropoff is 18 months 70% of members have iOS devices Lack of member data integration is a major member frustration]
+Insights Highlights
+Average member dropoff is 18 months
+70% of members have iOS devices
+Lack of member data integration is a major member frustration
+
+
+---
+
+[Survey included over 8000 members]
+Survey included over 8000 members
+
+
+---
+
+[Tech Considerations]
+Tech Considerations
+
+---
+
+[Payment and Scheduling Platform Holds all the VASA member data Provided the APIs for our mobile app to consume data from We communicated with them frequently for the required API updates]
+Payment and Scheduling Platform
+Holds all the VASA member data
+Provided the APIs for our mobile app to consume data from
+We communicated with them frequently for the required API updates
+
+
+---
+
+[Vending Machine Company Provided vending machines for the rewards programs Provided APIs to serve data to PAC which was consumed and sent by the mobile app]
+Vending Machine Company
+Provided vending machines for the rewards programs
+Provided APIs to serve data to PAC which was consumed and sent by the mobile app
+
+
+---
+
+[Platforms iOS Native Android Native Github]
+Platforms
+iOS Native
+Android Native
+Github
+
+
+---
+
+[New Mobile App Goals]
+New Mobile App Goals
+
+---
+
+[Integrate with member data Provide a dramatically improved experience Encourage Members to use more amenities Improve engagement Provide communication channel for VASA to reach members]
+Integrate with member data
+Provide a dramatically improved experience
+Encourage Members to use more amenities
+Improve engagement
+Provide communication channel for VASA to reach members
+
+---
+
+[Experience goals]
+Experience goals
+
+---
+
+[Aquisition - Sell more memberships Retention - Reduce Customer Churn Generate revenue without increasing Sales Staff]
+Aquisition - Sell more memberships
+Retention - Reduce Customer Churn
+Generate revenue without increasing Sales Staff
+
+---
+
+[Business goals]
+Business goals
+
+---
+
+[Interos Challenges]
+Interos Challenges
+
+---
+
+[Lack of formal process Company rapidly growing, added over 200 employees in the last two years Keeping 5-10 pods in alignment]
+Lack of formal process
+Company rapidly growing, added over 200 employees in the last two years
+Keeping 5-10 pods in alignment
+
+---
+
+[Growing pains]
+Growing pains
+
+---
+
+[No estimations from Engineering team They added small/med/large estimations, but the CTO did all the estimations Low / Poor communicaiton between Engineering and UX]
+No estimations from Engineering team
+They added small/med/large estimations, but the CTO did all the estimations
+Low / Poor communicaiton between Engineering and UX
+
+---
+
+[When I started in march 2021]
+When I started in march 2021
+
+---
+
+[Legacy Platform]
+Legacy Platform
+
+---
+
+[Interos’s legacy platform presents itself like an excel app, with little to no insights, where the user is barraged with data and they are given little help understanding the context and narrative that would make the data more meaningful.]
+Interos’s legacy platform presents itself like an excel app, with little to no insights, where the user is barraged with data and they are given little help understanding the context and narrative that would make the data more meaningful.
+
+---
+
+[The Problem]
+The Problem
+
+---
+
+[Excel Sheet app Little to no insights Throws a lot of data at the user, leaves it up to them to interpret Notifications supply and overwhelming volume for large supply chains, in the hundreds or thousands.]
+Excel Sheet app
+Little to no insights
+Throws a lot of data at the user, leaves it up to them to interpret
+Notifications supply and overwhelming volume for large supply chains, in the hundreds or thousands.
+
+---
+
+[issues]
+issues
+
+---
+
+[New Platform Goals]
+New Platform Goals
+
+---
+
+[Provide Overview/Aggregate of Supply Chain Health Provide continous monitoring through events and risk score change notifications and alerts Provide drill down into details form an initial birds eye view Dramatically improve experience Improve design aestetic Provide exploration paths through the platform Condense complex datasets into managable amounts of data]
+Provide Overview/Aggregate of Supply Chain Health
+Provide continous monitoring through events and risk score change notifications and alerts
+Provide drill down into details form an initial birds eye view
+Dramatically improve experience 
+Improve design aestetic 
+Provide exploration paths through the platform
+Condense complex datasets into managable amounts of data
+
+---
+
+[Data Discovery]
+Data Discovery
+
+---
+
+[The problem: Interos doesn’t have a good process for purchasing new data sources and understanding what any specific data source status is. There is no single source of truth. Myself and another Neudesic team member interviewed all the department heads and some team members across the Interos Data Aquisition Lifecycle. Journey Map info: I identified every team involved, Mapped out the process across the entire lifecycle. Identified all Jira boards work was traveling across. Gathered pain points from every person we spoke with. Identified all the jobs to be done for the different teams around data aquisiton. Provided recomendations in good, better, best format based off of our findings.]
+The problem: Interos doesn’t have a good process for purchasing new data sources and understanding what any specific data source status is. There is no single source of truth.
+
+Myself and another Neudesic team member interviewed all the department heads and some team members across the Interos Data Aquisition Lifecycle. 
+
+Journey Map info:
+I identified every team involved, 
+Mapped out the process across the entire lifecycle. 
+Identified all Jira boards work was traveling across. 
+Gathered pain points from every person we spoke with.
+Identified all the jobs to be done for the different teams around data aquisiton. 
+Provided recomendations in good, better, best format based off of our findings. 
+
+
+---
+
+[Events Timeline]
+Events Timeline
+
+---
+
+[We had a third party company create designs and a prototype for our events timeline, which shows a timeline of events that have impacted your ecosystem. Changes: Simplify and reduce elements. Improve visual heirarchy where filters are at the top of the layout. Streamline timeline element to visually prioritize the most important info.]
+We had a third party company create designs and a prototype for our events timeline, which shows a timeline of events that have impacted your ecosystem.
+
+Changes:
+Simplify and reduce elements.
+Improve visual heirarchy where filters are at the top of the layout. 
+Streamline timeline element to visually prioritize the most important info. 
+
+
+---
+
+[Pandemic Impact]
+Pandemic Impact
+
+---
+
+[On March 19, 2020 VASA closed all their gyms in response to Covid-19, and vasa froze the memberships of their members and furloughed most employees, which dropped their revenue to zero. All VASA work haulted for Neudesic while VASA’s gyms were closed. When VASA reopened around 3 months later, due to the trust VASA leadership had in our teams, Neudesic was one of the first vendors VASA brought back.]
+On March 19, 2020 VASA closed all their gyms in response to Covid-19, and vasa froze the memberships of their members and  furloughed most employees, which dropped their revenue to zero.
+
+All VASA work haulted for Neudesic while VASA’s gyms were closed. 
+
+When VASA reopened around 3 months later, due to the trust VASA leadership had in our teams, Neudesic was one of the first vendors VASA brought back.
+
+---
+
+[Users]
+Users
+
+---
+
+[Basic - 15% Fitness - roughly 70% Studio - 12% Special Types - 3% Employees Insurance Corporate]
+Basic - 15%
+Fitness - roughly 70%
+Studio - 12%
+Special Types - 3%
+Employees 
+Insurance
+Corporate
+
+---
+
+[Gym Members]
+Gym Members
+
+---
+
+[Primarily Paying gym members with various levels of access to amenities.]
+Primarily Paying gym members with various levels of access to amenities.
+
+---
+
+[Potential gym members who are not yet paying members. Can be people who come to the gym on an existing member buddy pass or have a short trial period.]
+Potential gym members who are not yet paying members. Can be people who come to the gym on an existing member buddy pass or have a short trial period. 
+
+---
+
+[Prospects]
+Prospects
+
+---
+
+[Users]
+Users
+
+---
+
+[Supply Chain analysts]
+Supply Chain analysts
+
+---
+
+[Often have very manual processess Spreadsheets! Manual tracking in excel Looking up things in google maps Sub Types: Procurement Analyst Subject Matter Analyst]
+Often have very manual processess 
+Spreadsheets! Manual tracking in excel 
+Looking up things in google maps
+Sub Types:
+Procurement Analyst
+Subject Matter Analyst
+
+---
+
+[program managers]
+program managers
+
+---
+
+[Responsible for programs that manage risk exposure. identify potential suppliers. Maintain awareness of regulations.]
+Responsible for programs that manage risk exposure. 
+identify potential suppliers.
+Maintain awareness of regulations. 
+
+---
+
+[executives]
+executives
+
+---
+
+[Approver of the Interos platform licensing costs. Leading departments that assess risk.]
+Approver of the Interos platform licensing costs.
+Leading departments that assess risk.
+
+---
+
+[Scenarios]
+Scenarios
+
+---
+
+[Supply chain hack]
+Supply chain hack
+
+---
+
+[Geopolitical Instability]
+Geopolitical Instability
+
+---
+
+[A T3 supplier in your network is the victim of a supply chain hack. This potentially exposes your company to vulernability through software you share with this supplier. Interos alerts you to the newfound risk and provides you with the information required to take action and reduce your companies risk.]
+A T3 supplier in your network is the victim of a supply chain hack. This potentially exposes your company to vulernability through software you share with this supplier. Interos alerts you to the newfound risk and provides you with the information required to take action and reduce your companies risk. 
+
+---
+
+[A country invades a neighbor and the rest of the world responds with heavy sanctions on the aggressor country. Does your company have exposure to financial companies or suppliers inside either of these two nations? Interos can help your understand your risk exposure in events like these.]
+A country invades a neighbor and the rest of the world responds with heavy sanctions on the aggressor country. Does your company have exposure to financial companies or suppliers inside either of these two nations? Interos can help your understand your risk exposure in events like these. 
+
+---
+
+[Process and Team Recomendations]
+Process and Team Recomendations
+
+---
+
+[Design Sprint Activities]
+Design Sprint Activities
+
+---
+
+[Micro sprint activities to align cross functional teams at the start of any significant new feature undertaking.]
+Micro sprint activities to align cross functional teams at the start of any significant new feature undertaking.
+
+---
+
+[UX Workflow]
+UX Workflow
+
+---
+
+[Design / UX Reviews Collaboration Workshops Iterative Process Bring Engineers in early to our UX workflow]
+Design / UX Reviews
+Collaboration
+Workshops
+Iterative Process
+Bring Engineers in early to our UX workflow
+
+---
+
+[UX / Product can Hit The Breaks]
+UX / Product can Hit The Breaks
+
+---
+
+[UX and or Product can stop stories from moving forward, if they don’t meet the desired standard of quality or parody to the requirements.]
+UX and or Product can stop stories from moving forward, if they don’t meet the desired standard of quality or parody to the requirements.
+
+---
+
+[Highlights]
+Highlights
+
+---
+
+[Team highlights]
+Team highlights
+
+---
+
+[Launched new product within 4-5 months of design and development Improved process significantly in a one year time frame Achieved unicorn valuation]
+Launched new product within 4-5 months of design and development
+Improved process significantly in a one year time frame
+Achieved unicorn valuation
+
+---
+
+[Personal highlights]
+Personal highlights
+
+---
+
+[Worked through full UX process across 3 major feature areas Made a number of process improvement recomednations, many of which were implemented Significant contributions to future vision of the product in my feature areas]
+Worked through full UX process across 3 major feature areas
+Made a number of process improvement recomednations, many of which were implemented
+Significant contributions to future vision of the product in my feature areas
+
+---
+
+[Project Challenges]
+Project Challenges
+
+---
+
+[Many Junior Developers]
+Many Junior Developers
+
+---
+
+[Around 2/3 of our developers were junior in experience, and were learning iOS and or Android native for the first time.]
+Around 2/3 of our developers were junior in experience, and were learning iOS and or Android native for the first time.
+
+---
+
+[Very TIght timeline]
+Very TIght timeline
+
+---
+
+[Under 6 months initial launch timeline. VASA wanted to launch around thanksgiving 2019 to coincide with a marketing push.]
+Under 6 months initial launch timeline. VASA wanted to launch around thanksgiving 2019 to coincide with a marketing push. 
+
+---
+
+[Developing in Native iOS and Android]
+Developing in Native iOS and Android
+
+---
+
+[We had two completely different code bases, in effect it was two projects at once. At first we had developers switching between developing for either platform, that did not go well, and we switched to running two teams that focused on iOS and Android respectively.]
+We had two completely different code bases, in effect it was two projects at once. At first we had developers switching between developing for either platform, that did not go well, and we switched to running two teams that focused on iOS and Android respectively. 
+
+---
+
+[My Role on VASA]
+My Role on VASA
+
+---
+
+[Extending the Brand with the CMO]
+Extending the Brand with the CMO
+
+---
+
+[Review new design with the CMO, make changes based on her feedback. Focused on the look & feel side of the design.]
+Review new design with the CMO, make changes based on her feedback. Focused on the look & feel side of the design. 
+
+---
+
+[design]
+design
+
+---
+
+[Design hundreds of screens over the course of the project, many which were in interactive prototypes.]
+Design hundreds of screens over the course of the project, many which were in interactive prototypes. 
+
+---
+
+[User testing]
+User testing 
+
+---
+
+[Run several different user testing projects at different phases in the project including a beta period with members before the initial app launch, and a in-gym live testing with members.]
+Run several different user testing projects at different phases in the project including a beta period with members before the initial app launch, and a in-gym live testing with members. 
+
+---
+
+[developer collaboration]
+developer collaboration
+
+---
+
+[Frequently work with the developers through design reviews, solve problems collaboratively, demo new design to the team and gather their feedback.]
+Frequently work with the developers through design reviews, solve problems collaboratively, demo new design to the team and gather their feedback.
+
+---
+
+[Leadership]
+Leadership
+
+---
+
+[Take the UX Lead role after about 6 months. Communicate and present to the client frequently, help define roadmap, priorities.]
+Take the UX Lead role after about 6 months. Communicate and present to the client frequently, help define roadmap, priorities. 
+
+---
+
+[backlog writing]
+backlog writing
+
+---
+
+[Write a large number of user stories and prepare the backlog for the devleopers.]
+Write a large number of user stories and prepare the backlog for the devleopers. 
+
+---
+
+[Project Highlights]
+Project Highlights
+
+---
+
+[We overcame significant development issues and launched a completely new mobile app into both app stores in under 6 months Recorded a sales increase of nearly 150k that came in directly through the mobile app Nearly 200k new user installs in the first 3 months]
+We overcame significant development issues and launched a completely new mobile app into both app stores in under 6 months
+Recorded a sales increase of nearly 150k that came in directly through the mobile app
+Nearly 200k new user installs in the first 3 months
+
+---
+
+[Project highlights]
+Project highlights
+
+---
+
+[I was involved from end to end in the design and development process I conducted user testing at several key points throughout the project I designed Over 390 screens for the mobile app]
+I was involved from end to end in the design and development process
+I conducted user testing at several key points throughout the project
+I designed Over 390 screens for the mobile app
+
+---
+
+[personal highlights]
+personal highlights
+
+---
+
+[Extending the VASA Brand]
+Extending the VASA Brand
+
+---
+
+[Moodboards Design reference Stakeholder Review]
+Moodboards
+Design reference
+Stakeholder Review
+
+---
+
+[Full Moodbaord Link]
+Full Moodbaord Link
+
+---
+
+[Extending the VASA Brand]
+Extending the VASA Brand
+
+---
+
+[I presented the moodboard, style tiles, and early concept designs to the VASA CMO in a series of design reviews to make sure the design direction of the mobile app was in alignment with VASA’s vision for their brand.]
+I presented the moodboard, style tiles, and early concept designs to the VASA CMO in a series of design reviews to make sure the design direction of the mobile app was in alignment with VASA’s vision for their brand.
+
+---
+
+[Style Tiles Concept Designs Design Iterations]
+Style Tiles
+Concept Designs
+Design Iterations
+
+---
+
+[Full Moodbaord Link]
+Full Moodbaord Link
+
+---
+
+[VASA Mobile App Visual Design]
+VASA Mobile App Visual Design
+
+---
+
+[Visual Designs Over 390 different screens on various different features, updates, and enhancements. Interactive Prototypes Designed iteratively with internal design reviews and design reviews with the client]
+Visual Designs
+Over 390 different screens on various different features, updates, and enhancements. 
+Interactive Prototypes
+Designed iteratively with internal design reviews and design reviews with the client
+
+
+---
+
+[XD Links - Initial Launch]
+XD Links - Initial Launch
+
+
+---
+
+[Membership Purchase Flow]
+Membership Purchase Flow
+
+---
+
+[KidCare Signup Flow]
+KidCare Signup Flow
+
+---
+
+[Class Search / KidCare Search]
+Class Search / KidCare Search
+
+---
+
+[Full Prototype Menu - 239 screens Phase 1 Design File]
+Full Prototype Menu - 239 screens
+Phase 1 Design File
+
+
+---
+
+[2.0 Major Features]
+2.0 Major Features
+
+---
+
+[Features Referrals Check in History Photo Upload Change Home Gym Gamification - Badges]
+Features
+Referrals
+Check in History
+Photo Upload
+Change Home Gym
+Gamification - Badges
+
+
+---
+
+[XD Links]
+XD Links
+
+
+---
+
+[Referrals Flow]
+Referrals Flow
+
+
+---
+
+[Profile Photo Upload Flow]
+Profile Photo Upload Flow
+
+---
+
+[Add-Ons Purchase Flow]
+Add-Ons Purchase Flow
+
+---
+
+[Full Prototype Menu - 142 screens Phase 2 Design File]
+Full Prototype Menu - 142 screens
+Phase 2 Design File
+
+---
+
+[Q1 2020]
+Q1 2020
+
+---
+
+[3.0 Major Features]
+3.0 Major Features
+
+---
+
+[SEPTEMBER 2021]
+SEPTEMBER 2021
+
+---
+
+[Features Rewards Program Rewards Overview Rewards Tracking]
+Features
+Rewards Program
+Rewards Overview
+Rewards Tracking
+
+
+---
+
+[XD Links]
+XD Links
+
+
+---
+
+[Rewards Overview]
+Rewards Overview
+
+---
+
+[Homescreen Rewards Tracker]
+Homescreen Rewards Tracker
+
+---
+
+[Full Prototype Menu - 142 screens Phase 2 Design File]
+Full Prototype Menu - 142 screens
+Phase 2 Design File
+
+---
+
+[Collaboration with Developers]
+Collaboration with Developers
+
+---
+
+[Design / UX reviews]
+Design / UX reviews
+
+---
+
+[Review the work of developers whenever they completed a user story. Provide feedback on design, experience, and interaction details. Work through problems that came up during development, and improve on designs with an agile mindset.]
+Review the work of developers whenever they completed a user story. Provide feedback on design, experience, and interaction details. Work through problems that came up during development, and improve on designs with an agile mindset. 
+
+---
+
+[Feature Demos]
+Feature Demos
+
+---
+
+[Review designs internally with developers to gather their feedback and iterate designs, as well as validate any technical challenges we were potetnially facing with certain features.]
+Review designs internally with developers to gather their feedback and iterate designs, as well as validate any technical challenges we were potetnially facing with certain features. 
+
+---
+
+[1:5 ratio of designers to developers]
+1:5 ratio of designers to developers
+
+---
+
+[At one point in the project we reached a ratio of 1:5 designers to developers. It took around 50-70% of my day during that period to keep up with design reviews and work through]
+At one point in the project we reached a ratio of 1:5 designers to developers. It took around 50-70% of my day during that period to keep up with design reviews and work through 
+
+---
+
+[Ideation Sessions]
+Ideation Sessions
+
+---
+
+[We brought developers into ideation sessions early on in the design and development process, where they could contribute and offer feedback and influence the designs.]
+We brought developers into ideation sessions early on in the design and development process, where they could contribute and offer feedback and influence the designs. 
+
+---
+
+[User Testing]
+User Testing
+
+---
+
+[Beta Period with survey]
+Beta Period with survey
+
+---
+
+[We held a beta period of a few weeks where we tested the app with a small number of members and internal employees. We followed up with a survey to this smaller group of around 10-20 members.]
+We held a beta period of a few weeks where we tested the app with a small number of members and internal employees. We followed up with a survey to this smaller group of around 10-20 members. 
+
+---
+
+[Purchase Flow Testing]
+Purchase Flow Testing
+
+---
+
+[We tested the membership purchase flow with other neudesic employees who were not on the project, as any of them could be similar to a typical gym member.]
+We tested the membership purchase flow with other neudesic employees who were not on the project, as any of them could be similar to a typical gym member. 
+
+---
+
+[User Testing with Members]
+User Testing with Members
+
+---
+
+[For one of the major updates after the initial launch, we tested our interactive prototype designs in the gym with members.]
+For one of the major updates after the initial launch, we tested our interactive prototype designs in the gym with members.
+
+---
+
+[Initial Launch]
+Initial Launch
+
+---
+
+[Launch Reception]
+Launch Reception
+
+---
+
+[iOS version very well recieved Android version not as well recieved Very Positive Feedback from VASA]
+iOS version very well recieved 
+Android version not as well recieved
+Very Positive Feedback from VASA
+
+---
+
+[features launched]
+features launched
+
+---
+
+[Barcode My Account Member Info Emergency Contacts Membership Purchase Flow Class Scheduling KidCare Scheduling Gym Locations List Homescreen]
+Barcode
+My Account
+Member Info
+Emergency Contacts
+Membership Purchase Flow
+Class Scheduling 
+KidCare Scheduling
+Gym Locations List
+Homescreen
+
+---
+
+[November 2019]
+November 2019
+
+---
+
+[iOS launch score after a few months]
+iOS launch score after a few months
+
+---
+
+[Mehul Chaudhari Vice President of Strategy and Analysis]
+Mehul Chaudhari 
+Vice President of Strategy and Analysis
+
+---
+
+[VASA Mobile App UX Process]
+VASA Mobile App UX Process
+
+---
+
+[Wireframes and Whiteboard Ideation Whiteboarding Ideation sessions with multiple other UX team members.]
+Wireframes and Whiteboard Ideation
+Whiteboarding Ideation sessions with multiple other UX team members.
+
+
+---
+
+[App Flows With every new feature, I would create a new process flow, and review it with the client. We proposed some feature concepts with flows and basic concept designs, and pitched those to VASA, such as the AR tour flow in the flow to the left.]
+App Flows
+With every new feature, I would create a new process flow, and review it with the client.
+We proposed some feature concepts with flows and basic concept designs, and pitched those to VASA, such as the AR tour flow in the flow to the left.
+
+
+---
+
+[Homescreen Discovery / Define]
+Homescreen Discovery / Define
+
+---
+
+[Workshop Activities]
+Workshop Activities
+
+
+---
+
+[I facilitated several workshops for the early stages of the homescreen design, such as a card sort for ‘What is the Goal?’ In another workshop I asked the team to collect design reference for other products with homescreens that might be relevant to ours, then we discussed the references in an open discussion.]
+I facilitated several workshops for the early stages of the homescreen design, such as a card sort for ‘What is the Goal?’
+In another workshop I asked the team to collect design reference for other products with homescreens that might be relevant to ours, then we discussed the references in an open discussion.
+
+
+---
+
+[Competitive Analysis]
+Competitive Analysis
+
+---
+
+[I reviewed the homescreen in depth of semi competitor, Bitsight, another supply chain risk company.]
+I reviewed the homescreen in depth of semi competitor, Bitsight, another supply chain risk company.
+
+---
+
+[Sketching]
+Sketching
+
+---
+
+[I sketched out a few different potential directions on old fashioned paper before building out any designs.]
+I sketched out a few different potential directions on old fashioned paper before building out any designs.
+
+---
+
+[Alerts Discovery]
+Alerts Discovery
+
+---
+
+[Micro Sprint Activities]
+Micro Sprint Activities
+
+
+---
+
+[What is the goal? What does sucess look like? How might we fail?]
+What is the goal?
+What does sucess look like? 
+How might we fail? 
+
+---
+
+[Research]
+Research
+
+---
+
+[What existing research do we have for alerts? What questions do we want research to answer that we don’t current know?]
+What existing research do we have for alerts?
+What questions do we want research to answer that we don’t current know?
+
+---
+
+[Gathering design reference]
+Gathering design reference
+
+---
+
+[I collected a good amount of design reference for alerts systems, and email designs.]
+I collected a good amount of design reference for alerts systems, and email designs. 
+
+---
+
+[Alerts Define]
+Alerts Define
+
+---
+
+[Storyboarding]
+Storyboarding
+
+---
+
+[Create the story of what we want to achieve with any given feature on a conceptual level before diving into the details.]
+Create the story of what we want to achieve with any given feature on a conceptual level before diving into the details.
+
+---
+
+[Scenario Definition]
+Scenario Definition
+
+---
+
+[What scenarios are we targeting? Whats our MVP vs our future vision?]
+What scenarios are we targeting? 
+Whats our MVP vs our future vision?
+
+---
+
+[App flows]
+App flows
+
+---
+
+[Mapping out the end to end flow and experience.]
+Mapping out the end to end flow and experience.
+
+---
+
+[Mind Maps]
+Mind Maps
+
+---
+
+[Organizing complex pieces of information in an easy to digest structure.]
+Organizing complex pieces of information in an easy to digest structure.
+
+---
+
+[Alerts Email Designs]
+Alerts Email Designs
+
+---
+
+[Email Design]
+Email Design
+
+---
+
+[Designs needed to be not overly complex so the limtations of emails could handle the designs.]
+Designs needed to be not overly complex so the limtations of emails could handle the designs. 
+
+---
+
+[Wireframes]
+Wireframes
+
+---
+
+[I produced several quick wireframes in order to try to map out the various types of content we would have in these alerts emails.]
+I produced several quick wireframes in order to try to map out the various types of content we would have in these alerts emails.
+
+---
+
+[Automation]
+Automation
+
+---
+
+[The emails are sent out in an automated fashion when events are detected the user has configured their settings to recieve.]
+The emails are sent out in an automated fashion when events are detected the user has configured their settings to recieve.
+
+---
+
+[Research Study]
+Research Study
+
+---
+
+[We tested the alerts emails in a prototyped flow where we simulated the entire experience of configuring alerts, and then later recieving the alerts emails.]
+We tested the alerts emails in a prototyped flow where we simulated the entire experience of configuring alerts, and then later recieving the alerts emails. 
+
+---
+
+[Events / Alerts Designs]
+Events / Alerts Designs
+
+---
+
+[Alerts Settings]
+Alerts Settings
+
+---
+
+[Designs needed to be not overly complex so the limtations of emails could handle the designs.]
+Designs needed to be not overly complex so the limtations of emails could handle the designs. 
+
+---
+
+[Events on homescreen]
+Events on homescreen
+
+---
+
+[Events relevant to your supply chain show up on your homescreen, the most recent events appear first.]
+Events relevant to your supply chain show up on your homescreen, the most recent events appear first. 
+
+---
+
+[Events feed]
+Events feed
+
+---
+
+[The Events feed is the historical record on the platform for events alerts. Every alert we send out will have a corresponding item on the events feed.]
+The Events feed is the historical record on the platform for events alerts. Every alert we send out will have a corresponding item on the events feed.
+
+---
+
+[Homescreen Design]
+Homescreen Design
+
+---
+
+[Iterative Design Process]
+Iterative Design Process
+
+---
+
+[I reviewed a number of steps with the product team and engineering throughout my design process. The initial iteration was very loose without being concered about defining every detail and more about defining content blocks and requirements better.]
+I reviewed a number of steps with the product team and engineering throughout my design process. 
+The initial iteration was very loose without being concered about defining every detail and more about defining content blocks and requirements better.
+
+---
+
+[Supply Chain Overview]
+Supply Chain Overview
+
+
+---
+
+[The homescreen provides a birds eye view of your companies supply chain. It highlights where the highest companies risk can be found.]
+The homescreen provides a birds eye view of your companies supply chain. It highlights where the highest companies risk can be found.
+
+
+---
+
+[Research Study]
+Research Study
+
+---
+
+[I worked with a researcher to define what we wanted to learn out of our design concept study, observed many of the interview sessions, and participated in the synthesis of the research after the interviews were complete.]
+I worked with a researcher to define what we wanted to learn out of our design concept study, observed many of the interview sessions, and participated in the synthesis of the research after the interviews were complete.
+
+---
+
+[Homescreen XD Link Progression of design overtime]
+Homescreen XD Link
+Progression of design overtime
+
+---
+
+[Company Profile]
+Company Profile
+
+---
+
+[A Rescue Operation]
+A Rescue Operation
+
+---
+
+[I joined Interos when the company profile was in the middle of the development process leading up to our first launch. I observed the above design which had poor execution of dark design best practices, and poor visual heirarchy.]
+I joined Interos when the company profile was in the middle of the development process leading up to our first launch. 
+I observed the above design which had poor execution of dark design best practices, and poor visual heirarchy. 
+
+---
+
+[Tag team teamwork]
+Tag team teamwork
+
+---
+
+[I collaborated with a junior designer who was located on the east coast. When he logged off for the day I would take over working on the design.]
+I collaborated with a junior designer who was located on the east coast. When he logged off for the day I would take over working on the design. 
+
+---
+
+[Sub Factor Evolution]
+Sub Factor Evolution
+
+---
+
+[Context is key]
+Context is key
+
+---
+
+[In the previous version of the sub factor page, we just have a list of attributes. Which are essentially just data points. Users lack the context and narrative to be able to understand in a more meaningful way what the scores mean.]
+In the previous version of the sub factor page, we just have a list of attributes. Which are essentially just data points. 
+Users lack the context and narrative to be able to understand in a more meaningful way what the scores mean.
+
+---
+
+[Progressive Disclosure]
+Progressive Disclosure
+
+---
+
+[Rather than display one long list of data points, I am trying to only show the user contextually what they need to highlight to understand the current context they are showing.]
+Rather than display one long list of data points, I am trying to only show the user contextually what they need to highlight to understand the current context they are showing. 
+
+---
+
+[Drill Down]
+Drill Down
+
+---
+
+[Users can stay high level to understand conceptually how a model works, or drilldown into the weeds to understand specific attributes.]
+Users can stay high level to understand conceptually how a model works, or drilldown into the weeds to understand specific attributes.
+
+---
+
+[Mobile App Case Study]
+Mobile App Case Study
+
+---
+
+[Regional Gym Brand High Value, low cost Around 700-800 Employees]
+Regional Gym Brand
+High Value, low cost
+Around 700-800 Employees
+
+---
+
+[50 Gym Milestone Recently Expansion Mode]
+50 Gym Milestone Recently
+Expansion Mode
+
+---
+
+[Interos Case Study]
+Interos Case Study
+
+---
+
+[SaaS Product Company Supply Chain Risk Intelligence Platform Unicorn Valuation Arlington, VA HQ]
+SaaS Product Company
+Supply Chain Risk Intelligence Platform
+Unicorn Valuation
+Arlington, VA HQ
+
+---
+
+[Around 300-350 Employees V2 of Product launched in July 2021 Risk Scores, Continuous monitoring Understand your companies extended supply chain]
+Around 300-350 Employees
+V2 of Product launched in July 2021
+Risk Scores, Continuous monitoring
+Understand your companies extended supply chain
+
+---
+
+[July 2019 - June 2022 About 18 months across this timeframe]
+July 2019 - June 2022
+About 18 months across this timeframe
+
+---
+
+[Smaller Projects Web app pages, Emails 8 months]
+Smaller Projects
+Web app pages, Emails
+8 months
+
+
+---
+
+[Platform Homescreen Web app 4 months]
+Platform Homescreen
+Web app
+4 months
+
+---
+
+[Company Profile Web app 2 months]
+Company Profile 
+Web app
+2 months
+
+---
+
+[Events, Alerts, Notifications Web app, Emails 8 months]
+Events, Alerts, Notifications
+Web app, Emails
+8 months
+
+
+---
+
+[Data LifeCycle Discovery Research output 1 month]
+Data LifeCycle Discovery
+Research output
+1 month
+
+
+---
+
+[Events Timeline Web app 2 weeks]
+Events Timeline
+Web app
+2 weeks
+
+
+---
+
+[My Work]
+My Work
+
+---
+
+[© 2022 Interos, Inc. All rights reserved.]
+© 2022 Interos, Inc. All rights reserved.
+
+---
+
+[Privacy Policy]
+Privacy Policy
+
+---
+
+[075dddd2]
+075dddd2
+
+---
+
+[Finance Sub Factors]
+Finance Sub Factors
+
+---
+
+[HEAVY]
+HEAVY IMPORTANCE 
+
+---
+
+[MODERATE]
+MODERATE 
+
+---
+
+[LIGHT]
+LIGHT  
+
+---
+
+[Interos Modeling Importance]
+Interos Modeling Importance
+
+---
+
+[DROP DOWN]
+Download PDF
+
+---
+
+[Explore Solvency]
+Explore Solvency
+
+---
+
+[Risk Score]
+Risk Score
+
+---
+
+[84]
+84
+
+---
+
+[LOW]
+LOW
+
+---
+
+[Last 90 days]
+Last 90 days
+
+---
+
+[5]
+5 
+
+---
+
+[Segment]
+Segment
+
+---
+
+[firm]
+firm
+
+---
+
+[1]
+1
+
+---
+
+[HEAVY]
+HEAVY 
+
+---
+
+[Solvency]
+Solvency
+
+---
+
+[Solvency what it means to our modeling Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam convallis aliquet urna, eget tempus mauris aliquet in. Suspendisse et diam at est consectetur auctor. Read More]
+Solvency what it means to our modeling Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam convallis aliquet urna, eget tempus mauris aliquet in. Suspendisse et diam at est consectetur auctor.
+Read More
+
+---
+
+[Sub Factor Components : 7]
+Sub Factor Components : 7
+
+---
+
+[Attributes: 15]
+Attributes: 15
+
+---
+
+[Sub Factor Compents: 7]
+Sub Factor Compents: 7
+
+---
+
+[Attributes: 15]
+Attributes: 15
+
+---
+
+[Sub Factor Components : 7]
+Sub Factor Components : 7
+
+---
+
+[Attributes: 15]
+Attributes: 15
+
+---
+
+[Explore Liquidity]
+Explore Liquidity
+
+---
+
+[Risk Score]
+Risk Score
+
+---
+
+[57]
+57
+
+---
+
+[MED]
+MED
+
+---
+
+[Last 90 days]
+Last 90 days
+
+---
+
+[5]
+5 
+
+---
+
+[Segment]
+Segment
+
+---
+
+[firm]
+firm
+
+---
+
+[1]
+2
+
+---
+
+[MODERATE]
+MODERATE
+
+---
+
+[Liquidity]
+Liquidity
+
+---
+
+[Solvency what it means to our modeling Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam convallis aliquet urna, eget tempus mauris aliquet in. Suspendisse et diam at est Read More]
+Solvency what it means to our modeling Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam convallis aliquet urna, eget tempus mauris aliquet in. Suspendisse et diam at est
+Read More
+
+---
+
+[Sub Factor Compents: 7]
+Sub Factor Compents: 7
+
+---
+
+[Attributes: 15]
+Attributes: 15
+
+---
+
+[Sub Factor Components : 7]
+Sub Factor Components : 7
+
+---
+
+[Attributes: 15]
+Attributes: 15
+
+---
+
+[Explore Liquidity]
+Explore Liquidity
+
+---
+
+[Risk Score]
+Risk Score
+
+---
+
+[57]
+57
+
+---
+
+[MED]
+MED
+
+---
+
+[Last 90 days]
+Last 90 days
+
+---
+
+[5]
+5 
+
+---
+
+[Segment]
+Segment
+
+---
+
+[firm]
+Country
+
+---
+
+[1]
+3
+
+---
+
+[MODERATE]
+MODERATE
+
+---
+
+[Liquidity]
+Economic Growth
+
+---
+
+[Solvency what it means to our modeling Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam convallis aliquet urna, eget tempus mauris aliquet in. Suspendisse et diam at est Read More]
+Solvency what it means to our modeling Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam convallis aliquet urna, eget tempus mauris aliquet in. Suspendisse et diam at est
+Read More
+
+---
+
+[Sub Factor Compents: 7]
+Sub Factor Compents: 7
+
+---
+
+[Attributes: 15]
+Attributes: 15
+
+---
+
+[Sub Factor Components : 7]
+Sub Factor Components : 7
+
+---
+
+[Attributes: 15]
+Attributes: 15
+
+---
+
+[Explore Liquidity]
+Explore Liquidity
+
+---
+
+[Risk Score]
+Risk Score
+
+---
+
+[57]
+57
+
+---
+
+[MED]
+MED
+
+---
+
+[Last 90 days]
+Last 90 days
+
+---
+
+[5]
+5 
+
+---
+
+[Segment]
+Segment
+
+---
+
+[firm]
+Country
+
+---
+
+[1]
+4
+
+---
+
+[MODERATE]
+MODERATE
+
+---
+
+[Liquidity]
+Country Financial Risk
+
+---
+
+[Solvency what it means to our modeling Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam convallis aliquet urna, eget tempus mauris aliquet in. Suspendisse et diam at est Read More]
+Solvency what it means to our modeling Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam convallis aliquet urna, eget tempus mauris aliquet in. Suspendisse et diam at est
+Read More
+
+---
+
+[Sub Factor Compents: 7]
+Sub Factor Compents: 7
+
+---
+
+[Attributes: 15]
+Attributes: 15
+
+---
+
+[Sub Factor Components : 7]
+Sub Factor Components : 7
+
+---
+
+[Attributes: 15]
+Attributes: 15
+
+---
+
+[Explore Valuation]
+Explore Valuation
+
+---
+
+[Risk Score]
+Risk Score
+
+---
+
+[27]
+81
+
+---
+
+[LOW]
+LOW
+
+---
+
+[Last 90 days]
+Last 90 days
+
+---
+
+[5]
+5 
+
+---
+
+[Segment]
+Segment
+
+---
+
+[firm]
+firm
+
+---
+
+[1]
+5
+
+---
+
+[LIGHT]
+LIGHT 
+
+---
+
+[Valuation]
+Valuation
+
+---
+
+[Solvency what it means to our modeling Lorem ipsum dolor sit amet, consectetur adipiscing elit. Read More]
+Solvency what it means to our modeling Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Read More
+
+---
+
+[Sub Factor Compents: 7]
+Sub Factor Compents: 7
+
+---
+
+[Attributes: 15]
+Attributes: 15
+
+---
+
+[Sub Factor Components : 7]
+Sub Factor Components : 7
+
+---
+
+[Attributes: 15]
+Attributes: 15
+
+---
+
+[Explore Valuation]
+Explore Profitability
+
+---
+
+[Risk Score]
+Risk Score
+
+---
+
+[27]
+27
+
+---
+
+[MED]
+HIGH
+
+---
+
+[Last 90 days]
+Last 90 days
+
+---
+
+[5]
+5 
+
+---
+
+[Segment]
+Segment
+
+---
+
+[firm]
+firm
+
+---
+
+[1]
+6
+
+---
+
+[LIGHT]
+LIGHT 
+
+---
+
+[Valuation]
+Profitability
+
+---
+
+[Solvency what it means to our modeling Lorem ipsum dolor sit amet, consectetur adipiscing elit. Read More]
+Solvency what it means to our modeling Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Read More
+
+---
+
+[Sub Factor Compents: 7]
+Sub Factor Compents: 7
+
+---
+
+[Attributes: 15]
+Attributes: 15
+
+---
+
+[Sub Factor Components : 7]
+Sub Factor Components : 7
+
+---
+
+[Attributes: 15]
+Attributes: 15
+
+---
+
+[Explore Valuation]
+Explore Profitability
+
+---
+
+[Risk Score]
+Risk Score
+
+---
+
+[27]
+27
+
+---
+
+[MED]
+HIGH
+
+---
+
+[Last 90 days]
+Last 90 days
+
+---
+
+[5]
+5 
+
+---
+
+[Segment]
+Segment
+
+---
+
+[firm]
+Country
+
+---
+
+[1]
+7
+
+---
+
+[LIGHT]
+LIGHT 
+
+---
+
+[Valuation]
+Public Sector
+
+---
+
+[Solvency what it means to our modeling Lorem ipsum dolor sit amet, consectetur adipiscing elit. Read More]
+Solvency what it means to our modeling Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Read More
+
+---
+
+[Sub Factor Compents: 7]
+Sub Factor Compents: 7
+
+---
+
+[Attributes: 15]
+Attributes: 15
+
+---
+
+[Sub Factor Components : 7]
+Sub Factor Components : 7
+
+---
+
+[Attributes: 15]
+Attributes: 15
+
+---
+
+[Explore Valuation]
+Explore Profitability
+
+---
+
+[Risk Score]
+Risk Score
+
+---
+
+[27]
+27
+
+---
+
+[MED]
+HIGH
+
+---
+
+[Last 90 days]
+Last 90 days
+
+---
+
+[5]
+5 
+
+---
+
+[Segment]
+Segment
+
+---
+
+[firm]
+Country
+
+---
+
+[1]
+8
+
+---
+
+[LIGHT]
+LIGHT 
+
+---
+
+[Valuation]
+External Dependencies
+
+---
+
+[Solvency what it means to our modeling Lorem ipsum dolor sit amet, consectetur adipiscing elit. Read More]
+Solvency what it means to our modeling Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Read More
+
+---
+
+[FINANCE EVENT]
+FINANCE EVENT
+
+---
+
+[1 day ago]
+1 day ago
+
+---
+
+[Apple Finally Falls Victim to Never-Ending Supply Chain Crisis]
+Apple Finally Falls Victim to Never-Ending Supply Chain Crisis
+
+---
+
+[Source]
+Source
+
+---
+
+[Most recent events that can potentially impact the scores for this company]
+Most recent events that can potentially impact the scores for this company
+
+---
+
+[What makes up our Finance scores? A whole lot of juicy data. Details below.]
+What makes up our Finance scores? A whole lot of juicy data. Details below. 
+
+---
+
+[Sub Factors are the main part of our modeling, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at turpis a nunc dapibus interdum. Nunc a sapien in magna fermentum feugiat et sed quam. Praesent sit amet velit ultrices ante interdum venenatis.]
+Sub Factors are the main part of our modeling, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at turpis a nunc dapibus interdum. Nunc a sapien in magna fermentum feugiat et sed quam. Praesent sit amet velit ultrices ante interdum venenatis.
+
+---
+
+[Sub Factor Components are how we start to break down our modeling, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at turpis a nunc dapibus interdum. Nunc a sapien in magna fermentum feugiat et sed quam.]
+Sub Factor Components are how we start to break down our modeling, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at turpis a nunc dapibus interdum. Nunc a sapien in magna fermentum feugiat et sed quam. 
+
+---
+
+[Learn more about our models]
+Learn more about our models
+
+---
+
+[Atrributes are the most detailed part of our modeling, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at turpis a nunc dapibus interdum. Nunc a sapien in magna fermentum feugiat et sed quam. Praesent sit amet velit ultrices ante interdum venenatis.]
+Atrributes are the most detailed part of our modeling, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at turpis a nunc dapibus interdum. Nunc a sapien in magna fermentum feugiat et sed quam. Praesent sit amet velit ultrices ante interdum venenatis.
+
+---
+
+[8 Sub Factors]
+8
+Sub Factors
+
+---
+
+[12 Sub Factor Components]
+12 
+Sub Factor Components
+
+---
+
+[42 Attributes]
+42 
+Attributes
+
+---
+
+[Up 10 points since Mar 03, 2021]
+Up 10 points since Mar 03, 2021
+
+---
+
+[LOW]
+LOW
+
+---
+
+[90]
+90
+
+---
+
+[Finance Score]
+Finance Score
+
+---
+
+[EVENT DETECTED]
+EVENT DETECTED
+
+---
+
+[10]
+10
+
+---
+
+[Past 90 days]
+Past 90 days
+
+---
+
+[What makes up our Finance scores?]
+What makes up our Finance scores? 
+
+---
+
+[8]
+8
+
+---
+
+[Sub Factors]
+Sub Factors 
+
+---
+
+[8]
+12
+
+---
+
+[Sub Factors]
+Sub Factors Components
+
+---
+
+[8]
+40
+
+---
+
+[Sub Factors]
+Attributes
+
+---
+
+[Financial risk assesses the probability of financial loss with a specific emphasis on solvency and the probability of default or bankruptcy. Other contributing factors include profitability (the firm’s bottom line), liquidity (how well the firm can cover its immediate obligations), and valuation (the market’s assessment of a firm’s worth) The financial well-being of the country in which a firm is located also contributes to the overall financial risk score, as macroeconomic performance, volatility, and a country’s ability to meet financial obligations provide an...]
+Financial risk assesses the probability of financial loss with a specific emphasis on solvency and the probability of default or bankruptcy. Other contributing factors include profitability (the firm’s bottom line), liquidity (how well the firm can cover its immediate obligations), and valuation (the market’s assessment of a firm’s worth) The financial well-being of the country in which a firm is located also contributes to the overall financial risk score, as macroeconomic performance, volatility, and a country’s ability to meet financial obligations provide an...
+
+---
+
+[[Customer] Ecosystem Powered by Interos]
+[Customer] Ecosystem Powered by Interos
+
+---
+
+[32]
+32
+
+---
+
+[Tool Tip]
+Notfications
+
+---
+
+[Amazon Web Services, Inc.]
+Amazon Web Services, Inc.
+
+---
+
+[Tier 2, 3]
+Tier 2, 3
+
+---
+
+[i-Score]
+i-Score
+
+---
+
+[74]
+74
+
+---
+
+[LOW]
+LOW
+
+---
+
+[UNLOCKED]
+UNLOCKED
+
+---
+
+[DROP DOWN]
+Add to Group
+
+---
+
+[© 2022 Interos, Inc. All rights reserved.]
+© 2022 Interos, Inc. All rights reserved.
+
+---
+
+[Privacy Policy]
+Privacy Policy
+
+---
+
+[075dddd2]
+075dddd2
+
+---
+
+[Up 10 points since Mar 03, 2021]
+Up 10 points since Mar 03, 2021
+
+---
+
+[LOW]
+LOW
+
+---
+
+[90]
+90
+
+---
+
+[Finance Score]
+Finance Score
+
+---
+
+[EVENT DETECTED]
+EVENT DETECTED
+
+---
+
+[10]
+10
+
+---
+
+[Past 90 days]
+Past 90 days
+
+---
+
+[What makes up our Finance scores?]
+What makes up our Finance scores? 
+
+---
+
+[8]
+8
+
+---
+
+[Sub Factors]
+Sub Factors 
+
+---
+
+[8]
+12
+
+---
+
+[Sub Factors]
+Sub Factors Components
+
+---
+
+[8]
+40
+
+---
+
+[Sub Factors]
+Attributes
+
+---
+
+[Financial risk assesses the probability of financial loss with a specific emphasis on solvency and the probability of default or bankruptcy. Other contributing factors include profitability (the firm’s bottom line), liquidity (how well the firm can cover its immediate obligations), and valuation (the market’s assessment of a firm’s worth) The financial well-being of the country in which a firm is located also contributes to the overall financial risk score, as macroeconomic performance, volatility, and a country’s ability to meet financial obligations provide an...]
+Financial risk assesses the probability of financial loss with a specific emphasis on solvency and the probability of default or bankruptcy. Other contributing factors include profitability (the firm’s bottom line), liquidity (how well the firm can cover its immediate obligations), and valuation (the market’s assessment of a firm’s worth) The financial well-being of the country in which a firm is located also contributes to the overall financial risk score, as macroeconomic performance, volatility, and a country’s ability to meet financial obligations provide an...
+
+---
+
+[Finance Sub Factors]
+Finance Sub Factors
+
+---
+
+[HEAVY]
+HEAVY IMPORTANCE 
+
+---
+
+[MODERATE]
+MODERATE 
+
+---
+
+[LIGHT]
+LIGHT  
+
+---
+
+[Interos Modeling Importance]
+Interos Modeling Importance
+
+---
+
+[DROP DOWN]
+Download PDF
+
+---
+
+[Explore Solvency]
+Explore Solvency
+
+---
+
+[Risk Score]
+Risk Score
+
+---
+
+[84]
+84
+
+---
+
+[LOW]
+LOW
+
+---
+
+[Last 90 days]
+Last 90 days
+
+---
+
+[5]
+5 
+
+---
+
+[Segment]
+Segment
+
+---
+
+[firm]
+firm
+
+---
+
+[1]
+1
+
+---
+
+[HEAVY]
+HEAVY 
+
+---
+
+[Solvency]
+Solvency
+
+---
+
+[Solvency what it means to our modeling Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam convallis aliquet urna, eget tempus mauris aliquet in. Suspendisse et diam at est consectetur auctor. Read More]
+Solvency what it means to our modeling Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam convallis aliquet urna, eget tempus mauris aliquet in. Suspendisse et diam at est consectetur auctor.
+Read More
+
+---
+
+[Sub Factor Components : 7]
+Sub Factor Components : 7
+
+---
+
+[Attributes: 15]
+Attributes: 15
+
+---
+
+[84]
+84
+
+---
+
+[LOW]
+LOW
+
+---
+
+[5]
+5 
+
+---
+
+[View Attributes]
+View Attributes
+
+---
+
+[Attributes: 1]
+Attributes: 1
+
+---
+
+[1]
+1
+
+---
+
+[HEAVY]
+HEAVY 
+
+---
+
+[Altman Z]
+Altman Z
+
+---
+
+[Description]
+Description
+
+---
+
+[84]
+84
+
+---
+
+[LOW]
+LOW
+
+---
+
+[5]
+5 
+
+---
+
+[View Attributes]
+View Attributes
+
+---
+
+[Attributes: 1]
+Attributes: 3
+
+---
+
+[1]
+2
+
+---
+
+[HEAVY]
+HEAVY 
+
+---
+
+[Altman Z]
+Credit Rating
+
+---
+
+[Description]
+Description
+
+---
+
+[84]
+84
+
+---
+
+[LOW]
+LOW
+
+---
+
+[5]
+5 
+
+---
+
+[View Attributes]
+View Attributes
+
+---
+
+[Attributes: 1]
+Attributes: 3
+
+---
+
+[1]
+3
+
+---
+
+[MODERATE]
+MODERATE
+
+---
+
+[Altman Z]
+Efficiency
+
+---
+
+[Description]
+Description
+
+---
+
+[84]
+84
+
+---
+
+[LOW]
+LOW
+
+---
+
+[5]
+5 
+
+---
+
+[View Attributes]
+View Attributes
+
+---
+
+[Attributes: 1]
+Attributes: 3
+
+---
+
+[1]
+4
+
+---
+
+[MODERATE]
+MODERATE
+
+---
+
+[Altman Z]
+Leverage
+
+---
+
+[Description]
+Description
+
+---
+
+[84]
+84
+
+---
+
+[LOW]
+LOW
+
+---
+
+[5]
+5 
+
+---
+
+[View Attributes]
+View Attributes
+
+---
+
+[Attributes: 1]
+Attributes: 3
+
+---
+
+[1]
+5
+
+---
+
+[LIGHT]
+LIGHT 
+
+---
+
+[Altman Z]
+Debt Coverage
+
+---
+
+[Description]
+Description
+
+---
+
+[84]
+84
+
+---
+
+[LOW]
+LOW
+
+---
+
+[5]
+5 
+
+---
+
+[View Attributes]
+View Attributes
+
+---
+
+[Attributes: 1]
+Attributes: 4
+
+---
+
+[1]
+6
+
+---
+
+[LIGHT]
+LIGHT 
+
+---
+
+[Altman Z]
+Assets
+
+---
+
+[Description]
+Description
+
+---
+
+[Sub Factor Compents: 7]
+Sub Factor Compents: 7
+
+---
+
+[Attributes: 15]
+Attributes: 15
+
+---
+
+[Sub Factor Components : 7]
+Sub Factor Components : 7
+
+---
+
+[Attributes: 15]
+Attributes: 15
+
+---
+
+[Explore Liquidity]
+Explore Liquidity
+
+---
+
+[Risk Score]
+Risk Score
+
+---
+
+[57]
+57
+
+---
+
+[MED]
+MED
+
+---
+
+[Last 90 days]
+Last 90 days
+
+---
+
+[5]
+5 
+
+---
+
+[Segment]
+Segment
+
+---
+
+[firm]
+firm
+
+---
+
+[1]
+2
+
+---
+
+[MODERATE]
+MODERATE
+
+---
+
+[Liquidity]
+Liquidity
+
+---
+
+[Solvency what it means to our modeling Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam convallis aliquet urna, eget tempus mauris aliquet in. Suspendisse et diam at est Read More]
+Solvency what it means to our modeling Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam convallis aliquet urna, eget tempus mauris aliquet in. Suspendisse et diam at est
+Read More
+
+---
+
+[Sub Factor Compents: 7]
+Sub Factor Compents: 7
+
+---
+
+[Attributes: 15]
+Attributes: 15
+
+---
+
+[Sub Factor Components : 7]
+Sub Factor Components : 7
+
+---
+
+[Attributes: 15]
+Attributes: 15
+
+---
+
+[Explore Liquidity]
+Explore Liquidity
+
+---
+
+[Risk Score]
+Risk Score
+
+---
+
+[57]
+57
+
+---
+
+[MED]
+MED
+
+---
+
+[Last 90 days]
+Last 90 days
+
+---
+
+[5]
+5 
+
+---
+
+[Segment]
+Segment
+
+---
+
+[firm]
+Country
+
+---
+
+[1]
+3
+
+---
+
+[MODERATE]
+MODERATE
+
+---
+
+[Liquidity]
+Economic Growth
+
+---
+
+[Solvency what it means to our modeling Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam convallis aliquet urna, eget tempus mauris aliquet in. Suspendisse et diam at est Read More]
+Solvency what it means to our modeling Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam convallis aliquet urna, eget tempus mauris aliquet in. Suspendisse et diam at est
+Read More
+
+---
+
+[Sub Factor Compents: 7]
+Sub Factor Compents: 7
+
+---
+
+[Attributes: 15]
+Attributes: 15
+
+---
+
+[Sub Factor Components : 7]
+Sub Factor Components : 7
+
+---
+
+[Attributes: 15]
+Attributes: 15
+
+---
+
+[Explore Liquidity]
+Explore Liquidity
+
+---
+
+[Risk Score]
+Risk Score
+
+---
+
+[57]
+57
+
+---
+
+[MED]
+MED
+
+---
+
+[Last 90 days]
+Last 90 days
+
+---
+
+[5]
+5 
+
+---
+
+[Segment]
+Segment
+
+---
+
+[firm]
+Country
+
+---
+
+[1]
+4
+
+---
+
+[MODERATE]
+MODERATE
+
+---
+
+[Liquidity]
+Country Financial Risk
+
+---
+
+[Solvency what it means to our modeling Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam convallis aliquet urna, eget tempus mauris aliquet in. Suspendisse et diam at est Read More]
+Solvency what it means to our modeling Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam convallis aliquet urna, eget tempus mauris aliquet in. Suspendisse et diam at est
+Read More
+
+---
+
+[Sub Factor Compents: 7]
+Sub Factor Compents: 7
+
+---
+
+[Attributes: 15]
+Attributes: 15
+
+---
+
+[Sub Factor Components : 7]
+Sub Factor Components : 7
+
+---
+
+[Attributes: 15]
+Attributes: 15
+
+---
+
+[Explore Valuation]
+Explore Valuation
+
+---
+
+[Risk Score]
+Risk Score
+
+---
+
+[27]
+81
+
+---
+
+[LOW]
+LOW
+
+---
+
+[Last 90 days]
+Last 90 days
+
+---
+
+[5]
+5 
+
+---
+
+[Segment]
+Segment
+
+---
+
+[firm]
+firm
+
+---
+
+[1]
+5
+
+---
+
+[LIGHT]
+LIGHT 
+
+---
+
+[Valuation]
+Valuation
+
+---
+
+[Solvency what it means to our modeling Lorem ipsum dolor sit amet, consectetur adipiscing elit. Read More]
+Solvency what it means to our modeling Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Read More
+
+---
+
+[Sub Factor Compents: 7]
+Sub Factor Compents: 7
+
+---
+
+[Attributes: 15]
+Attributes: 15
+
+---
+
+[Sub Factor Components : 7]
+Sub Factor Components : 7
+
+---
+
+[Attributes: 15]
+Attributes: 15
+
+---
+
+[Explore Valuation]
+Explore Profitability
+
+---
+
+[Risk Score]
+Risk Score
+
+---
+
+[27]
+27
+
+---
+
+[MED]
+HIGH
+
+---
+
+[Last 90 days]
+Last 90 days
+
+---
+
+[5]
+5 
+
+---
+
+[Segment]
+Segment
+
+---
+
+[firm]
+firm
+
+---
+
+[1]
+6
+
+---
+
+[LIGHT]
+LIGHT 
+
+---
+
+[Valuation]
+Profitability
+
+---
+
+[Solvency what it means to our modeling Lorem ipsum dolor sit amet, consectetur adipiscing elit. Read More]
+Solvency what it means to our modeling Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Read More
+
+---
+
+[Sub Factor Compents: 7]
+Sub Factor Compents: 7
+
+---
+
+[Attributes: 15]
+Attributes: 15
+
+---
+
+[Sub Factor Components : 7]
+Sub Factor Components : 7
+
+---
+
+[Attributes: 15]
+Attributes: 15
+
+---
+
+[Explore Valuation]
+Explore Profitability
+
+---
+
+[Risk Score]
+Risk Score
+
+---
+
+[27]
+27
+
+---
+
+[MED]
+HIGH
+
+---
+
+[Last 90 days]
+Last 90 days
+
+---
+
+[5]
+5 
+
+---
+
+[Segment]
+Segment
+
+---
+
+[firm]
+Country
+
+---
+
+[1]
+7
+
+---
+
+[LIGHT]
+LIGHT 
+
+---
+
+[Valuation]
+Public Sector
+
+---
+
+[Solvency what it means to our modeling Lorem ipsum dolor sit amet, consectetur adipiscing elit. Read More]
+Solvency what it means to our modeling Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Read More
+
+---
+
+[Sub Factor Compents: 7]
+Sub Factor Compents: 7
+
+---
+
+[Attributes: 15]
+Attributes: 15
+
+---
+
+[Sub Factor Components : 7]
+Sub Factor Components : 7
+
+---
+
+[Attributes: 15]
+Attributes: 15
+
+---
+
+[Explore Valuation]
+Explore Profitability
+
+---
+
+[Risk Score]
+Risk Score
+
+---
+
+[27]
+27
+
+---
+
+[MED]
+HIGH
+
+---
+
+[Last 90 days]
+Last 90 days
+
+---
+
+[5]
+5 
+
+---
+
+[Segment]
+Segment
+
+---
+
+[firm]
+Country
+
+---
+
+[1]
+8
+
+---
+
+[LIGHT]
+LIGHT 
+
+---
+
+[Valuation]
+External Dependencies
+
+---
+
+[Solvency what it means to our modeling Lorem ipsum dolor sit amet, consectetur adipiscing elit. Read More]
+Solvency what it means to our modeling Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Read More
+
+---
+
+[FINANCE EVENT]
+FINANCE EVENT
+
+---
+
+[1 day ago]
+1 day ago
+
+---
+
+[Apple Finally Falls Victim to Never-Ending Supply Chain Crisis]
+Apple Finally Falls Victim to Never-Ending Supply Chain Crisis
+
+---
+
+[Source]
+Source
+
+---
+
+[Most recent events that can potentially impact the scores for this company]
+Most recent events that can potentially impact the scores for this company
+
+---
+
+[What makes up our Finance scores? A whole lot of juicy data. Details below.]
+What makes up our Finance scores? A whole lot of juicy data. Details below. 
+
+---
+
+[Sub Factors are the main part of our modeling, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at turpis a nunc dapibus interdum. Nunc a sapien in magna fermentum feugiat et sed quam. Praesent sit amet velit ultrices ante interdum venenatis.]
+Sub Factors are the main part of our modeling, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at turpis a nunc dapibus interdum. Nunc a sapien in magna fermentum feugiat et sed quam. Praesent sit amet velit ultrices ante interdum venenatis.
+
+---
+
+[Sub Factor Components are how we start to break down our modeling, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at turpis a nunc dapibus interdum. Nunc a sapien in magna fermentum feugiat et sed quam.]
+Sub Factor Components are how we start to break down our modeling, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at turpis a nunc dapibus interdum. Nunc a sapien in magna fermentum feugiat et sed quam. 
+
+---
+
+[Learn more about our models]
+Learn more about our models
+
+---
+
+[Atrributes are the most detailed part of our modeling, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at turpis a nunc dapibus interdum. Nunc a sapien in magna fermentum feugiat et sed quam. Praesent sit amet velit ultrices ante interdum venenatis.]
+Atrributes are the most detailed part of our modeling, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at turpis a nunc dapibus interdum. Nunc a sapien in magna fermentum feugiat et sed quam. Praesent sit amet velit ultrices ante interdum venenatis.
+
+---
+
+[8 Sub Factors]
+8
+Sub Factors
+
+---
+
+[12 Sub Factor Components]
+12 
+Sub Factor Components
+
+---
+
+[42 Attributes]
+42 
+Attributes
+
+---
+
+[[Customer] Ecosystem Powered by Interos]
+[Customer] Ecosystem Powered by Interos
+
+---
+
+[32]
+32
+
+---
+
+[Tool Tip]
+Notfications
+
+---
+
+[Amazon Web Services, Inc.]
+Amazon Web Services, Inc.
+
+---
+
+[Tier 2, 3]
+Tier 2, 3
+
+---
+
+[i-Score]
+i-Score
+
+---
+
+[74]
+74
+
+---
+
+[LOW]
+LOW
+
+---
+
+[UNLOCKED]
+UNLOCKED
+
+---
+
+[DROP DOWN]
+Add to Group

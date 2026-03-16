@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>05 – Spacetime Grid</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#020608;overflow:hidden}
+canvas{display:block}
+.lbl{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.2);font:600 10px/1 sans-serif;letter-spacing:.14em;text-transform:uppercase}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="lbl">05 — Dot Grid Spacetime Curvature</div>
+<script>
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+let W, H;
+function resize() {
+  W = canvas.width  = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+const COLS = 48, ROWS = 48;
+let t = 0;
+
+function frame() {
+  t += .009;
+  const cx = W * .5, cy = H * .5;
+  const rs   = Math.min(W, H) * .064;
+  const span = Math.min(W, H) * .46; // grid half-size
+  const STRENGTH = span * span * .38;
+
+  ctx.fillStyle = '#020608';
+  ctx.fillRect(0, 0, W, H);
+
+  // ── Ripple wave — pulse emanating outward from singularity ──
+  const waveR  = (t * span * .28) % (span * 1.2);
+  const waveW  = span * .12;
+
+  // ── Grid ──
+  for (let row = 0; row < ROWS; row++) {
+    for (let col = 0; col < COLS; col++) {
+      // Grid point in canvas space (before gravity)
+      const gx = cx - span + (col / (COLS - 1)) * span * 2;
+      const gy = cy - span + (row / (ROWS - 1)) * span * 2;
+
+      const dx = gx - cx, dy = gy - cy;
+      const r  = Math.sqrt(dx * dx + dy * dy);
+
+      // Inside event horizon — skip
+      if (r < rs * .85) continue;
+
+      // Gravitational displacement toward center: 1/r² law
+      const pull     = Math.min(STRENGTH / (r * r), r * .88);
+      const norm     = 1 / r;
+      const dispX    = gx - dx * norm * pull;
+      const dispY    = gy - dy * norm * pull;
+
+      // Ripple wave deforms points outward slightly
+      const waveDist = Math.abs(r - waveR);
+      const waveAmp  = Math.max(0, 1 - waveDist / waveW) * span * .015;
+      const px = dispX + dx * norm * waveAmp;
+      const py = dispY + dy * norm * waveAmp;
+
+      // Color + size: white/cyan far out, orange near event horizon
+      const proximity = Math.max(0, 1 - (r - rs) / (span * .8));
+      const rC = Math.round(80  + proximity * 175);
+      const gC = Math.round(180 - proximity * 80);
+      const bC = Math.round(255 - proximity * 255);
+      const alpha = .18 + proximity * .55 + Math.max(0, 1 - waveDist / waveW) * .35;
+      const dotR  = .8 + proximity * 2.2;
+
+      // Glow on dots close to singularity
+      if (proximity > .4) {
+        ctx.shadowBlur  = dotR * 8;
+        ctx.shadowColor = `rgba(${rC},${gC},${bC},.7)`;
+      }
+
+      ctx.beginPath(); ctx.arc(px, py, dotR, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${rC},${gC},${bC},${alpha})`;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+    }
+  }
+
+  // ── Draw grid lines (faint, only outer region) ──
+  ctx.save();
+  ctx.globalAlpha = .06;
+  ctx.strokeStyle = 'rgba(0,200,255,1)';
+  ctx.lineWidth   = .5;
+  // Horizontal lines
+  for (let row = 0; row < ROWS; row++) {
+    ctx.beginPath();
+    let first = true;
+    for (let col = 0; col < COLS; col++) {
+      const gx = cx - span + (col / (COLS - 1)) * span * 2;
+      const gy = cy - span + (row / (ROWS - 1)) * span * 2;
+      const dx = gx - cx, dy = gy - cy;
+      const r  = Math.sqrt(dx * dx + dy * dy);
+      if (r < rs * 1.1) { first = true; continue; }
+      const pull  = Math.min(STRENGTH / (r * r), r * .88);
+      const norm  = 1 / r;
+      const px    = gx - dx * norm * pull;
+      const py    = gy - dy * norm * pull;
+      first ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+      first = false;
+    }
+    ctx.stroke();
+  }
+  // Vertical lines
+  for (let col = 0; col < COLS; col++) {
+    ctx.beginPath();
+    let first = true;
+    for (let row = 0; row < ROWS; row++) {
+      const gx = cx - span + (col / (COLS - 1)) * span * 2;
+      const gy = cy - span + (row / (ROWS - 1)) * span * 2;
+      const dx = gx - cx, dy = gy - cy;
+      const r  = Math.sqrt(dx * dx + dy * dy);
+      if (r < rs * 1.1) { first = true; continue; }
+      const pull  = Math.min(STRENGTH / (r * r), r * .88);
+      const norm  = 1 / r;
+      const px    = gx - dx * norm * pull;
+      const py    = gy - dy * norm * pull;
+      first ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+      first = false;
+    }
+    ctx.stroke();
+  }
+  ctx.restore();
+
+  // ── Photon ring ──
+  ctx.save();
+  ctx.shadowBlur  = 30; ctx.shadowColor = `rgba(255,200,60,.9)`;
+  ctx.strokeStyle = `rgba(255,240,130,${.85 + Math.sin(t*2.2)*.12})`;
+  ctx.lineWidth   = 2.3;
+  ctx.beginPath(); ctx.arc(cx, cy, rs * 1.06, 0, Math.PI * 2); ctx.stroke();
+  ctx.restore();
+
+  // ── Event horizon ──
+  ctx.beginPath(); ctx.arc(cx, cy, rs, 0, Math.PI * 2);
+  ctx.fillStyle = '#020608'; ctx.fill();
+
+  requestAnimationFrame(frame);
+}
+
+frame();
+</script>
+</body>
+</html>

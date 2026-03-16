@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>04 – Plasma Field</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#000;overflow:hidden}
+canvas{display:block}
+.lbl{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.2);font:600 10px/1 sans-serif;letter-spacing:.14em;text-transform:uppercase}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="lbl">04 — Perlin Noise Plasma</div>
+<script>
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+let W, H;
+function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+resize();
+window.addEventListener('resize', resize);
+
+// Layered sin/cos noise — organic swirling energy fields
+function plasma(x, y, t) {
+  const v = Math.sin(x * .018 + t * .8)
+          + Math.sin(y * .015 - t * .6)
+          + Math.sin((x + y) * .012 + t * .5)
+          + Math.sin(Math.sqrt(x * x + y * y) * .022 - t * 1.1)
+          + Math.sin(x * .009 - y * .011 + t * .7)
+          + Math.sin((x - y) * .014 + t * .4);
+  return v / 6; // normalise to ~-1..1
+}
+
+// Low-res canvas for plasma, scaled up — good performance
+const SCALE = 3; // sample every 3px
+
+let t = 0;
+
+function frame() {
+  t += .012;
+  const cx = W * .5, cy = H * .5;
+  const rs = Math.min(W, H) * .064;
+  const fadeR = Math.min(W, H) * .48;
+
+  ctx.fillStyle = '#000';
+  ctx.fillRect(0, 0, W, H);
+
+  // ── Plasma field ──
+  // Draw filled rects at SCALE resolution for performance
+  for (let py = 0; py < H; py += SCALE) {
+    for (let px = 0; px < W; px += SCALE) {
+      const dx = px - cx, dy = py - cy;
+      const r = Math.sqrt(dx * dx + dy * dy);
+
+      if (r < rs * .9) continue; // event horizon — skip (will draw black over it)
+
+      // Fade plasma near edges and near event horizon
+      const outerFade = Math.max(0, 1 - r / (fadeR * 1.1));
+      const innerFade = Math.min(1, (r - rs) / (rs * 1.5));
+      const fade = outerFade * innerFade;
+      if (fade < .01) continue;
+
+      const v = plasma(px, py, t); // -1..1
+
+      // Map plasma value to color
+      // Positive: orange family, Negative: blue family
+      let rC, gC, bC, alpha;
+      if (v > 0) {
+        // Orange / fire
+        rC = 255;
+        gC = Math.round(v * 180);
+        bC = Math.round(v * 20);
+        alpha = v * fade * .9;
+      } else {
+        // Blue / electric
+        const av = -v;
+        rC = Math.round(av * 20);
+        gC = Math.round(av * 160);
+        bC = 255;
+        alpha = av * fade * .7;
+      }
+
+      // Boost brightness near event horizon
+      const hotspot = Math.max(0, 1 - (r - rs) / (rs * 4));
+      alpha = Math.min(1, alpha + hotspot * .4 * Math.abs(v));
+
+      ctx.fillStyle = `rgba(${rC},${gC},${bC},${alpha})`;
+      ctx.fillRect(px, py, SCALE, SCALE);
+    }
+  }
+
+  // ── Additive glow layers on top ──
+  ctx.save();
+  ctx.globalCompositeOperation = 'screen';
+  for (let i = 0; i < 5; i++) {
+    const angle = i * 1.257 + t * (.3 + i * .04);
+    const dist  = rs * (2.5 + Math.sin(t * .7 + i) * 1.2);
+    const bx    = cx + Math.cos(angle) * dist;
+    const by    = cy + Math.sin(angle) * dist * .5;
+    const sz    = rs * (1.2 + Math.sin(t + i * .8) * .5);
+    const col   = i % 2 === 0 ? '255,90,0' : '0,160,255';
+    const g = ctx.createRadialGradient(bx, by, 0, bx, by, sz);
+    g.addColorStop(0, `rgba(${col},.55)`);
+    g.addColorStop(1, `rgba(${col},0)`);
+    ctx.beginPath(); ctx.arc(bx, by, sz, 0, Math.PI * 2);
+    ctx.fillStyle = g; ctx.fill();
+  }
+  ctx.globalCompositeOperation = 'source-over';
+  ctx.restore();
+
+  // ── Photon ring ──
+  ctx.save();
+  ctx.shadowBlur  = 32; ctx.shadowColor = `rgba(255,200,60,.9)`;
+  ctx.strokeStyle = `rgba(255,240,130,${.86 + Math.sin(t*2.2)*.12})`;
+  ctx.lineWidth   = 2.4;
+  ctx.beginPath(); ctx.arc(cx, cy, rs * 1.05, 0, Math.PI * 2); ctx.stroke();
+  ctx.restore();
+
+  // ── Event horizon ──
+  ctx.beginPath(); ctx.arc(cx, cy, rs, 0, Math.PI * 2);
+  ctx.fillStyle = '#000'; ctx.fill();
+
+  requestAnimationFrame(frame);
+}
+
+frame();
+</script>
+</body>
+</html>

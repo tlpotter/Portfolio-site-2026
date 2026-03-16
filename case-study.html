@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Invoca AI Model Training — Ted Potter</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+  <meta name="robots" content="noindex"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fraunces:ital,wght@0,300;0,600;1,300;1,600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/styles.css"/>
+  <link rel="stylesheet" href="css/case-study.css"/>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="curRing"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">Ted Potter</a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#work">Work</a></li>
+    <li><a href="index.html#skills">Skills</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <a href="index.html#work" class="nav-back"><span class="nav-back-arrow">←</span> All work</a>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="cs-hero">
+  <div class="cs-hero-inner">
+    <div class="cs-num">01 — Featured Case Study</div>
+    <div class="work-tags" style="margin-bottom:16px">
+      <span class="work-tag">AI Product</span>
+      <span class="work-tag">LLM</span>
+      <span class="work-tag">Enterprise</span>
+    </div>
+    <h1 class="cs-title">Invoca AI <em>Model Training</em> Interface</h1>
+    <p class="cs-lead">End-to-end UX for a custom LLM training workflow — letting contact center operators evaluate calls to train proprietary AI models.</p>
+    <div class="cs-meta">
+      <div class="cs-meta-item">
+        <span class="cs-meta-lbl">Company</span>
+        <span class="cs-meta-val">Invoca</span>
+      </div>
+      <div class="cs-meta-item">
+        <span class="cs-meta-lbl">Role</span>
+        <span class="cs-meta-val">Senior UX Designer</span>
+      </div>
+      <div class="cs-meta-item">
+        <span class="cs-meta-lbl">Year</span>
+        <span class="cs-meta-val">2024</span>
+      </div>
+      <div class="cs-meta-item">
+        <span class="cs-meta-lbl">Platform</span>
+        <span class="cs-meta-val">Web App · Enterprise</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── OVERVIEW IMAGE ── -->
+<section class="cs-section">
+  <div class="cs-section-inner">
+    <div class="cs-img-placeholder tall">[ Hero product screenshot ]</div>
+  </div>
+</section>
+
+<!-- ── OVERVIEW ── -->
+<section class="cs-section">
+  <div class="cs-section-inner">
+    <div class="sec-label">Overview</div>
+    <h2 class="sec-title">The <em>challenge</em></h2>
+    <div class="cs-two-col">
+      <div>
+        <div class="cs-body">
+          <p>Invoca's platform analyzes phone calls using AI to surface business intelligence for contact centers. To improve model accuracy, operators needed a way to review call transcripts and provide structured feedback — but no such tooling existed.</p>
+          <p>I was tasked with designing an end-to-end workflow that let non-technical operators <strong>evaluate AI-classified calls, correct labels, and submit training data</strong> back to the model pipeline — without requiring any ML knowledge.</p>
+        </div>
+      </div>
+      <div>
+        <div class="cs-body">
+          <p>The core design tension: make a complex machine learning feedback loop feel like a simple review queue. Operators needed confidence in what they were doing without being exposed to the underlying model mechanics.</p>
+          <p>The project required close collaboration with ML engineers, product managers, and contact center operators across four enterprise customers.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── OUTCOMES ── -->
+<section class="cs-section">
+  <div class="cs-section-inner">
+    <div class="sec-label">Outcomes</div>
+    <h2 class="sec-title">What we <em>achieved</em></h2>
+    <div class="cs-two-col-3">
+      <div class="cs-stat-card glass">
+        <div class="cs-stat-num">3×</div>
+        <div class="cs-stat-lbl">Faster model retraining cycle through structured operator feedback</div>
+      </div>
+      <div class="cs-stat-card glass">
+        <div class="cs-stat-num">91%</div>
+        <div class="cs-stat-lbl">Task completion rate in usability testing with contact center operators</div>
+      </div>
+      <div class="cs-stat-card glass">
+        <div class="cs-stat-num">0</div>
+        <div class="cs-stat-lbl">Training errors — operators submitting correctly labeled data from day one</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── DISCOVERY ── -->
+<section class="cs-section">
+  <div class="cs-section-inner">
+    <div class="sec-label">Discovery</div>
+    <h2 class="sec-title">Understanding the <em>problem space</em></h2>
+    <div class="cs-body">
+      <p>I started with five contextual inquiry sessions embedded with contact center supervisors at two Invoca customers. This surfaced a critical insight: <strong>operators had deep domain intuition about call quality but zero shared vocabulary</strong> with the ML team defining model categories.</p>
+    </div>
+    <div class="cs-quote">
+      <p>"I know a bad call when I hear it. But when you ask me to label it, I don't know what bucket you want me to put it in."</p>
+      <cite>— Contact Center Supervisor, Discovery Interview</cite>
+    </div>
+    <div class="cs-two-col" style="margin-top:24px">
+      <div class="cs-img-placeholder split">[ Affinity diagram / research synthesis ]</div>
+      <div class="cs-img-placeholder split">[ Journey map ]</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROCESS ── -->
+<section class="cs-section">
+  <div class="cs-section-inner">
+    <div class="sec-label">Process</div>
+    <h2 class="sec-title">How I <em>designed it</em></h2>
+    <div class="cs-steps">
+      <div class="cs-step">
+        <div class="cs-step-num">01</div>
+        <div>
+          <div class="cs-step-head">Vocabulary alignment workshop</div>
+          <div class="cs-step-body">Facilitated a two-hour card-sorting session with ML engineers and three operators to build a shared taxonomy. This became the label schema in the UI.</div>
+        </div>
+      </div>
+      <div class="cs-step">
+        <div class="cs-step-num">02</div>
+        <div>
+          <div class="cs-step-head">Lo-fi exploration</div>
+          <div class="cs-step-body">Sketched 12 different review flow patterns — from form-based to conversational — and pressure-tested each against the operator mental model.</div>
+        </div>
+      </div>
+      <div class="cs-step">
+        <div class="cs-step-num">03</div>
+        <div>
+          <div class="cs-step-head">Prototype + usability rounds</div>
+          <div class="cs-step-body">Built a Figma prototype and ran three rounds of moderated usability testing. Each round tightened the label hierarchy and reduced cognitive load.</div>
+        </div>
+      </div>
+      <div class="cs-step">
+        <div class="cs-step-num">04</div>
+        <div>
+          <div class="cs-step-head">Phased delivery</div>
+          <div class="cs-step-body">Worked with engineering across four sprints. Defined component specs, edge cases, and empty states. Joined sprint reviews to QA against designs.</div>
+        </div>
+      </div>
+    </div>
+    <div class="cs-img-placeholder tall" style="margin-top:32px">[ Key screens / prototype walkthrough ]</div>
+  </div>
+</section>
+
+<!-- ── DESIGN DECISIONS ── -->
+<section class="cs-section">
+  <div class="cs-section-inner">
+    <div class="sec-label">Design decisions</div>
+    <h2 class="sec-title">What I <em>got wrong</em> first</h2>
+    <div class="cs-two-col">
+      <div class="glass" style="padding:28px;border-radius:16px">
+        <div class="cs-meta-lbl" style="margin-bottom:12px">First approach</div>
+        <div class="cs-body">
+          <p>Initially designed a multi-step wizard that walked operators through each label dimension independently. Testing revealed this fragmented their natural listening flow — they evaluate calls holistically, not attribute-by-attribute.</p>
+        </div>
+      </div>
+      <div class="glass" style="padding:28px;border-radius:16px">
+        <div class="cs-meta-lbl" style="color:rgba(168,255,120,.6);margin-bottom:12px">What worked</div>
+        <div class="cs-body">
+          <p>Redesigned around a single-screen review panel with a persistent audio player. All labels visible at once, with progressive disclosure for edge cases. Operators could listen and label simultaneously.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── REFLECTION ── -->
+<section class="cs-section">
+  <div class="cs-section-inner">
+    <div class="sec-label">Reflection</div>
+    <h2 class="sec-title">What I <em>learned</em></h2>
+    <div class="cs-body" style="max-width:640px">
+      <p>This project taught me that <strong>AI product design is fundamentally translation work</strong> — between the model's abstractions and the human's lived experience. The UX isn't just the interface, it's the conceptual scaffolding that lets non-technical users act with confidence inside a machine learning system.</p>
+      <p>If I were to do it over, I'd push earlier for operator involvement in defining the label taxonomy itself, rather than having ML set it and us adapting the UI to it. Shared ownership of the schema would have reduced the conceptual gap we had to bridge in the interface.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── NEXT ── -->
+<section id="cs-next">
+  <div class="cs-next-inner">
+    <a href="index.html#work" class="cs-next-back">← Back to all work</a>
+    <a href="case-study.html" class="cs-next-link">
+      <span class="cs-next-lbl">Next case study</span>
+      <span class="cs-next-title">Contact Center Workflow Redesign →</span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <p>Ted Potter — Senior UX Designer</p>
+  <p>Phoenix, AZ</p>
+  <p>© 2026</p>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+<script>GLightbox({ touchNavigation: true, loop: true, zoomable: true });</script>
+</body>
+</html>

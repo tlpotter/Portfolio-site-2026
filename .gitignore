@@ -1,0 +1,8 @@
+# Large design files
+*.psd
+*.ai
+*.sketch
+
+# OS
+.DS_Store
+Thumbs.db

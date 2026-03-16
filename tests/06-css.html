@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>06 – Pure CSS</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #020608;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.scene {
+  position: relative;
+  width: min(90vmin, 640px);
+  height: min(90vmin, 640px);
+}
+
+/* ── Rings ── */
+.ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Each ring: different size, color, speed, opacity */
+.ring-1  { width: 96%;  height: 96%;  border-color: rgba(255,250,245,.88); box-shadow: 0 0 2px rgba(255,250,245,.5), 0 0 18px rgba(255,240,200,.35), 0 0 50px rgba(255,200,80,.2);  animation: spin  8s  linear infinite; }
+.ring-2  { width: 87%;  height: 87%;  border-color: rgba(255,230,160,.72); box-shadow: 0 0 2px rgba(255,230,160,.4), 0 0 20px rgba(255,180,60,.3),  0 0 55px rgba(255,120,0,.18);  animation: spin  11s linear infinite reverse; }
+.ring-3  { width: 78%;  height: 78%;  border-color: rgba(255,200,100,.62); box-shadow: 0 0 2px rgba(255,200,100,.4), 0 0 22px rgba(255,140,20,.3),  0 0 60px rgba(255,80,0,.15);   animation: spin  15s linear infinite; }
+.ring-4  { width: 69%;  height: 69%;  border-color: rgba(255,160,60,.54);  box-shadow: 0 0 2px rgba(255,160,60,.35), 0 0 24px rgba(255,100,0,.28),  0 0 64px rgba(200,60,0,.12);   animation: spin  19s linear infinite reverse; }
+.ring-5  { width: 60%;  height: 60%;  border-color: rgba(100,220,255,.50); box-shadow: 0 0 2px rgba(100,220,255,.3), 0 0 22px rgba(0,180,255,.25),  0 0 60px rgba(0,120,255,.12);  animation: spin  24s linear infinite; }
+.ring-6  { width: 52%;  height: 52%;  border-color: rgba(60,200,255,.44);  box-shadow: 0 0 2px rgba(60,200,255,.3),  0 0 20px rgba(0,160,255,.22),  0 0 55px rgba(0,100,220,.1);   animation: spin  30s linear infinite reverse; }
+.ring-7  { width: 44%;  height: 44%;  border-color: rgba(30,180,255,.38);  box-shadow: 0 0 2px rgba(30,180,255,.25), 0 0 18px rgba(0,140,255,.18),  0 0 48px rgba(0,80,200,.08);   animation: spin  38s linear infinite; }
+.ring-8  { width: 36%;  height: 36%;  border-color: rgba(0,150,255,.30);   box-shadow: 0 0 1px rgba(0,150,255,.2),   0 0 14px rgba(0,120,255,.14);   animation: spin  48s linear infinite reverse; }
+.ring-9  { width: 29%;  height: 29%;  border-color: rgba(0,120,220,.22);   box-shadow: 0 0 1px rgba(0,120,220,.15),  0 0 10px rgba(0,100,200,.1);    animation: spin  60s linear infinite; }
+.ring-10 { width: 23%;  height: 23%;  border-color: rgba(0,100,200,.16);   box-shadow: 0 0 1px rgba(0,100,200,.1),   0 0 8px  rgba(0,80,180,.08);    animation: spin  75s linear infinite reverse; }
+
+/* ── Accretion disc bars ── */
+.disc {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+.disc-outer {
+  width: 96%; height: 10%;
+  background: linear-gradient(to right, transparent 2%, rgba(255,120,0,.08) 18%, rgba(255,200,80,.22) 50%, rgba(255,120,0,.08) 82%, transparent 98%);
+  box-shadow: 0 0 20px rgba(255,140,0,.18), 0 0 50px rgba(255,80,0,.1);
+  animation: discPulse 4s ease-in-out infinite;
+}
+.disc-inner {
+  width: 70%; height: 6%;
+  background: linear-gradient(to right, transparent 5%, rgba(0,180,255,.08) 20%, rgba(0,220,255,.2) 50%, rgba(0,180,255,.08) 80%, transparent 95%);
+  box-shadow: 0 0 16px rgba(0,200,255,.18), 0 0 40px rgba(0,150,255,.1);
+  animation: discPulse 5s ease-in-out infinite reverse;
+}
+
+/* ── Event horizon ── */
+.hole {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 18%; height: 18%;
+  border-radius: 50%;
+  background: #020608;
+  box-shadow:
+    0 0 0 3px rgba(255,220,80,.7),
+    0 0 12px rgba(255,200,60,.6),
+    0 0 32px rgba(255,140,0,.4),
+    0 0 70px rgba(255,80,0,.25),
+    0 0 120px rgba(0,180,255,.12);
+  animation: holePulse 3.5s ease-in-out infinite;
+}
+
+/* ── Nebula bg ── */
+.nebula {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 60% 40%, rgba(255,80,0,.06) 0%, transparent 55%),
+              radial-gradient(ellipse at 35% 65%, rgba(0,150,255,.05) 0%, transparent 50%);
+  animation: nebulaDrift 12s ease-in-out infinite alternate;
+}
+
+@keyframes spin {
+  from { transform: translate(-50%,-50%) rotate(0deg); }
+  to   { transform: translate(-50%,-50%) rotate(360deg); }
+}
+@keyframes holePulse {
+  0%,100% { box-shadow: 0 0 0 3px rgba(255,220,80,.7), 0 0 12px rgba(255,200,60,.6), 0 0 32px rgba(255,140,0,.4), 0 0 70px rgba(255,80,0,.25), 0 0 120px rgba(0,180,255,.12); }
+  50%     { box-shadow: 0 0 0 4px rgba(255,240,120,.9), 0 0 18px rgba(255,220,80,.8), 0 0 45px rgba(255,160,0,.5), 0 0 90px rgba(255,100,0,.3), 0 0 150px rgba(0,200,255,.18); }
+}
+@keyframes discPulse {
+  0%,100% { opacity: .7; }
+  50%     { opacity: 1; }
+}
+@keyframes nebulaDrift {
+  from { transform: scale(1) rotate(0deg); }
+  to   { transform: scale(1.08) rotate(5deg); }
+}
+
+.lbl {
+  position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+  color: rgba(255,255,255,.2); font: 600 10px/1 sans-serif;
+  letter-spacing: .14em; text-transform: uppercase;
+}
+</style>
+</head>
+<body>
+
+<div class="scene">
+  <div class="nebula"></div>
+
+  <div class="ring ring-1"></div>
+  <div class="ring ring-2"></div>
+  <div class="ring ring-3"></div>
+  <div class="ring ring-4"></div>
+  <div class="ring ring-5"></div>
+  <div class="ring ring-6"></div>
+  <div class="ring ring-7"></div>
+  <div class="ring ring-8"></div>
+  <div class="ring ring-9"></div>
+  <div class="ring ring-10"></div>
+
+  <div class="disc disc-outer"></div>
+  <div class="disc disc-inner"></div>
+
+  <div class="hole"></div>
+</div>
+
+<div class="lbl">06 — Pure CSS / No Canvas</div>
+
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>03 – Wormhole Tunnel</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#020608;overflow:hidden}
+canvas{display:block}
+.lbl{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.2);font:600 10px/1 sans-serif;letter-spacing:.14em;text-transform:uppercase}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="lbl">03 — Wormhole Tunnel</div>
+<script>
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+let W, H;
+function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+resize();
+window.addEventListener('resize', resize);
+
+// Tunnel rings — each has a Z depth (0=camera, 1=far)
+const NUM_RINGS = 28;
+const SPEED = .006; // how fast rings approach
+
+const rings = Array.from({length: NUM_RINGS}, (_, i) => ({
+  z:        i / NUM_RINGS,          // depth 0..1
+  rotAngle: Math.random() * Math.PI * 2,
+  rotSpeed: (.0006 + Math.random() * .0008) * (Math.random() > .5 ? 1 : -1),
+  colorSeed: Math.random()
+}));
+
+// Stars — static positions seeded
+const STARS = Array.from({length: 180}, () => ({
+  x: Math.random(), y: Math.random(),
+  r: .1 + Math.random() * .9,
+  a: .1 + Math.random() * .5
+}));
+
+let t = 0;
+
+function drawRing(cx, cy, r, brightness, rC, gC, bC, pulse) {
+  // Pass 1: wide glow
+  ctx.save();
+  ctx.shadowBlur  = 70 * brightness;
+  ctx.shadowColor = `rgba(${rC},${gC},${bC},${brightness * .5})`;
+  ctx.strokeStyle = `rgba(${rC},${gC},${bC},${brightness * .11})`;
+  ctx.lineWidth   = (20 * brightness + 5) * pulse;
+  ctx.beginPath(); ctx.ellipse(cx, cy, r * pulse, r * pulse * .52, 0, 0, Math.PI * 2); ctx.stroke();
+  ctx.restore();
+  // Pass 2: mid bloom
+  ctx.save();
+  ctx.shadowBlur  = 26 * brightness;
+  ctx.shadowColor = `rgba(${rC},${gC},${bC},${brightness * .9})`;
+  ctx.strokeStyle = `rgba(${rC},${gC},${bC},${brightness * .55})`;
+  ctx.lineWidth   = (6 * brightness + 1.5) * pulse;
+  ctx.beginPath(); ctx.ellipse(cx, cy, r * pulse, r * pulse * .52, 0, 0, Math.PI * 2); ctx.stroke();
+  ctx.restore();
+  // Pass 3: sharp filament
+  ctx.save();
+  ctx.shadowBlur  = 7;
+  ctx.shadowColor = `rgba(255,248,235,${brightness})`;
+  ctx.strokeStyle = `rgba(255,252,245,${brightness * .92})`;
+  ctx.lineWidth   = .95;
+  ctx.beginPath(); ctx.ellipse(cx, cy, r * pulse, r * pulse * .52, 0, 0, Math.PI * 2); ctx.stroke();
+  ctx.restore();
+}
+
+function frame() {
+  t += .008;
+  const cx = W * .5, cy = H * .5;
+  const maxR = Math.min(W, H) * .5;
+
+  ctx.fillStyle = '#020608';
+  ctx.fillRect(0, 0, W, H);
+
+  // Background stars
+  STARS.forEach(s => {
+    ctx.beginPath(); ctx.arc(s.x * W, s.y * H, s.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255,255,255,${s.a})`; ctx.fill();
+  });
+
+  // Advance all rings toward viewer
+  rings.forEach(ring => {
+    ring.z -= SPEED;
+    ring.rotAngle += ring.rotSpeed;
+    if (ring.z <= 0) ring.z += 1; // loop back to far end
+  });
+
+  // Sort back-to-front so closer rings paint over far ones
+  const sorted = [...rings].sort((a, b) => b.z - a.z);
+
+  sorted.forEach(ring => {
+    const depth = ring.z; // 0=near (big), 1=far (small)
+    // Non-linear perspective: rings rush in as they get close
+    const persp = Math.pow(depth, 1.5);
+    const r = maxR * (1 - persp * .97);
+    if (r < 3) return;
+
+    const brightness = (1 - depth) * .9 + .05;
+    const pulse = 1 + Math.sin(t * 1.1 + ring.z * 8) * .018;
+
+    // Color: deep blue far → cyan → orange-white near
+    const rC = Math.round(20  + (1 - depth) * 235);
+    const gC = Math.round(120 + (1 - depth) * 100);
+    const bC = Math.round(255 - (1 - depth) * 190);
+
+    drawRing(cx, cy, r, brightness, rC, gC, bC, pulse);
+  });
+
+  // Singularity glow at center
+  const sg = ctx.createRadialGradient(cx, cy, 0, cx, cy, maxR * .06);
+  sg.addColorStop(0,  `rgba(255,240,180,${.9 + Math.sin(t*3)*.1})`);
+  sg.addColorStop(.4, `rgba(255,120,0,.5)`);
+  sg.addColorStop(1,  'rgba(0,0,0,0)');
+  ctx.beginPath(); ctx.arc(cx, cy, maxR * .06, 0, Math.PI * 2);
+  ctx.fillStyle = sg; ctx.fill();
+
+  // Dark void at absolute center
+  ctx.beginPath(); ctx.arc(cx, cy, maxR * .018, 0, Math.PI * 2);
+  ctx.fillStyle = '#000'; ctx.fill();
+
+  requestAnimationFrame(frame);
+}
+
+frame();
+</script>
+</body>
+</html>
