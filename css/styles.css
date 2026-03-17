@@ -168,7 +168,6 @@ footer p{font-size:12px;color:rgba(255,255,255,.4);letter-spacing:.06em}
 @media(max-width:800px){
   body{cursor:auto}
   #cur,#curRing{display:none}
-  #hero{overflow:hidden}
   nav{padding:18px 24px}.nav-links{display:none}
   section:not(#hero){padding:64px 24px}
   .about-grid,.work-grid,.skills-grid{grid-template-columns:1fr}

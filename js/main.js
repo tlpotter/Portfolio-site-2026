@@ -405,20 +405,21 @@ function drawPortal(canvas, opts) {
     ctx.restore();
 
     // ── Photon ring glow — enlarged and brighter ──
-    const pg = ctx.createRadialGradient(ox, oy, sR * .6, ox, oy, sR * 2.8);
+    const gs = opts.glowScale || 1;
+    const pg = ctx.createRadialGradient(ox, oy, sR * .6 * gs, ox, oy, sR * 2.8 * gs);
     pg.addColorStop(0,   `rgba(255,160,40,${.95 + Math.sin(t * 2) * .05})`);
     pg.addColorStop(.18, `rgba(255,120,10,${.8 + Math.sin(t * 1.6) * .1})`);
     pg.addColorStop(.45, `rgba(220,80,0,${.45 + Math.sin(t) * .06})`);
     pg.addColorStop(.72, `rgba(140,40,0,${.18})`);
     pg.addColorStop(1,   'rgba(80,20,0,0)');
-    ctx.beginPath(); ctx.arc(ox, oy, sR * 2.8, 0, Math.PI * 2); ctx.fillStyle = pg; ctx.fill();
+    ctx.beginPath(); ctx.arc(ox, oy, sR * 2.8 * gs, 0, Math.PI * 2); ctx.fillStyle = pg; ctx.fill();
 
     // Inner orange haze — tight warm band right at the event horizon
-    const ih = ctx.createRadialGradient(ox, oy, sR * .92, ox, oy, sR * 1.45);
+    const ih = ctx.createRadialGradient(ox, oy, sR * .92 * gs, ox, oy, sR * 1.45 * gs);
     ih.addColorStop(0,   `rgba(255,200,100,${.6 + Math.sin(t * 2.5) * .12})`);
     ih.addColorStop(.4,  `rgba(255,150,30,${.4 + Math.sin(t * 1.8) * .08})`);
     ih.addColorStop(1,   'rgba(255,80,0,0)');
-    ctx.beginPath(); ctx.arc(ox, oy, sR * 1.45, 0, Math.PI * 2); ctx.fillStyle = ih; ctx.fill();
+    ctx.beginPath(); ctx.arc(ox, oy, sR * 1.45 * gs, 0, Math.PI * 2); ctx.fillStyle = ih; ctx.fill();
 
     ctx.save();
     ctx.shadowBlur = 52; ctx.shadowColor = `rgba(255,140,20,${.98 + Math.sin(t * 2) * .02})`;
@@ -502,14 +503,15 @@ const bhOpts = { originY: .88, maxR: .43, sphereR: .048, starCount: 420, discCou
 function resizeBH() {
   const heroH  = document.getElementById('hero').offsetHeight || window.innerHeight;
   const mobile = window.innerWidth < 800;
-  const ext    = window.innerWidth * 0.12;
+  const ext    = window.innerWidth * (mobile ? 0.28 : 0.12);
   bh.width  = window.innerWidth;
   bh.height = Math.round(heroH + ext);
   bh.style.width  = bh.width  + 'px';
   bh.style.height = bh.height + 'px';
   bhOpts.originY  = heroH / bh.height;
-  bhOpts.sphereR  = mobile ? 0.14  : 0.048;
-  bhOpts.maxR     = mobile ? 0.75  : 0.43;
+  bhOpts.sphereR  = mobile ? 0.10  : 0.048;
+  bhOpts.maxR     = mobile ? 0.52  : 0.43;
+  bhOpts.glowScale = mobile ? 0.85  : 1.0;
 }
 resizeBH();
 window.addEventListener('resize', resizeBH);
