@@ -59,8 +59,8 @@ function drawPortal(canvas, opts) {
     return {
       angle: (i / 280) * Math.PI * 2,
       speed: (.007 + Math.random() * .005) * (layer % 2 === 0 ? 1 : -1) * (1 - layer * .15),
-      r: .048 + layer * .022 + (Math.random() - .5) * .014,
-      size: 1.2 + Math.random() * 3.6,
+      r: (opts.discRBase || .048) + layer * .022 + (Math.random() - .5) * .014,
+      size: (1.2 + Math.random() * 3.6) * (opts.discSizeScale || 1),
       brightness: .3 + Math.random() * .7,
       layer, phase: Math.random() * Math.PI * 2
     };
@@ -393,7 +393,7 @@ function drawPortal(canvas, opts) {
       const py = oy + Math.sin(p.angle) * W * p.r * .26;
       if (Math.sin(p.angle) < 0) {
         const heat = p.brightness * (.7 + Math.sin(p.phase) * .3);
-        const frac = Math.max(0, Math.min(1, (p.r - .041) / .08));
+        const frac = Math.max(0, Math.min(1, (p.r - (opts.discRBase || .048) + .007) / .08));
         const rC = frac < .7 ? Math.round(255 - 255 * (frac / .7)) : 0;
         const gC = frac < .7 ? Math.round(100 + 112 * (frac / .7)) : Math.round(212 - 172 * ((frac - .7) / .3));
         const bC = frac < .7 ? Math.round(255 * (frac / .7)) : Math.round(255 - 105 * ((frac - .7) / .3));
@@ -470,7 +470,7 @@ function drawPortal(canvas, opts) {
       const py = oy + Math.sin(p.angle) * W * p.r * .26;
       if (Math.sin(p.angle) >= 0) {
         const heat = p.brightness * (.7 + Math.sin(p.phase) * .3);
-        const frac = Math.max(0, Math.min(1, (p.r - .041) / .08));
+        const frac = Math.max(0, Math.min(1, (p.r - (opts.discRBase || .048) + .007) / .08));
         const rC = frac < .7 ? Math.round(255 - 255 * (frac / .7)) : 0;
         const gC = frac < .7 ? Math.round(100 + 112 * (frac / .7)) : Math.round(212 - 172 * ((frac - .7) / .3));
         const bC = frac < .7 ? Math.round(255 * (frac / .7)) : Math.round(255 - 105 * ((frac - .7) / .3));
@@ -509,9 +509,11 @@ function resizeBH() {
   bh.style.width  = bh.width  + 'px';
   bh.style.height = bh.height + 'px';
   bhOpts.originY  = heroH / bh.height;
-  bhOpts.sphereR  = mobile ? 0.12  : 0.048;
-  bhOpts.maxR     = mobile ? 0.70  : 0.43;
-  bhOpts.glowScale = mobile ? 0.85  : 1.0;
+  bhOpts.sphereR     = mobile ? 0.12  : 0.048;
+  bhOpts.maxR        = mobile ? 0.70  : 0.43;
+  bhOpts.glowScale   = mobile ? 0.85  : 1.0;
+  bhOpts.discRBase   = mobile ? 0.15  : 0.048;
+  bhOpts.discSizeScale = mobile ? 1.8  : 1.0;
 }
 resizeBH();
 window.addEventListener('resize', resizeBH);
