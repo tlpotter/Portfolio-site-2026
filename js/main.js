@@ -500,21 +500,18 @@ const bh = document.getElementById('bhCanvas');
 const bhOpts = { originY: .88, maxR: .43, sphereR: .048, starCount: 420, discCount: 480, shooters: true, lensing: true };
 
 function resizeBH() {
-  // Size directly from window — bypasses CSS layout timing issues entirely.
-  // Canvas height = hero height + 9vw extension so the sphere straddles the fold.
-  const heroH = document.getElementById('hero').offsetHeight || window.innerHeight;
-  const ext   = window.innerWidth * 0.12;
+  const heroH  = document.getElementById('hero').offsetHeight || window.innerHeight;
+  const mobile = window.innerWidth < 800;
+  const ext    = window.innerWidth * 0.12;
   bh.width  = window.innerWidth;
   bh.height = Math.round(heroH + ext);
   bh.style.width  = bh.width  + 'px';
   bh.style.height = bh.height + 'px';
   bhOpts.originY  = heroH / bh.height;
+  bhOpts.sphereR  = mobile ? 0.14  : 0.048;
+  bhOpts.maxR     = mobile ? 0.75  : 0.43;
 }
 resizeBH();
 window.addEventListener('resize', resizeBH);
 drawPortal(bh, bhOpts);
 
-const mini = document.getElementById('miniHole');
-function resizeMini() { mini.width = mini.offsetWidth; mini.height = mini.offsetHeight; }
-resizeMini();
-drawPortal(mini, { originY: .85, maxR: .82, sphereR: .1, starCount: 40, discCount: 120, shooters: false, lensing: false });
