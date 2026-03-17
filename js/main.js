@@ -509,8 +509,8 @@ function resizeBH() {
   bh.style.width  = bh.width  + 'px';
   bh.style.height = bh.height + 'px';
   bhOpts.originY  = heroH / bh.height;
-  bhOpts.sphereR  = mobile ? 0.10  : 0.048;
-  bhOpts.maxR     = mobile ? 0.52  : 0.43;
+  bhOpts.sphereR  = mobile ? 0.12  : 0.048;
+  bhOpts.maxR     = mobile ? 0.70  : 0.43;
   bhOpts.glowScale = mobile ? 0.85  : 1.0;
 }
 resizeBH();
