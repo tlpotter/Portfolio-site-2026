@@ -1,6 +1,6 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --sans:'Inter',sans-serif;
+  --sans:'Plus Jakarta Sans',sans-serif;
   --serif:'Fraunces',Georgia,serif;
   --bg:#020608;
   --orange:#ff6200;
