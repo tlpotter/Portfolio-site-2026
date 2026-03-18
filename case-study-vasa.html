@@ -95,7 +95,11 @@
       font-size: 13px;
     }
     .cs-role-list li strong {
-      color: rgba(255,255,255,.92);
+      color: rgba(56,189,248,.9);
+      font-weight: 600;
+    }
+    .cs-article-body strong {
+      color: rgba(56,189,248,.9);
       font-weight: 600;
     }
     /* ── Image grids within article ── */
@@ -179,6 +183,63 @@
       .cs-art-img-3col { grid-template-columns: 1fr 1fr; }
       .cs-impact-row { grid-template-columns: 1fr 1fr; }
     }
+
+  /* ── Bottom progress nav ── */
+  #cs-bottom-nav {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    z-index: 200;
+    padding: 14px 40px 16px;
+    background: rgba(6,10,15,0.92);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    transform: translateY(100%);
+    transition: transform 0.35s ease;
+  }
+  #cs-bottom-nav.visible { transform: translateY(0); }
+  #cs-bnav-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 10px;
+  }
+  #cs-bnav-sections {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  #cs-bnav-sections::-webkit-scrollbar { display: none; }
+  .cs-bnav-sec {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(232,228,240,0.25);
+    font-family: var(--sans);
+    white-space: nowrap;
+    cursor: pointer;
+    transition: color 0.2s;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .cs-bnav-sec.active { color: rgba(232,228,240,0.8); }
+  .cs-bnav-sec:hover { color: rgba(232,228,240,0.55); }
+  #cs-bnav-track {
+    height: 2px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 1px;
+    position: relative;
+  }
+  #cs-bnav-fill {
+    position: absolute;
+    left: 0; top: 0; height: 100%;
+    background: rgba(56,189,248,0.7);
+    border-radius: 1px;
+    transition: width 0.1s linear;
+    width: 0%;
+  }
   </style>
 </head>
 <body>
@@ -760,5 +821,76 @@
 <script src="js/main.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
 <script>GLightbox({ touchNavigation: true, loop: true, zoomable: true });</script>
+<script>
+(function() {
+  // ── Build bottom nav ──
+  const bnav = document.createElement('div');
+  bnav.id = 'cs-bottom-nav';
+  bnav.innerHTML =
+    '<div id="cs-bnav-row">' +
+      '<div id="cs-bnav-sections"></div>' +
+    '</div>' +
+    '<div id="cs-bnav-track"><div id="cs-bnav-fill"></div></div>';
+  document.body.appendChild(bnav);
+
+  const fill   = document.getElementById('cs-bnav-fill');
+  const secBox = document.getElementById('cs-bnav-sections');
+
+  // ── Collect sections ──
+  const sections = Array.from(document.querySelectorAll('.cs-article-section'));
+  const items = [];
+  sections.forEach((sec, i) => {
+    const lbl = sec.querySelector('.cs-article-label');
+    if (!lbl) return;
+    const id = 'sec-' + i;
+    sec.id = id;
+    const a = document.createElement('a');
+    a.href = '#' + id;
+    a.className = 'cs-bnav-sec';
+    // strip the leading "— " added by CSS ::before
+    a.textContent = lbl.textContent.replace(/^—\s*/, '').trim();
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    secBox.appendChild(a);
+    items.push({ sec, a });
+  });
+
+  // ── Show/hide after hero ──
+  const hero = document.getElementById('cs-hero');
+  let heroBottom = 0;
+  function calcHero() { heroBottom = hero ? hero.offsetTop + hero.offsetHeight : 400; }
+  calcHero();
+  window.addEventListener('resize', calcHero);
+
+  // ── Scroll progress + active section ──
+  function onScroll() {
+    const sy = window.scrollY;
+    const docH = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docH > 0 ? Math.min(100, (sy / docH) * 100) : 0;
+    fill.style.width = pct + '%';
+
+    // show/hide
+    if (sy > heroBottom) {
+      bnav.classList.add('visible');
+    } else {
+      bnav.classList.remove('visible');
+    }
+
+    // active section — find the last one whose top is above 40% viewport height
+    let active = null;
+    const threshold = sy + window.innerHeight * 0.4;
+    items.forEach(({ sec, a }) => {
+      a.classList.remove('active');
+      if (sec.offsetTop <= threshold) active = { sec, a };
+    });
+    if (active) active.a.classList.add('active');
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
 </body>
 </html>
