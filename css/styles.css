@@ -23,10 +23,11 @@ nav{
   padding:20px max(60px, calc((100vw - 1280px) / 2));
   background:linear-gradient(to bottom,rgba(6,10,15,.92),transparent);
 }
-.nav-logo{font-family:var(--serif);font-size:20px;font-weight:600;font-style:italic;color:#fff;text-decoration:none;text-shadow:0 0 20px rgba(56,189,248,.4)}
+.nav-logo{font-family:var(--serif);font-size:20px;font-weight:600;font-style:italic;color:#fff;text-decoration:none;text-shadow:0 0 20px rgba(56,189,248,.4);transition:all .3s}
+.nav-logo:hover{background:linear-gradient(135deg,#fb923c,#38bdf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-shadow:none}
 .nav-links{display:flex;gap:32px;list-style:none}
 .nav-links a{font-size:15px;font-weight:500;color:rgba(255,255,255,.65);text-decoration:none;letter-spacing:.06em;transition:color .25s}
-.nav-links a:hover{color:#fff}
+.nav-links a:hover{color:rgba(251,146,60,.9)}
 .nav-badge{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#a8ff78;letter-spacing:.08em}
 .nav-dot{width:6px;height:6px;border-radius:50%;background:#a8ff78;box-shadow:0 0 8px #a8ff78;animation:blink 2s ease-in-out infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}

@@ -9,16 +9,16 @@ body { cursor: none }
 /* ── Nav back link ── */
 .nav-back {
   font-size: 13px; font-weight: 600; letter-spacing: .08em;
-  color: rgba(255,255,255,.6); text-decoration: none;
+  color: rgba(56,189,248,.8); text-decoration: none;
   display: flex; align-items: center; gap: 8px; transition: color .25s;
 }
-.nav-back:hover { color: #fff }
+.nav-back:hover { color: rgba(56,189,248,1) }
 .nav-back-arrow { font-size: 16px; transition: transform .25s }
 .nav-back:hover .nav-back-arrow { transform: translateX(-3px) }
 
 /* ── CS Hero ── */
-#cs-hero {
-  padding: 120px max(60px, calc((100vw - 1280px) / 2)) 16px;
+section#cs-hero {
+  padding: 100px max(60px, calc((100vw - 1280px) / 2)) 40px;
   position: relative; z-index: 1;
   background: #060a0f;
   border-bottom: 1px solid rgba(255,255,255,.04);
@@ -235,7 +235,7 @@ body { cursor: none }
 
 /* ── Responsive ── */
 @media (max-width: 800px) {
-  #cs-hero { padding: 120px 12px 56px }
+  section#cs-hero { padding: 60px 12px 0 }
   .cs-section { padding: 56px 12px }
   .cs-two-col, .cs-two-col-3, .cs-img-trio { grid-template-columns: 1fr }
   .cs-img-frame.landscape { aspect-ratio: 4/3 }
