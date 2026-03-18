@@ -240,6 +240,40 @@
     transition: width 0.1s linear;
     width: 0%;
   }
+  /* ── Strategic callout moments ── */
+  .cs-callout {
+    background: rgba(56,189,248,0.05);
+    border-left: 2px solid rgba(56,189,248,0.35);
+    border-radius: 0 10px 10px 0;
+    padding: 18px 22px;
+    margin: 28px 0;
+  }
+  .cs-callout-head {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(56,189,248,0.7);
+    font-family: var(--sans);
+    margin-bottom: 8px;
+  }
+  .cs-callout p {
+    font-size: 15px;
+    color: rgba(232,228,240,0.82);
+    line-height: 1.75;
+    margin: 0;
+  }
+  /* ── Role group subheadings ── */
+  .cs-role-group-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(56,189,248,0.6);
+    font-family: var(--sans);
+    margin: 20px 0 8px;
+  }
+  .cs-role-group-label:first-child { margin-top: 0; }
   @media (max-width: 800px) {
     .cs-impact-row { display: grid !important; grid-template-columns: 1fr !important; gap: 12px !important; }
     .cs-impact-row .cs-stat-card { width: 100% !important; flex: none !important; }
@@ -309,6 +343,30 @@
   />
 </section>
 
+<!-- ── OUTCOME STATS ── -->
+<section class="cs-section" style="padding-top:48px;padding-bottom:0">
+  <div class="cs-article" style="margin-top:0">
+    <div class="cs-impact-row">
+      <div class="cs-stat-card glass">
+        <div class="cs-stat-num">300k</div>
+        <div class="cs-stat-lbl">App installs within three months of launch</div>
+      </div>
+      <div class="cs-stat-card glass">
+        <div class="cs-stat-num">$150k</div>
+        <div class="cs-stat-lbl">In direct app revenue post-launch</div>
+      </div>
+      <div class="cs-stat-card glass">
+        <div class="cs-stat-num">4.3★</div>
+        <div class="cs-stat-lbl">App Store rating across nearly 7,000 reviews</div>
+      </div>
+      <div class="cs-stat-card glass">
+        <div class="cs-stat-num">&lt;6mo</div>
+        <div class="cs-stat-lbl">From kickoff to both app stores</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ── ARTICLE BODY ── -->
 <section class="cs-section" style="padding-top:64px">
   <div class="cs-article">
@@ -316,6 +374,13 @@
     <!-- My Role -->
     <div class="cs-article-section" style="margin-top:0">
       <div class="cs-article-label">My Role &amp; Impact</div>
+      <div class="cs-role-group-label">Results</div>
+      <ul class="cs-role-list">
+        <li><strong>300,000 installs and $150,000 in direct app revenue</strong> within three months of launch</li>
+        <li>Delivered a new mobile experience to both app stores <strong>within a 6-month timeline</strong></li>
+        <li><strong>4.3-star App Store rating</strong> across nearly 7,000 reviews</li>
+      </ul>
+      <div class="cs-role-group-label">How I operated</div>
       <ul class="cs-role-list">
         <li>Led UX across iOS and Android for a <strong>10-person cross-functional team</strong></li>
         <li>Defined product direction to replace an underperforming white-label app</li>
@@ -323,8 +388,6 @@
         <li>Bridged client leadership and delivery team — presenting to <strong>C-suite stakeholders</strong> and running side-by-side dev reviews</li>
         <li>Mentored junior engineers through hands-on design reviews, <strong>raising implementation quality</strong> across both platforms</li>
         <li>Introduced usability testing cadence that <strong>directly shaped feature priority</strong> across three phases</li>
-        <li>Delivered a new mobile experience to both app stores <strong>within a 6-month timeline</strong></li>
-        <li><strong>300,000 installs and $150,000 in direct app revenue</strong> within three months of launch</li>
       </ul>
     </div>
 
@@ -474,6 +537,7 @@
       <blockquote class="cs-pull">At peak velocity, that 1:5 designer-to-developer ratio meant I spent 50–70% of each working day in these reviews. It was exhausting, but it was the single most important thing I did for product quality.</blockquote>
 
       <div class="cs-article-body">
+        <p>That review cadence became the team's operating model for the rest of the engagement.</p>
         <p>The return compounded over time. Developers started catching issues on their own, asking better questions before building, and developing an instinct for when something looked off. By Phase 2, the gap between design intent and built output had narrowed significantly — not because the designs got simpler, but because the team had internalized how to read them.</p>
       </div>
 
@@ -623,6 +687,7 @@
       <h2 class="cs-article-title">Then the world <em>stopped</em></h2>
       <div class="cs-article-body">
         <p>On March 19, 2020, VASA closed every gym in response to COVID-19. Revenue dropped to zero overnight. All vendor work halted immediately. For three months, the project didn't exist.</p>
+        <p>Before the shutdown, I'd made sure the design system and backlog were in a state where any team could pick them up — which turned out to matter more than I expected.</p>
         <p>When VASA reopened and started bringing vendors back, Neudesic was one of the first calls they made. That decision — reinvesting in the app before most other vendor relationships — was a direct result of the trust built during Phase 1. That trust eventually led to two additional projects during the pandemic recovery, when every budget line was being scrutinized.</p>
       </div>
     </div>
@@ -632,7 +697,12 @@
       <div class="cs-article-label">Phase 2</div>
       <h2 class="cs-article-title">Deciding what to <em>build next</em></h2>
       <div class="cs-article-body">
-        <p>After launch, the feature backlog exploded. I facilitated a card sort exercise with Mehul Chaudhari to force prioritization — laying out every candidate feature, mapping them against member impact and technical feasibility, and sorting them into a sequenced roadmap. It turned a sprawling wishlist into a focused plan the entire team could align around.</p>
+        <p>After launch, the feature backlog exploded.</p>
+      </div>
+
+      <div class="cs-callout">
+        <div class="cs-callout-head">Feature prioritization</div>
+        <p>I facilitated a card sort exercise with Mehul Chaudhari to force prioritization — laying out every candidate feature, mapping them against member impact and technical feasibility, and sorting them into a sequenced roadmap. It turned a sprawling wishlist into a focused plan the entire team could align around.</p>
       </div>
 
       <blockquote class="cs-pull">My job wasn't just to design the features — it was to help the client decide which features deserved to exist at all.</blockquote>
@@ -652,7 +722,14 @@
 
       <div class="cs-article-body">
         <p>With the roadmap locked, Phase 2 deepened member engagement. We added member referrals, check-in history, profile photo uploads, the ability to change your home gym, and a gamification system with badges — features designed to make the app feel personal, not just functional.</p>
+      </div>
+
+      <div class="cs-callout">
+        <div class="cs-callout-head">The structural call</div>
         <p>One structural call I wish we'd made earlier was splitting iOS and Android into dedicated teams. In Phase 1, developers were context-switching between platforms, losing momentum on both. By Phase 2, I advocated for the split, and once it happened, velocity improved immediately. It's the kind of process decision that doesn't feel like design work, but it directly affected what we could ship and how fast.</p>
+      </div>
+
+      <div class="cs-article-body">
       </div>
 
       <div class="cs-art-phase">
@@ -723,7 +800,7 @@
       <div class="cs-article-label">Leadership</div>
       <h2 class="cs-article-title">From designer to <em>decision-maker</em></h2>
       <div class="cs-article-body">
-        <p>Six months into the engagement, the principal designer moved on and I stepped into the UX Lead role. I was no longer just designing screens — I was presenting directly to VASA's stakeholders, defining the product roadmap, writing user stories, managing the backlog, and keeping priorities aligned across a team that now spanned multiple workstreams and two platform-specific dev groups.</p>
+        <p>Six months into the engagement, the principal designer moved on. By that point, I was already running the design-dev collaboration, presenting directly to VASA's leadership, and making product-level calls — so the transition to UX Lead formalized a role I'd been growing into since the first sprint. I was no longer just designing screens — I was presenting directly to VASA's stakeholders, defining the product roadmap, writing user stories, managing the backlog, and keeping priorities aligned across a team that now spanned multiple workstreams and two platform-specific dev groups.</p>
         <p>I became one of the primary communicators between VASA's leadership and our delivery team — translating business goals into design direction in stakeholder meetings, then translating design intent into implementation specifics in developer reviews. Two different audiences, two different languages, same product vision.</p>
         <p>Ownership also meant caring about the product after it shipped. I wrote the app store update notes for each release and personally responded to user reviews — the kind of work that doesn't show up in anyone's job description but signals that someone on the team is paying attention to the full experience, not just the Figma file.</p>
       </div>
@@ -811,6 +888,7 @@
         <p>This project succeeded because the team learned how to make decisions quickly, align around what mattered, and move forward without perfect information.</p>
         <p>For me, it reinforced where design has the most impact — not just in the screens, but in how decisions get made: helping a team converge, giving developers enough context to build with confidence, testing assumptions with real members, and making tradeoffs explicit so the product can actually ship.</p>
         <p>The Starbucks comparison is the part people remember. The 4.3-star rating, the 300,000 installs, the revenue — those are easy signals. What mattered more was that the product worked, members could do what they needed without friction, and the client trusted us enough to keep going.</p>
+        <p>The platform tradeoff was the call that taught me the most — choosing to ship a strong iOS experience on time rather than a mediocre experience on both. Having the data (70% iOS users) made it defensible, but it still required the conviction to stand behind an imperfect launch.</p>
       </div>
     </div>
 
