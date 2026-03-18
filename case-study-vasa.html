@@ -219,7 +219,7 @@
       </div>
       <div class="cs-meta-item">
         <span class="cs-meta-lbl">Role</span>
-        <span class="cs-meta-val">UX Project Lead → UX Lead</span>
+        <span class="cs-meta-val">UX Designer → UX Lead</span>
       </div>
       <div class="cs-meta-item">
         <span class="cs-meta-lbl">Timeline</span>
@@ -359,6 +359,7 @@
         <p>This constraint shaped every design decision. It wasn't enough to ask "what's the best experience?" — we had to constantly ask "what can PAC actually give us?" That meant designing screens, discovering a data field wasn't exposed through the API, and getting creative about what we could surface and how.</p>
         <p>KidCare scheduling was a perfect example. Members had been calling the front desk to book childcare because no system supported it digitally. We had to work with PAC to figure out what data was available, what scheduling logic could be built on top of it, and how to present it in the app as something that felt native — not bolted on. Making that work was one of the quiet wins of the project, because from the member's perspective, it just worked. She had no idea what was happening underneath. She just opened the app, booked her two KidCare slots for the week, and moved on.</p>
       </div>
+
     </div>
 
     <!-- Visual Design -->
@@ -396,12 +397,57 @@
 
     <hr class="cs-divider"/>
 
-    <!-- Shipping -->
+    <!-- Design & Dev Process -->
     <div class="cs-article-section" style="margin-top:0">
+      <div class="cs-article-label">Process</div>
+      <h2 class="cs-article-title">Teaching developers <em>to see</em></h2>
+      <div class="cs-article-body">
+        <p>Design on this project wasn't a handoff — it was a continuous loop. Screens went into Figma, builds came back from developers, and we iterated in real time. What I designed this week was often in a build next week, which meant design decisions had to be made fast, communicated clearly, and revisited constantly as the product took shape.</p>
+        <p>That pace was clarifying. You stop overthinking a component when you know it's getting built in three days. You get good at deciding what matters and letting go of what doesn't.</p>
+        <p>But speed only works if the people building your designs understand them. That was the harder problem. About two-thirds of the development team were junior engineers learning native iOS or Android for the first time. And rather than treat them as downstream executors, we pulled them in early — into workshops, into whiteboard sessions, into the messy front-end of the design process where the decisions were still being made. When developers understand why a design exists before they write a line of code, they build it differently. They make better judgment calls when they hit an edge case at 4pm and there's no designer around to ask.</p>
+        <p>So I also started doing side-by-side reviews once builds came back. I'd sit with a developer, pull up the build on a device next to the design in Figma, and we'd walk through it together — pixel by pixel when it mattered, but more importantly, talking through intent. Why this spacing exists. Why this element is interactive and that one isn't. What the user is trying to accomplish on this screen and how the layout supports that. It wasn't just QA — it was teaching them to see the design the way a designer sees it.</p>
+      </div>
+
+      <blockquote class="cs-pull">At peak velocity, that 1:5 designer-to-developer ratio meant I spent 50–70% of each working day in these reviews. It was exhausting, but it was the single most important thing I did for product quality.</blockquote>
+
+      <div class="cs-article-body">
+        <p>The return on that investment compounded over time. Developers didn't just build better screens as the project progressed — they started catching issues on their own, asking better questions before building, and developing an instinct for when something looked off. By Phase 2, the gap between design intent and built output had narrowed significantly. Not because the designs got simpler, but because the team had internalized how to read them.</p>
+        <p>That's the part that doesn't show up in a shipped feature list. But it's the reason the features shipped at the quality they did — and it's what I'd point to if someone asked where design had the most leverage on this project.</p>
+      </div>
+
+      <div class="cs-art-img-2col" style="margin-top:32px">
+        <div class="cs-img-frame landscape">
+          <a href="figma-export/VASA/VASA/Mobile App/2019-07-03 16.42.10.jpg" class="glightbox" data-title="Working session">
+            <img src="figma-export/VASA/VASA/Mobile App/2019-07-03 16.42.10.jpg" alt="Working session" style="object-fit:cover;object-position:center"/>
+          </a>
+        </div>
+        <div class="cs-img-frame landscape">
+          <a href="figma-export/VASA/VASA/Mobile App/2019-09-09 16.45.04.jpg" class="glightbox" data-title="Early design session">
+            <img src="figma-export/VASA/VASA/Mobile App/2019-09-09 16.45.04.jpg" alt="Early design session" style="object-fit:cover;object-position:center top"/>
+          </a>
+        </div>
+        <div class="cs-img-frame landscape">
+          <a href="figma-export/VASA/VASA/Mobile App/mobileapp_gamificaitonflow.png" class="glightbox" data-title="App user flow diagram">
+            <img src="figma-export/VASA/VASA/Mobile App/mobileapp_gamificaitonflow.png" alt="App user flow diagram" style="object-fit:cover;object-position:top left"/>
+          </a>
+        </div>
+        <div class="cs-img-frame landscape">
+          <a href="figma-export/VASA/VASA/Mobile App/2019-12-05 13.34.35.jpg" class="glightbox" data-title="Working session">
+            <img src="figma-export/VASA/VASA/Mobile App/2019-12-05 13.34.35.jpg" alt="Working session" style="object-fit:cover;object-position:center"/>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Shipping -->
+    <div class="cs-article-section">
       <div class="cs-article-label">Delivery</div>
       <h2 class="cs-article-title">The <em>platform tradeoff</em></h2>
       <div class="cs-article-body">
         <p>The Phase 1 launch target was November 2019 — timed to a Thanksgiving marketing push. That gave us less than six months from kickoff to both app stores. For a custom native app on two platforms, with a junior dev team and third-party API dependencies, that's a tight window.</p>
+        <p>As the deadline closed in, it became clear we couldn't deliver the same level of quality on both platforms. The team had to make a tradeoff: delay the launch to bring Android up to parity, or ship on time and accept a gap between platforms.</p>
+        <p>The iOS experience was strong — the version the C-suite ended up raving about. Android was functional, but it carried compromises we weren't proud of: interaction patterns that didn't feel quite right, areas where polish wasn't there yet. My role in that moment wasn't deciding the tradeoff, but making sure what we shipped still made sense as a product. That meant focusing design effort where it would have the most impact, tightening the core flows, and working closely with developers to ensure that even where we cut corners, the experience still held together.</p>
+        <p>With roughly 70% of VASA's members on iOS, we were delivering a high-quality experience to the majority while still replacing something broken for everyone else. We treated Android as a gap to close, not a permanent state.</p>
       </div>
 
       <div class="cs-art-phase">
@@ -450,25 +496,6 @@
             <img src="figma-export/VASA/VASA/Mobile App/barcodeimgedit2.png" alt="Member barcode"/>
           </a>
         </div>
-      </div>
-
-      <div class="cs-article-body">
-        <p>As the deadline closed in, it became clear we couldn't deliver the same level of quality on both platforms. The team had to make a tradeoff: delay the launch to bring Android up to parity, or ship on time and accept a gap between platforms.</p>
-        <p>The iOS experience was strong — the version the C-suite ended up raving about. Android was functional, but it carried compromises we weren't proud of: interaction patterns that didn't feel quite right, areas where polish wasn't there yet. My role in that moment wasn't deciding the tradeoff, but making sure what we shipped still made sense as a product. That meant focusing design effort where it would have the most impact, tightening the core flows, and working closely with developers to ensure that even where we cut corners, the experience still held together.</p>
-        <p>With roughly 70% of VASA's members on iOS, we were delivering a high-quality experience to the majority while still replacing something broken for everyone else. We treated Android as a gap to close, not a permanent state.</p>
-      </div>
-
-      <blockquote class="cs-pull">We shipped on time, knowing exactly where the gaps were.</blockquote>
-
-      <div class="cs-article-body">
-        <p>Getting there also required a way of working I hadn't fully anticipated. About two-thirds of the development team were junior engineers learning native iOS or Android for the first time. A Figma handoff wasn't going to cut it — these developers were simultaneously learning a new platform, a new codebase, and how to interpret design specs.</p>
-        <p>So I started doing side-by-side reviews. I'd sit with a developer, pull up the build on a device next to the design in Figma, and we'd walk through it together — pixel by pixel when it mattered, but more importantly, talking through intent. Why this spacing exists. Why this element is interactive and that one isn't. What the user is trying to accomplish on this screen and how the layout supports that. It wasn't just QA — it was teaching them to see the design the way a designer sees it.</p>
-      </div>
-
-      <blockquote class="cs-pull">At peak velocity, that 1:5 designer-to-developer ratio meant I spent 50–70% of each working day in these reviews. It was exhausting, but it was the single most important thing I did for product quality.</blockquote>
-
-      <div class="cs-article-body">
-        <p>The developers didn't just build better screens as the project progressed — they started catching issues on their own, asking better questions before building, and developing an instinct for when something looked off. That's the part that doesn't show up in a shipped feature list, but it's the reason the features shipped at the quality they did.</p>
       </div>
     </div>
 
@@ -529,6 +556,19 @@
 
       <blockquote class="cs-pull">My job wasn't just to design the features — it was to help the client decide which features deserved to exist at all.</blockquote>
 
+      <div class="cs-art-img-2col" style="margin-top:32px;margin-bottom:32px">
+        <div class="cs-img-frame landscape">
+          <a href="figma-export/VASA/VASA/Mobile App/2022-01-12_11-19-23.png" class="glightbox" data-title="Card sort session">
+            <img src="figma-export/VASA/VASA/Mobile App/2022-01-12_11-19-23.png" alt="Card sort session" style="object-fit:cover;object-position:center"/>
+          </a>
+        </div>
+        <div class="cs-img-frame landscape">
+          <a href="figma-export/VASA/VASA/Mobile App/2022-01-12_11-22-31.png" class="glightbox" data-title="Feature prioritisation exercise">
+            <img src="figma-export/VASA/VASA/Mobile App/2022-01-12_11-22-31.png" alt="Feature prioritisation exercise" style="object-fit:cover;object-position:center"/>
+          </a>
+        </div>
+      </div>
+
       <div class="cs-article-body">
         <p>With the roadmap locked, Phase 2 deepened member engagement. We added member referrals, check-in history, profile photo uploads, the ability to change your home gym, and a gamification system with badges — features designed to make the app feel personal, not just functional.</p>
         <p>One structural call I wish we'd made earlier was splitting iOS and Android into dedicated teams. In Phase 1, developers were context-switching between platforms, losing momentum on both. By Phase 2, I advocated for the split, and once it happened, velocity improved immediately. It's the kind of process decision that doesn't feel like design work, but it directly affected what we could ship and how fast.</p>
@@ -553,8 +593,8 @@
           </a>
         </div>
         <div class="cs-img-frame portrait">
-          <a href="figma-export/VASA/VASA/Mobile App/Badge Overview 1.png" class="glightbox" data-title="Gamification badges">
-            <img src="figma-export/VASA/VASA/Mobile App/Badge Overview 1.png" alt="VASA badge gamification"/>
+          <a href="figma-export/VASA/VASA/Mobile App/badge overview.png" class="glightbox" data-title="Gamification badge overview">
+            <img src="figma-export/VASA/VASA/Mobile App/badge overview.png" alt="VASA badge overview"/>
           </a>
         </div>
         <div class="cs-img-frame portrait">
@@ -607,15 +647,10 @@
         <p>Ownership also meant caring about the product after it shipped. I wrote the app store update notes for each release and personally responded to user reviews — the kind of work that doesn't show up in anyone's job description but signals to the client (and to the members) that someone on the team is paying attention to the full experience, not just the Figma file.</p>
       </div>
 
-      <div class="cs-art-img-2col">
-        <div class="cs-img-frame" style="aspect-ratio:9/16.8">
-          <a href="figma-export/VASA/VASA/Portfolio site extra images/whiteboard with team.png" class="glightbox" data-title="Whiteboard session with team">
-            <img src="figma-export/VASA/VASA/Portfolio site extra images/whiteboard with team.png" alt="Whiteboard session with team" style="object-position:center"/>
-          </a>
-        </div>
-        <div class="cs-img-frame" style="aspect-ratio:9/16.8">
+      <div style="max-width:700px;margin:32px auto">
+        <div class="cs-img-frame landscape">
           <a href="figma-export/VASA/VASA/Portfolio site extra images/end team photo.png" class="glightbox" data-title="Neudesic VASA project team">
-            <img src="figma-export/VASA/VASA/Portfolio site extra images/end team photo.png" alt="Neudesic VASA project team" style="object-position:center"/>
+            <img src="figma-export/VASA/VASA/Portfolio site extra images/end team photo.png" alt="Neudesic VASA project team" style="object-fit:cover;object-position:center"/>
           </a>
         </div>
       </div>
