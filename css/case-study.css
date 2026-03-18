@@ -242,6 +242,6 @@ body { cursor: none }
   #cs-next { padding: 56px 12px }
   .cs-next-inner { flex-direction: column; align-items: flex-start }
   .cs-next-link { text-align: left; padding: 16px 0 }
-  .cs-impact-row { flex-direction: column }
-  .cs-impact-row .cs-stat-card { flex: 1 1 100%; width: 100% }
+  .cs-impact-row { display: grid; grid-template-columns: 1fr; gap: 12px }
+  .cs-impact-row .cs-stat-card { flex: none; width: 100% }
 }
