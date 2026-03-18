@@ -261,7 +261,7 @@
 <!-- ── HERO ── -->
 <section id="cs-hero">
   <div class="cs-hero-inner">
-    <div class="cs-num">Case Study — VASA Fitness Mobile App</div>
+    <div class="cs-num">Case Study — VASA Fitness Mobile App &nbsp;·&nbsp; 9 min read</div>
     <div class="work-tags" style="margin-bottom:12px;margin-top:-8px">
       <span class="work-tag">Consumer</span>
       <span class="work-tag">Mobile</span>
@@ -280,7 +280,7 @@
       </div>
       <div class="cs-meta-item">
         <span class="cs-meta-lbl">Role</span>
-        <span class="cs-meta-val">UX Designer → UX Lead</span>
+        <span class="cs-meta-val">UX Project Lead → UX Lead</span>
       </div>
       <div class="cs-meta-item">
         <span class="cs-meta-lbl">Timeline</span>
@@ -317,6 +317,7 @@
         <li>Established decision-making frameworks (card sorts, priority matrices) to <strong>reduce misalignment and scope creep</strong></li>
         <li>Bridged client leadership and delivery team — presenting to <strong>C-suite stakeholders</strong> and running side-by-side dev reviews</li>
         <li>Mentored junior engineers through hands-on design reviews, <strong>raising implementation quality</strong> across both platforms</li>
+        <li>Introduced usability testing cadence that <strong>directly shaped feature priority</strong> across three phases</li>
         <li>Delivered a new mobile experience to both app stores <strong>within a 6-month timeline</strong></li>
         <li><strong>300,000 installs and $150,000 in direct app revenue</strong> within three months of launch</li>
       </ul>
@@ -327,9 +328,8 @@
       <div class="cs-article-label">Context</div>
       <h2 class="cs-article-title">Ten people, two platforms, <em>six months</em></h2>
       <div class="cs-article-body">
-        <p>The consulting world doesn't ease you in. You show up on day one already behind — the client has been thinking about this project for months, the timeline was set before you were staffed, and your team is a mix of people who've never worked together. That was the VASA Fitness engagement in the summer of 2019.</p>
-        <p>Our team was about ten people, all Neudesic. A couple of senior leads, and then a group of junior developers — several of whom were building their first native iOS or Android app. The energy was chaotic in the way that early-stage consulting projects always are: everyone figuring out their role, the client figuring out what they actually want, standups that run long because nobody's sure which decisions have been made yet. But it was also exciting. The kind of project where the whiteboard is always full, where someone grabs you on the way to lunch to sketch an idea on a napkin, and where the work moves fast enough that what you design this week might be in a build next week.</p>
-        <p>The assignment was clear, even if the path wasn't: VASA Fitness, a national gym chain, needed a real mobile app. What they had wasn't working. And they needed it live in both app stores by Thanksgiving — less than six months away.</p>
+        <p>VASA Fitness, a national gym chain, needed a real mobile app. What they had wasn't working, and they needed it live in both app stores by Thanksgiving — less than six months away.</p>
+        <p>Our team was about ten people, all Neudesic. A couple of senior leads and a group of junior developers — several building their first native iOS or Android app. The timeline was set before we were staffed, the client was still figuring out what they wanted, and nobody on the team had worked together before. Classic consulting project: chaotic, fast, and exciting.</p>
       </div>
 
       <div style="width:min(1280px,calc(100vw - 48px));margin-left:50%;transform:translateX(-50%);margin-top:40px;margin-bottom:0">
@@ -346,10 +346,9 @@
       <div class="cs-article-label">The Problem</div>
       <h2 class="cs-article-title">A white-labeled app <em>nobody liked</em></h2>
       <div class="cs-article-body">
-        <p>VASA's existing app was a Netpulse white-label — a generic template product shared across dozens of gym brands. It looked like a VASA app on the surface, but underneath it was a hollow shell. All of VASA's real member data — accounts, class schedules, payments, KidCare reservations — lived in a completely separate system called PAC. The Netpulse app and PAC didn't talk to each other in any meaningful way.</p>
-        <p>The result, for members, was maddening. You'd open the app, log in, and then get launched into a browser window inside the app where you'd have to log in again — to a completely different system — just to see your class schedule. Two logins, two interfaces, no continuity. It felt like the app was actively working against you.</p>
-        <p>And for a member like the one we kept coming back to throughout the project — a single mom in her early thirties who drops her two kids at KidCare before her morning class — the app was useless for the thing she needed most. KidCare scheduling wasn't available through any digital system at all. She had to call the front desk or walk in and do it manually. Every single time. We wanted her to open the app on Sunday night, schedule her KidCare and classes for the week in two minutes, and get on with her evening. That was the bar we designed toward.</p>
-        <p>VASA knew this was broken. They'd tried to work within the Netpulse framework and hit walls everywhere. They wanted something they owned entirely — an app that connected to their actual data, that they could evolve on their own terms, and that could become a real digital channel to their members. That's what they hired us to build.</p>
+        <p>VASA's existing app was a Netpulse white-label — a generic template shared across dozens of gym brands. All of VASA's real member data — accounts, class schedules, payments, KidCare reservations — lived in a completely separate system called PAC. The two systems didn't talk to each other.</p>
+        <p>The result was maddening: members opened the app, logged in, then got launched into a browser window where they had to log in again to a different system just to see their class schedule. Two logins, two interfaces, no continuity.</p>
+        <p>The member we kept coming back to throughout the project — a single mom in her early thirties who drops her two kids at KidCare before her morning class — couldn't do the thing she needed most. KidCare scheduling wasn't available through any digital system. She had to call the front desk every time. We wanted her to open the app on Sunday night, schedule her KidCare and classes for the week in two minutes, and move on. That was the bar we designed toward.</p>
       </div>
 
       <div style="width:min(499px,calc(100vw - 48px));margin-left:50%;transform:translateX(-50%);margin-top:40px;margin-bottom:40px;border-radius:12px;overflow:hidden">
@@ -416,9 +415,8 @@
       <div class="cs-article-label">Constraints</div>
       <h2 class="cs-article-title">Designing inside <em>someone else's system</em></h2>
       <div class="cs-article-body">
-        <p>Here's where consulting projects get interesting: we didn't control the data. Every feature we designed had to work within the API boundaries of PAC, the third-party platform that held all of VASA's member information — accounts, payments, class schedules, everything. PAC wasn't built to power a modern mobile app. It was built to manage gym operations from the back office.</p>
-        <p>This constraint shaped every design decision. It wasn't enough to ask "what's the best experience?" — we had to constantly ask "what can PAC actually give us?" That meant designing screens, discovering a data field wasn't exposed through the API, and getting creative about what we could surface and how.</p>
-        <p>KidCare scheduling was a perfect example. Members had been calling the front desk to book childcare because no system supported it digitally. We had to work with PAC to figure out what data was available, what scheduling logic could be built on top of it, and how to present it in the app as something that felt native — not bolted on. Making that work was one of the quiet wins of the project, because from the member's perspective, it just worked. She had no idea what was happening underneath. She just opened the app, booked her two KidCare slots for the week, and moved on.</p>
+        <p>Every feature we designed had to work within the API boundaries of PAC, the third-party platform that held all of VASA's member data. PAC wasn't built to power a modern mobile app — it was built to manage gym operations from the back office. So it wasn't enough to ask "what's the best experience?" We had to constantly ask "what can PAC actually give us?"</p>
+        <p>KidCare scheduling was a perfect example. No system supported it digitally — members had been calling the front desk. We worked with PAC to figure out what data was available, what scheduling logic could be built on top of it, and how to present it as something that felt native. From the member's perspective, it just worked. She had no idea what was happening underneath.</p>
       </div>
 
     </div>
@@ -463,17 +461,15 @@
       <div class="cs-article-label">Process</div>
       <h2 class="cs-article-title">Teaching developers <em>to see</em></h2>
       <div class="cs-article-body">
-        <p>Design on this project wasn't a handoff — it was a continuous loop. Screens went into Figma, builds came back from developers, and we iterated in real time. What I designed this week was often in a build next week, which meant design decisions had to be made fast, communicated clearly, and revisited constantly as the product took shape.</p>
-        <p>That pace was clarifying. You stop overthinking a component when you know it's getting built in three days. You get good at deciding what matters and letting go of what doesn't.</p>
-        <p>But speed only works if the people building your designs understand them. That was the harder problem. About two-thirds of the development team were junior engineers learning native iOS or Android for the first time. And rather than treat them as downstream executors, we pulled them in early — into workshops, into whiteboard sessions, into the messy front-end of the design process where the decisions were still being made. When developers understand why a design exists before they write a line of code, they build it differently. They make better judgment calls when they hit an edge case at 4pm and there's no designer around to ask.</p>
-        <p>So I also started doing side-by-side reviews once builds came back. I'd sit with a developer, pull up the build on a device next to the design in Figma, and we'd walk through it together — pixel by pixel when it mattered, but more importantly, talking through intent. Why this spacing exists. Why this element is interactive and that one isn't. What the user is trying to accomplish on this screen and how the layout supports that. It wasn't just QA — it was teaching them to see the design the way a designer sees it.</p>
+        <p>Design on this project wasn't a handoff — it was a continuous loop. Screens went into Figma, builds came back from developers, and we iterated in real time. What I designed this week was often in a build next week, which meant design decisions had to be made fast, communicated clearly, and revisited constantly.</p>
+        <p>But speed only works if the people building your designs understand them. About two-thirds of the development team were junior engineers learning native iOS or Android for the first time. Rather than treat them as downstream executors, we pulled them in early — into workshops, into whiteboard sessions, into the messy front-end of the design process where decisions were still being made. When developers understand why a design exists before they write a line of code, they build it differently.</p>
+        <p>I also started doing side-by-side reviews once builds came back. I'd sit with a developer, pull up the build on a device next to the design in Figma, and we'd walk through it together — talking through intent. Why this spacing exists. What the user is trying to accomplish on this screen and how the layout supports that. It wasn't just QA — it was teaching them to see the design the way a designer sees it.</p>
       </div>
 
       <blockquote class="cs-pull">At peak velocity, that 1:5 designer-to-developer ratio meant I spent 50–70% of each working day in these reviews. It was exhausting, but it was the single most important thing I did for product quality.</blockquote>
 
       <div class="cs-article-body">
-        <p>The return on that investment compounded over time. Developers didn't just build better screens as the project progressed — they started catching issues on their own, asking better questions before building, and developing an instinct for when something looked off. By Phase 2, the gap between design intent and built output had narrowed significantly. Not because the designs got simpler, but because the team had internalized how to read them.</p>
-        <p>That's the part that doesn't show up in a shipped feature list. But it's the reason the features shipped at the quality they did — and it's what I'd point to if someone asked where design had the most leverage on this project.</p>
+        <p>The return compounded over time. Developers started catching issues on their own, asking better questions before building, and developing an instinct for when something looked off. By Phase 2, the gap between design intent and built output had narrowed significantly — not because the designs got simpler, but because the team had internalized how to read them.</p>
       </div>
 
       <div class="cs-art-img-2col" style="margin-top:32px">
@@ -500,15 +496,36 @@
       </div>
     </div>
 
+    <!-- Testing & Iteration -->
+    <div class="cs-article-section">
+      <div class="cs-article-label">Testing &amp; Iteration</div>
+      <h2 class="cs-article-title">What members showed us <em>we got wrong</em></h2>
+      <div class="cs-article-body">
+        <p>We didn't just ship and hope the numbers would tell us if it worked. Throughout the project, I ran guerrilla usability testing sessions at VASA gym locations — walking up to real members with prototypes on a phone, watching them try to complete tasks, and listening to where the design broke down. Across the project I tested with roughly 6 to 12 members, focused on the three flows that mattered most: class scheduling, KidCare booking, and the membership purchase process.</p>
+        <p><strong>Filtering tripped people up — twice.</strong> The same problem surfaced in two different flows. In class scheduling, members struggled to filter and find the right class — the filter patterns we'd designed made sense to us but created confusion in practice. The same pattern repeated in KidCare booking. Seeing it in two flows made it impossible to ignore — this wasn't an edge case, it was a pattern in our design language that needed to be rethought. We simplified the filter interactions across both flows: clearer entry points, fewer steps, and interactions that felt invisible.</p>
+        <p><strong>The membership purchase flow needed to breathe.</strong> In testing, the length of the flow created friction. Members weren't sure how far along they were, and the density of information on tier comparison screens made it hard to focus. We made a series of refinements — clearer step progression, streamlined screens, and a more scannable tier comparison. The flow was still detailed — it had to be — but it no longer felt like a slog.</p>
+        <p>After making changes, I went back to the gyms and put the revised prototypes in front of members again. The friction points were gone. That second round gave us the conviction to lock the designs and move into development, knowing the core experience had been validated by the people who'd actually use it.</p>
+      </div>
+
+      <blockquote class="cs-pull">The survey told us what to build. Guerrilla testing at the gyms told us whether we built it right. Going back a second time told us we had.</blockquote>
+
+      <div style="width:min(1280px,calc(100vw - 48px));margin-left:50%;transform:translateX(-50%);margin-top:40px;margin-bottom:0">
+        <div class="cs-img-frame" style="aspect-ratio:16/7;border-radius:12px">
+          <a href="figma-export/VASA/VASA/Mobile App/guerila-testing.png" class="glightbox" data-title="Guerrilla usability testing at VASA gym">
+            <img src="figma-export/VASA/VASA/Mobile App/guerila-testing.png" alt="Guerrilla usability testing at VASA gym" style="object-fit:cover;object-position:center"/>
+          </a>
+        </div>
+      </div>
+    </div>
+
     <!-- Shipping -->
     <div class="cs-article-section">
       <div class="cs-article-label">Delivery</div>
       <h2 class="cs-article-title">The <em>platform tradeoff</em></h2>
       <div class="cs-article-body">
-        <p>The Phase 1 launch target was November 2019 — timed to a Thanksgiving marketing push. That gave us less than six months from kickoff to both app stores. For a custom native app on two platforms, with a junior dev team and third-party API dependencies, that's a tight window.</p>
-        <p>As the deadline closed in, it became clear we couldn't deliver the same level of quality on both platforms. The team had to make a tradeoff: delay the launch to bring Android up to parity, or ship on time and accept a gap between platforms.</p>
-        <p>The iOS experience was strong — the version the C-suite ended up raving about. Android was functional, but it carried compromises we weren't proud of: interaction patterns that didn't feel quite right, areas where polish wasn't there yet. My role in that moment wasn't deciding the tradeoff, but making sure what we shipped still made sense as a product. That meant focusing design effort where it would have the most impact, tightening the core flows, and working closely with developers to ensure that even where we cut corners, the experience still held together.</p>
-        <p>With roughly 70% of VASA's members on iOS, we were delivering a high-quality experience to the majority while still replacing something broken for everyone else. We treated Android as a gap to close, not a permanent state.</p>
+        <p>The Phase 1 launch target was November 2019 — timed to a Thanksgiving marketing push. Less than six months from kickoff to both app stores, with a junior dev team and third-party API dependencies.</p>
+        <p>As the deadline closed in, it became clear we couldn't deliver the same quality on both platforms. The iOS experience was strong — the version the C-suite ended up raving about. Android was functional but carried compromises. My role wasn't deciding the tradeoff, but making sure what we shipped still made sense as a product — focusing design effort where it would have the most impact, tightening core flows, and working closely with developers to ensure that even where we cut corners, the experience held together.</p>
+        <p>With roughly 70% of VASA's members on iOS, we were delivering a high-quality experience to the majority while replacing something broken for everyone else. We treated Android as a gap to close, not a permanent state.</p>
       </div>
 
       <div class="cs-art-phase">
@@ -600,9 +617,8 @@
       <div class="cs-article-label">The Interruption</div>
       <h2 class="cs-article-title">Then the world <em>stopped</em></h2>
       <div class="cs-article-body">
-        <p>On March 19, 2020, VASA closed every gym in response to COVID-19. Member accounts were frozen. Most staff were furloughed. Revenue dropped to zero overnight. All vendor work — including ours — halted immediately.</p>
-        <p>For about three months, the project didn't exist. We'd shipped a successful Phase 1, the numbers were strong, the client was happy, and then none of that mattered because nobody was going to the gym anymore. It was the kind of interruption you can't plan for and can't design around. You just wait.</p>
-        <p>When VASA reopened and started bringing vendors back, Neudesic was one of the first calls they made. That decision — choosing to reinvest in the app before most other vendor relationships — was a direct result of the trust built during Phase 1. We picked up where we left off, but with sharper focus and a team that already knew how to work together. That trust eventually led to two additional projects — a guest kiosk tool and a self-service support site — both designed and shipped during the pandemic recovery, when every budget line was being scrutinized.</p>
+        <p>On March 19, 2020, VASA closed every gym in response to COVID-19. Revenue dropped to zero overnight. All vendor work halted immediately. For three months, the project didn't exist.</p>
+        <p>When VASA reopened and started bringing vendors back, Neudesic was one of the first calls they made. That decision — reinvesting in the app before most other vendor relationships — was a direct result of the trust built during Phase 1. That trust eventually led to two additional projects during the pandemic recovery, when every budget line was being scrutinized.</p>
       </div>
     </div>
 
@@ -611,8 +627,7 @@
       <div class="cs-article-label">Phase 2</div>
       <h2 class="cs-article-title">Deciding what to <em>build next</em></h2>
       <div class="cs-article-body">
-        <p>Phase 2 presented a different kind of problem than Phase 1. The first time around, the priorities were obvious: ship the basics, replace the broken thing, give members account access. But after launch, the feature backlog exploded. VASA had a long list of ideas — referrals, gamification, rewards, social features, check-in history, profile customization — and everyone had opinions about what should come next.</p>
-        <p>So I facilitated a card sort exercise with Mehul Chaudhari to force prioritization. We laid out every candidate feature, mapped them against member impact and technical feasibility, and sorted them into a sequenced roadmap. The exercise did what it needed to do: it turned a sprawling wishlist into a focused plan that the entire team — VASA's leadership, our developers, and the product group — could align around.</p>
+        <p>After launch, the feature backlog exploded. I facilitated a card sort exercise with Mehul Chaudhari to force prioritization — laying out every candidate feature, mapping them against member impact and technical feasibility, and sorting them into a sequenced roadmap. It turned a sprawling wishlist into a focused plan the entire team could align around.</p>
       </div>
 
       <blockquote class="cs-pull">My job wasn't just to design the features — it was to help the client decide which features deserved to exist at all.</blockquote>
@@ -701,11 +716,11 @@
     <!-- Becoming the lead -->
     <div class="cs-article-section" style="margin-top:0">
       <div class="cs-article-label">Leadership</div>
-      <h2 class="cs-article-title">Becoming <em>the lead</em></h2>
+      <h2 class="cs-article-title">From designer to <em>decision-maker</em></h2>
       <div class="cs-article-body">
-        <p>Six months into the engagement, the principal designer moved on and I stepped into the UX Lead role. The shift changed my day-to-day in ways I didn't fully anticipate.</p>
-        <p>As UX Lead, I was no longer just designing screens and doing side-by-side build reviews. I was presenting directly to VASA's stakeholders, defining the product roadmap, writing user stories, managing the backlog, and keeping priorities aligned across a team that now spanned multiple workstreams and two platform-specific dev groups. I became one of the primary communicators between VASA's leadership and our delivery team — translating business goals into design direction in stakeholder meetings, then translating design intent into implementation specifics in developer reviews. Two different audiences, two different languages, same product vision.</p>
-        <p>Ownership also meant caring about the product after it shipped. I wrote the app store update notes for each release and personally responded to user reviews — the kind of work that doesn't show up in anyone's job description but signals to the client (and to the members) that someone on the team is paying attention to the full experience, not just the Figma file.</p>
+        <p>Six months into the engagement, the principal designer moved on and I stepped into the UX Lead role. I was no longer just designing screens — I was presenting directly to VASA's stakeholders, defining the product roadmap, writing user stories, managing the backlog, and keeping priorities aligned across a team that now spanned multiple workstreams and two platform-specific dev groups.</p>
+        <p>I became one of the primary communicators between VASA's leadership and our delivery team — translating business goals into design direction in stakeholder meetings, then translating design intent into implementation specifics in developer reviews. Two different audiences, two different languages, same product vision.</p>
+        <p>Ownership also meant caring about the product after it shipped. I wrote the app store update notes for each release and personally responded to user reviews — the kind of work that doesn't show up in anyone's job description but signals that someone on the team is paying attention to the full experience, not just the Figma file.</p>
       </div>
 
       <div style="max-width:700px;margin:32px auto">
@@ -722,7 +737,7 @@
       </div>
 
       <div class="cs-article-body">
-        <p>That trust didn't come from a single moment. It came from showing up consistently — facilitating the card sorts, presenting design rationale in language stakeholders cared about, catching implementation issues before they became client-facing bugs, and being honest about what we could and couldn't deliver in a given sprint. When a client starts treating you as a strategic partner rather than a vendor executing a spec, that's the signal that you're operating at the right altitude.</p>
+        <p>That trust came from showing up consistently — facilitating the card sorts, presenting design rationale in language stakeholders cared about, catching implementation issues before they became client-facing bugs, and being honest about what we could and couldn't deliver in a given sprint.</p>
       </div>
     </div>
 
@@ -731,7 +746,7 @@
       <div class="cs-article-label">What came next</div>
       <h2 class="cs-article-title">The relationship <em>continued</em></h2>
       <div class="cs-article-body">
-        <p>The trust built during the mobile app engagement led VASA to bring Neudesic back for two additional projects — both completed during the COVID recovery period in mid-2020, when every budget line was being scrutinized.</p>
+        <p>The trust built during the mobile app engagement led VASA to bring Neudesic back for two additional projects — a tablet-based sales tool and a self-service support site — both completed during the COVID recovery period in mid-2020, when every budget line was being scrutinized.</p>
       </div>
 
       <div class="cs-art-phase">
@@ -788,13 +803,10 @@
       <div class="cs-article-label">Reflection</div>
       <h2 class="cs-article-title">What this <em>work proved</em></h2>
       <div class="cs-article-body">
-        <p>A project like this doesn't succeed because everything goes right. It succeeds because the team learns how to make decisions quickly, align around what matters, and move forward even when the path isn't clean.</p>
-        <p>For VASA, that meant focusing on the few things that would actually change the member experience — real account access, class and KidCare scheduling, and a product that felt like it belonged to them, not a template shared with dozens of other gyms.</p>
-        <p>For me, it reinforced where design has the most impact. Not just in the screens, but in how decisions get made — helping a team converge, giving developers enough context to build with confidence, and making tradeoffs explicit so the product can actually ship.</p>
-        <p>The Starbucks comparison is the part people remember. The 4.3-star rating, the 300,000 installs, the revenue — those are easy signals of success. What mattered more was that the product worked. Members could do the things they needed to do without friction. The team could build on it. And the client trusted us enough to keep going.</p>
+        <p>This project succeeded because the team learned how to make decisions quickly, align around what mattered, and move forward without perfect information.</p>
+        <p>For me, it reinforced where design has the most impact — not just in the screens, but in how decisions get made: helping a team converge, giving developers enough context to build with confidence, testing assumptions with real members, and making tradeoffs explicit so the product can actually ship.</p>
+        <p>The Starbucks comparison is the part people remember. The 4.3-star rating, the 300,000 installs, the revenue — those are easy signals. What mattered more was that the product worked, members could do what they needed without friction, and the client trusted us enough to keep going.</p>
       </div>
-
-      <blockquote class="cs-pull">But only if you learn how to make the right calls before you have perfect information.</blockquote>
     </div>
 
     <div style="height:80px"></div>
