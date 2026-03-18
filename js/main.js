@@ -34,7 +34,7 @@ function drawPortal(canvas, opts) {
     nx: (idx % cols + Math.random()) / cols,
     ny: (Math.floor(idx / cols) + Math.random()) / rows,
     r: .15 + Math.random() * 1.2, a: .1 + Math.random() * .85,
-    phase: Math.random() * Math.PI * 2, speed: .004 + Math.random() * .022
+    phase: Math.random() * Math.PI * 2, speed: .00224 + Math.random() * .01232
   }));
 
   // ── Nebulae (normalized) ──
@@ -42,7 +42,7 @@ function drawPortal(canvas, opts) {
     nx: Math.random(), ny: Math.random() * .75,
     rnx: .06 + Math.random() * .14, rny: .03 + Math.random() * .07,
     color: Math.random() > .5 ? '251,146,60' : '56,189,248',
-    phase: Math.random() * Math.PI * 2, speed: .002 + Math.random() * .004
+    phase: Math.random() * Math.PI * 2, speed: .00112 + Math.random() * .00224
   }));
 
   // ── Constellations ──
@@ -58,7 +58,7 @@ function drawPortal(canvas, opts) {
     const layer = Math.floor(i / 70);
     return {
       angle: (i / 280) * Math.PI * 2,
-      speed: (.007 + Math.random() * .005) * (layer % 2 === 0 ? 1 : -1) * (1 - layer * .15),
+      speed: (.00196 + Math.random() * .0014) * (layer % 2 === 0 ? 1 : -1) * (1 - layer * .15),
       r: (opts.discRBase || .048) + layer * .022 + (Math.random() - .5) * .014,
       size: (1.2 + Math.random() * 3.6) * (opts.discSizeScale || 1),
       brightness: .3 + Math.random() * .7,
@@ -73,6 +73,19 @@ function drawPortal(canvas, opts) {
     hotSpeed:    (.003 + Math.random() * .004) * (Math.random() > .5 ? 1 : -1),
     isOrange:    i % 2 === 0
   }));
+
+  // ── Solar flares ──
+  const flares = [];
+  setInterval(() => {
+    flares.push({
+      angle:      Math.random() * Math.PI * 2,
+      startT:     t,
+      duration:   1.0 + Math.random() * 0.9,
+      lengthMult: 1.6 + Math.random() * 1.6,
+      spread:     0.13 + Math.random() * 0.10
+    });
+    if (flares.length > 4) flares.shift();
+  }, 3800);
 
   // ── Shooting stars ──
   const shooters = [];
@@ -310,7 +323,7 @@ function drawPortal(canvas, opts) {
     ctx.save();
     ctx.globalCompositeOperation = 'screen';
     for (let i = 0; i < 8; i++) {
-      const angle = i * .785 + t * (.2 + i * .011) * (i % 2 === 0 ? 1 : -1);
+      const angle = i * .785 + t * (.112 + i * .00616) * (i % 2 === 0 ? 1 : -1);
       const dist  = minR + (maxR - minR) * (.22 + Math.sin(t * .6 + i * .8) * .16);
       const bx    = ox + Math.cos(angle) * dist;
       const by    = oy + Math.sin(angle) * dist * .38;
@@ -413,6 +426,39 @@ function drawPortal(canvas, opts) {
     pg.addColorStop(.72, `rgba(140,40,0,${.18})`);
     pg.addColorStop(1,   'rgba(80,20,0,0)');
     ctx.beginPath(); ctx.arc(ox, oy, sR * 2.8 * gs, 0, Math.PI * 2); ctx.fillStyle = pg; ctx.fill();
+
+    // ── Solar flares ──
+    for (let i = flares.length - 1; i >= 0; i--) {
+      const fl = flares[i];
+      const elapsed = t - fl.startT;
+      if (elapsed > fl.duration) { flares.splice(i, 1); continue; }
+      const progress  = elapsed / fl.duration;
+      const opacity   = Math.sin(progress * Math.PI) * (1 - progress * .25);
+      const flareLen  = sR * fl.lengthMult * Math.sin(progress * Math.PI);
+      const ax = Math.cos(fl.angle), ay = Math.sin(fl.angle);
+      const px = -ay, py = ax;
+      const baseW  = sR * fl.spread * (1 - progress * .5);
+      const tipX   = ox + ax * (sR + flareLen), tipY = oy + ay * (sR + flareLen);
+      const b1x    = ox + ax * sR * .95 + px * baseW, b1y = oy + ay * sR * .95 + py * baseW;
+      const b2x    = ox + ax * sR * .95 - px * baseW, b2y = oy + ay * sR * .95 - py * baseW;
+      ctx.save();
+      ctx.globalCompositeOperation = 'screen';
+      const fg = ctx.createLinearGradient(ox + ax * sR, oy + ay * sR, tipX, tipY);
+      fg.addColorStop(0,   `rgba(255,210,90,${opacity * .95})`);
+      fg.addColorStop(.25, `rgba(255,150,30,${opacity * .75})`);
+      fg.addColorStop(.65, `rgba(255,80,0,${opacity * .4})`);
+      fg.addColorStop(1,   'rgba(255,40,0,0)');
+      ctx.shadowBlur  = sR * .9;
+      ctx.shadowColor = `rgba(255,130,20,${opacity * .65})`;
+      ctx.beginPath();
+      ctx.moveTo(b1x, b1y);
+      ctx.lineTo(tipX, tipY);
+      ctx.lineTo(b2x, b2y);
+      ctx.closePath();
+      ctx.fillStyle = fg;
+      ctx.fill();
+      ctx.restore();
+    }
 
     // Inner orange haze — tight warm band right at the event horizon
     const ih = ctx.createRadialGradient(ox, oy, sR * .92 * gs, ox, oy, sR * 1.45 * gs);

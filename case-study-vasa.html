@@ -6,10 +6,180 @@
   <title>VASA Fitness Mobile App — Ted Potter</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
   <meta name="robots" content="noindex"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fraunces:ital,wght@0,300;0,600;1,300;1,600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fraunces:ital,wght@0,300;0,600;1,300;1,600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css"/>
   <link rel="stylesheet" href="css/styles.css"/>
   <link rel="stylesheet" href="css/case-study.css"/>
+  <style>
+    /* ── Article layout ── */
+    .cs-article {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .cs-article-section {
+      margin-top: 72px;
+    }
+    .cs-article-body {
+      font-size: 17px;
+      line-height: 1.9;
+      color: rgba(255,255,255,.72);
+    }
+    .cs-article-body p {
+      margin-bottom: 1.5em;
+    }
+    .cs-article-body p:last-child {
+      margin-bottom: 0;
+    }
+    /* ── Pull quote ── */
+    .cs-pull {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: clamp(1.35rem, 2.8vw, 1.9rem);
+      font-style: italic;
+      font-weight: 300;
+      line-height: 1.45;
+      color: rgba(255,180,100,.85);
+      border-left: 3px solid rgba(255,255,255,.2);
+      padding: 4px 0 4px 28px;
+      margin: 56px 0;
+    }
+    /* ── Section label + title ── */
+    .cs-article-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(249,115,22,.7);
+      margin-bottom: 10px;
+    }
+    .cs-article-label::before {
+      content: '— ';
+    }
+    .cs-article-title {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 600;
+      line-height: 1.15;
+      letter-spacing: -.01em;
+      color: #fff;
+      margin-bottom: 28px;
+    }
+    .cs-article-title em {
+      font-style: italic;
+      font-weight: 300;
+      background: linear-gradient(135deg,#fb923c,#38bdf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    /* ── Role list ── */
+    .cs-role-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .cs-role-list li {
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      font-size: 15px;
+      color: rgba(255,255,255,.7);
+      padding-left: 20px;
+      position: relative;
+    }
+    .cs-role-list li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: rgba(249,115,22,.7);
+      font-size: 13px;
+    }
+    .cs-role-list li strong {
+      color: rgba(255,255,255,.92);
+      font-weight: 600;
+    }
+    /* ── Image grids within article ── */
+    .cs-art-img {
+      width: 100%;
+      border-radius: 12px;
+      display: block;
+      margin: 40px 0;
+    }
+    .cs-art-img-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 40px;
+      margin-bottom: 40px;
+      width: min(1280px, calc(100vw - 48px));
+      margin-left: 50%;
+      transform: translateX(-50%);
+    }
+    .cs-art-img-3col {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin-top: 40px;
+      margin-bottom: 40px;
+      width: min(1280px, calc(100vw - 48px));
+      margin-left: 50%;
+      transform: translateX(-50%);
+    }
+    .cs-art-img-2col .cs-img-frame,
+    .cs-art-img-3col .cs-img-frame {
+      margin: 0;
+    }
+    /* ── Impact row ── */
+    .cs-impact-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 48px 0;
+    }
+    .cs-impact-row-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin: 12px 0 48px;
+    }
+    /* ── Phase block within article ── */
+    .cs-art-phase {
+      border-left: 2px solid rgba(249,115,22,.35);
+      padding-left: 24px;
+      margin: 40px 0 20px;
+    }
+    .cs-art-phase-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: rgba(249,115,22,.65);
+      margin-bottom: 6px;
+    }
+    .cs-art-phase-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    .cs-art-phase-body {
+      font-size: 15px;
+      line-height: 1.75;
+      color: rgba(255,255,255,.65);
+      margin-bottom: 12px;
+    }
+    /* ── Divider ── */
+    .cs-divider {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,.07);
+      margin: 72px 0;
+    }
+    @media (max-width: 640px) {
+      .cs-art-img-2col { grid-template-columns: 1fr; }
+      .cs-art-img-3col { grid-template-columns: 1fr 1fr; }
+      .cs-impact-row { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
 </head>
 <body>
 
@@ -30,14 +200,14 @@
 <!-- ── HERO ── -->
 <section id="cs-hero">
   <div class="cs-hero-inner">
-    <div class="cs-num">04 — Case Study</div>
-    <div class="work-tags" style="margin-bottom:16px">
+    <div class="cs-num">Case Study — VASA Fitness Mobile App</div>
+    <div class="work-tags" style="margin-bottom:12px;margin-top:-8px">
       <span class="work-tag">Consumer</span>
       <span class="work-tag">Mobile</span>
       <span class="work-tag">Fitness</span>
     </div>
-    <h1 class="cs-title">VASA Fitness <em>Mobile App</em></h1>
-    <p class="cs-lead">End-to-end UX lead on a ground-up iOS and Android app for a national gym chain — replacing a white-labeled product with a custom experience that drove 200k installs and $150k in direct app sales within months of launch.</p>
+    <h1 class="cs-title">Better Than <em>Starbucks</em></h1>
+    <p class="cs-lead">How a 10-person team built what Starbucks couldn't with 70. Replacing a broken white-label gym app with a custom native experience — shipped to both app stores in under six months, through a pandemic, with a junior dev team and a timeline that shouldn't have worked.</p>
     <div class="cs-meta">
       <div class="cs-meta-item">
         <span class="cs-meta-lbl">Client</span>
@@ -49,7 +219,7 @@
       </div>
       <div class="cs-meta-item">
         <span class="cs-meta-lbl">Role</span>
-        <span class="cs-meta-val">UX Project Lead</span>
+        <span class="cs-meta-val">UX Project Lead → UX Lead</span>
       </div>
       <div class="cs-meta-item">
         <span class="cs-meta-lbl">Timeline</span>
@@ -73,470 +243,454 @@
   />
 </section>
 
-<!-- ── THE PROBLEM ── -->
-<section class="cs-section">
-  <div class="cs-section-inner">
-    <div class="sec-label">The Problem</div>
-    <h2 class="sec-title">A white-labeled app <em>nobody liked</em></h2>
-    <div class="cs-two-col">
-      <div class="cs-body">
-        <p>VASA Fitness was running a Netpulse white-labeled app — a generic template product shared across dozens of gym brands. Members couldn't access or manage their accounts inside the app, and VASA had almost no ability to improve the experience or integrate their own data.</p>
-        <p>The result was frustration on both sides: <strong>members who felt disconnected from their gym</strong>, and a business that couldn't communicate with or retain them digitally.</p>
-      </div>
-      <div class="cs-body">
-        <p>VASA brought in Neudesic to design and build a fully custom native app — one they owned entirely, integrated deeply with member data, and could evolve on their own terms.</p>
-        <p>The goals were clear: <strong>reduce membership churn, drive in-app sales, and create a direct digital channel</strong> between VASA and its members — all while launching in under six months to hit a Thanksgiving marketing push.</p>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- ── ARTICLE BODY ── -->
+<section class="cs-section" style="padding-top:64px">
+  <div class="cs-article">
 
-<!-- ── DISCOVERY ── -->
-<section class="cs-section">
-  <div class="cs-section-inner">
-    <div class="sec-label">Discovery</div>
-    <h2 class="sec-title">What the <em>data told us</em></h2>
-    <div class="cs-body" style="max-width:640px;margin-bottom:32px">
-      <p>Before any design started, we surveyed over <strong>8,000 VASA members</strong> to understand their actual pain points. Three findings shaped the entire product direction.</p>
+    <!-- My Role -->
+    <div class="cs-article-section" style="margin-top:0">
+      <div class="cs-article-label">My Role &amp; Impact</div>
+      <ul class="cs-role-list">
+        <li>Led UX across iOS and Android for a <strong>10-person cross-functional team</strong></li>
+        <li>Defined product direction to replace an underperforming white-label app</li>
+        <li>Established decision-making frameworks (card sorts, priority matrices) to <strong>reduce misalignment and scope creep</strong></li>
+        <li>Bridged client leadership and delivery team — presenting to <strong>C-suite stakeholders</strong> and running side-by-side dev reviews</li>
+        <li>Mentored junior engineers through hands-on design reviews, <strong>raising implementation quality</strong> across both platforms</li>
+        <li>Delivered a new mobile experience to both app stores <strong>within a 6-month timeline</strong></li>
+        <li><strong>300,000 installs and $150,000 in direct app revenue</strong> within three months of launch</li>
+      </ul>
     </div>
-    <div class="cs-two-col-3">
-      <div class="cs-stat-card glass">
-        <div class="cs-stat-num">18mo</div>
-        <div class="cs-stat-lbl">Average member dropout — retention was the core business problem to solve</div>
-      </div>
-      <div class="cs-stat-card glass">
-        <div class="cs-stat-num">70%</div>
-        <div class="cs-stat-lbl">Of members on iOS — informed our platform priority and design approach</div>
-      </div>
-      <div class="cs-stat-card glass">
-        <div class="cs-stat-num">#1</div>
-        <div class="cs-stat-lbl">Member frustration: inability to access or manage their account through the app</div>
-      </div>
-    </div>
-    <div class="cs-quote" style="margin-top:40px">
-      <p>The data pointed to one root cause: members couldn't do anything useful in the app. No account access, no class booking tied to their real membership, no identity. It was a marketing brochure pretending to be a product.</p>
-      <cite>Key research finding — member survey, June 2019</cite>
-    </div>
-    <div class="cs-img-frame landscape" style="margin-top:32px">
-      <a href="figma-export/VASA/VASA/Mobile App/2022-01-12_11-36-20.png" class="glightbox" data-title="User testing session — prototype testing with members">
-        <img src="figma-export/VASA/VASA/Mobile App/2022-01-12_11-36-20.png" alt="User testing session — prototype testing with members"/>
-      </a>
-    </div>
-    <div class="cs-body" style="margin-top:24px">
-      <p><strong>Technical constraints shaped the solution:</strong> all member data lived in PAC, a third-party payment and scheduling platform. Every feature we designed had to work within the API boundaries PAC could provide — which required constant communication with their team throughout the project.</p>
-    </div>
-  </div>
-</section>
 
-<!-- ── MY ROLE ── -->
-<section class="cs-section">
-  <div class="cs-section-inner">
-    <div class="sec-label">My Role</div>
-    <h2 class="sec-title">End to end, <em>start to finish</em></h2>
-    <div class="cs-two-col">
-      <div>
-        <div class="cs-steps">
-          <div class="cs-step">
-            <div class="cs-step-num">01</div>
-            <div>
-              <div class="cs-step-head">Brand extension with the CMO</div>
-              <div class="cs-step-body">Built moodboards and style tiles, then ran a series of design reviews directly with VASA's CMO to align the app's visual direction with their brand — before writing a single screen.</div>
-            </div>
-          </div>
-          <div class="cs-step">
-            <div class="cs-step-num">02</div>
-            <div>
-              <div class="cs-step-head">Workshops & information architecture</div>
-              <div class="cs-step-body">Facilitated discovery workshops — card sorts, "What is the goal?" sessions, competitive analysis — to define the app's structure. Created full app flows for every new feature before any visual design began.</div>
-            </div>
-          </div>
-          <div class="cs-step">
-            <div class="cs-step-num">03</div>
-            <div>
-              <div class="cs-step-head">390+ screens designed</div>
-              <div class="cs-step-body">Designed iteratively across three major phases and multiple updates — visual designs, interactive prototypes, and design reviews with the client at each stage.</div>
-            </div>
-          </div>
-          <div class="cs-step">
-            <div class="cs-step-num">04</div>
-            <div>
-              <div class="cs-step-head">User testing at every phase</div>
-              <div class="cs-step-body">Beta period with real members before launch, purchase flow testing with internal staff, and in-gym live testing with members for major updates post-launch.</div>
-            </div>
-          </div>
-          <div class="cs-step">
-            <div class="cs-step-num">05</div>
-            <div>
-              <div class="cs-step-head">Developer collaboration at scale</div>
-              <div class="cs-step-body">At peak development, maintained a 1:5 designer-to-developer ratio — spending 50–70% of each day on design reviews, QA, and solving problems in real time as the team built.</div>
-            </div>
-          </div>
-          <div class="cs-step">
-            <div class="cs-step-num">06</div>
-            <div>
-              <div class="cs-step-head">Backlog ownership & UX lead</div>
-              <div class="cs-step-body">Wrote user stories and managed the backlog. Took over the UX Lead role six months in — presenting to client stakeholders, defining the roadmap, and keeping priorities aligned across the team.</div>
-            </div>
-          </div>
+    <!-- Ten people -->
+    <div class="cs-article-section">
+      <div class="cs-article-label">Context</div>
+      <h2 class="cs-article-title">Ten people, two platforms, <em>six months</em></h2>
+      <div class="cs-article-body">
+        <p>The consulting world doesn't ease you in. You show up on day one already behind — the client has been thinking about this project for months, the timeline was set before you were staffed, and your team is a mix of people who've never worked together. That was the VASA Fitness engagement in the summer of 2019.</p>
+        <p>Our team was about ten people, all Neudesic. A couple of senior leads, and then a group of junior developers — several of whom were building their first native iOS or Android app. The energy was chaotic in the way that early-stage consulting projects always are: everyone figuring out their role, the client figuring out what they actually want, standups that run long because nobody's sure which decisions have been made yet. But it was also exciting. The kind of project where the whiteboard is always full, where someone grabs you on the way to lunch to sketch an idea on a napkin, and where the work moves fast enough that what you design this week might be in a build next week.</p>
+        <p>The assignment was clear, even if the path wasn't: VASA Fitness, a national gym chain, needed a real mobile app. What they had wasn't working. And they needed it live in both app stores by Thanksgiving — less than six months away.</p>
+      </div>
+
+      <div style="width:min(1280px,calc(100vw - 48px));margin-left:50%;transform:translateX(-50%);margin-top:40px;margin-bottom:0">
+        <div class="cs-img-frame" style="aspect-ratio:16/7;border-radius:12px">
+          <a href="figma-export/VASA/VASA/Portfolio site extra images/whiteboard with team.png" class="glightbox" data-title="VASA project team at whiteboard">
+            <img src="figma-export/VASA/VASA/Portfolio site extra images/whiteboard with team.png" alt="VASA project team at whiteboard" style="object-fit:cover;object-position:center"/>
+          </a>
         </div>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px">
-        <div class="cs-img-frame portrait-short">
-          <a href="figma-export/VASA/VASA/Mobile App/homescreen no kidcare, 3 classes.jpg" class="glightbox" data-title="VASA app homescreen">
-            <img src="figma-export/VASA/VASA/Mobile App/homescreen no kidcare, 3 classes.jpg" alt="VASA app homescreen"/>
+    </div>
+
+    <!-- The problem -->
+    <div class="cs-article-section">
+      <div class="cs-article-label">The Problem</div>
+      <h2 class="cs-article-title">A white-labeled app <em>nobody liked</em></h2>
+      <div class="cs-article-body">
+        <p>VASA's existing app was a Netpulse white-label — a generic template product shared across dozens of gym brands. It looked like a VASA app on the surface, but underneath it was a hollow shell. All of VASA's real member data — accounts, class schedules, payments, KidCare reservations — lived in a completely separate system called PAC. The Netpulse app and PAC didn't talk to each other in any meaningful way.</p>
+        <p>The result, for members, was maddening. You'd open the app, log in, and then get launched into a browser window inside the app where you'd have to log in again — to a completely different system — just to see your class schedule. Two logins, two interfaces, no continuity. It felt like the app was actively working against you.</p>
+        <p>And for a member like the one we kept coming back to throughout the project — a single mom in her early thirties who drops her two kids at KidCare before her morning class — the app was useless for the thing she needed most. KidCare scheduling wasn't available through any digital system at all. She had to call the front desk or walk in and do it manually. Every single time. We wanted her to open the app on Sunday night, schedule her KidCare and classes for the week in two minutes, and get on with her evening. That was the bar we designed toward.</p>
+        <p>VASA knew this was broken. They'd tried to work within the Netpulse framework and hit walls everywhere. They wanted something they owned entirely — an app that connected to their actual data, that they could evolve on their own terms, and that could become a real digital channel to their members. That's what they hired us to build.</p>
+      </div>
+
+      <div class="cs-art-img-2col">
+        <div class="cs-img-frame" style="aspect-ratio:9/19.2">
+          <a href="figma-export/VASA/VASA/Portfolio site extra images/netsuite1.png" class="glightbox" data-title="NetSuite — existing member system">
+            <img src="figma-export/VASA/VASA/Portfolio site extra images/netsuite1.png" alt="NetSuite existing system" style="object-fit:contain;object-position:top"/>
           </a>
         </div>
-        <div class="cs-img-frame portrait-short">
-          <a href="figma-export/VASA/VASA/Mobile App/2019-07-03 16.42.10.jpg" class="glightbox" data-title="Sprint planning session">
-            <img src="figma-export/VASA/VASA/Mobile App/2019-07-03 16.42.10.jpg" alt="Sprint planning session" style="object-position:center"/>
+        <div class="cs-img-frame" style="aspect-ratio:9/19.2">
+          <a href="figma-export/VASA/VASA/Portfolio site extra images/netsuite2.png" class="glightbox" data-title="NetSuite — existing member system">
+            <img src="figma-export/VASA/VASA/Portfolio site extra images/netsuite2.png" alt="NetSuite existing system" style="object-fit:contain;object-position:top"/>
           </a>
         </div>
-        <div class="cs-img-frame portrait-short">
-          <a href="figma-export/VASA/VASA/Mobile App/2019-09-09 16.45.04.jpg" class="glightbox" data-title="Whiteboard wireframe session">
-            <img src="figma-export/VASA/VASA/Mobile App/2019-09-09 16.45.04.jpg" alt="Whiteboard wireframe session" style="object-position:center"/>
+      </div>
+    </div>
+
+    <blockquote class="cs-pull">The old app was a marketing brochure pretending to be a product. The data told us our job was to give it an identity.</blockquote>
+
+    <!-- Discovery -->
+    <div class="cs-article-section">
+      <div class="cs-article-label">Discovery</div>
+      <h2 class="cs-article-title">What eight thousand <em>members told us</em></h2>
+      <div class="cs-article-body">
+        <p>Before we designed a single screen, we surveyed over 8,000 VASA members. The scale of that response was unusual for a project like this — it gave us a dataset that was hard to argue with when it came time to make priority calls.</p>
+        <p>Three findings shaped the entire product direction.</p>
+      </div>
+
+      <div class="cs-impact-row" style="margin:32px 0">
+        <div class="cs-stat-card glass">
+          <div class="cs-stat-num">18mo</div>
+          <div class="cs-stat-lbl">Average member dropout — retention was the core business problem</div>
+        </div>
+        <div class="cs-stat-card glass">
+          <div class="cs-stat-num">70%</div>
+          <div class="cs-stat-lbl">Of members on iOS — informed platform priority and design investment</div>
+        </div>
+        <div class="cs-stat-card glass">
+          <div class="cs-stat-num">#1</div>
+          <div class="cs-stat-lbl">Member frustration: no account access or management in the app</div>
+        </div>
+      </div>
+
+      <div class="cs-article-body">
+        <p>The single loudest frustration across thousands of responses was simple: members couldn't access or manage their own accounts through the app. Not "we want fancier features" or "the design feels dated." Just: let me see my own account. Let me book a class without logging in twice.</p>
+      </div>
+
+      <div class="cs-art-img-2col">
+        <div class="cs-img-frame landscape" style="background:#fff;padding:14px;border-radius:14px">
+          <a href="figma-export/VASA/VASA/Portfolio site extra images/survey1.png" class="glightbox" data-title="Member survey results">
+            <img src="figma-export/VASA/VASA/Portfolio site extra images/survey1.png" alt="Member survey results" style="object-fit:contain;object-position:left top"/>
           </a>
         </div>
-        <div class="cs-img-frame portrait-short">
-          <a href="figma-export/VASA/VASA/Mobile App/fitness class detail add class.png" class="glightbox" data-title="Class detail and booking">
-            <img src="figma-export/VASA/VASA/Mobile App/fitness class detail add class.png" alt="Class detail and booking"/>
+        <div class="cs-img-frame landscape" style="background:#fff;padding:14px;border-radius:14px">
+          <a href="figma-export/VASA/VASA/Portfolio site extra images/survey2.png" class="glightbox" data-title="Member survey results">
+            <img src="figma-export/VASA/VASA/Portfolio site extra images/survey2.png" alt="Member survey results" style="object-fit:contain;object-position:left top"/>
           </a>
         </div>
-        <div class="cs-img-frame portrait-short">
-          <a href="figma-export/VASA/VASA/Portfolio site extra images/style tile basic.png" class="glightbox" data-title="VASA style tile — brand direction">
-            <img src="figma-export/VASA/VASA/Portfolio site extra images/style tile basic.png" alt="VASA style tile — brand direction" style="object-position:top"/>
+        <div class="cs-img-frame landscape" style="background:#fff;padding:14px;border-radius:14px">
+          <a href="figma-export/VASA/VASA/Portfolio site extra images/survey3.png" class="glightbox" data-title="Member survey results">
+            <img src="figma-export/VASA/VASA/Portfolio site extra images/survey3.png" alt="Member survey results" style="object-fit:contain;object-position:left top"/>
           </a>
         </div>
-        <div class="cs-img-frame portrait-short">
+        <div class="cs-img-frame landscape" style="background:#fff;padding:14px;border-radius:14px">
+          <a href="figma-export/VASA/VASA/Portfolio site extra images/survey4.png" class="glightbox" data-title="Member survey results">
+            <img src="figma-export/VASA/VASA/Portfolio site extra images/survey4.png" alt="Member survey results" style="object-fit:contain;object-position:left top"/>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Constraints -->
+    <div class="cs-article-section">
+      <div class="cs-article-label">Constraints</div>
+      <h2 class="cs-article-title">Designing inside <em>someone else's system</em></h2>
+      <div class="cs-article-body">
+        <p>Here's where consulting projects get interesting: we didn't control the data. Every feature we designed had to work within the API boundaries of PAC, the third-party platform that held all of VASA's member information — accounts, payments, class schedules, everything. PAC wasn't built to power a modern mobile app. It was built to manage gym operations from the back office.</p>
+        <p>This constraint shaped every design decision. It wasn't enough to ask "what's the best experience?" — we had to constantly ask "what can PAC actually give us?" That meant designing screens, discovering a data field wasn't exposed through the API, and getting creative about what we could surface and how.</p>
+        <p>KidCare scheduling was a perfect example. Members had been calling the front desk to book childcare because no system supported it digitally. We had to work with PAC to figure out what data was available, what scheduling logic could be built on top of it, and how to present it in the app as something that felt native — not bolted on. Making that work was one of the quiet wins of the project, because from the member's perspective, it just worked. She had no idea what was happening underneath. She just opened the app, booked her two KidCare slots for the week, and moved on.</p>
+      </div>
+    </div>
+
+    <!-- Visual Design -->
+    <div class="cs-article-section">
+      <div class="cs-article-label">Visual Design</div>
+      <h2 class="cs-article-title">Extending the brand into <em>a new medium</em></h2>
+      <div class="cs-article-body">
+        <p>VASA's brand lived in marketing — billboards, gym signage, promotional flyers, and a sales website built to convert, not retain. None of it was designed for a product. Translating that into a native mobile experience meant creating a visual language the brand had never needed before. I worked directly with VASA's Chief Brand & Marketing Officer, Mindi Bridges, through rounds of moodboards, style tiles, and early concept designs to lock the visual direction before building a single production screen.</p>
+        <p>That early investment paid dividends: when design questions came up later, we had a shared vocabulary vetted at the top, which meant I could move fast and make visual decisions with confidence rather than looping back for approval on every screen. From there, I designed over 390 screens across three major phases and multiple updates.</p>
+      </div>
+
+      <div class="cs-art-img-2col" style="margin-top:32px">
+        <div class="cs-img-frame" style="aspect-ratio:3/2">
+          <a href="figma-export/VASA/VASA/Portfolio site extra images/image 46.png" class="glightbox" data-title="VASA brand exploration">
+            <img src="figma-export/VASA/VASA/Portfolio site extra images/image 46.png" alt="VASA brand exploration" style="object-fit:cover;object-position:center top"/>
+          </a>
+        </div>
+        <div class="cs-img-frame" style="aspect-ratio:3/2">
+          <a href="figma-export/VASA/VASA/Portfolio site extra images/style tile fonts tile.png" class="glightbox" data-title="Style tile — fonts">
+            <img src="figma-export/VASA/VASA/Portfolio site extra images/style tile fonts tile.png" alt="Style tile fonts" style="object-fit:cover;object-position:center top"/>
+          </a>
+        </div>
+        <div class="cs-img-frame landscape">
+          <a href="figma-export/VASA/VASA/Portfolio site extra images/style tile concepts 1.png" class="glightbox" data-title="Style tile concept 1">
+            <img src="figma-export/VASA/VASA/Portfolio site extra images/style tile concepts 1.png" alt="Style tile concept 1" style="object-fit:cover;object-position:center"/>
+          </a>
+        </div>
+        <div class="cs-img-frame landscape">
+          <a href="figma-export/VASA/VASA/Portfolio site extra images/style tiles concept 3.png" class="glightbox" data-title="Style tile concept 3">
+            <img src="figma-export/VASA/VASA/Portfolio site extra images/style tiles concept 3.png" alt="Style tile concept 3" style="object-fit:cover;object-position:center"/>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <hr class="cs-divider"/>
+
+    <!-- Shipping -->
+    <div class="cs-article-section" style="margin-top:0">
+      <div class="cs-article-label">Delivery</div>
+      <h2 class="cs-article-title">Shipping in <em>the real world</em></h2>
+      <div class="cs-article-body">
+        <p>The Phase 1 launch target was November 2019 — timed to a Thanksgiving marketing push. That gave us less than six months from kickoff to both app stores. For a custom native app on two platforms, with a junior dev team and third-party API dependencies, that's a tight window.</p>
+      </div>
+
+      <div class="cs-art-phase">
+        <div class="cs-art-phase-label">Phase 1 — November 2019</div>
+        <div class="cs-art-phase-title">Initial Launch</div>
+        <div class="cs-art-phase-body">What shipped in Phase 1 was the core product: barcode check-in, class and KidCare scheduling, a membership purchase flow, gym locations, a homescreen, and — critically — real account access. Members could finally see their own membership information inside the app that bore their gym's name.</div>
+        <div class="cs-phase-tags">
+          <span class="cs-phase-tag">Barcode Check-in</span>
+          <span class="cs-phase-tag">My Account</span>
+          <span class="cs-phase-tag">Class Scheduling</span>
+          <span class="cs-phase-tag">KidCare Scheduling</span>
+          <span class="cs-phase-tag">Membership Purchase</span>
+          <span class="cs-phase-tag">Gym Locations</span>
+          <span class="cs-phase-tag">Homescreen</span>
+        </div>
+      </div>
+
+      <div class="cs-art-img-2col">
+        <div class="cs-img-frame portrait">
+          <a href="figma-export/VASA/VASA/Mobile App/locations detail page.png" class="glightbox" data-title="Gym locations detail">
+            <img src="figma-export/VASA/VASA/Mobile App/locations detail page.png" alt="Gym locations detail"/>
+          </a>
+        </div>
+        <div class="cs-img-frame portrait">
+          <a href="figma-export/VASA/VASA/Mobile App/My Account - barcode checkin success – 6.png" class="glightbox" data-title="Barcode check-in success">
+            <img src="figma-export/VASA/VASA/Mobile App/My Account - barcode checkin success – 6.png" alt="Barcode check-in success"/>
+          </a>
+        </div>
+      </div>
+
+      <div class="cs-article-body">
+        <p>As the deadline closed in, it became clear we couldn't deliver the same level of quality on both platforms. The team had to make a tradeoff: delay the launch to bring Android up to parity, or ship on time and accept a gap between platforms.</p>
+        <p>The iOS experience was strong — the version the C-suite ended up raving about. Android was functional, but it carried compromises we weren't proud of: interaction patterns that didn't feel quite right, areas where polish wasn't there yet. My role in that moment wasn't deciding the tradeoff, but making sure what we shipped still made sense as a product. That meant focusing design effort where it would have the most impact, tightening the core flows, and working closely with developers to ensure that even where we cut corners, the experience still held together.</p>
+        <p>With roughly 70% of VASA's members on iOS, we were delivering a high-quality experience to the majority while still replacing something broken for everyone else. We treated Android as a gap to close, not a permanent state.</p>
+      </div>
+
+      <blockquote class="cs-pull">We shipped on time, knowing exactly where the gaps were.</blockquote>
+
+      <div class="cs-article-body">
+        <p>Getting there also required a way of working I hadn't fully anticipated. About two-thirds of the development team were junior engineers learning native iOS or Android for the first time. A Figma handoff wasn't going to cut it — these developers were simultaneously learning a new platform, a new codebase, and how to interpret design specs.</p>
+        <p>So I started doing side-by-side reviews. I'd sit with a developer, pull up the build on a device next to the design in Figma, and we'd walk through it together — pixel by pixel when it mattered, but more importantly, talking through intent. Why this spacing exists. Why this element is interactive and that one isn't. What the user is trying to accomplish on this screen and how the layout supports that. It wasn't just QA — it was teaching them to see the design the way a designer sees it.</p>
+      </div>
+
+      <blockquote class="cs-pull">At peak velocity, that 1:5 designer-to-developer ratio meant I spent 50–70% of each working day in these reviews. It was exhausting, but it was the single most important thing I did for product quality.</blockquote>
+
+      <div class="cs-article-body">
+        <p>The developers didn't just build better screens as the project progressed — they started catching issues on their own, asking better questions before building, and developing an instinct for when something looked off. That's the part that doesn't show up in a shipped feature list, but it's the reason the features shipped at the quality they did.</p>
+      </div>
+    </div>
+
+    <!-- The Slack message -->
+    <div class="cs-article-section">
+      <div class="cs-article-label">The moment it landed</div>
+      <h2 class="cs-article-title">The <em>Starbucks comparison</em></h2>
+      <div class="cs-article-body">
+        <p>Shortly after launch, a message from Mehul Chaudhari — VASA's VP of Strategy and Analysis — made its way to our team through Slack. It got screenshotted and passed around to every person on the project.</p>
+      </div>
+
+      <div class="cs-quote" style="margin:32px 0">
+        <p>"Just got a call from our CEO/CMO/CFO who are using the app today to book classes and got feedback from the club. They said it was awesome and were super happy with it. They made an app at Starbucks with 70 developers and a bunch of other folks and couldn't release it in the same timeframe or for the same cost."</p>
+        <cite>— Mehul Chaudhari, VP of Strategy and Analysis, VASA Fitness</cite>
+      </div>
+
+      <div class="cs-article-body">
+        <p>That's the kind of thing you hold onto in consulting. You don't always get to hear how the work landed — you hand off the project and move on to the next one. When a client's entire C-suite is using your app to book their own gym classes and comparing it favorably to what Starbucks built with seven times the headcount, it tells you the work connected.</p>
+      </div>
+
+      <div class="cs-impact-row" style="margin:32px 0">
+        <div class="cs-stat-card glass">
+          <div class="cs-stat-num">4.3★</div>
+          <div class="cs-stat-lbl">App Store rating across nearly 7,000 reviews — still holds today</div>
+        </div>
+        <div class="cs-stat-card glass">
+          <div class="cs-stat-num">300k</div>
+          <div class="cs-stat-lbl">Installs within three months of launch</div>
+        </div>
+        <div class="cs-stat-card glass">
+          <div class="cs-stat-num">$150k</div>
+          <div class="cs-stat-lbl">In sales flowing directly through the app post-launch</div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="cs-divider"/>
+
+    <!-- Pandemic -->
+    <div class="cs-article-section" style="margin-top:0">
+      <div class="cs-article-label">The Interruption</div>
+      <h2 class="cs-article-title">Then the world <em>stopped</em></h2>
+      <div class="cs-article-body">
+        <p>On March 19, 2020, VASA closed every gym in response to COVID-19. Member accounts were frozen. Most staff were furloughed. Revenue dropped to zero overnight. All vendor work — including ours — halted immediately.</p>
+        <p>For about three months, the project didn't exist. We'd shipped a successful Phase 1, the numbers were strong, the client was happy, and then none of that mattered because nobody was going to the gym anymore. It was the kind of interruption you can't plan for and can't design around. You just wait.</p>
+        <p>When VASA reopened and started bringing vendors back, Neudesic was one of the first calls they made. That decision — choosing to reinvest in the app before most other vendor relationships — was a direct result of the trust built during Phase 1. We picked up where we left off, but with sharper focus and a team that already knew how to work together. That trust eventually led to two additional projects — a guest kiosk tool and a self-service support site — both designed and shipped during the pandemic recovery, when every budget line was being scrutinized.</p>
+      </div>
+    </div>
+
+    <!-- Phase 2 -->
+    <div class="cs-article-section">
+      <div class="cs-article-label">Phase 2</div>
+      <h2 class="cs-article-title">Deciding what to <em>build next</em></h2>
+      <div class="cs-article-body">
+        <p>Phase 2 presented a different kind of problem than Phase 1. The first time around, the priorities were obvious: ship the basics, replace the broken thing, give members account access. But after launch, the feature backlog exploded. VASA had a long list of ideas — referrals, gamification, rewards, social features, check-in history, profile customization — and everyone had opinions about what should come next.</p>
+        <p>So I facilitated a card sort exercise with Mehul Chaudhari to force prioritization. We laid out every candidate feature, mapped them against member impact and technical feasibility, and sorted them into a sequenced roadmap. The exercise did what it needed to do: it turned a sprawling wishlist into a focused plan that the entire team — VASA's leadership, our developers, and the product group — could align around.</p>
+      </div>
+
+      <blockquote class="cs-pull">My job wasn't just to design the features — it was to help the client decide which features deserved to exist at all.</blockquote>
+
+      <div class="cs-article-body">
+        <p>With the roadmap locked, Phase 2 deepened member engagement. We added member referrals, check-in history, profile photo uploads, the ability to change your home gym, and a gamification system with badges — features designed to make the app feel personal, not just functional.</p>
+        <p>One structural call I wish we'd made earlier was splitting iOS and Android into dedicated teams. In Phase 1, developers were context-switching between platforms, losing momentum on both. By Phase 2, I advocated for the split, and once it happened, velocity improved immediately. It's the kind of process decision that doesn't feel like design work, but it directly affected what we could ship and how fast.</p>
+      </div>
+
+      <div class="cs-art-phase">
+        <div class="cs-art-phase-label">Phase 2 — 2020</div>
+        <div class="cs-art-phase-title">Member Engagement Features</div>
+        <div class="cs-phase-tags">
+          <span class="cs-phase-tag">Member Referrals</span>
+          <span class="cs-phase-tag">Check-in History</span>
+          <span class="cs-phase-tag">Profile Photo Upload</span>
+          <span class="cs-phase-tag">Change Home Gym</span>
+          <span class="cs-phase-tag">Gamification Badges</span>
+        </div>
+      </div>
+
+      <div class="cs-art-img-3col">
+        <div class="cs-img-frame portrait">
+          <a href="figma-export/VASA/VASA/Mobile App/Referals – 2.png" class="glightbox" data-title="Member referrals">
+            <img src="figma-export/VASA/VASA/Mobile App/Referals – 2.png" alt="VASA referrals screen"/>
+          </a>
+        </div>
+        <div class="cs-img-frame portrait">
+          <a href="figma-export/VASA/VASA/Mobile App/Badge Overview 1.png" class="glightbox" data-title="Gamification badges">
+            <img src="figma-export/VASA/VASA/Mobile App/Badge Overview 1.png" alt="VASA badge gamification"/>
+          </a>
+        </div>
+        <div class="cs-img-frame portrait">
+          <a href="figma-export/VASA/VASA/Mobile App/My Activity - History.png" class="glightbox" data-title="Check-in activity history">
+            <img src="figma-export/VASA/VASA/Mobile App/My Activity - History.png" alt="Check-in activity history"/>
+          </a>
+        </div>
+      </div>
+
+      <div class="cs-art-phase" style="margin-top:48px">
+        <div class="cs-art-phase-label">Phase 3 — September 2021</div>
+        <div class="cs-art-phase-title">Rewards Program</div>
+        <div class="cs-art-phase-body">Phase 3 introduced a full rewards program integrated with a third-party vending platform. Members could track points, see their rewards overview, and redeem directly through the app. It created a new retention loop — a reason to open the app even on days you didn't go to the gym.</div>
+        <div class="cs-phase-tags">
+          <span class="cs-phase-tag">Rewards Overview</span>
+          <span class="cs-phase-tag">Points Tracking</span>
+          <span class="cs-phase-tag">Homescreen Rewards Widget</span>
+          <span class="cs-phase-tag">In-App Redemption</span>
+        </div>
+      </div>
+
+      <div class="cs-art-img-3col">
+        <div class="cs-img-frame portrait">
+          <a href="figma-export/VASA/VASA/Mobile App/Rewards Overview – 3.png" class="glightbox" data-title="Rewards overview">
+            <img src="figma-export/VASA/VASA/Mobile App/Rewards Overview – 3.png" alt="VASA rewards overview"/>
+          </a>
+        </div>
+        <div class="cs-img-frame portrait">
+          <a href="figma-export/VASA/VASA/Mobile App/homescreen with rewards – 2.png" class="glightbox" data-title="Homescreen with rewards widget">
+            <img src="figma-export/VASA/VASA/Mobile App/homescreen with rewards – 2.png" alt="VASA homescreen with rewards"/>
+          </a>
+        </div>
+        <div class="cs-img-frame portrait">
+          <a href="figma-export/VASA/VASA/Mobile App/rewards - post animation redeem my reward.png" class="glightbox" data-title="Burn &amp; Earn — reward claim screen">
+            <img src="figma-export/VASA/VASA/Mobile App/rewards - post animation redeem my reward.png" alt="Burn and Earn reward claim"/>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <hr class="cs-divider"/>
+
+    <!-- Becoming the lead -->
+    <div class="cs-article-section" style="margin-top:0">
+      <div class="cs-article-label">Leadership</div>
+      <h2 class="cs-article-title">Becoming <em>the lead</em></h2>
+      <div class="cs-article-body">
+        <p>Six months into the engagement, the principal designer moved on and I stepped into the UX Lead role. The shift changed my day-to-day in ways I didn't fully anticipate.</p>
+        <p>As UX Lead, I was no longer just designing screens and doing side-by-side build reviews. I was presenting directly to VASA's stakeholders, defining the product roadmap, writing user stories, managing the backlog, and keeping priorities aligned across a team that now spanned multiple workstreams and two platform-specific dev groups. I became the primary bridge between VASA's leadership and our delivery team — translating business goals into design direction in stakeholder meetings, then translating design intent into implementation specifics in developer reviews. Two different audiences, two different languages, same product vision.</p>
+        <p>Ownership also meant caring about the product after it shipped. I wrote the app store update notes for each release and personally responded to user reviews — the kind of work that doesn't show up in anyone's job description but signals to the client (and to the members) that someone on the team is paying attention to the full experience, not just the Figma file.</p>
+      </div>
+
+      <div class="cs-art-img-2col">
+        <div class="cs-img-frame" style="aspect-ratio:9/16.8">
+          <a href="figma-export/VASA/VASA/Portfolio site extra images/whiteboard with team.png" class="glightbox" data-title="Whiteboard session with team">
+            <img src="figma-export/VASA/VASA/Portfolio site extra images/whiteboard with team.png" alt="Whiteboard session with team" style="object-position:center"/>
+          </a>
+        </div>
+        <div class="cs-img-frame" style="aspect-ratio:9/16.8">
           <a href="figma-export/VASA/VASA/Portfolio site extra images/end team photo.png" class="glightbox" data-title="Neudesic VASA project team">
             <img src="figma-export/VASA/VASA/Portfolio site extra images/end team photo.png" alt="Neudesic VASA project team" style="object-position:center"/>
           </a>
         </div>
       </div>
-    </div>
-  </div>
-</section>
 
-<!-- ── PROCESS ── -->
-<section class="cs-section">
-  <div class="cs-section-inner">
-    <div class="sec-label">Process</div>
-    <h2 class="sec-title">In the <em>room</em></h2>
-    <div class="cs-body" style="max-width:640px;margin-bottom:32px">
-      <p>The project ran as an agile engagement across three phases. Sprint planning, card-sorting workshops, and whiteboard sessions anchored every major design decision — the messy early work is where the real product thinking happened.</p>
-    </div>
-    <div class="cs-img-trio">
-      <div class="cs-img-frame landscape">
-        <a href="figma-export/VASA/VASA/Mobile App/2019-07-03 16.42.10.jpg" class="glightbox" data-title="Sprint planning board">
-          <img src="figma-export/VASA/VASA/Mobile App/2019-07-03 16.42.10.jpg" alt="Sprint planning board with sticky notes"/>
-        </a>
+      <div class="cs-quote" style="margin:40px 0">
+        <p>"Not only was Neudesic involved on the technical side, but they also became a strategic advisor on new features that we were looking to implement. Neudesic understood how we operate our business on a day-to-day basis and helped make recommendations. This took a lot of pressure off of our team, because we trusted that Neudesic had our best interests in mind."</p>
+        <cite>— Mindi Bridges, Chief Brand & Marketing Officer, VASA Fitness</cite>
       </div>
-      <div class="cs-img-frame landscape">
-        <a href="figma-export/VASA/VASA/Mobile App/2019-09-09 16.45.04.jpg" class="glightbox" data-title="Whiteboard wireframe sketches">
-          <img src="figma-export/VASA/VASA/Mobile App/2019-09-09 16.45.04.jpg" alt="Whiteboard wireframe sketches"/>
-        </a>
-      </div>
-      <div class="cs-img-frame landscape">
-        <a href="figma-export/VASA/VASA/Mobile App/2019-12-05 13.34.35.jpg" class="glightbox" data-title="Feature priority matrix workshop">
-          <img src="figma-export/VASA/VASA/Mobile App/2019-12-05 13.34.35.jpg" alt="Feature priority matrix workshop"/>
-        </a>
-      </div>
-    </div>
-    <a href="figma-export/VASA/VASA/Mobile App/mobileapp_gamificaitonflow.png" class="glightbox" data-title="Gamification flow diagram">
-      <img src="figma-export/VASA/VASA/Mobile App/mobileapp_gamificaitonflow.png" alt="Gamification flow diagram" class="cs-img" style="margin-top:16px;background:rgba(255,255,255,.03);border-radius:16px;padding:24px"/>
-    </a>
-    <div class="cs-two-col" style="margin-top:12px">
-      <a href="figma-export/VASA/VASA/Mobile App/2022-01-12_11-22-31.png" class="glightbox" data-title="Rewards redemption flow">
-        <img src="figma-export/VASA/VASA/Mobile App/2022-01-12_11-22-31.png" alt="Rewards redemption flow" class="cs-img" style="background:rgba(255,255,255,.03);border-radius:16px;padding:20px"/>
-      </a>
-      <a href="figma-export/VASA/VASA/Mobile App/2022-01-12_15-45-28.png" class="glightbox" data-title="Full app user flow">
-        <img src="figma-export/VASA/VASA/Mobile App/2022-01-12_15-45-28.png" alt="Full app user flow" class="cs-img" style="background:rgba(255,255,255,.03);border-radius:16px;padding:20px"/>
-      </a>
-    </div>
-  </div>
-</section>
 
-<!-- ── VISUAL DESIGN ── -->
-<section class="cs-section">
-  <div class="cs-section-inner">
-    <div class="sec-label">Visual Design</div>
-    <h2 class="sec-title">Extending the <em>VASA brand</em></h2>
-    <div class="cs-body" style="max-width:640px;margin-bottom:32px">
-      <p>The existing VASA brand was built for print and marketing. Translating it into a native mobile experience meant extending it — creating a visual language for the app that felt unmistakably VASA while following iOS and Android platform conventions.</p>
-      <p>I worked directly with the CMO through moodboards, style tiles, and early concept designs — iterating until the direction was locked before building out full screens.</p>
-    </div>
-    <div class="cs-img-trio">
-      <div class="cs-img-frame portrait">
-        <a href="figma-export/VASA/VASA/Mobile App/Class Search.jpg" class="glightbox" data-title="Class search screen">
-          <img src="figma-export/VASA/VASA/Mobile App/Class Search.jpg" alt="VASA class search screen"/>
-        </a>
-      </div>
-      <div class="cs-img-frame portrait">
-        <a href="figma-export/VASA/VASA/Mobile App/Calendar class detail – 2.jpg" class="glightbox" data-title="Calendar class detail">
-          <img src="figma-export/VASA/VASA/Mobile App/Calendar class detail – 2.jpg" alt="VASA calendar class detail"/>
-        </a>
-      </div>
-      <div class="cs-img-frame portrait">
-        <a href="figma-export/VASA/VASA/Mobile App/fitness class detail add class.png" class="glightbox" data-title="Class detail — book class">
-          <img src="figma-export/VASA/VASA/Mobile App/fitness class detail add class.png" alt="VASA fitness class detail"/>
-        </a>
-      </div>
-    </div>
-    <div class="cs-img-trio" style="margin-top:12px">
-      <div class="cs-img-frame portrait">
-        <a href="figma-export/VASA/VASA/Mobile App/Calendar filter - Classes.jpg" class="glightbox" data-title="Class filter">
-          <img src="figma-export/VASA/VASA/Mobile App/Calendar filter - Classes.jpg" alt="Class filter"/>
-        </a>
-      </div>
-      <div class="cs-img-frame portrait">
-        <a href="figma-export/VASA/VASA/Mobile App/Photo upload – 1.png" class="glightbox" data-title="My account — membership plan">
-          <img src="figma-export/VASA/VASA/Mobile App/Photo upload – 1.png" alt="My account — membership plan"/>
-        </a>
-      </div>
-      <div class="cs-img-frame portrait">
-        <a href="figma-export/VASA/VASA/Mobile App/IMG_6043.PNG" class="glightbox" data-title="Live app — schedule with class booked">
-          <img src="figma-export/VASA/VASA/Mobile App/IMG_6043.PNG" alt="Live app on device"/>
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── APP PHASES ── -->
-<section class="cs-section">
-  <div class="cs-section-inner">
-    <div class="sec-label">Delivery</div>
-    <h2 class="sec-title">Three phases, <em>one product</em></h2>
-    <div class="cs-body" style="max-width:640px;margin-bottom:32px">
-      <p>The app launched in November 2019 — under six months from kickoff — and continued evolving through two major updates. Each phase added depth: more member data integration, new engagement features, and a full rewards program.</p>
-    </div>
-
-    <div class="cs-phase">
-      <div class="cs-phase-label">Phase 1 — November 2019</div>
-      <div class="cs-phase-title">Initial Launch</div>
-      <div class="cs-phase-body">Shipped the core app into both app stores on an aggressive timeline. The iOS version was very well received by members and VASA leadership alike.</div>
-      <div class="cs-phase-tags">
-        <span class="cs-phase-tag">Barcode Check-in</span>
-        <span class="cs-phase-tag">My Account</span>
-        <span class="cs-phase-tag">Class Scheduling</span>
-        <span class="cs-phase-tag">KidCare Scheduling</span>
-        <span class="cs-phase-tag">Membership Purchase Flow</span>
-        <span class="cs-phase-tag">Gym Locations</span>
-        <span class="cs-phase-tag">Homescreen</span>
+      <div class="cs-article-body">
+        <p>That trust didn't come from a single moment. It came from showing up consistently — facilitating the card sorts, presenting design rationale in language stakeholders cared about, catching implementation issues before they became client-facing bugs, and being honest about what we could and couldn't deliver in a given sprint. When a client starts treating you as a strategic partner rather than a vendor executing a spec, that's the signal that you're operating at the right altitude.</p>
       </div>
     </div>
 
-    <div class="cs-two-col" style="margin-top:0;margin-bottom:12px">
-      <div class="cs-img-frame portrait">
-        <a href="figma-export/VASA/VASA/Mobile App/locations detail page.png" class="glightbox" data-title="Gym locations detail">
-          <img src="figma-export/VASA/VASA/Mobile App/locations detail page.png" alt="Gym locations detail"/>
-        </a>
+    <!-- Additional Engagements -->
+    <div class="cs-article-section">
+      <div class="cs-article-label">What came next</div>
+      <h2 class="cs-article-title">The relationship <em>continued</em></h2>
+      <div class="cs-article-body">
+        <p>The trust built during the mobile app engagement led VASA to bring Neudesic back for two additional projects — both completed during the COVID recovery period in mid-2020, when every budget line was being scrutinized.</p>
       </div>
-      <div class="cs-img-frame portrait">
-        <a href="figma-export/VASA/VASA/Mobile App/My Account - barcode checkin success – 6.png" class="glightbox" data-title="Barcode check-in success">
-          <img src="figma-export/VASA/VASA/Mobile App/My Account - barcode checkin success – 6.png" alt="Barcode check-in success"/>
-        </a>
-      </div>
-    </div>
 
-    <div class="cs-phase">
-      <div class="cs-phase-label">Phase 2 — 2020</div>
-      <div class="cs-phase-title">Member Engagement Features</div>
-      <div class="cs-phase-body">Deepened member engagement with social features, account management, and gamification. Two separate dev teams were established — one for iOS, one for Android — after early attempts at sharing developers across platforms created bottlenecks.</div>
-      <div class="cs-phase-tags">
-        <span class="cs-phase-tag">Member Referrals</span>
-        <span class="cs-phase-tag">Check-in History</span>
-        <span class="cs-phase-tag">Profile Photo Upload</span>
-        <span class="cs-phase-tag">Change Home Gym</span>
-        <span class="cs-phase-tag">Gamification Badges</span>
-      </div>
-    </div>
-
-    <div class="cs-img-trio" style="margin-top:0;margin-bottom:12px">
-      <div class="cs-img-frame portrait">
-        <a href="figma-export/VASA/VASA/Mobile App/Referals – 2.png" class="glightbox" data-title="Member referrals">
-          <img src="figma-export/VASA/VASA/Mobile App/Referals – 2.png" alt="VASA referrals screen"/>
-        </a>
-      </div>
-      <div class="cs-img-frame portrait">
-        <a href="figma-export/VASA/VASA/Mobile App/Badge Overview 1.png" class="glightbox" data-title="Gamification badges">
-          <img src="figma-export/VASA/VASA/Mobile App/Badge Overview 1.png" alt="VASA badge gamification"/>
-        </a>
-      </div>
-      <div class="cs-img-frame portrait">
-        <a href="figma-export/VASA/VASA/Mobile App/My Activity - History.png" class="glightbox" data-title="Check-in activity history">
-          <img src="figma-export/VASA/VASA/Mobile App/My Activity - History.png" alt="Check-in activity history"/>
-        </a>
-      </div>
-    </div>
-
-    <div class="cs-phase">
-      <div class="cs-phase-label">Phase 3 — September 2021</div>
-      <div class="cs-phase-title">Rewards Program</div>
-      <div class="cs-phase-body">Launched a full rewards program integrated with a third-party vending platform. Members could track points, view rewards overview, and redeem directly through the app — creating a new retention and engagement loop.</div>
-      <div class="cs-phase-tags">
-        <span class="cs-phase-tag">Rewards Overview</span>
-        <span class="cs-phase-tag">Rewards Tracking</span>
-        <span class="cs-phase-tag">Homescreen Rewards Widget</span>
-      </div>
-    </div>
-
-    <div class="cs-img-trio" style="margin-top:0">
-      <div class="cs-img-frame portrait">
-        <a href="figma-export/VASA/VASA/Mobile App/Rewards Overview – 3.png" class="glightbox" data-title="Rewards overview">
-          <img src="figma-export/VASA/VASA/Mobile App/Rewards Overview – 3.png" alt="VASA rewards overview"/>
-        </a>
-      </div>
-      <div class="cs-img-frame portrait">
-        <a href="figma-export/VASA/VASA/Mobile App/homescreen with rewards – 2.png" class="glightbox" data-title="Homescreen with rewards widget">
-          <img src="figma-export/VASA/VASA/Mobile App/homescreen with rewards – 2.png" alt="VASA homescreen with rewards"/>
-        </a>
-      </div>
-      <div class="cs-img-frame portrait">
-        <a href="figma-export/VASA/VASA/Mobile App/rewards - post animation redeem my reward.png" class="glightbox" data-title="Burn &amp; Earn — reward claim screen">
-          <img src="figma-export/VASA/VASA/Mobile App/rewards - post animation redeem my reward.png" alt="Burn and Earn reward claim"/>
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── CHALLENGES ── -->
-<section class="cs-section">
-  <div class="cs-section-inner">
-    <div class="sec-label">Challenges</div>
-    <h2 class="sec-title">Nothing went <em>exactly to plan</em></h2>
-    <div class="cs-two-col">
-      <div class="glass" style="padding:28px;border-radius:16px">
-        <div class="cs-meta-lbl" style="margin-bottom:12px">The Pandemic</div>
-        <div class="cs-body">
-          <p>On March 19, 2020, VASA closed all gyms in response to COVID-19, froze member accounts, and furloughed most staff — dropping revenue to zero overnight. All work halted for roughly three months.</p>
-          <p>When VASA reopened, they brought Neudesic back as one of their first vendors — a direct result of the trust built during Phase 1.</p>
+      <div class="cs-art-phase">
+        <div class="cs-art-phase-label">July – August 2020 · 2 months</div>
+        <div class="cs-art-phase-title">Sales Tool</div>
+        <div class="cs-art-phase-body">A tablet web app for in-gym prospects — letting potential members self-serve through a purchase flow and fitness questionnaire, reducing reliance on sales staff to drive membership conversions.</div>
+        <div class="cs-phase-tags">
+          <span class="cs-phase-tag">Tablet Web App</span>
+          <span class="cs-phase-tag">Self-Service</span>
+          <span class="cs-phase-tag">Sales Flow</span>
         </div>
       </div>
-      <div class="glass" style="padding:28px;border-radius:16px">
-        <div class="cs-meta-lbl" style="color:rgba(168,255,120,.6);margin-bottom:12px">Developer Constraints</div>
-        <div class="cs-body">
-          <p>Around two-thirds of the development team were junior engineers learning native iOS or Android for the first time. This made design reviews critical — I needed to be hands-on and specific to keep quality high.</p>
-          <p>At peak velocity, the 1:5 designer-to-developer ratio meant up to 70% of my working day was consumed by design review and real-time problem solving.</p>
+      <div class="cs-art-img-2col" style="margin-top:16px">
+        <div class="cs-img-frame landscape">
+          <a href="figma-export/VASA/VASA/Sales Tool/VASA_salestool.png" class="glightbox" data-title="Sales Tool">
+            <img src="figma-export/VASA/VASA/Sales Tool/VASA_salestool.png" alt="VASA Sales Tool" style="object-fit:cover;object-position:center 20%"/>
+          </a>
+        </div>
+        <div class="cs-img-frame landscape">
+          <a href="figma-export/VASA/VASA/Sales Tool/VASA_salestool2.png" class="glightbox" data-title="Sales Tool">
+            <img src="figma-export/VASA/VASA/Sales Tool/VASA_salestool2.png" alt="VASA Sales Tool"/>
+          </a>
+        </div>
+      </div>
+
+      <div class="cs-art-phase" style="margin-top:40px">
+        <div class="cs-art-phase-label">July – August 2020 · 2 months</div>
+        <div class="cs-art-phase-title">Self-Service Support Site</div>
+        <div class="cs-art-phase-body">A responsive web app to automate the most common member support calls — reducing load on VASA's customer service team and integrating with Zendesk so staff could manage help content without developer support.</div>
+        <div class="cs-phase-tags">
+          <span class="cs-phase-tag">Responsive Web App</span>
+          <span class="cs-phase-tag">Zendesk CMS</span>
+          <span class="cs-phase-tag">Support Automation</span>
+        </div>
+      </div>
+      <div class="cs-art-img-2col" style="margin-top:16px">
+        <div class="cs-img-frame landscape">
+          <a href="figma-export/VASA/VASA/Support Site/Support Landing Page.png" class="glightbox" data-title="Support site — desktop help center">
+            <img src="figma-export/VASA/VASA/Support Site/Support Landing Page.png" alt="Support landing page"/>
+          </a>
+        </div>
+        <div class="cs-img-frame landscape">
+          <a href="figma-export/VASA/VASA/Support Site/VASA Support site2.png" class="glightbox" data-title="Support site">
+            <img src="figma-export/VASA/VASA/Support Site/VASA Support site2.png" alt="VASA Support site"/>
+          </a>
         </div>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- ── OUTCOMES ── -->
-<section class="cs-section">
-  <div class="cs-section-inner">
-    <div class="sec-label">Outcomes</div>
-    <h2 class="sec-title">What we <em>shipped</em></h2>
-    <div class="cs-two-col-3">
-      <div class="cs-stat-card glass">
-        <div class="cs-stat-num">&lt;6mo</div>
-        <div class="cs-stat-lbl">From kickoff to live in both app stores — despite a junior dev team and two native codebases</div>
-      </div>
-      <div class="cs-stat-card glass">
-        <div class="cs-stat-num">$150k</div>
-        <div class="cs-stat-lbl">Sales increase recorded directly through the mobile app in the months following launch</div>
-      </div>
-      <div class="cs-stat-card glass">
-        <div class="cs-stat-num">200k</div>
-        <div class="cs-stat-lbl">New user installs in the first three months after launch</div>
-      </div>
-    </div>
-    <div class="cs-two-col" style="margin-top:32px">
-      <div class="cs-stat-card glass">
-        <div class="cs-stat-num">390+</div>
-        <div class="cs-stat-lbl">Screens designed across all phases, features, and updates</div>
-      </div>
-      <div class="cs-stat-card glass">
-        <div class="cs-stat-num">3</div>
-        <div class="cs-stat-lbl">Major app versions shipped, with 5–10 additional updates and enhancements throughout</div>
-      </div>
-    </div>
-  </div>
-</section>
+    <hr class="cs-divider"/>
 
-<!-- ── CLIENT QUOTE ── -->
-<section class="cs-section">
-  <div class="cs-section-inner">
-    <div class="cs-quote">
-      <p>"Just got a call from our CEO/CMO/CFO who are using the app today to book classes and got feedback from the club. They said it was awesome and were super happy with it. They made an app at Starbucks with 70 developers and a bunch of other folks and couldn't release it in the same timeframe or for the same cost."</p>
-      <cite>— Mehul Chaudhari, VP of Strategy and Analysis, VASA Fitness</cite>
-    </div>
-  </div>
-</section>
-
-<!-- ── ADDITIONAL ENGAGEMENTS ── -->
-<section class="cs-section">
-  <div class="cs-section-inner">
-    <div class="sec-label">What came next</div>
-    <h2 class="sec-title">The relationship <em>continued</em></h2>
-    <div class="cs-body" style="max-width:640px;margin-bottom:32px">
-      <p>The trust built during the mobile app engagement led VASA to bring Neudesic back for two additional projects — both completed during the COVID recovery period in mid-2020.</p>
-    </div>
-    <div class="cs-two-col">
-      <div>
-        <div class="cs-phase">
-          <div class="cs-phase-label">July – August 2020 · 2 months</div>
-          <div class="cs-phase-title">Guest Kiosk Tool</div>
-          <div class="cs-phase-body">A tablet web app for in-gym prospects — letting potential members self-serve through a purchase flow and fitness questionnaire, reducing reliance on sales staff to drive membership conversions.</div>
-          <div class="cs-phase-tags">
-            <span class="cs-phase-tag">Tablet Web App</span>
-            <span class="cs-phase-tag">Self-Service</span>
-            <span class="cs-phase-tag">Sales Flow</span>
-          </div>
-        </div>
-        <div class="cs-two-col" style="margin-top:8px">
-          <div class="cs-img-frame landscape">
-            <a href="figma-export/VASA/VASA/Sales Tool/Fitness Goals 2.png" class="glightbox" data-title="Guest Kiosk — fitness goals questionnaire">
-              <img src="figma-export/VASA/VASA/Sales Tool/Fitness Goals 2.png" alt="Fitness goals questionnaire"/>
-            </a>
-          </div>
-          <div class="cs-img-frame landscape">
-            <a href="figma-export/VASA/VASA/Sales Tool/Plans.png" class="glightbox" data-title="Guest Kiosk — membership plans">
-              <img src="figma-export/VASA/VASA/Sales Tool/Plans.png" alt="Membership plans"/>
-            </a>
-          </div>
-        </div>
+    <!-- Reflection -->
+    <div class="cs-article-section" style="margin-top:0">
+      <div class="cs-article-label">Reflection</div>
+      <h2 class="cs-article-title">What this <em>work proved</em></h2>
+      <div class="cs-article-body">
+        <p>A project like this doesn't succeed because everything goes right. It succeeds because the team learns how to make decisions quickly, align around what matters, and move forward even when the path isn't clean.</p>
+        <p>For VASA, that meant focusing on the few things that would actually change the member experience — real account access, class and KidCare scheduling, and a product that felt like it belonged to them, not a template shared with dozens of other gyms.</p>
+        <p>For me, it reinforced where design has the most impact. Not just in the screens, but in how decisions get made — helping a team converge, giving developers enough context to build with confidence, and making tradeoffs explicit so the product can actually ship.</p>
+        <p>The Starbucks comparison is the part people remember. The 4.3-star rating, the 300,000 installs, the revenue — those are easy signals of success. What mattered more was that the product worked. Members could do the things they needed to do without friction. The team could build on it. And the client trusted us enough to keep going.</p>
       </div>
-      <div>
-        <div class="cs-phase">
-          <div class="cs-phase-label">July – August 2020 · 2 months</div>
-          <div class="cs-phase-title">Self-Service Support Site</div>
-          <div class="cs-phase-body">A responsive web app to automate the most common member support calls — reducing load on VASA's customer service team and integrating with Zendesk so staff could manage help content without developer support.</div>
-          <div class="cs-phase-tags">
-            <span class="cs-phase-tag">Responsive Web App</span>
-            <span class="cs-phase-tag">Zendesk CMS</span>
-            <span class="cs-phase-tag">Support Automation</span>
-          </div>
-        </div>
-        <div class="cs-two-col" style="margin-top:8px">
-          <div class="cs-img-frame landscape">
-            <a href="figma-export/VASA/VASA/Support Site/Support Landing Page.png" class="glightbox" data-title="Support site — desktop help center">
-              <img src="figma-export/VASA/VASA/Support Site/Support Landing Page.png" alt="Support landing page"/>
-            </a>
-          </div>
-          <div class="cs-img-frame landscape">
-            <a href="figma-export/VASA/VASA/Support Site/Support Mobile Landing.png" class="glightbox" data-title="Support site — mobile version">
-              <img src="figma-export/VASA/VASA/Support Site/Support Mobile Landing.png" alt="Support mobile landing"/>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- ── REFLECTION ── -->
-<section class="cs-section">
-  <div class="cs-section-inner">
-    <div class="sec-label">Reflection</div>
-    <h2 class="sec-title">What I <em>learned</em></h2>
-    <div class="cs-body" style="max-width:640px">
-      <p>VASA was the project where I learned what it means to truly own a product — not just the design files, but the roadmap conversations, the stakeholder relationships, the backlog, and the developer handoffs. It's one thing to design great screens; it's another to shepherd them all the way to a shipped app store update.</p>
-      <p>The pandemic pause was jarring in the moment, but it gave the team time to reflect and return with better focus. The trust VASA showed in bringing us back first validated everything we'd built together.</p>
-      <p>If I were starting over, I'd push harder earlier to run Android and iOS as separate parallel workstreams. We lost time letting developers context-switch between platforms — splitting the teams was the right call, just wish it had happened sooner.</p>
+      <blockquote class="cs-pull">But only if you learn how to make the right calls before you have perfect information.</blockquote>
     </div>
+
+    <div style="height:80px"></div>
   </div>
 </section>
 
@@ -546,7 +700,7 @@
     <a href="index.html#work" class="cs-next-back">← Back to all work</a>
     <a href="case-study.html" class="cs-next-link">
       <span class="cs-next-lbl">Next case study</span>
-      <span class="cs-next-title">Invoca AI Model Training Interface →</span>
+      <span class="cs-next-title">AI Model Training Interface →</span>
     </a>
   </div>
 </section>

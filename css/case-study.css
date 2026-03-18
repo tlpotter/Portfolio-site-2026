@@ -18,7 +18,7 @@ body { cursor: none }
 
 /* ── CS Hero ── */
 #cs-hero {
-  padding: 160px max(60px, calc((100vw - 1280px) / 2)) 80px;
+  padding: 120px max(60px, calc((100vw - 1280px) / 2)) 64px;
   position: relative; z-index: 1;
   background: #060a0f;
   border-bottom: 1px solid rgba(255,255,255,.04);
@@ -209,7 +209,7 @@ body { cursor: none }
   padding: 16px 24px !important;
 }
 .glightbox-clean .gslide-title {
-  font-family: 'Inter', sans-serif !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
   font-size: 13px !important; font-weight: 600 !important;
   letter-spacing: .08em !important; color: rgba(232,228,240,.85) !important;
   margin-bottom: 0 !important;
