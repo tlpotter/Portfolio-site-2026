@@ -10,7 +10,7 @@
   --blue3:#6366f1;
 }
 html{scroll-behavior:smooth}
-body{background:#020608;color:#eef2ff;font-family:var(--sans);font-size:18px;line-height:1.6;overflow-x:hidden;cursor:none}
+body{background:#020608;color:#eef2ff;font-family:var(--sans);font-size:18px;line-height:1.6;overflow-x:hidden;cursor:none;position:relative}
 
 /* ── CURSOR ── */
 #cur{position:fixed;z-index:9999;pointer-events:none;transform:translate(-50%,-50%);width:10px;height:10px;background:#ff6200;border-radius:50%;box-shadow:0 0 20px #ff6200,0 0 40px rgba(255,98,0,.6)}
@@ -91,7 +91,8 @@ nav.scrolled:hover{opacity:1}
   justify-content:flex-start;padding-top:140px;
   overflow:visible;background:transparent;z-index:3;
 }
-#bhCanvas{position:absolute;top:0;left:0;z-index:0;pointer-events:none}
+#bhCanvas{position:absolute;top:0;left:0;z-index:0}
+#starField{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none}
 
 .hero-content{position:relative;z-index:2;text-align:left;display:flex;flex-direction:column;align-items:flex-start}
 
@@ -115,7 +116,7 @@ nav.scrolled:hover{opacity:1}
   letter-spacing:-.02em;color:#fff;
   text-shadow:0 0 60px rgba(56,189,248,.3),0 2px 40px rgba(0,0,0,.8);
   margin-bottom:20px;
-  opacity:0;animation:up .9s ease .3s forwards,hero-shimmer 8s ease-in-out 4s infinite;
+  opacity:0;animation:up .9s ease .3s forwards;
 }
 .hero-name em{
   font-style:italic;font-weight:300;color:#fff;
@@ -149,7 +150,7 @@ nav.scrolled:hover{opacity:1}
 @keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
 /* ── SHARED ── */
-section:not(#hero){padding:88px max(60px, calc((100vw - 1280px) / 2));position:relative;z-index:1;background:#060a0f}
+section:not(#hero){padding:88px max(60px, calc((100vw - 1280px) / 2));position:relative;z-index:1;background:transparent}
 .sec-label{font-size:13px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(251,146,60,.7);margin-bottom:12px;display:flex;align-items:center;gap:12px}
 .sec-label::before{content:'';width:18px;height:1px;background:rgba(251,146,60,.5)}
 .sec-title{font-family:var(--serif);font-size:clamp(40px,4.5vw,60px);font-weight:600;color:#fff;line-height:1.05;margin-bottom:48px;letter-spacing:-.01em}
@@ -230,7 +231,7 @@ section:not(#hero){padding:88px max(60px, calc((100vw - 1280px) / 2));position:r
 .c-item:hover .c-arr{color:rgba(251,180,100,.8);transform:translate(3px,-3px)}
 
 /* ── FOOTER ── */
-footer{border-top:1px solid rgba(255,255,255,.04);padding:18px max(60px, calc((100vw - 1280px) / 2));display:flex;justify-content:space-between;align-items:center;background:#060a0f}
+footer{border-top:1px solid rgba(255,255,255,.04);padding:18px max(60px, calc((100vw - 1280px) / 2));display:flex;justify-content:space-between;align-items:center;background:transparent}
 footer p{font-size:12px;color:rgba(255,255,255,.4);letter-spacing:.06em}
 
 /* ── RESPONSIVE ── */

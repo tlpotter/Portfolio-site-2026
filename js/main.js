@@ -4,6 +4,50 @@
   if (badge) badge.classList.add('animate-in');
 })();
 
+/* ── FULL PAGE STAR FIELD ── */
+(function(){
+  const sf = document.getElementById('starField');
+  if (!sf) return;
+  const ctx = sf.getContext('2d');
+
+  function resize() {
+    sf.width  = window.innerWidth;
+    sf.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize, { passive: true });
+
+  const COUNT = 500;
+  const stars = Array.from({ length: COUNT }, () => ({
+    x:     Math.random(),
+    y:     Math.random(),
+    r:     .1 + Math.random() * .9,
+    a:     .05 + Math.random() * .55,
+    phase: Math.random() * Math.PI * 2,
+    speed: .003 + Math.random() * .008
+  }));
+
+  let last = 0;
+  (function tick(now) {
+    requestAnimationFrame(tick);
+    if (now - last < 50) return; // ~20fps — very light on CPU
+    last = now;
+
+    const W = sf.width, H = sf.height;
+    ctx.clearRect(0, 0, W, H);
+
+    stars.forEach(s => {
+      s.phase += s.speed;
+      const a = s.a * (.3 + Math.sin(s.phase) * .7);
+      if (a <= 0) return;
+      ctx.beginPath();
+      ctx.arc(s.x * W, s.y * H, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255,255,255,${a})`;
+      ctx.fill();
+    });
+  })(0);
+})();
+
 /* ── NAV LOGO: LOCK POSITION AFTER SLIDE-IN ── */
 (function(){
   const logo = document.querySelector('.nav-logo');
@@ -70,7 +114,7 @@ function drawPortal(canvas, opts) {
   const stars = starIndices.map(idx => ({
     nx: (idx % cols + Math.random()) / cols,
     ny: (Math.floor(idx / cols) + Math.random()) / rows,
-    r: .15 + Math.random() * 1.2, a: .1 + Math.random() * .85,
+    r: .15 + Math.random() * .8, a: .08 + Math.random() * .65,
     phase: Math.random() * Math.PI * 2, speed: .00224 + Math.random() * .01232
   }));
 
@@ -210,7 +254,7 @@ function drawPortal(canvas, opts) {
       const a = s.a * (.4 + Math.sin(s.phase) * .6);
       octx.beginPath(); octx.arc(s.nx * ow, s.ny * oh, s.r, 0, Math.PI * 2);
       octx.fillStyle = `rgba(255,255,255,${a})`; octx.fill();
-      if (s.r > 0.9 && a > .35) {
+      if (s.r > 0.75 && a > .55) {
         octx.strokeStyle = `rgba(255,255,255,${a * .3})`; octx.lineWidth = .5;
         octx.beginPath(); octx.moveTo(s.nx*ow - s.r*4, s.ny*oh); octx.lineTo(s.nx*ow + s.r*4, s.ny*oh); octx.stroke();
         octx.beginPath(); octx.moveTo(s.nx*ow, s.ny*oh - s.r*4); octx.lineTo(s.nx*ow, s.ny*oh + s.r*4); octx.stroke();
@@ -237,12 +281,13 @@ function drawPortal(canvas, opts) {
   // ── 3-pass bloom for arch rings ──
   function drawArchRing(ox, oy, r, brightness, rC, gC, bC, pulse) {
     const rr = r * pulse;
+    const ry = rr * 0.34;
     ctx.save();
     ctx.shadowBlur = 80 * brightness;
     ctx.shadowColor = `rgba(${rC},${gC},${bC},${brightness * .55})`;
     ctx.strokeStyle = `rgba(${rC},${gC},${bC},${brightness * .1})`;
     ctx.lineWidth = 22 * brightness + 5;
-    ctx.beginPath(); ctx.arc(ox, oy, rr, Math.PI, Math.PI * 2); ctx.stroke();
+    ctx.beginPath(); ctx.ellipse(ox, oy, rr, ry, 0, 0, Math.PI * 2); ctx.stroke();
     ctx.restore();
 
     ctx.save();
@@ -250,7 +295,7 @@ function drawPortal(canvas, opts) {
     ctx.shadowColor = `rgba(${rC},${gC},${bC},${brightness * .9})`;
     ctx.strokeStyle = `rgba(${rC},${gC},${bC},${brightness * .5})`;
     ctx.lineWidth = 6 * brightness + 1.5;
-    ctx.beginPath(); ctx.arc(ox, oy, rr, Math.PI, Math.PI * 2); ctx.stroke();
+    ctx.beginPath(); ctx.ellipse(ox, oy, rr, ry, 0, 0, Math.PI * 2); ctx.stroke();
     ctx.restore();
 
     ctx.save();
@@ -258,7 +303,7 @@ function drawPortal(canvas, opts) {
     ctx.shadowColor = `rgba(255,248,235,${brightness})`;
     ctx.strokeStyle = `rgba(255,252,245,${brightness * .92})`;
     ctx.lineWidth = 1.1;
-    ctx.beginPath(); ctx.arc(ox, oy, rr, Math.PI, Math.PI * 2); ctx.stroke();
+    ctx.beginPath(); ctx.ellipse(ox, oy, rr, ry, 0, 0, Math.PI * 2); ctx.stroke();
     ctx.restore();
   }
 
@@ -266,7 +311,7 @@ function drawPortal(canvas, opts) {
   // FRAME LOOP
   // ────────────────────────────────────
   function frame() {
-    t += .009; fc++;
+    t += .009 * (opts.speedMult || 1); fc++;
     W = canvas.width; H = canvas.height;
 
     // Rebuild LUT if canvas was resized
@@ -381,7 +426,12 @@ function drawPortal(canvas, opts) {
     ctx.globalCompositeOperation = 'source-over';
     ctx.restore();
 
-    // ── Full rotating rings with orbiting hot spots — (06) CSS style ──
+
+
+    // Remove clip — sphere, glow, and particles render freely below the horizon
+    ctx.restore();
+
+    // ── Rings back half (behind sphere) — top arc only ──
     fullRings.forEach((fr, i) => {
       fr.hotAngle += fr.hotSpeed;
       const r      = minR + (maxR - minR) * fr.radiusFrac;
@@ -389,31 +439,16 @@ function drawPortal(canvas, opts) {
       const rC     = fr.isOrange ? 255 : 30;
       const gC     = fr.isOrange ? 110 : 180;
       const bC     = fr.isOrange ? 20  : 255;
-
-      // Full 360° ring
+      const rOval  = r * (1 + Math.sin(t * .6 + i * .5) * .01);
       ctx.save();
       ctx.shadowBlur  = 28 * bright;
       ctx.shadowColor = `rgba(${rC},${gC},${bC},${bright * .7})`;
       ctx.strokeStyle = `rgba(${rC},${gC},${bC},${bright * .3})`;
       ctx.lineWidth   = 1.5 + bright * 3;
-      ctx.beginPath(); ctx.arc(ox, oy, r * (1 + Math.sin(t * .6 + i * .5) * .01), 0, Math.PI * 2); ctx.stroke();
-      ctx.restore();
-
-      // Orbiting hot spot
-      const hx = ox + Math.cos(fr.hotAngle) * r;
-      const hy = oy + Math.sin(fr.hotAngle) * r * .44;
-      const hg = ctx.createRadialGradient(hx, hy, 0, hx, hy, r * .25);
-      hg.addColorStop(0, `rgba(255,255,255,${bright * 1.1})`);
-      hg.addColorStop(.4, `rgba(${rC},${gC},${bC},${bright * .55})`);
-      hg.addColorStop(1, 'rgba(0,0,0,0)');
-      ctx.save();
-      ctx.globalCompositeOperation = 'screen';
-      ctx.beginPath(); ctx.arc(hx, hy, r * .25, 0, Math.PI * 2);
-      ctx.fillStyle = hg; ctx.fill();
+      ctx.beginPath(); ctx.ellipse(ox, oy, rOval, rOval * 0.34, 0, Math.PI, Math.PI * 2); ctx.stroke();
       ctx.restore();
     });
 
-    // ── Arch rings — 3-pass bloom (current signature visual) ──
     const numRings = 11;
     for (let i = 0; i < numRings; i++) {
       const pct        = i / (numRings - 1);
@@ -425,20 +460,6 @@ function drawPortal(canvas, opts) {
       const bC         = Math.round(90 + pct * 165);
       drawArchRing(ox, oy, r, brightness, rC, gC, bC, pulse);
     }
-
-    // ── Horizon glow line ──
-    const hline = ctx.createLinearGradient(ox - maxR, oy, ox + maxR, oy);
-    hline.addColorStop(0,   'rgba(0,212,255,0)');
-    hline.addColorStop(.22, `rgba(0,212,255,${.32 + Math.sin(t) * .05})`);
-    hline.addColorStop(.5,  `rgba(0,212,255,${.88 + Math.sin(t * 1.2) * .1})`);
-    hline.addColorStop(.78, `rgba(0,212,255,${.32 + Math.sin(t) * .05})`);
-    hline.addColorStop(1,   'rgba(0,212,255,0)');
-    ctx.save(); ctx.shadowBlur = 26; ctx.shadowColor = 'rgba(0,180,255,.9)';
-    ctx.fillStyle = hline; ctx.fillRect(ox - maxR, oy - 2.5, maxR * 2, 5 * (1 + Math.sin(t * 1.3) * .1));
-    ctx.restore();
-
-    // Remove clip — sphere, glow, and particles render freely below the horizon
-    ctx.restore();
 
     // ── Disc back half ──
     ctx.save(); ctx.globalAlpha = .75;
@@ -468,6 +489,30 @@ function drawPortal(canvas, opts) {
     pg.addColorStop(.72, `rgba(140,40,0,${.18})`);
     pg.addColorStop(1,   'rgba(80,20,0,0)');
     ctx.beginPath(); ctx.arc(ox, oy, sR * 2.8 * gs, 0, Math.PI * 2); ctx.fillStyle = pg; ctx.fill();
+
+    // ── Pulse rings ──
+    if (opts._pulseRings && opts._pulseRings.length) {
+      const now = performance.now();
+      for (let i = opts._pulseRings.length - 1; i >= 0; i--) {
+        const ring = opts._pulseRings[i];
+        const elapsed = now - ring.startT;
+        if (elapsed < 0) continue;
+        const p = elapsed / ring.duration;
+        if (p >= 1) { opts._pulseRings.splice(i, 1); continue; }
+        const radius = sR * 1.1 + p * W * 0.38;
+        const opacity = (1 - p) * (1 - p) * 0.7;
+        ctx.save();
+        ctx.globalCompositeOperation = 'screen';
+        ctx.beginPath();
+        ctx.ellipse(ox, oy, radius, radius * 0.28, 0, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(255,160,50,${opacity})`;
+        ctx.lineWidth = 2.5 * (1 - p);
+        ctx.shadowBlur = 18 * (1 - p);
+        ctx.shadowColor = `rgba(255,130,20,${opacity})`;
+        ctx.stroke();
+        ctx.restore();
+      }
+    }
 
     // ── Solar flares ──
     for (let i = flares.length - 1; i >= 0; i--) {
@@ -562,13 +607,17 @@ function drawPortal(canvas, opts) {
     ctx.beginPath(); ctx.arc(ox, oy, sR, 0, Math.PI * 2);
     ctx.fillStyle = rimB; ctx.fill();
 
-    // Specular highlight — small sharp spot upper-left
-    const spec = ctx.createRadialGradient(ox - sR * .42, oy - sR * .44, 0, ox - sR * .42, oy - sR * .44, sR * .38);
-    spec.addColorStop(0,   'rgba(180,230,255,.18)');
-    spec.addColorStop(.45, 'rgba(100,180,255,.06)');
+    // Specular highlight — orbits slowly to simulate spin
+    const spinAngle = t * 0.25;
+    const specX = ox + Math.cos(spinAngle) * sR * 0.42;
+    const specY = oy + Math.sin(spinAngle) * sR * 0.28; // elliptical (perspective foreshortening)
+    const spec = ctx.createRadialGradient(specX, specY, 0, specX, specY, sR * .38);
+    spec.addColorStop(0,   'rgba(180,230,255,.2)');
+    spec.addColorStop(.45, 'rgba(100,180,255,.07)');
     spec.addColorStop(1,   'rgba(0,0,0,0)');
     ctx.beginPath(); ctx.arc(ox, oy, sR, 0, Math.PI * 2);
     ctx.fillStyle = spec; ctx.fill();
+
     ctx.restore();
 
     // ── Disc front half ──
@@ -590,6 +639,54 @@ function drawPortal(canvas, opts) {
     ctx.restore();
 
 
+    // ── Rings front half (in front of sphere) — bottom arc only ──
+    fullRings.forEach((fr, i) => {
+      const r      = minR + (maxR - minR) * fr.radiusFrac;
+      const bright = .12 + (5 - i) * .022;
+      const rC     = fr.isOrange ? 255 : 30;
+      const gC     = fr.isOrange ? 110 : 180;
+      const bC     = fr.isOrange ? 20  : 255;
+      const rOval  = r * (1 + Math.sin(t * .6 + i * .5) * .01);
+      ctx.save();
+      ctx.shadowBlur  = 28 * bright;
+      ctx.shadowColor = `rgba(${rC},${gC},${bC},${bright * .7})`;
+      ctx.strokeStyle = `rgba(${rC},${gC},${bC},${bright * .3})`;
+      ctx.lineWidth   = 1.5 + bright * 3;
+      ctx.beginPath(); ctx.ellipse(ox, oy, rOval, rOval * 0.34, 0, 0, Math.PI); ctx.stroke();
+      ctx.restore();
+      // Hot spot front half only
+      if (Math.sin(fr.hotAngle) > 0) {
+        const hx = ox + Math.cos(fr.hotAngle) * r;
+        const hy = oy + Math.sin(fr.hotAngle) * r * .44;
+        const hg = ctx.createRadialGradient(hx, hy, 0, hx, hy, r * .25);
+        hg.addColorStop(0, `rgba(255,255,255,${bright * 1.1})`);
+        hg.addColorStop(.4, `rgba(${rC},${gC},${bC},${bright * .55})`);
+        hg.addColorStop(1, 'rgba(0,0,0,0)');
+        ctx.save();
+        ctx.globalCompositeOperation = 'screen';
+        ctx.beginPath(); ctx.arc(hx, hy, r * .25, 0, Math.PI * 2);
+        ctx.fillStyle = hg; ctx.fill();
+        ctx.restore();
+      }
+    });
+    for (let i = 0; i < numRings; i++) {
+      const pct        = i / (numRings - 1);
+      const r          = minR + (maxR - minR) * (pct * pct * .8 + pct * .2);
+      const brightness = Math.pow(1 - pct * .87, 1.3) * 0.6;
+      const pulse      = 1 + Math.sin(t * .85 + i * .42) * .016;
+      const rC         = Math.round(255 * (1 - pct * .95));
+      const gC         = Math.round(200 - pct * 30);
+      const bC         = Math.round(90 + pct * 165);
+      const rr = r * pulse; const ry = rr * 0.34;
+      ctx.save();
+      ctx.strokeStyle = `rgba(${rC},${gC},${bC},${brightness * .4})`;
+      ctx.lineWidth = 6 * brightness + 1.5;
+      ctx.shadowBlur = 20 * brightness;
+      ctx.shadowColor = `rgba(${rC},${gC},${bC},${brightness * .8})`;
+      ctx.beginPath(); ctx.ellipse(ox, oy, rr, ry, 0, 0, Math.PI); ctx.stroke();
+      ctx.restore();
+    }
+
     // ── Top fade ──
     const fade = ctx.createLinearGradient(0, 0, 0, H * .4);
     fade.addColorStop(0, 'rgba(1,2,5,.85)'); fade.addColorStop(.55, 'rgba(1,2,5,.18)'); fade.addColorStop(1, 'rgba(1,2,5,0)');
@@ -601,12 +698,63 @@ function drawPortal(canvas, opts) {
 }
 
 
+/* ── BLACK HOLE TIME WARP ── */
+(function(){
+  const canvas = document.getElementById('bhCanvas');
+  if (!canvas) return;
+
+  canvas.addEventListener('mousemove', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    const cx = rect.left + rect.width * 0.5;
+    const cy = rect.top + rect.height * bhOpts.originY;
+    const sr = rect.width * bhOpts.sphereR;
+    const dx = e.clientX - cx, dy = e.clientY - cy;
+    canvas.style.cursor = Math.hypot(dx, dy) <= sr * 1.4 ? 'pointer' : 'default';
+  });
+
+  canvas.addEventListener('click', (e) => {
+    if (bhOpts._warping) return;
+    const rect = canvas.getBoundingClientRect();
+    const cx = rect.left + rect.width * 0.5;
+    const cy = rect.top + rect.height * bhOpts.originY;
+    const sr = rect.width * bhOpts.sphereR;
+    const dx = e.clientX - cx, dy = e.clientY - cy;
+    if (Math.hypot(dx, dy) > sr * 1.4) return;
+
+    // Pulse rings
+    if (!bhOpts._pulseRings) bhOpts._pulseRings = [];
+    for (let i = 0; i < 4; i++) {
+      bhOpts._pulseRings.push({ startT: performance.now() + i * 180, duration: 1400 });
+    }
+
+    bhOpts._warping = true;
+    const start = performance.now();
+    const rampUp = 5000;
+    const rampDown = 5000;
+
+    (function tick(now) {
+      const elapsed = now - start;
+      if (elapsed < rampUp) {
+        // ease in to 30x over 5s
+        const p = elapsed / rampUp;
+        bhOpts.speedMult = 1 + (p * p) * 29;
+      } else {
+        // ease back to 1x over 5s
+        const p = Math.min((elapsed - rampUp) / rampDown, 1);
+        bhOpts.speedMult = 30 - (p * p) * 29;
+        if (p >= 1) { bhOpts.speedMult = 1; bhOpts._warping = false; return; }
+      }
+      requestAnimationFrame(tick);
+    })(start);
+  });
+})();
+
 /* ── INIT ── */
 const bh = document.getElementById('bhCanvas');
 
 // Mutable opts object — originY is recomputed on resize so sphere center
 // always sits exactly on the hero/about section boundary
-const bhOpts = { originY: .88, maxR: .43, sphereR: .048, starCount: 420, discCount: 480, shooters: true, lensing: true };
+const bhOpts = { originY: .88, maxR: .43, sphereR: .048, starCount: 200, discCount: 480, shooters: true, lensing: true };
 
 function resizeBH() {
   const heroH  = document.getElementById('hero').offsetHeight || window.innerHeight;
@@ -616,7 +764,7 @@ function resizeBH() {
   bh.height = Math.round(heroH + ext);
   bh.style.width  = bh.width  + 'px';
   bh.style.height = bh.height + 'px';
-  bhOpts.originY  = heroH / bh.height;
+  bhOpts.originY  = (heroH * 0.88) / bh.height;
   bhOpts.sphereR     = mobile ? 0.12  : 0.048;
   bhOpts.maxR        = mobile ? 0.70  : 0.43;
   bhOpts.glowScale   = mobile ? 0.85  : 1.0;
