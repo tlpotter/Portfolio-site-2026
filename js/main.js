@@ -1,3 +1,40 @@
+/* ── NAV BADGE ANIMATE IN ── */
+(function(){
+  const badge = document.querySelector('.nav-badge');
+  if (badge) badge.classList.add('animate-in');
+})();
+
+/* ── NAV LOGO: LOCK POSITION AFTER SLIDE-IN ── */
+(function(){
+  const logo = document.querySelector('.nav-logo');
+  if (!logo) return;
+  logo.addEventListener('animationend', (e) => {
+    if (e.animationName === 'logo-slide-in') {
+      logo.style.opacity = '1';
+      logo.style.transform = 'translateX(0)';
+      logo.classList.add('logo-ready');
+    }
+  });
+})();
+
+/* ── SECTION TITLE SLIDE-IN ── */
+(function(){
+  const els = document.querySelectorAll('.sec-label, .sec-title');
+  if (!els.length) return;
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); } });
+  }, { threshold: 0.2 });
+  els.forEach(el => io.observe(el));
+})();
+
+/* ── NAV SCROLL FADE ── */
+(function(){
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 80);
+  }, { passive: true });
+})();
+
 /* ── CURSOR ── */
 const cur  = document.getElementById('cur');
 const ring = document.getElementById('curRing');
@@ -82,7 +119,12 @@ function drawPortal(canvas, opts) {
       startT:     t,
       duration:   1.0 + Math.random() * 0.9,
       lengthMult: 1.6 + Math.random() * 1.6,
-      spread:     0.13 + Math.random() * 0.10
+      spread:     0.13 + Math.random() * 0.10,
+      // organic curve offsets: lateral bend on each side of the flare
+      curl1:      (Math.random() - 0.5) * 2.2,
+      curl2:      (Math.random() - 0.5) * 2.2,
+      // where along the flare the control point sits (0.3–0.6)
+      cpPos:      0.3 + Math.random() * 0.3,
     });
     if (flares.length > 4) flares.shift();
   }, 3800);
@@ -441,6 +483,12 @@ function drawPortal(canvas, opts) {
       const tipX   = ox + ax * (sR + flareLen), tipY = oy + ay * (sR + flareLen);
       const b1x    = ox + ax * sR * .95 + px * baseW, b1y = oy + ay * sR * .95 + py * baseW;
       const b2x    = ox + ax * sR * .95 - px * baseW, b2y = oy + ay * sR * .95 - py * baseW;
+      // Organic control points: each side curves independently
+      const cpDist = sR + flareLen * fl.cpPos;
+      const cp1x   = ox + ax * cpDist + px * baseW * fl.curl1;
+      const cp1y   = oy + ay * cpDist + py * baseW * fl.curl1;
+      const cp2x   = ox + ax * cpDist - px * baseW * fl.curl2;
+      const cp2y   = oy + ay * cpDist - py * baseW * fl.curl2;
       ctx.save();
       ctx.globalCompositeOperation = 'screen';
       const fg = ctx.createLinearGradient(ox + ax * sR, oy + ay * sR, tipX, tipY);
@@ -450,13 +498,27 @@ function drawPortal(canvas, opts) {
       fg.addColorStop(1,   'rgba(255,40,0,0)');
       ctx.shadowBlur  = sR * .9;
       ctx.shadowColor = `rgba(255,130,20,${opacity * .65})`;
+      // Draw organic curved flare shape using quadratic bezier sides
       ctx.beginPath();
       ctx.moveTo(b1x, b1y);
-      ctx.lineTo(tipX, tipY);
-      ctx.lineTo(b2x, b2y);
+      ctx.quadraticCurveTo(cp1x, cp1y, tipX, tipY);
+      ctx.quadraticCurveTo(cp2x, cp2y, b2x, b2y);
       ctx.closePath();
       ctx.fillStyle = fg;
       ctx.fill();
+      // Secondary wispy strand — thinner, slightly offset
+      const wisp = 0.35 + Math.random() * 0.15;
+      const wTipX = ox + ax * (sR + flareLen * (0.7 + fl.cpPos * 0.4)) + px * baseW * fl.curl1 * 0.5;
+      const wTipY = oy + ay * (sR + flareLen * (0.7 + fl.cpPos * 0.4)) + py * baseW * fl.curl1 * 0.5;
+      const wg = ctx.createLinearGradient(ox + ax * sR, oy + ay * sR, wTipX, wTipY);
+      wg.addColorStop(0,   `rgba(255,200,80,${opacity * .4})`);
+      wg.addColorStop(1,   'rgba(255,60,0,0)');
+      ctx.beginPath();
+      ctx.moveTo(ox + ax * sR * .95 + px * baseW * .3, oy + ay * sR * .95 + py * baseW * .3);
+      ctx.quadraticCurveTo(cp1x + px * baseW * .4, cp1y + py * baseW * .4, wTipX, wTipY);
+      ctx.lineWidth = baseW * wisp;
+      ctx.strokeStyle = wg;
+      ctx.stroke();
       ctx.restore();
     }
 

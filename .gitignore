@@ -1,6 +1,9 @@
 # Claude Code local settings
 .claude/
 
+# Working drafts
+content/
+
 # Large design files
 *.psd
 *.ai
