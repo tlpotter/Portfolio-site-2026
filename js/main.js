@@ -483,6 +483,9 @@ function drawPortal(canvas, opts) {
     const sR   = W * (opts.sphereR || .072);
     const maxR = W * (opts.maxR || .65);
     const minR = sR * 2.4;
+    const colS  = opts.collapseOrbitScale !== undefined ? opts.collapseOrbitScale : 1;
+    const discA = opts.discAlpha          !== undefined ? opts.discAlpha          : 1;
+    const sphA  = opts.sphereAlpha        !== undefined ? opts.sphereAlpha        : 1;
 
     // ── Background gradient — full canvas height for smooth fade ──
     const bg = ctx.createLinearGradient(0, 0, 0, H);
@@ -541,6 +544,7 @@ function drawPortal(canvas, opts) {
 
     // Clip remaining effects (constellations, shooters, plasma) above horizon
     ctx.save();
+    ctx.globalAlpha = Math.max(discA, sphA);
     ctx.beginPath();
     ctx.rect(0, 0, W, oy + 4);
     ctx.clip();
@@ -605,7 +609,10 @@ function drawPortal(canvas, opts) {
     // Remove clip — sphere, glow, and particles render freely below the horizon
     ctx.restore();
 
-    // ── Ground energy pool — outside clip so no hard edge ──
+    // ── Ground energy pool + halo — fade with everything during collapse ──
+    const glowA = Math.max(discA, sphA);
+    ctx.save(); ctx.globalAlpha = glowA;
+
     const pool = ctx.createRadialGradient(ox, oy, 0, ox, oy, W * .6);
     pool.addColorStop(0,   `rgba(0,80,160,${.15 + Math.sin(t * .7) * .03})`);
     pool.addColorStop(.18, `rgba(0,50,120,${.10 + Math.sin(t * .5) * .02})`);
@@ -623,10 +630,15 @@ function drawPortal(canvas, opts) {
     halo.addColorStop(1,    'rgba(0,10,40,0)');
     ctx.fillStyle = halo; ctx.fillRect(0, 0, W, H);
 
+    ctx.restore();
+
+    // ── Disc / rings alpha (collapsed or fading) ──
+    ctx.save(); ctx.globalAlpha = discA;
+
     // ── Rings back half (behind sphere) — top arc only ──
     fullRings.forEach((fr, i) => {
       fr.hotAngle += fr.hotSpeed;
-      const r      = minR + (maxR - minR) * fr.radiusFrac;
+      const r      = (minR + (maxR - minR) * fr.radiusFrac) * colS;
       const bright = .12 + (5 - i) * .022;
       const rC     = fr.isOrange ? 255 : 30;
       const gC     = fr.isOrange ? 110 : 180;
@@ -644,7 +656,7 @@ function drawPortal(canvas, opts) {
     const numRings = 11;
     for (let i = 0; i < numRings; i++) {
       const pct        = i / (numRings - 1);
-      const r          = minR + (maxR - minR) * (pct * pct * .8 + pct * .2);
+      const r          = (minR + (maxR - minR) * (pct * pct * .8 + pct * .2)) * colS;
       const brightness = Math.pow(1 - pct * .87, 1.3);
       const pulse      = 1 + Math.sin(t * .85 + i * .42) * .016;
       const rC         = Math.round(255 * (1 - pct * .95));
@@ -654,11 +666,12 @@ function drawPortal(canvas, opts) {
     }
 
     // ── Disc back half ──
-    ctx.save(); ctx.globalAlpha = .75;
+    const suckB = opts.suckBoost || 1;
+    ctx.save(); ctx.globalAlpha = discA * .75;
     disc.forEach(p => {
-      p.angle += p.speed; p.phase += .04;
-      const px = ox + Math.cos(p.angle) * W * p.r;
-      const py = oy + Math.sin(p.angle) * W * p.r * .26;
+      p.angle += p.speed * (opts.speedMult || 1); p.phase += .04;
+      const px = ox + Math.cos(p.angle) * W * p.r * colS;
+      const py = oy + Math.sin(p.angle) * W * p.r * colS * .26;
       if (Math.sin(p.angle) < 0) {
         const heat = p.brightness * (.7 + Math.sin(p.phase) * .3);
         const frac = Math.max(0, Math.min(1, (p.r - (opts.discRBase || .048) + .007) / .08));
@@ -674,8 +687,8 @@ function drawPortal(canvas, opts) {
     // ── Inner stream back half ──
     innerStream.forEach(p => {
       p.angle += p.speed * (opts.speedMult || 1); p.phase += .05;
-      const px = ox + Math.cos(p.angle) * (sR + W * p.r);
-      const py = oy + Math.sin(p.angle) * (sR + W * p.r) * .28;
+      const px = ox + Math.cos(p.angle) * (sR + W * p.r * colS);
+      const py = oy + Math.sin(p.angle) * (sR + W * p.r * colS) * .28;
       if (Math.sin(p.angle) < 0) {
         const heat = p.brightness * (.6 + Math.sin(p.phase) * .4);
         const sz = p.size * (opts.particleMult || 1) * (.6 + Math.sin(p.phase) * .3 * (opts.particleVar || 1));
@@ -686,8 +699,8 @@ function drawPortal(canvas, opts) {
     });
     innerStreamBlue.forEach(p => {
       p.angle += p.speed * (opts.speedMult || 1); p.phase += .045;
-      const px = ox + Math.cos(p.angle) * (sR + W * p.r);
-      const py = oy + Math.sin(p.angle) * (sR + W * p.r) * .28;
+      const px = ox + Math.cos(p.angle) * (sR + W * p.r * colS);
+      const py = oy + Math.sin(p.angle) * (sR + W * p.r * colS) * .28;
       if (Math.sin(p.angle) < 0) {
         const heat = p.brightness * (.6 + Math.sin(p.phase) * .4);
         const sz = p.size * (opts.particleMult || 1) * (.6 + Math.sin(p.phase) * .3 * (opts.particleVar || 1));
@@ -697,9 +710,9 @@ function drawPortal(canvas, opts) {
       }
     });
     outerStreamBlue.forEach(p => {
-      p.angle += p.speed * (opts.speedMult || 1); p.phase += .035;
-      const px = ox + Math.cos(p.angle) * (sR + W * p.r);
-      const py = oy + Math.sin(p.angle) * (sR + W * p.r) * .28;
+      p.angle += p.speed * (opts.speedMult || 1) * suckB; p.phase += .035;
+      const px = ox + Math.cos(p.angle) * (sR + W * p.r * colS);
+      const py = oy + Math.sin(p.angle) * (sR + W * p.r * colS) * .28;
       if (Math.sin(p.angle) < 0) {
         const heat = p.brightness * (.5 + Math.sin(p.phase) * .4);
         const sz = p.size * (opts.particleMult || 1) * (.6 + Math.sin(p.phase) * .3 * (opts.particleVar || 1));
@@ -712,13 +725,13 @@ function drawPortal(canvas, opts) {
 
     // ── Planets — update positions (drawn after sphere below) ──
     planets.forEach(p => {
-      const baseOrbitR = minR + (maxR - minR) * p.radiusFrac;
+      const baseOrbitR = (minR + (maxR - minR) * p.radiusFrac) * colS;
 
       // ── Absorption state machine (orange planet only) ──
       if (p.absorbState !== undefined) {
         if (p.absorbState === 'normal') {
           p.absorbTimer--;
-          p.angle += p.speed * (opts.speedMult || 1);
+          p.angle += p.speed * (opts.speedMult || 1) * suckB;
           if (p.absorbTimer <= 0) {
             p.absorbState = 'falling';
             p.absorbProgress = 0;
@@ -771,7 +784,7 @@ function drawPortal(canvas, opts) {
           if (p.trailHistory.length > (p.absorbState === 'falling' ? 52 : 32)) p.trailHistory.shift();
         }
       } else {
-        p.angle += p.speed * (opts.speedMult || 1);
+        p.angle += p.speed * (opts.speedMult || 1) * suckB;
         p._x = ox + Math.cos(p.angle) * baseOrbitR;
         p._y = oy + Math.sin(p.angle) * baseOrbitR * 0.34;
         p._radius = sR * p.sizeF;
@@ -782,6 +795,11 @@ function drawPortal(canvas, opts) {
       }
       p._inFront = Math.sin(p.angle) >= 0;
     });
+
+    ctx.restore(); // end discA
+
+    // ── Sphere alpha ──
+    ctx.save(); ctx.globalAlpha = sphA;
 
     // ── Photon ring glow — enlarged and brighter ──
     const gs = opts.glowScale || 1;
@@ -923,11 +941,14 @@ function drawPortal(canvas, opts) {
 
     ctx.restore();
 
+    ctx.restore(); // end sphA
+    ctx.save(); ctx.globalAlpha = discA;
+
     // ── Disc front half ──
     ctx.save();
     disc.forEach(p => {
-      const px = ox + Math.cos(p.angle) * W * p.r;
-      const py = oy + Math.sin(p.angle) * W * p.r * .26;
+      const px = ox + Math.cos(p.angle) * W * p.r * colS;
+      const py = oy + Math.sin(p.angle) * W * p.r * colS * .26;
       if (Math.sin(p.angle) >= 0) {
         const heat = p.brightness * (.7 + Math.sin(p.phase) * .3);
         const frac = Math.max(0, Math.min(1, (p.r - (opts.discRBase || .048) + .007) / .08));
@@ -942,8 +963,8 @@ function drawPortal(canvas, opts) {
     });
     // ── Inner stream front half ──
     innerStream.forEach(p => {
-      const px = ox + Math.cos(p.angle) * (sR + W * p.r);
-      const py = oy + Math.sin(p.angle) * (sR + W * p.r) * .28;
+      const px = ox + Math.cos(p.angle) * (sR + W * p.r * colS);
+      const py = oy + Math.sin(p.angle) * (sR + W * p.r * colS) * .28;
       if (Math.sin(p.angle) >= 0) {
         const heat = p.brightness * (.6 + Math.sin(p.phase) * .4);
         const sz = p.size * (opts.particleMult || 1) * (.6 + Math.sin(p.phase) * .3 * (opts.particleVar || 1));
@@ -953,8 +974,8 @@ function drawPortal(canvas, opts) {
       }
     });
     innerStreamBlue.forEach(p => {
-      const px = ox + Math.cos(p.angle) * (sR + W * p.r);
-      const py = oy + Math.sin(p.angle) * (sR + W * p.r) * .28;
+      const px = ox + Math.cos(p.angle) * (sR + W * p.r * colS);
+      const py = oy + Math.sin(p.angle) * (sR + W * p.r * colS) * .28;
       if (Math.sin(p.angle) >= 0) {
         const heat = p.brightness * (.6 + Math.sin(p.phase) * .4);
         const sz = p.size * (opts.particleMult || 1) * (.6 + Math.sin(p.phase) * .3 * (opts.particleVar || 1));
@@ -964,8 +985,8 @@ function drawPortal(canvas, opts) {
       }
     });
     outerStreamBlue.forEach(p => {
-      const px = ox + Math.cos(p.angle) * (sR + W * p.r);
-      const py = oy + Math.sin(p.angle) * (sR + W * p.r) * .28;
+      const px = ox + Math.cos(p.angle) * (sR + W * p.r * colS);
+      const py = oy + Math.sin(p.angle) * (sR + W * p.r * colS) * .28;
       if (Math.sin(p.angle) >= 0) {
         const heat = p.brightness * (.5 + Math.sin(p.phase) * .4);
         const sz = p.size * (opts.particleMult || 1) * (.6 + Math.sin(p.phase) * .3 * (opts.particleVar || 1));
@@ -979,7 +1000,7 @@ function drawPortal(canvas, opts) {
 
     // ── Rings front half (in front of sphere) — bottom arc only ──
     fullRings.forEach((fr, i) => {
-      const r      = minR + (maxR - minR) * fr.radiusFrac;
+      const r      = (minR + (maxR - minR) * fr.radiusFrac) * colS;
       const bright = .12 + (5 - i) * .022;
       const rC     = fr.isOrange ? 255 : 30;
       const gC     = fr.isOrange ? 110 : 180;
@@ -1009,7 +1030,7 @@ function drawPortal(canvas, opts) {
     });
     for (let i = 0; i < numRings; i++) {
       const pct        = i / (numRings - 1);
-      const r          = minR + (maxR - minR) * (pct * pct * .8 + pct * .2);
+      const r          = (minR + (maxR - minR) * (pct * pct * .8 + pct * .2)) * colS;
       const brightness = Math.pow(1 - pct * .87, 1.3) * 0.6;
       const pulse      = 1 + Math.sin(t * .85 + i * .42) * .016;
       const rC         = Math.round(255 * (1 - pct * .95));
@@ -1025,7 +1046,10 @@ function drawPortal(canvas, opts) {
       ctx.restore();
     }
 
+    ctx.restore(); // end discA
+
     // ── Planets — render all with perspective size + opacity scaling ──
+    ctx.save(); ctx.globalAlpha = discA;
     planets.forEach((p, pi) => {
       const sinA = Math.sin(p.angle);
       const depthScale = 1.0 + sinA * 0.4;
@@ -1090,6 +1114,37 @@ function drawPortal(canvas, opts) {
       if (p.ring) drawPlanetRing(ctx, p._x, p._y, r, p.rC, p.gC, p.bC, alpha, true, p.ringScale);
     });
 
+    ctx.restore(); // end planets discA
+
+    // ── Collapse blip flash ──
+    if (opts._blipFlash > 0) {
+      const bf = opts._blipFlash;
+      const fg = ctx.createRadialGradient(ox, oy, 0, ox, oy, W * 0.6);
+      fg.addColorStop(0,   `rgba(255,240,200,${bf})`);
+      fg.addColorStop(0.2, `rgba(255,180,80,${bf * 0.8})`);
+      fg.addColorStop(0.5, `rgba(255,100,20,${bf * 0.4})`);
+      fg.addColorStop(1,   'rgba(0,0,0,0)');
+      ctx.fillStyle = fg; ctx.fillRect(0, 0, W, H);
+    }
+
+    // ── "poof" text — orbits inside sphere with ease-out ──
+    if (opts._poofAlpha > 0) {
+      const pa = opts._poofAngle || -Math.PI * 0.5;
+      const pr = sR * 0.48;
+      const px = ox + Math.cos(pa) * pr;
+      const py = oy + Math.sin(pa) * pr * 0.55;
+      ctx.save();
+      ctx.globalAlpha = opts._poofAlpha;
+      ctx.font = `italic 400 11px Georgia, serif`;
+      ctx.fillStyle = 'rgba(255,255,255,1)';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.shadowBlur = 10;
+      ctx.shadowColor = 'rgba(255,255,255,0.6)';
+      ctx.fillText('poof', px, py);
+      ctx.restore();
+    }
+
     // ── Top fade ──
     const fade = ctx.createLinearGradient(0, 0, 0, H * .4);
     fade.addColorStop(0, 'rgba(1,2,5,.85)'); fade.addColorStop(.55, 'rgba(1,2,5,.18)'); fade.addColorStop(1, 'rgba(1,2,5,0)');
@@ -1101,7 +1156,7 @@ requestAnimationFrame(frame);
 }
 
 
-/* ── BLACK HOLE TIME WARP ── */
+/* ── BLACK HOLE COLLAPSE EVENT ── */
 (function(){
   const canvas = document.getElementById('bhCanvas');
   if (!canvas) return;
@@ -1124,30 +1179,90 @@ requestAnimationFrame(frame);
     const dx = e.clientX - cx, dy = e.clientY - cy;
     if (Math.hypot(dx, dy) > sr * 1.4) return;
 
-    // Pulse rings
     if (!bhOpts._pulseRings) bhOpts._pulseRings = [];
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 4; i++)
       bhOpts._pulseRings.push({ startT: performance.now() + i * 180, duration: 1400 });
-    }
 
     bhOpts._warping = true;
+    bhOpts._blipFlash = 0;
+
+    // Phase durations (ms)
+    const RAMP_UP    = 5000;
+    const SUCK_IN    = 3000;
+    const BLIP       = 400;
+    const DARK       = 6000;
+    const SPHERE_IN  = 5000;
+    const FULL_IN    = 7000;
+
     const start = performance.now();
-    const rampUp = 5000;
-    const rampDown = 5000;
 
     (function tick(now) {
-      const elapsed = now - start;
-      if (elapsed < rampUp) {
-        // ease in to 30x over 5s
-        const p = elapsed / rampUp;
-        bhOpts.speedMult = 1 + (p * p) * 29;
+      const e = now - start;
+
+      if (e < RAMP_UP) {
+        // Speed ramps to 30x; outer elements get extra boost
+        const p = e / RAMP_UP;
+        bhOpts.speedMult  = 1 + p * p * 29;
+        bhOpts.suckBoost  = 1 + p * p * 7;   // 1→8x extra for planets + outer blue
+        requestAnimationFrame(tick);
+
+      } else if (e < RAMP_UP + SUCK_IN) {
+        // Everything spirals inward, fades out
+        const p = (e - RAMP_UP) / SUCK_IN;
+        bhOpts.speedMult          = 30;
+        bhOpts.suckBoost          = 8 + p * 4; // 8→12x extra during suck-in
+        bhOpts.collapseOrbitScale = 1 - Math.pow(p, 1.4);
+        bhOpts.discAlpha          = 1 - p;
+        bhOpts.sphereAlpha        = 1;
+        requestAnimationFrame(tick);
+
+      } else if (e < RAMP_UP + SUCK_IN + BLIP) {
+        // Bright flash then blink out
+        const p = (e - RAMP_UP - SUCK_IN) / BLIP;
+        bhOpts.suckBoost          = 1;
+        bhOpts.collapseOrbitScale = 0;
+        bhOpts.discAlpha          = 0;
+        bhOpts.sphereAlpha        = p < 0.35 ? 1 + (p / 0.35) * 2 : Math.max(0, 1 - (p - 0.35) / 0.65 * 3);
+        bhOpts._blipFlash         = p < 0.35 ? p / 0.35 : Math.max(0, 1 - (p - 0.35) / 0.65);
+        requestAnimationFrame(tick);
+
+      } else if (e < RAMP_UP + SUCK_IN + BLIP + DARK) {
+        // Everything dark, silence — "poof" fades in then holds
+        bhOpts.sphereAlpha = 0; bhOpts._blipFlash = 0;
+        bhOpts.speedMult   = 1;
+        const dp = (e - RAMP_UP - SUCK_IN - BLIP) / DARK;
+        bhOpts._poofAlpha  = dp < 0.25 ? Math.pow(dp / 0.25, 2) : dp > 0.75 ? Math.max(0, 1 - (dp - 0.75) / 0.25) : 1;
+        // circular orbit inside sphere, easing out (fast start → slow stop)
+        bhOpts._poofAngle  = -Math.PI * 0.5 + Math.PI * 1.5 * (1 - Math.pow(1 - dp, 3));
+        requestAnimationFrame(tick);
+
+      } else if (e < RAMP_UP + SUCK_IN + BLIP + DARK + SPHERE_IN) {
+        // Sphere fades back in
+        const p = (e - RAMP_UP - SUCK_IN - BLIP - DARK) / SPHERE_IN;
+        bhOpts.sphereAlpha = Math.pow(p, 0.6);
+        bhOpts._poofAlpha  = 0;
+        requestAnimationFrame(tick);
+
+      } else if (e < RAMP_UP + SUCK_IN + BLIP + DARK + SPHERE_IN + FULL_IN) {
+        // Everything else fades back in
+        const p = (e - RAMP_UP - SUCK_IN - BLIP - DARK - SPHERE_IN) / FULL_IN;
+        bhOpts.sphereAlpha        = 1;
+        bhOpts.discAlpha          = Math.pow(p, 0.5);
+        bhOpts.collapseOrbitScale = Math.pow(p, 0.6);
+        bhOpts._poofAlpha         = 0;
+        requestAnimationFrame(tick);
+
       } else {
-        // ease back to 1x over 5s
-        const p = Math.min((elapsed - rampUp) / rampDown, 1);
-        bhOpts.speedMult = 30 - (p * p) * 29;
-        if (p >= 1) { bhOpts.speedMult = 1; bhOpts._warping = false; return; }
+        // Done — reset all
+        bhOpts.speedMult          = 1;
+        bhOpts.suckBoost          = 1;
+        bhOpts.collapseOrbitScale = 1;
+        bhOpts.discAlpha          = 1;
+        bhOpts.sphereAlpha        = 1;
+        bhOpts._blipFlash         = 0;
+        bhOpts._poofAlpha         = 0;
+        bhOpts._warping           = false;
       }
-      requestAnimationFrame(tick);
     })(start);
   });
 })();
