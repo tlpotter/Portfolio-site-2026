@@ -232,16 +232,19 @@ function drawPortal(canvas, opts) {
   // LENSING — gravitational warp of the star field
   // Uses a half-res offscreen canvas + pre-computed displacement LUT
   // ────────────────────────────────────
-  const useLensing = opts.lensing === true;
+  // useLensing is re-evaluated every frame from opts so resize switches code paths correctly
+  let useLensing = opts.lensing === true;
   let osc, octx, lensed, lensedCtx, lut;
   let lastW = W, lastH = H;
 
-  if (useLensing) {
-    osc    = document.createElement('canvas');
-    octx   = osc.getContext('2d');
-    lensed = document.createElement('canvas');
-    lensedCtx = lensed.getContext('2d');
-  }
+  // Always create both canvas paths — either may be needed after a resize
+  osc       = document.createElement('canvas');
+  octx      = osc.getContext('2d');
+  lensed    = document.createElement('canvas');
+  lensedCtx = lensed.getContext('2d');
+
+  const plainStars = document.createElement('canvas');
+  const plainCtx   = plainStars.getContext('2d');
 
   function buildLUT() {
     if (!useLensing) return;
@@ -469,9 +472,10 @@ function drawPortal(canvas, opts) {
   function frame() {
     t += .009 * (opts.speedMult || 1); fc++;
     W = canvas.width; H = canvas.height;
+    useLensing = opts.lensing === true; // re-check each frame so resize switches paths
 
-    // Rebuild LUT if canvas was resized
-    if (useLensing && (W !== lastW || H !== lastH)) {
+    // Rebuild LUT if canvas was resized or lensing just turned on
+    if (useLensing && (W !== lastW || H !== lastH || !lut)) {
       lastW = W; lastH = H;
       buildLUT();
     }
@@ -515,31 +519,33 @@ function drawPortal(canvas, opts) {
       }
       if (lut) ctx.drawImage(lensed, 0, 0, W, H);
     } else {
-      // Plain stars — draw to temp canvas with gradient mask then composite
-      const tmp = document.createElement('canvas');
-      tmp.width = W; tmp.height = H;
-      const tc = tmp.getContext('2d');
+      // Plain stars — reuse persistent canvas, avoids GC thrash every frame
+      if (plainStars.width !== W || plainStars.height !== H) {
+        plainStars.width = W; plainStars.height = H;
+      }
+      plainCtx.clearRect(0, 0, W, H);
       nebulae.forEach(n => {
         n.phase += n.speed;
         const pulse = 1 + Math.sin(n.phase) * .08;
-        const g = tc.createRadialGradient(n.nx*W, n.ny*H, 0, n.nx*W, n.ny*H, n.rnx*W*pulse);
+        const g = plainCtx.createRadialGradient(n.nx*W, n.ny*H, 0, n.nx*W, n.ny*H, n.rnx*W*pulse);
         g.addColorStop(0, `rgba(${n.color},${.08 + Math.sin(n.phase)*.02})`);
         g.addColorStop(1, `rgba(${n.color},0)`);
-        tc.save(); tc.scale(1, n.rny / n.rnx);
-        tc.beginPath(); tc.arc(n.nx*W, n.ny*H*(n.rnx/n.rny), n.rnx*W*pulse, 0, Math.PI*2);
-        tc.fillStyle = g; tc.fill(); tc.restore();
+        plainCtx.save(); plainCtx.scale(1, n.rny / n.rnx);
+        plainCtx.beginPath(); plainCtx.arc(n.nx*W, n.ny*H*(n.rnx/n.rny), n.rnx*W*pulse, 0, Math.PI*2);
+        plainCtx.fillStyle = g; plainCtx.fill(); plainCtx.restore();
       });
       stars.forEach(s => {
         s.phase += s.speed;
         const a = s.a * (.4 + Math.sin(s.phase) * .6);
-        tc.beginPath(); tc.arc(s.nx * W, s.ny * H, s.r, 0, Math.PI * 2);
-        tc.fillStyle = `rgba(255,255,255,${a})`; tc.fill();
+        plainCtx.beginPath(); plainCtx.arc(s.nx * W, s.ny * H, s.r, 0, Math.PI * 2);
+        plainCtx.fillStyle = `rgba(255,255,255,${a})`; plainCtx.fill();
       });
-      tc.globalCompositeOperation = 'destination-in';
-      const sm = tc.createLinearGradient(0, oy * 0.48, 0, oy);
+      plainCtx.globalCompositeOperation = 'destination-in';
+      const sm = plainCtx.createLinearGradient(0, oy * 0.48, 0, oy);
       sm.addColorStop(0, 'rgba(0,0,0,1)'); sm.addColorStop(1, 'rgba(0,0,0,0)');
-      tc.fillStyle = sm; tc.fillRect(0, 0, W, H);
-      ctx.drawImage(tmp, 0, 0);
+      plainCtx.fillStyle = sm; plainCtx.fillRect(0, 0, W, H);
+      plainCtx.globalCompositeOperation = 'source-over';
+      ctx.drawImage(plainStars, 0, 0);
     }
 
     // Clip remaining effects (constellations, shooters, plasma) above horizon
@@ -1050,7 +1056,7 @@ function drawPortal(canvas, opts) {
 
     // ── Planets — render all with perspective size + opacity scaling ──
     ctx.save(); ctx.globalAlpha = discA;
-    planets.forEach((p, pi) => {
+    planets.forEach((p) => {
       const sinA = Math.sin(p.angle);
       const depthScale = 1.0 + sinA * 0.4;
       const alpha = (0.72 + (sinA + 1) * 0.14) * (p._reformAlpha !== undefined ? p._reformAlpha : 1);
@@ -1282,14 +1288,18 @@ function resizeBH() {
   bh.height = Math.round(heroH + ext);
   bh.style.width  = bh.width  + 'px';
   bh.style.height = bh.height + 'px';
-  bhOpts.originY  = (heroH * 0.80) / bh.height;
+  bhOpts.originY  = (heroH * (mobile ? 0.86 : 0.80)) / bh.height;
   bhOpts.sphereR       = mobile ? 0.085 : 0.048;
   bhOpts.maxR          = mobile ? 0.72  : 0.43;
   bhOpts.glowScale     = mobile ? 0.80  : 1.0;
   bhOpts.discRBase     = mobile ? 0.09  : 0.048;
-  bhOpts.discSizeScale = mobile ? 1.1   : 1.0;
-  bhOpts.particleMult  = mobile ? 0.50  : 1.0;
-  bhOpts.particleVar   = mobile ? 2.2   : 1.0;
+  bhOpts.discSizeScale = mobile ? 1.4   : 1.0;
+  bhOpts.discCount     = mobile ? 160   : 480;
+  bhOpts.starCount     = mobile ? 80    : 200;
+  bhOpts.particleMult  = mobile ? 1.2   : 1.0;
+  bhOpts.particleVar   = mobile ? 1.0   : 1.0;
+  bhOpts.shooters      = !mobile;
+  bhOpts.lensing       = !mobile; // pixel-by-pixel GPU readback is too slow on mobile
 }
 resizeBH();
 window.addEventListener('resize', resizeBH);
