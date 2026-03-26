@@ -1,3 +1,44 @@
+/* ── PROTECTED CASE STUDY GATE ── */
+(function(){
+  const HASH = '100aa5ee77f448f54a90f9d5338cf1fd59649bab93fc14d6e9884a617741ebce';
+  const modal = document.getElementById('pw-modal');
+  if (!modal) return;
+  let targetHref = '';
+
+  async function sha256(str) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+  }
+
+  document.querySelectorAll('[data-protected]').forEach(el => {
+    el.addEventListener('click', e => {
+      e.preventDefault();
+      targetHref = el.dataset.href || '';
+      document.getElementById('pw-error').textContent = '';
+      document.getElementById('pw-input').value = '';
+      modal.style.display = 'flex';
+      setTimeout(() => document.getElementById('pw-input').focus(), 50);
+    });
+  });
+
+  async function attempt() {
+    const val = document.getElementById('pw-input').value;
+    const h = await sha256(val);
+    if (h === HASH) {
+      modal.style.display = 'none';
+      window.location.href = targetHref;
+    } else {
+      document.getElementById('pw-error').textContent = 'Incorrect password.';
+      document.getElementById('pw-input').select();
+    }
+  }
+
+  document.getElementById('pw-submit').addEventListener('click', attempt);
+  document.getElementById('pw-input').addEventListener('keydown', e => { if (e.key === 'Enter') attempt(); });
+  document.getElementById('pw-cancel').addEventListener('click', () => { modal.style.display = 'none'; });
+  modal.addEventListener('click', e => { if (e.target === modal) modal.style.display = 'none'; });
+})();
+
 /* ── NAV BADGE ANIMATE IN ── */
 (function(){
   const badge = document.querySelector('.nav-badge');
@@ -140,7 +181,7 @@ function drawPortal(canvas, opts) {
     return {
       angle: (i / 280) * Math.PI * 2,
       speed: (.004586 + Math.random() * .003276) * (layer % 2 === 0 ? 1 : -1) * (1 - layer * .15),
-      r: (opts.discRBase || .048) + layer * .045 + (Math.random() - .5) * .032,
+      r: (opts.discRBase || .048) + layer * (opts.discLayerStep || .045) + (Math.random() - .5) * .072,
       size: (2.7 + Math.random() * 8.1) * (opts.discSizeScale || 1),
       brightness: .3 + Math.random() * .7,
       layer, phase: Math.random() * Math.PI * 2
@@ -469,7 +510,19 @@ function drawPortal(canvas, opts) {
 // ────────────────────────────────────
   // FRAME LOOP
   // ────────────────────────────────────
-  function frame() {
+  let bhVisible = true;
+  const bhIO = new IntersectionObserver(entries => {
+    bhVisible = entries[0].isIntersecting;
+    if (bhVisible) requestAnimationFrame(frame);
+  }, { threshold: 0 });
+  bhIO.observe(canvas);
+
+  let lastFrameTime = 0;
+  function frame(now) {
+    if (!bhVisible) return;
+    const minGap = opts.lensing ? 16 : 33; // desktop ~60fps, mobile ~30fps
+    if (now - lastFrameTime < minGap) { requestAnimationFrame(frame); return; }
+    lastFrameTime = now;
     t += .009 * (opts.speedMult || 1); fc++;
     W = canvas.width; H = canvas.height;
     useLensing = opts.lensing === true; // re-check each frame so resize switches paths
@@ -1158,7 +1211,7 @@ function drawPortal(canvas, opts) {
 
 requestAnimationFrame(frame);
   }
-  frame();
+  requestAnimationFrame(frame);
 }
 
 
@@ -1292,11 +1345,12 @@ function resizeBH() {
   bhOpts.sphereR       = mobile ? 0.085 : 0.048;
   bhOpts.maxR          = mobile ? 0.72  : 0.43;
   bhOpts.glowScale     = mobile ? 0.80  : 1.0;
-  bhOpts.discRBase     = mobile ? 0.09  : 0.048;
-  bhOpts.discSizeScale = mobile ? 1.4   : 1.0;
+  bhOpts.discRBase     = mobile ? 0.14  : 0.048;
+  bhOpts.discLayerStep = mobile ? 0.16  : 0.045;
+  bhOpts.discSizeScale = mobile ? 0.85  : 1.0;
   bhOpts.discCount     = mobile ? 160   : 480;
   bhOpts.starCount     = mobile ? 80    : 200;
-  bhOpts.particleMult  = mobile ? 1.2   : 1.0;
+  bhOpts.particleMult  = mobile ? 0.75  : 1.0;
   bhOpts.particleVar   = mobile ? 1.0   : 1.0;
   bhOpts.shooters      = !mobile;
   bhOpts.lensing       = !mobile; // pixel-by-pixel GPU readback is too slow on mobile
