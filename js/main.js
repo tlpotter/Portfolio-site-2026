@@ -510,6 +510,7 @@ function drawPortal(canvas, opts) {
 // ────────────────────────────────────
   // FRAME LOOP
   // ────────────────────────────────────
+  let cachedBg = null, cachedBgW = 0, cachedBgH = 0;
   let bhVisible = true;
   const bhIO = new IntersectionObserver(entries => {
     bhVisible = entries[0].isIntersecting;
@@ -526,6 +527,7 @@ function drawPortal(canvas, opts) {
     t += .009 * (opts.speedMult || 1); fc++;
     W = canvas.width; H = canvas.height;
     useLensing = opts.lensing === true; // re-check each frame so resize switches paths
+    const sb = useLensing ? 1 : 0;     // shadowBlur multiplier: 0 on mobile = big perf win
 
     // Rebuild LUT if canvas was resized or lensing just turned on
     if (useLensing && (W !== lastW || H !== lastH || !lut)) {
@@ -544,16 +546,19 @@ function drawPortal(canvas, opts) {
     const discA = opts.discAlpha          !== undefined ? opts.discAlpha          : 1;
     const sphA  = opts.sphereAlpha        !== undefined ? opts.sphereAlpha        : 1;
 
-    // ── Background gradient — full canvas height for smooth fade ──
-    const bg = ctx.createLinearGradient(0, 0, 0, H);
-    bg.addColorStop(0,    'rgba(1,2,5,1)');
-    bg.addColorStop(0.30, 'rgba(2,6,16,1)');
-    bg.addColorStop(0.58, 'rgba(3,11,26,1)');
-    bg.addColorStop(0.72, 'rgba(2,9,20,0.92)');
-    bg.addColorStop(0.84, 'rgba(2,7,14,0.65)');
-    bg.addColorStop(0.93, 'rgba(2,6,10,0.28)');
-    bg.addColorStop(1,    'rgba(2,6,8,0)');
-    ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+    // ── Background gradient — cached, only rebuild on resize ──
+    if (!cachedBg || W !== cachedBgW || H !== cachedBgH) {
+      cachedBg = ctx.createLinearGradient(0, 0, 0, H);
+      cachedBg.addColorStop(0,    'rgba(1,2,5,1)');
+      cachedBg.addColorStop(0.30, 'rgba(2,6,16,1)');
+      cachedBg.addColorStop(0.58, 'rgba(3,11,26,1)');
+      cachedBg.addColorStop(0.72, 'rgba(2,9,20,0.92)');
+      cachedBg.addColorStop(0.84, 'rgba(2,7,14,0.65)');
+      cachedBg.addColorStop(0.93, 'rgba(2,6,10,0.28)');
+      cachedBg.addColorStop(1,    'rgba(2,6,8,0)');
+      cachedBgW = W; cachedBgH = H;
+    }
+    ctx.fillStyle = cachedBg; ctx.fillRect(0, 0, W, H);
 
     // ── Star field — gradient-masked, no hard clip edge ──
     if (useLensing) {
@@ -704,7 +709,7 @@ function drawPortal(canvas, opts) {
       const bC     = fr.isOrange ? 20  : 255;
       const rOval  = r * (1 + Math.sin(t * .6 + i * .5) * .01);
       ctx.save();
-      ctx.shadowBlur  = 28 * bright;
+      ctx.shadowBlur  = 14 * bright * sb;
       ctx.shadowColor = `rgba(${rC},${gC},${bC},${bright * .7})`;
       ctx.strokeStyle = `rgba(${rC},${gC},${bC},${bright * .3})`;
       ctx.lineWidth   = 1.5 + bright * 3;
@@ -740,7 +745,7 @@ function drawPortal(canvas, opts) {
         const bC = frac < .65 ? Math.round(10 + 10 * Math.sin(p.phase * .7)) : Math.round(10 + (frac - .65) / .35 * 140);
         ctx.beginPath(); ctx.arc(px, py, p.size * .7 * (opts.particleMult || 1) * (1 + Math.sin(p.phase) * .3 * (opts.particleVar || 1)), 0, Math.PI * 2);
         ctx.fillStyle = `rgba(${rC},${gC},${bC},${heat * .8})`;
-        ctx.shadowBlur = p.size * 9; ctx.shadowColor = `rgba(${rC},${gC},${bC},.7)`; ctx.fill();
+        ctx.shadowBlur = p.size * 5 * sb; ctx.shadowColor = `rgba(${rC},${gC},${bC},.7)`; ctx.fill();
       }
     });
     // ── Inner stream back half ──
@@ -753,7 +758,7 @@ function drawPortal(canvas, opts) {
         const sz = p.size * (opts.particleMult || 1) * (.6 + Math.sin(p.phase) * .3 * (opts.particleVar || 1));
         ctx.beginPath(); ctx.arc(px, py, sz, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(255,${Math.round(140 + Math.sin(p.phase) * 20)},20,${heat * .85})`;
-        ctx.shadowBlur = sz * 8; ctx.shadowColor = `rgba(255,120,0,.8)`; ctx.fill();
+        ctx.shadowBlur = sz * 4 * sb; ctx.shadowColor = `rgba(255,120,0,.8)`; ctx.fill();
       }
     });
     innerStreamBlue.forEach(p => {
@@ -765,7 +770,7 @@ function drawPortal(canvas, opts) {
         const sz = p.size * (opts.particleMult || 1) * (.6 + Math.sin(p.phase) * .3 * (opts.particleVar || 1));
         ctx.beginPath(); ctx.arc(px, py, sz, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(255,${Math.round(130 + Math.sin(p.phase) * 25)},10,${heat * .85})`;
-        ctx.shadowBlur = sz * 8; ctx.shadowColor = `rgba(255,110,0,.8)`; ctx.fill();
+        ctx.shadowBlur = sz * 4 * sb; ctx.shadowColor = `rgba(255,110,0,.8)`; ctx.fill();
       }
     });
     outerStreamBlue.forEach(p => {
@@ -777,7 +782,7 @@ function drawPortal(canvas, opts) {
         const sz = p.size * (opts.particleMult || 1) * (.6 + Math.sin(p.phase) * .3 * (opts.particleVar || 1));
         ctx.beginPath(); ctx.arc(px, py, sz, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(${Math.round(56 + Math.sin(p.phase)*15)},${Math.round(189 + Math.sin(p.phase)*20)},248,${heat * .8})`;
-        ctx.shadowBlur = sz * 7; ctx.shadowColor = `rgba(40,160,255,.75)`; ctx.fill();
+        ctx.shadowBlur = sz * 4 * sb; ctx.shadowColor = `rgba(40,160,255,.75)`; ctx.fill();
       }
     });
     ctx.restore();
@@ -1017,7 +1022,7 @@ function drawPortal(canvas, opts) {
         const bC = frac < .65 ? Math.round(10 + 10 * Math.sin(p.phase * .7)) : Math.round(10 + (frac - .65) / .35 * 140);
         ctx.beginPath(); ctx.arc(px, py, p.size * .7 * (opts.particleMult || 1) * (1 + Math.sin(p.phase) * .3 * (opts.particleVar || 1)), 0, Math.PI * 2);
         ctx.fillStyle = `rgba(${rC},${gC},${bC},${heat})`;
-        ctx.shadowBlur = p.size * 10; ctx.shadowColor = `rgba(${rC},${gC},${bC},.8)`; ctx.fill();
+        ctx.shadowBlur = p.size * 5 * sb; ctx.shadowColor = `rgba(${rC},${gC},${bC},.8)`; ctx.fill();
       }
     });
     // ── Inner stream front half ──
@@ -1029,7 +1034,7 @@ function drawPortal(canvas, opts) {
         const sz = p.size * (opts.particleMult || 1) * (.6 + Math.sin(p.phase) * .3 * (opts.particleVar || 1));
         ctx.beginPath(); ctx.arc(px, py, sz, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(255,${Math.round(140 + Math.sin(p.phase) * 20)},20,${heat})`;
-        ctx.shadowBlur = sz * 9; ctx.shadowColor = `rgba(255,120,0,.9)`; ctx.fill();
+        ctx.shadowBlur = sz * 4 * sb; ctx.shadowColor = `rgba(255,120,0,.9)`; ctx.fill();
       }
     });
     innerStreamBlue.forEach(p => {
@@ -1040,7 +1045,7 @@ function drawPortal(canvas, opts) {
         const sz = p.size * (opts.particleMult || 1) * (.6 + Math.sin(p.phase) * .3 * (opts.particleVar || 1));
         ctx.beginPath(); ctx.arc(px, py, sz, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(255,${Math.round(130 + Math.sin(p.phase) * 25)},10,${heat})`;
-        ctx.shadowBlur = sz * 9; ctx.shadowColor = `rgba(255,110,0,.9)`; ctx.fill();
+        ctx.shadowBlur = sz * 4 * sb; ctx.shadowColor = `rgba(255,110,0,.9)`; ctx.fill();
       }
     });
     outerStreamBlue.forEach(p => {
@@ -1051,7 +1056,7 @@ function drawPortal(canvas, opts) {
         const sz = p.size * (opts.particleMult || 1) * (.6 + Math.sin(p.phase) * .3 * (opts.particleVar || 1));
         ctx.beginPath(); ctx.arc(px, py, sz, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(${Math.round(56 + Math.sin(p.phase)*15)},${Math.round(189 + Math.sin(p.phase)*20)},248,${heat})`;
-        ctx.shadowBlur = sz * 8; ctx.shadowColor = `rgba(40,160,255,.8)`; ctx.fill();
+        ctx.shadowBlur = sz * 4 * sb; ctx.shadowColor = `rgba(40,160,255,.8)`; ctx.fill();
       }
     });
     ctx.restore();
@@ -1066,7 +1071,7 @@ function drawPortal(canvas, opts) {
       const bC     = fr.isOrange ? 20  : 255;
       const rOval  = r * (1 + Math.sin(t * .6 + i * .5) * .01);
       ctx.save();
-      ctx.shadowBlur  = 28 * bright;
+      ctx.shadowBlur  = 14 * bright * sb;
       ctx.shadowColor = `rgba(${rC},${gC},${bC},${bright * .7})`;
       ctx.strokeStyle = `rgba(${rC},${gC},${bC},${bright * .3})`;
       ctx.lineWidth   = 1.5 + bright * 3;
@@ -1348,7 +1353,7 @@ function resizeBH() {
   bhOpts.discRBase     = mobile ? 0.14  : 0.048;
   bhOpts.discLayerStep = mobile ? 0.16  : 0.045;
   bhOpts.discSizeScale = mobile ? 0.85  : 1.0;
-  bhOpts.discCount     = mobile ? 160   : 480;
+  bhOpts.discCount     = mobile ? 160   : 300;
   bhOpts.starCount     = mobile ? 80    : 200;
   bhOpts.particleMult  = mobile ? 0.75  : 1.0;
   bhOpts.particleVar   = mobile ? 1.0   : 1.0;
