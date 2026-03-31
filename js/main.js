@@ -199,8 +199,8 @@ function drawPortal(canvas, opts) {
   }));
 
   // ── Dense blue inner stream ──
-  const innerStreamBlue = Array.from({ length: 380 }, (_, i) => ({
-    angle: (i / 380) * Math.PI * 2 + Math.PI * 0.3,
+  const innerStreamBlue = Array.from({ length: 228 }, (_, i) => ({
+    angle: (i / 228) * Math.PI * 2 + Math.PI * 0.3,
     speed: (.005 + Math.random() * .004) * (Math.random() > .35 ? -1 : 1),
     r: 0.008 + Math.random() * 0.028,
     size: (0.3 + Math.pow(Math.random(), 0.5) * 4.8),
@@ -209,8 +209,8 @@ function drawPortal(canvas, opts) {
   }));
 
   // ── Dense orange inner stream — continuous ring of particles hugging the event horizon ──
-  const innerStream = Array.from({ length: 220 }, (_, i) => ({
-    angle: (i / 220) * Math.PI * 2,
+  const innerStream = Array.from({ length: 132 }, (_, i) => ({
+    angle: (i / 132) * Math.PI * 2,
     speed: (.006 + Math.random() * .004) * (Math.random() > .3 ? 1 : -1),
     r: 0.004 + Math.random() * 0.022,   // very close to sphere surface
     size: (0.3 + Math.pow(Math.random(), 0.5) * 5.5),
@@ -528,6 +528,7 @@ function drawPortal(canvas, opts) {
     W = canvas.width; H = canvas.height;
     useLensing = opts.lensing === true; // re-check each frame so resize switches paths
     const sb = useLensing ? 1 : 0;     // shadowBlur multiplier: 0 on mobile = big perf win
+    const pad = W * 0.05;              // bounds margin for offscreen culling
 
     // Rebuild LUT if canvas was resized or lensing just turned on
     if (useLensing && (W !== lastW || H !== lastH || !lut)) {
@@ -743,6 +744,7 @@ function drawPortal(canvas, opts) {
         const rC = frac < .65 ? 255 : Math.round(255 * Math.max(0, 1 - (frac - .65) / .35));
         const gC = frac < .65 ? Math.round(130 + 40 * Math.sin(p.phase)) : Math.round((130 + 40 * Math.sin(p.phase)) * Math.max(0, 1 - (frac - .65) / .35));
         const bC = frac < .65 ? Math.round(10 + 10 * Math.sin(p.phase * .7)) : Math.round(10 + (frac - .65) / .35 * 140);
+        if (px < -pad || px > W + pad || py < -pad || py > H + pad) return;
         ctx.beginPath(); ctx.arc(px, py, p.size * .7 * (opts.particleMult || 1) * (1 + Math.sin(p.phase) * .3 * (opts.particleVar || 1)), 0, Math.PI * 2);
         ctx.fillStyle = `rgba(${rC},${gC},${bC},${heat * .8})`;
         ctx.shadowBlur = p.size * 5 * sb; ctx.shadowColor = `rgba(${rC},${gC},${bC},.7)`; ctx.fill();
@@ -753,7 +755,7 @@ function drawPortal(canvas, opts) {
       p.angle += p.speed * (opts.speedMult || 1); p.phase += .05;
       const px = ox + Math.cos(p.angle) * (sR + W * p.r * colS);
       const py = oy + Math.sin(p.angle) * (sR + W * p.r * colS) * .28;
-      if (Math.sin(p.angle) < 0) {
+      if (Math.sin(p.angle) < 0 && px >= -pad && px <= W + pad && py >= -pad && py <= H + pad) {
         const heat = p.brightness * (.6 + Math.sin(p.phase) * .4);
         const sz = p.size * (opts.particleMult || 1) * (.6 + Math.sin(p.phase) * .3 * (opts.particleVar || 1));
         ctx.beginPath(); ctx.arc(px, py, sz, 0, Math.PI * 2);
@@ -765,7 +767,7 @@ function drawPortal(canvas, opts) {
       p.angle += p.speed * (opts.speedMult || 1); p.phase += .045;
       const px = ox + Math.cos(p.angle) * (sR + W * p.r * colS);
       const py = oy + Math.sin(p.angle) * (sR + W * p.r * colS) * .28;
-      if (Math.sin(p.angle) < 0) {
+      if (Math.sin(p.angle) < 0 && px >= -pad && px <= W + pad && py >= -pad && py <= H + pad) {
         const heat = p.brightness * (.6 + Math.sin(p.phase) * .4);
         const sz = p.size * (opts.particleMult || 1) * (.6 + Math.sin(p.phase) * .3 * (opts.particleVar || 1));
         ctx.beginPath(); ctx.arc(px, py, sz, 0, Math.PI * 2);
@@ -777,7 +779,7 @@ function drawPortal(canvas, opts) {
       p.angle += p.speed * (opts.speedMult || 1) * suckB; p.phase += .035;
       const px = ox + Math.cos(p.angle) * (sR + W * p.r * colS);
       const py = oy + Math.sin(p.angle) * (sR + W * p.r * colS) * .28;
-      if (Math.sin(p.angle) < 0) {
+      if (Math.sin(p.angle) < 0 && px >= -pad && px <= W + pad && py >= -pad && py <= H + pad) {
         const heat = p.brightness * (.5 + Math.sin(p.phase) * .4);
         const sz = p.size * (opts.particleMult || 1) * (.6 + Math.sin(p.phase) * .3 * (opts.particleVar || 1));
         ctx.beginPath(); ctx.arc(px, py, sz, 0, Math.PI * 2);
@@ -1020,6 +1022,7 @@ function drawPortal(canvas, opts) {
         const rC = frac < .65 ? 255 : Math.round(255 * Math.max(0, 1 - (frac - .65) / .35));
         const gC = frac < .65 ? Math.round(130 + 40 * Math.sin(p.phase)) : Math.round((130 + 40 * Math.sin(p.phase)) * Math.max(0, 1 - (frac - .65) / .35));
         const bC = frac < .65 ? Math.round(10 + 10 * Math.sin(p.phase * .7)) : Math.round(10 + (frac - .65) / .35 * 140);
+        if (px < -pad || px > W + pad || py < -pad || py > H + pad) return;
         ctx.beginPath(); ctx.arc(px, py, p.size * .7 * (opts.particleMult || 1) * (1 + Math.sin(p.phase) * .3 * (opts.particleVar || 1)), 0, Math.PI * 2);
         ctx.fillStyle = `rgba(${rC},${gC},${bC},${heat})`;
         ctx.shadowBlur = p.size * 5 * sb; ctx.shadowColor = `rgba(${rC},${gC},${bC},.8)`; ctx.fill();
@@ -1029,7 +1032,7 @@ function drawPortal(canvas, opts) {
     innerStream.forEach(p => {
       const px = ox + Math.cos(p.angle) * (sR + W * p.r * colS);
       const py = oy + Math.sin(p.angle) * (sR + W * p.r * colS) * .28;
-      if (Math.sin(p.angle) >= 0) {
+      if (Math.sin(p.angle) >= 0 && px >= -pad && px <= W + pad && py >= -pad && py <= H + pad) {
         const heat = p.brightness * (.6 + Math.sin(p.phase) * .4);
         const sz = p.size * (opts.particleMult || 1) * (.6 + Math.sin(p.phase) * .3 * (opts.particleVar || 1));
         ctx.beginPath(); ctx.arc(px, py, sz, 0, Math.PI * 2);
@@ -1040,7 +1043,7 @@ function drawPortal(canvas, opts) {
     innerStreamBlue.forEach(p => {
       const px = ox + Math.cos(p.angle) * (sR + W * p.r * colS);
       const py = oy + Math.sin(p.angle) * (sR + W * p.r * colS) * .28;
-      if (Math.sin(p.angle) >= 0) {
+      if (Math.sin(p.angle) >= 0 && px >= -pad && px <= W + pad && py >= -pad && py <= H + pad) {
         const heat = p.brightness * (.6 + Math.sin(p.phase) * .4);
         const sz = p.size * (opts.particleMult || 1) * (.6 + Math.sin(p.phase) * .3 * (opts.particleVar || 1));
         ctx.beginPath(); ctx.arc(px, py, sz, 0, Math.PI * 2);
@@ -1051,7 +1054,7 @@ function drawPortal(canvas, opts) {
     outerStreamBlue.forEach(p => {
       const px = ox + Math.cos(p.angle) * (sR + W * p.r * colS);
       const py = oy + Math.sin(p.angle) * (sR + W * p.r * colS) * .28;
-      if (Math.sin(p.angle) >= 0) {
+      if (Math.sin(p.angle) >= 0 && px >= -pad && px <= W + pad && py >= -pad && py <= H + pad) {
         const heat = p.brightness * (.5 + Math.sin(p.phase) * .4);
         const sz = p.size * (opts.particleMult || 1) * (.6 + Math.sin(p.phase) * .3 * (opts.particleVar || 1));
         ctx.beginPath(); ctx.arc(px, py, sz, 0, Math.PI * 2);
@@ -1200,11 +1203,11 @@ function drawPortal(canvas, opts) {
       ctx.save();
       ctx.globalAlpha = opts._poofAlpha;
       ctx.font = `italic 400 11px Georgia, serif`;
-      ctx.fillStyle = 'rgba(255,255,255,1)';
+      ctx.fillStyle = 'rgba(255,160,40,1)';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.shadowBlur = 10;
-      ctx.shadowColor = 'rgba(255,255,255,0.6)';
+      ctx.shadowColor = 'rgba(255,120,0,0.7)';
       ctx.fillText('poof', px, py);
       ctx.restore();
     }
@@ -1301,18 +1304,19 @@ requestAnimationFrame(frame);
         requestAnimationFrame(tick);
 
       } else if (e < RAMP_UP + SUCK_IN + BLIP + DARK + SPHERE_IN) {
-        // Sphere fades back in
+        // Sphere fades back in at full size
         const p = (e - RAMP_UP - SUCK_IN - BLIP - DARK) / SPHERE_IN;
-        bhOpts.sphereAlpha = Math.pow(p, 0.6);
-        bhOpts._poofAlpha  = 0;
+        bhOpts.sphereAlpha        = Math.pow(p, 0.6);
+        bhOpts.collapseOrbitScale = 1; // keep discs at full orbit so they don't expand on return
+        bhOpts._poofAlpha         = 0;
         requestAnimationFrame(tick);
 
       } else if (e < RAMP_UP + SUCK_IN + BLIP + DARK + SPHERE_IN + FULL_IN) {
-        // Everything else fades back in
+        // Everything else fades back in at full size — no expansion, just opacity
         const p = (e - RAMP_UP - SUCK_IN - BLIP - DARK - SPHERE_IN) / FULL_IN;
         bhOpts.sphereAlpha        = 1;
         bhOpts.discAlpha          = Math.pow(p, 0.5);
-        bhOpts.collapseOrbitScale = Math.pow(p, 0.6);
+        bhOpts.collapseOrbitScale = 1; // already at full size, just fading in
         bhOpts._poofAlpha         = 0;
         requestAnimationFrame(tick);
 
@@ -1342,10 +1346,15 @@ function resizeBH() {
   const heroH  = document.getElementById('hero').offsetHeight || window.innerHeight;
   const mobile = window.innerWidth < 800;
   const ext    = heroH * (mobile ? 0.4 : 0.35);
-  bh.width  = window.innerWidth;
-  bh.height = Math.round(heroH + ext);
-  bh.style.width  = bh.width  + 'px';
-  bh.style.height = bh.height + 'px';
+  const dpr = Math.min(window.devicePixelRatio || 1, mobile ? 1 : 1.5);
+  const cssW = window.innerWidth;
+  const cssH = Math.round(heroH + ext);
+  bh.width  = Math.round(cssW * dpr);
+  bh.height = Math.round(cssH * dpr);
+  bh.style.width  = cssW + 'px';
+  bh.style.height = cssH + 'px';
+  const ctx2d = bh.getContext('2d');
+  if (ctx2d) { ctx2d.setTransform(1,0,0,1,0,0); ctx2d.scale(dpr, dpr); }
   bhOpts.originY  = (heroH * (mobile ? 0.86 : 0.80)) / bh.height;
   bhOpts.sphereR       = mobile ? 0.085 : 0.048;
   bhOpts.maxR          = mobile ? 0.72  : 0.43;

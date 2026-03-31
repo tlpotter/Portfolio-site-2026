@@ -193,9 +193,9 @@ section#cs-hero {
 }
 .cs-next-back {
   font-size: 13px; font-weight: 600; letter-spacing: .08em; text-decoration: none;
-  color: rgba(255,255,255,.55); transition: color .25s; display: flex; align-items: center; gap: 8px;
+  color: rgba(56,189,248,.8); transition: color .25s; display: flex; align-items: center; gap: 8px;
 }
-.cs-next-back:hover { color: #fff }
+.cs-next-back:hover { color: rgba(56,189,248,1) }
 .cs-next-link {
   display: flex; flex-direction: column; gap: 4px; text-align: right;
   text-decoration: none; padding: 20px 28px; border-radius: 14px; transition: all .35s;
