@@ -123,13 +123,9 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 12px;
-      margin: 48px 0;
+      margin: 48px -120px;
     }
-    .cs-art-phase {
-      border-left: 2px solid rgba(249,115,22,.35);
-      padding-left: 24px;
-      margin: 40px 0 20px;
-    }
+    .cs-art-phase { margin: 40px 0 20px; }
     .cs-art-phase-label {
       font-size: 11px;
       font-weight: 600;
@@ -139,7 +135,7 @@
       margin-bottom: 6px;
     }
     .cs-art-phase-title { font-size: 1.15rem; font-weight: 700; color: #fff; margin-bottom: 10px; }
-    .cs-art-phase-body { font-size: 15px; line-height: 1.75; color: rgba(255,255,255,.65); margin-bottom: 12px; }
+    .cs-art-phase-body { font-size: 17px; line-height: 1.9; color: rgba(255,255,255,.72); margin-bottom: 12px; }
     .cs-callout {
       background: rgba(56,189,248,0.05);
       border-left: 2px solid rgba(56,189,248,0.35);
@@ -215,30 +211,65 @@
       border: none;
       display: block;
     }
-    /* Workflow step pills */
+    /* Workflow step cards */
     .cs-steps {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      display: flex;
+      flex-direction: column;
       gap: 10px;
       margin: 40px 0;
     }
     .cs-step {
-      background: rgba(255,255,255,.03);
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 24px;
+      align-items: start;
+      background: rgba(255,255,255,.05);
+      backdrop-filter: blur(20px);
       border: 1px solid rgba(255,255,255,.08);
-      border-radius: 12px;
-      padding: 20px 18px;
+      box-shadow: 0 8px 32px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.06);
+      border-radius: 18px;
+      padding: 28px 32px;
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: all .35s;
     }
+    .cs-step::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(251,146,60,.06), transparent 60%);
+      opacity: 0;
+      transition: opacity .35s;
+      pointer-events: none;
+    }
+    .cs-step:hover::after { opacity: 1; }
+    .cs-step:hover {
+      background: rgba(255,255,255,.08);
+      border-color: rgba(56,189,248,.2);
+      box-shadow: 0 16px 48px rgba(56,189,248,.08), inset 0 1px 0 rgba(255,255,255,.08);
+      transform: translateY(-4px);
+    }
+    .cs-step:hover .cs-step-link { color: rgba(56,189,248,1); }
     .cs-step-num {
       font-size: 11px;
       font-weight: 700;
       letter-spacing: .14em;
       text-transform: uppercase;
-      color: rgba(249,115,22,.6);
-      margin-bottom: 8px;
+      color: rgba(249,115,22,.7);
+      padding-top: 3px;
     }
-    .cs-step-title { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 6px; }
-    .cs-step-body { font-size: 13px; line-height: 1.65; color: rgba(255,255,255,.5); }
-    .cs-step.active { border-color: rgba(249,115,22,.4); background: rgba(249,115,22,.05); }
+    .cs-step-content { display: flex; flex-direction: column; gap: 6px; }
+    .cs-step-title { font-size: 16px; font-weight: 700; color: rgba(232,228,240,.9); }
+    .cs-step-body { font-size: 14px; line-height: 1.75; color: rgba(232,228,240,.55); }
+    .cs-step-link {
+      font-size: 13px; font-weight: 600; letter-spacing: .04em;
+      color: rgba(56,189,248,.75);
+      margin-top: 4px;
+      transition: color .25s;
+    }
     #cs-bottom-nav {
       position: fixed;
       bottom: 0; left: 0; right: 0;
@@ -273,7 +304,6 @@
       .cs-art-img-3col { grid-template-columns: 1fr 1fr; }
       .cs-impact-row { grid-template-columns: 1fr 1fr; }
       .cs-stat-inline { grid-template-columns: 1fr 1fr; }
-      .cs-steps { grid-template-columns: 1fr 1fr; }
       .cs-article { padding: 0 12px; }
       #cs-bottom-nav { padding: 14px 16px 16px; }
       .cs-proto-wrap iframe { height: 480px; }
@@ -328,6 +358,11 @@
   </div>
 </section>
 
+<!-- ── HERO IMAGE ── -->
+<section class="cs-section" style="padding:0">
+  <img src="figma-export/Signal Discovery Automation/heroimage.png" alt="Invoca AI Model Training concept" class="cs-hero-img" style="border-radius:0;max-height:560px;object-fit:cover;object-position:center -50px"/>
+</section>
+
 <!-- ── OUTCOME STATS ── -->
 <section class="cs-section" style="padding-top:32px;padding-bottom:0">
   <div class="cs-article">
@@ -345,15 +380,15 @@
         <div class="cs-stat-lbl">Of white-glove service Invoca bundled with every new AI customer to compensate for workflow gaps</div>
       </div>
       <div class="cs-stat-card glass">
-        <div class="cs-stat-num">E2E</div>
-        <div class="cs-stat-lbl">Concept addressed both the discovery and validation gaps — not just the training middle</div>
+        <div class="cs-stat-num">0</div>
+        <div class="cs-stat-lbl">Times the old workflow warned users their signal wasn't a good fit for AI — before they spent weeks finding out the hard way</div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ── ARTICLE BODY ── -->
-<section class="cs-section" style="padding-top:0">
+<section class="cs-section" style="padding-top:0;padding-bottom:16px">
   <div class="cs-article">
 
     <!-- The Problem -->
@@ -389,7 +424,7 @@
 
       <div class="cs-article-body">
         <p>The team wasn't just training signals. They were doing the thinking that the product should have been doing — anticipating edge cases, pre-classifying call types, and building definitions through back-and-forth conversations with customers before ever touching the workflow. Sofia described her process for telco clients: before round zero, she'd map out every possible call scenario and present each one to the customer. Only then would she start training. The product offered none of this guidance. It just showed you a call and asked: true or false?</p>
-        <p>Mitch Williams estimated that maybe 50% or fewer customers were even going through the standard signal definition form. The rest were getting hands-on help through informal channels — Slack messages to CSMs, ad hoc calls with analytics team members, whatever it took.</p>
+        <p>Mitch Williams estimated that maybe 50% or fewer customers were even going through the standard signal definition form — a manual Google Form the team would send to customers to understand what they wanted their signals to accomplish. The other half were going straight into AI Studio and attempting to train signals themselves, without that scaffolding.</p>
         <p>The product worked. But it only worked with a person standing next to it, explaining what to do. That doesn't scale.</p>
       </div>
 
@@ -454,30 +489,38 @@
       </div>
 
       <div class="cs-steps">
-        <div class="cs-step active">
+        <a href="#section-step1" class="cs-step">
           <div class="cs-step-num">Step 1</div>
-          <div class="cs-step-title">Topic Explorer</div>
-          <div class="cs-step-body">Surface what's in the data before asking users to train anything</div>
-        </div>
-        <div class="cs-step active">
+          <div class="cs-step-content">
+            <div class="cs-step-title">Topic Explorer</div>
+            <div class="cs-step-body">Surface what's in the data before asking users to train anything</div>
+          </div>
+        </a>
+        <a href="#section-step2" class="cs-step">
           <div class="cs-step-num">Step 2</div>
-          <div class="cs-step-title">Signal Blueprint</div>
-          <div class="cs-step-body">Define the signal with structured guidance, edge cases, and candidacy checks</div>
-        </div>
-        <div class="cs-step">
+          <div class="cs-step-content">
+            <div class="cs-step-title">Signal Blueprint</div>
+            <div class="cs-step-body">Define the signal with structured guidance, edge cases, and candidacy checks</div>
+          </div>
+        </a>
+        <a href="#section-step3" class="cs-step">
           <div class="cs-step-num">Step 3</div>
-          <div class="cs-step-title">LLM-as-a-Judge</div>
-          <div class="cs-step-body">Two AIs train the model — human arbitrates only where they disagree</div>
-        </div>
-        <div class="cs-step">
+          <div class="cs-step-content">
+            <div class="cs-step-title">LLM-as-a-Judge</div>
+            <div class="cs-step-body">Two AIs train the model — human arbitrates only where they disagree</div>
+          </div>
+        </a>
+        <a href="#section-step4" class="cs-step">
           <div class="cs-step-num">Step 4</div>
-          <div class="cs-step-title">Validation</div>
-          <div class="cs-step-body">Automated accuracy testing on live call data with honest feedback states</div>
-        </div>
+          <div class="cs-step-content">
+            <div class="cs-step-title">Validation</div>
+            <div class="cs-step-body">Automated accuracy testing on live call data with honest feedback states</div>
+          </div>
+        </a>
       </div>
 
       <!-- Step 1 -->
-      <div class="cs-art-phase">
+      <div class="cs-art-phase" id="section-step1">
         <div class="cs-art-phase-label">Step 1</div>
         <div class="cs-art-phase-title">Topic Explorer</div>
         <div class="cs-art-phase-body">Instead of dropping users into call review, we surfaced topics automatically from their call data — cards showing themes the system had already identified, with references to specific call snippets as evidence. We were targeting two buckets: anticipated use cases that every customer in a given vertical would likely need, and unknown unknowns — anomalies and patterns the customer wouldn't have thought to look for, pulled automatically from their data. Don't make me hunt. Show me what's there.</div>
@@ -486,32 +529,46 @@
   </div>
 </section>
 
-<!-- Step 1 image — full bleed -->
-<div class="cs-art-img-2col" style="width:min(1280px,calc(100vw - 48px));margin-left:50%;transform:translateX(-50%)">
-  <div class="cs-img-frame landscape" style="margin:0">
-    <a href="figma-export/Signal Discovery Automation/step1 - topicexplorer.png" class="glightbox" data-title="Step 1 — Topic Explorer: automatically surfaced topics from call data">
-      <img src="figma-export/Signal Discovery Automation/step1 - topicexplorer.png" alt="Topic Explorer concept"/>
-    </a>
+<!-- Step 1 image -->
+<section class="cs-section" style="padding-top:8px;padding-bottom:112px">
+  <div style="max-width:700px;margin:0 auto;padding:0 24px">
+    <div class="cs-img-frame landscape">
+      <a href="figma-export/Signal Discovery Automation/step1 - topicexplorer.png" class="glightbox" data-title="Step 1 — Topic Explorer: automatically surfaced topics from call data">
+        <img src="figma-export/Signal Discovery Automation/step1 - topicexplorer.png" alt="Topic Explorer concept"/>
+      </a>
+    </div>
   </div>
-  <div class="cs-img-frame landscape" style="margin:0">
-    <a href="figma-export/Signal Discovery Automation/step2 - define.png" class="glightbox" data-title="Step 2 — Signal Blueprint: structured definition with guidance and edge cases">
-      <img src="figma-export/Signal Discovery Automation/step2 - define.png" alt="Signal Blueprint concept"/>
-    </a>
-  </div>
-</div>
+</section>
 
-<section class="cs-section" style="padding-top:0">
+<section class="cs-section" style="padding-top:0;padding-bottom:16px">
   <div class="cs-article">
 
       <!-- Step 2 -->
-      <div class="cs-art-phase" style="margin-top:0">
+      <div class="cs-art-phase" id="section-step2" style="margin-top:0">
         <div class="cs-art-phase-label">Step 2</div>
         <div class="cs-art-phase-title">Signal Blueprint</div>
         <div class="cs-art-phase-body">Once a user selected a topic, this step helped them define what they actually wanted the signal to find. What should it include? What should it exclude? The page provided structured guidance — and critically, it recommended some use cases as good candidates for AI signals and flagged others that weren't. AI signals were weaker at certain things — empathy and emotion-based detection, for example — and the v1 workflow never told users that. They'd train for weeks and discover the limitation the hard way. This step moved Sofia's entire pre-round-zero process into the product.</div>
       </div>
 
+  </div>
+</section>
+
+<!-- Step 2 image -->
+<section class="cs-section" style="padding-top:8px;padding-bottom:112px">
+  <div style="max-width:700px;margin:0 auto;padding:0 24px">
+    <div class="cs-img-frame landscape">
+      <a href="figma-export/Signal Discovery Automation/step2 - define.png" class="glightbox" data-title="Step 2 — Signal Blueprint: structured definition with guidance and edge cases">
+        <img src="figma-export/Signal Discovery Automation/step2 - define.png" alt="Signal Blueprint concept"/>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="cs-section" style="padding-top:0;padding-bottom:16px">
+  <div class="cs-article">
+
       <!-- Step 3 -->
-      <div class="cs-art-phase">
+      <div class="cs-art-phase" id="section-step3">
         <div class="cs-art-phase-label">Step 3</div>
         <div class="cs-art-phase-title">LLM-as-a-Judge Training</div>
         <div class="cs-art-phase-body">The existing manual training stayed as an option, but the concept introduced a new path: a second LLM would evaluate calls alongside the custom model. Where the two AIs agreed, no human input was needed. Where they disagreed, the user became the tiebreaker. The user was still in the loop — but only at decision points that actually required human judgment. They weren't reviewing forty calls per round anymore. They were arbitrating the cases that mattered.</div>
@@ -524,7 +581,7 @@
 </section>
 
 <!-- Step 3 images -->
-<div class="cs-art-img-2col" style="width:min(1280px,calc(100vw - 48px));margin-left:50%;transform:translateX(-50%)">
+<div class="cs-art-img-2col" style="width:min(1280px,calc(100vw - 48px));margin-left:50%;transform:translateX(-50%);margin-top:8px;margin-bottom:112px">
   <div class="cs-img-frame landscape" style="margin:0">
     <a href="figma-export/Signal Discovery Automation/step3a - automatic-training.png" class="glightbox" data-title="Step 3 — LLM-as-a-Judge training in progress">
       <img src="figma-export/Signal Discovery Automation/step3a - automatic-training.png" alt="LLM training in progress"/>
@@ -537,11 +594,11 @@
   </div>
 </div>
 
-<section class="cs-section" style="padding-top:0">
+<section class="cs-section" style="padding-top:0;padding-bottom:16px">
   <div class="cs-article">
 
       <!-- Step 4 -->
-      <div class="cs-art-phase" style="margin-top:0">
+      <div class="cs-art-phase" id="section-step4" style="margin-top:0">
         <div class="cs-art-phase-label">Step 4</div>
         <div class="cs-art-phase-title">Automated Validation</div>
         <div class="cs-art-phase-body">The goal was to productize what the analytics team had been doing manually with spreadsheets: automated accuracy testing on live call data, with feedback mechanisms for different outcomes. The validation step needed to be honest — a product that only tells you the good news isn't building trust. We were designing the feedback to acknowledge limitations directly, including recommending that some use cases switch to keyword-based signals or other detection methods when AI wasn't the right tool.</div>
@@ -550,50 +607,45 @@
 </section>
 
 <!-- Step 4 images -->
-<div class="cs-art-img-3col" style="width:min(1280px,calc(100vw - 48px));margin-left:50%;transform:translateX(-50%)">
-  <div class="cs-img-frame landscape" style="margin:0">
-    <a href="figma-export/Signal Discovery Automation/step4-accuracygood-tiebreaker.png" class="glightbox" data-title="Step 4 — Validation: good accuracy state with human tiebreaker">
-      <img src="figma-export/Signal Discovery Automation/step4-accuracygood-tiebreaker.png" alt="Validation good accuracy state"/>
-    </a>
-  </div>
-  <div class="cs-img-frame landscape" style="margin:0">
-    <a href="figma-export/Signal Discovery Automation/step4b-low-accuracy-tiebreaker.png" class="glightbox" data-title="Step 4 — Validation: low accuracy state requiring attention">
-      <img src="figma-export/Signal Discovery Automation/step4b-low-accuracy-tiebreaker.png" alt="Validation low accuracy state"/>
-    </a>
-  </div>
-  <div class="cs-img-frame landscape" style="margin:0">
-    <a href="figma-export/Signal Discovery Automation/step4c-bad-accuracy-tiebreaker.png" class="glightbox" data-title="Step 4 — Validation: not recommended path">
-      <img src="figma-export/Signal Discovery Automation/step4c-bad-accuracy-tiebreaker.png" alt="Validation not recommended state"/>
-    </a>
-  </div>
-</div>
-
-<section class="cs-section" style="padding-top:0">
-  <div class="cs-article">
-
-    <hr class="cs-divider"/>
-
-    <!-- Prototype -->
-    <div class="cs-article-section" id="section-prototype">
-      <div class="cs-article-label">Interactive Prototype</div>
-      <h2 class="cs-article-title">See the Workflow <em>in Action</em></h2>
-      <div class="cs-article-body">
-        <p>The interactive prototype walks through the full concept — from Topic Explorer through Signal Blueprint, training, and validation. It's the artifact I used to align stakeholders on the vision and communicate design intent across the team.</p>
+<section class="cs-section" style="padding-top:8px;padding-bottom:112px">
+  <div style="max-width:700px;margin:0 auto;padding:0 24px;display:flex;flex-direction:column;gap:10px">
+    <div class="cs-img-frame landscape" style="margin:0">
+      <a href="figma-export/Signal Discovery Automation/step4-accuracygood-tiebreaker.png" class="glightbox" data-title="Step 4 — Validation: good accuracy state with human tiebreaker">
+        <img src="figma-export/Signal Discovery Automation/step4-accuracygood-tiebreaker.png" alt="Validation good accuracy state"/>
+      </a>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div class="cs-img-frame landscape" style="margin:0">
+        <a href="figma-export/Signal Discovery Automation/step4b-low-accuracy-tiebreaker.png" class="glightbox" data-title="Step 4 — Validation: low accuracy state requiring attention">
+          <img src="figma-export/Signal Discovery Automation/step4b-low-accuracy-tiebreaker.png" alt="Validation low accuracy state"/>
+        </a>
+      </div>
+      <div class="cs-img-frame landscape" style="margin:0">
+        <a href="figma-export/Signal Discovery Automation/step4c-bad-accuracy-tiebreaker.png" class="glightbox" data-title="Step 4 — Validation: not recommended path">
+          <img src="figma-export/Signal Discovery Automation/step4c-bad-accuracy-tiebreaker.png" alt="Validation not recommended state"/>
+        </a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- prototype embed hidden for now
-<div class="cs-proto-wrap">
-  <iframe src="https://www.figma.com/make/HlMvZk3XSvoFqQ9MeL8TyG/Signal-Discovery-Automation-Workflow?fullscreen=1&t=xbieWbRlCDx8B5Ln-1" allowfullscreen title="Signal Discovery Automation — Interactive Prototype"></iframe>
-</div>
--->
+<section class="cs-section" style="padding-top:40px;padding-bottom:40px">
+  <div class="cs-article">
+
+    <!-- Prototype -->
+    <div class="cs-article-section" id="section-prototype" style="margin-top:0">
+      <div class="cs-article-label">Figma Make Interactive Prototype</div>
+      <h2 class="cs-article-title">See the Workflow <em>in Action</em></h2>
+      <div class="cs-article-body">
+        <p>The interactive prototype walks through the full concept — from Topic Explorer through Signal Blueprint, training, and validation. It's the artifact I used to align stakeholders on the vision and communicate design intent across the team.</p>
+        <a href="https://www.figma.com/make/HlMvZk3XSvoFqQ9MeL8TyG/Signal-Discovery-Automation-Workflow?fullscreen=1&t=3S3hxCYUyz858MYA-1" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="display:inline-flex;align-items:center;gap:8px;text-decoration:none;margin-top:16px">Launch interactive prototype ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section class="cs-section" style="padding-top:0">
   <div class="cs-article">
-
-    <hr class="cs-divider"/>
 
     <!-- Why This Is Hard -->
     <div class="cs-article-section" id="section-hard">
@@ -634,7 +686,6 @@
         <li>Identified the "bookends problem" — the structural framing that connected disconnected symptoms into a coherent product strategy</li>
         <li>Designed the end-to-end concept across all four workflow stages: Topic Explorer, Signal Blueprint, LLM-as-a-Judge Training, and Automated Validation</li>
         <li>Built the interactive Figma Make prototype as the primary communication artifact for the concept</li>
-        <li>Created the product brief and position paper that aligned stakeholders on direction</li>
       </ul>
       <div class="cs-article-body" style="margin-top:32px">
         <p><strong>What I partnered on:</strong></p>
