@@ -567,16 +567,6 @@ function drawPortal(canvas, opts) {
     if (useLensing) {
       if (fc % 3 === 0) {
         renderStarsToOsc(); applyLensing();
-        // Soft gradient mask: fade stars to transparent approaching horizon
-        const lw = lensed.width, lh = lensed.height;
-        const oyS = lh * (oy / H);
-        lensedCtx.globalCompositeOperation = 'destination-in';
-        const starMask = lensedCtx.createLinearGradient(0, oyS * 0.48, 0, oyS);
-        starMask.addColorStop(0, 'rgba(0,0,0,1)');
-        starMask.addColorStop(1, 'rgba(0,0,0,0)');
-        lensedCtx.fillStyle = starMask;
-        lensedCtx.fillRect(0, 0, lw, lh);
-        lensedCtx.globalCompositeOperation = 'source-over';
       }
       if (lut) ctx.drawImage(lensed, 0, 0, W, H);
     } else {
