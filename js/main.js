@@ -511,6 +511,8 @@ function drawPortal(canvas, opts) {
   // FRAME LOOP
   // ────────────────────────────────────
   let cachedBg = null, cachedBgW = 0, cachedBgH = 0;
+  // Static sphere gradient cache — rebuilt only when ox/oy/sR change
+  let cachedSphere = null, cachedSphereKey = '';
   let bhVisible = true;
   const bhIO = new IntersectionObserver(entries => {
     bhVisible = entries[0].isIntersecting;
@@ -527,7 +529,7 @@ function drawPortal(canvas, opts) {
     t += .009 * (opts.speedMult || 1); fc++;
     W = canvas.width; H = canvas.height;
     useLensing = opts.lensing === true; // re-check each frame so resize switches paths
-    const sb = useLensing ? 1 : 0;     // shadowBlur multiplier: 0 on mobile = big perf win
+    const sb = 0;                      // shadowBlur multiplier on particles — disabled everywhere; only sphere keeps its glow
     const pad = W * 0.05;              // bounds margin for offscreen culling
 
     // Rebuild LUT if canvas was resized or lensing just turned on
@@ -969,30 +971,37 @@ function drawPortal(canvas, opts) {
     ctx.restore();
 
     // ── Black sphere ──
+    // Cache static sphere gradients (sG/rimO/rimB) — colors don't change, only position/size do
+    const sphereKey = `${ox|0}_${oy|0}_${sR|0}`;
+    if (sphereKey !== cachedSphereKey) {
+      const sG = ctx.createRadialGradient(ox - sR * .38, oy - sR * .38, sR * .02, ox + sR * .2, oy + sR * .2, sR * 1.05);
+      sG.addColorStop(0,   'rgba(22,14,8,1)');
+      sG.addColorStop(.35, 'rgba(8,5,3,1)');
+      sG.addColorStop(.75, 'rgba(2,1,1,1)');
+      sG.addColorStop(1,   'rgba(0,0,0,1)');
+      const rimO = ctx.createRadialGradient(ox, oy + sR * .72, sR * .3, ox, oy + sR * .72, sR * 1.1);
+      rimO.addColorStop(0, 'rgba(255,110,20,.55)');
+      rimO.addColorStop(.5, 'rgba(255,60,0,.18)');
+      rimO.addColorStop(1, 'rgba(0,0,0,0)');
+      const rimB = ctx.createRadialGradient(ox - sR * .7, oy - sR * .55, 0, ox - sR * .7, oy - sR * .55, sR * 1.1);
+      rimB.addColorStop(0, 'rgba(0,200,255,.22)');
+      rimB.addColorStop(.5, 'rgba(0,150,220,.08)');
+      rimB.addColorStop(1, 'rgba(0,0,0,0)');
+      cachedSphere = { sG, rimO, rimB };
+      cachedSphereKey = sphereKey;
+    }
+
     // Base: deep shadow on lower-right, slightly lighter upper-left for depth
-    const sG = ctx.createRadialGradient(ox - sR * .38, oy - sR * .38, sR * .02, ox + sR * .2, oy + sR * .2, sR * 1.05);
-    sG.addColorStop(0,   'rgba(22,14,8,1)');
-    sG.addColorStop(.35, 'rgba(8,5,3,1)');
-    sG.addColorStop(.75, 'rgba(2,1,1,1)');
-    sG.addColorStop(1,   'rgba(0,0,0,1)');
-    ctx.beginPath(); ctx.arc(ox, oy, sR, 0, Math.PI * 2); ctx.fillStyle = sG; ctx.fill();
+    ctx.beginPath(); ctx.arc(ox, oy, sR, 0, Math.PI * 2); ctx.fillStyle = cachedSphere.sG; ctx.fill();
 
     // Rim light — orange from disc on lower edge, blue on upper-left
     ctx.save();
     ctx.clip();
-    const rimO = ctx.createRadialGradient(ox, oy + sR * .72, sR * .3, ox, oy + sR * .72, sR * 1.1);
-    rimO.addColorStop(0, 'rgba(255,110,20,.55)');
-    rimO.addColorStop(.5, 'rgba(255,60,0,.18)');
-    rimO.addColorStop(1, 'rgba(0,0,0,0)');
     ctx.beginPath(); ctx.arc(ox, oy, sR, 0, Math.PI * 2);
-    ctx.fillStyle = rimO; ctx.fill();
+    ctx.fillStyle = cachedSphere.rimO; ctx.fill();
 
-    const rimB = ctx.createRadialGradient(ox - sR * .7, oy - sR * .55, 0, ox - sR * .7, oy - sR * .55, sR * 1.1);
-    rimB.addColorStop(0, 'rgba(0,200,255,.22)');
-    rimB.addColorStop(.5, 'rgba(0,150,220,.08)');
-    rimB.addColorStop(1, 'rgba(0,0,0,0)');
     ctx.beginPath(); ctx.arc(ox, oy, sR, 0, Math.PI * 2);
-    ctx.fillStyle = rimB; ctx.fill();
+    ctx.fillStyle = cachedSphere.rimB; ctx.fill();
 
     // Specular highlight — orbits slowly to simulate spin
     const spinAngle = t * 0.25;
