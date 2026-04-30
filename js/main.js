@@ -742,7 +742,9 @@ function drawPortal(canvas, opts) {
         ctx.shadowBlur = p.size * 5 * sb; ctx.shadowColor = `rgba(${rC},${gC},${bC},.7)`; ctx.fill();
       }
     });
-    // ── Inner stream back half ──
+    // ── Inner stream back half (bucketed by alpha — 8 fills instead of N) ──
+    const NB = 8;
+    const isB = []; for (let i = 0; i < NB; i++) isB.push(new Path2D());
     innerStream.forEach(p => {
       p.angle += p.speed * (opts.speedMult || 1); p.phase += .05;
       const px = ox + Math.cos(p.angle) * (sR + W * p.r * colS);
@@ -750,11 +752,15 @@ function drawPortal(canvas, opts) {
       if (Math.sin(p.angle) < 0 && px >= -pad && px <= W + pad && py >= -pad && py <= H + pad) {
         const heat = p.brightness * (.6 + Math.sin(p.phase) * .4);
         const sz = p.size * (opts.particleMult || 1) * (.6 + Math.sin(p.phase) * .3 * (opts.particleVar || 1));
-        ctx.beginPath(); ctx.arc(px, py, sz, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,${Math.round(140 + Math.sin(p.phase) * 20)},20,${heat * .85})`;
-        ctx.shadowBlur = sz * 4 * sb; ctx.shadowColor = `rgba(255,120,0,.8)`; ctx.fill();
+        const bi = Math.min(NB - 1, Math.max(0, Math.floor(Math.max(0, heat) * NB)));
+        isB[bi].moveTo(px + sz, py); isB[bi].arc(px, py, sz, 0, Math.PI * 2);
       }
     });
+    for (let i = 0; i < NB; i++) {
+      ctx.fillStyle = `rgba(255,140,20,${((i + 0.5) / NB * 0.85).toFixed(3)})`;
+      ctx.fill(isB[i]);
+    }
+    const isbB = []; for (let i = 0; i < NB; i++) isbB.push(new Path2D());
     innerStreamBlue.forEach(p => {
       p.angle += p.speed * (opts.speedMult || 1); p.phase += .045;
       const px = ox + Math.cos(p.angle) * (sR + W * p.r * colS);
@@ -762,11 +768,15 @@ function drawPortal(canvas, opts) {
       if (Math.sin(p.angle) < 0 && px >= -pad && px <= W + pad && py >= -pad && py <= H + pad) {
         const heat = p.brightness * (.6 + Math.sin(p.phase) * .4);
         const sz = p.size * (opts.particleMult || 1) * (.6 + Math.sin(p.phase) * .3 * (opts.particleVar || 1));
-        ctx.beginPath(); ctx.arc(px, py, sz, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,${Math.round(130 + Math.sin(p.phase) * 25)},10,${heat * .85})`;
-        ctx.shadowBlur = sz * 4 * sb; ctx.shadowColor = `rgba(255,110,0,.8)`; ctx.fill();
+        const bi = Math.min(NB - 1, Math.max(0, Math.floor(Math.max(0, heat) * NB)));
+        isbB[bi].moveTo(px + sz, py); isbB[bi].arc(px, py, sz, 0, Math.PI * 2);
       }
     });
+    for (let i = 0; i < NB; i++) {
+      ctx.fillStyle = `rgba(255,130,10,${((i + 0.5) / NB * 0.85).toFixed(3)})`;
+      ctx.fill(isbB[i]);
+    }
+    const osbB = []; for (let i = 0; i < NB; i++) osbB.push(new Path2D());
     outerStreamBlue.forEach(p => {
       p.angle += p.speed * (opts.speedMult || 1) * suckB; p.phase += .035;
       const px = ox + Math.cos(p.angle) * (sR + W * p.r * colS);
@@ -774,11 +784,14 @@ function drawPortal(canvas, opts) {
       if (Math.sin(p.angle) < 0 && px >= -pad && px <= W + pad && py >= -pad && py <= H + pad) {
         const heat = p.brightness * (.5 + Math.sin(p.phase) * .4);
         const sz = p.size * (opts.particleMult || 1) * (.6 + Math.sin(p.phase) * .3 * (opts.particleVar || 1));
-        ctx.beginPath(); ctx.arc(px, py, sz, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${Math.round(56 + Math.sin(p.phase)*15)},${Math.round(189 + Math.sin(p.phase)*20)},248,${heat * .8})`;
-        ctx.shadowBlur = sz * 4 * sb; ctx.shadowColor = `rgba(40,160,255,.75)`; ctx.fill();
+        const bi = Math.min(NB - 1, Math.max(0, Math.floor(Math.max(0, heat) * NB)));
+        osbB[bi].moveTo(px + sz, py); osbB[bi].arc(px, py, sz, 0, Math.PI * 2);
       }
     });
+    for (let i = 0; i < NB; i++) {
+      ctx.fillStyle = `rgba(56,189,248,${((i + 0.5) / NB * 0.8).toFixed(3)})`;
+      ctx.fill(osbB[i]);
+    }
     ctx.restore();
 
     // ── Planets — update positions (drawn after sphere below) ──
@@ -1027,40 +1040,53 @@ function drawPortal(canvas, opts) {
         ctx.shadowBlur = p.size * 5 * sb; ctx.shadowColor = `rgba(${rC},${gC},${bC},.8)`; ctx.fill();
       }
     });
-    // ── Inner stream front half ──
+    // ── Inner stream front half (bucketed) ──
+    const NF = 8;
+    const isF = []; for (let i = 0; i < NF; i++) isF.push(new Path2D());
     innerStream.forEach(p => {
       const px = ox + Math.cos(p.angle) * (sR + W * p.r * colS);
       const py = oy + Math.sin(p.angle) * (sR + W * p.r * colS) * .28;
       if (Math.sin(p.angle) >= 0 && px >= -pad && px <= W + pad && py >= -pad && py <= H + pad) {
         const heat = p.brightness * (.6 + Math.sin(p.phase) * .4);
         const sz = p.size * (opts.particleMult || 1) * (.6 + Math.sin(p.phase) * .3 * (opts.particleVar || 1));
-        ctx.beginPath(); ctx.arc(px, py, sz, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,${Math.round(140 + Math.sin(p.phase) * 20)},20,${heat})`;
-        ctx.shadowBlur = sz * 4 * sb; ctx.shadowColor = `rgba(255,120,0,.9)`; ctx.fill();
+        const bi = Math.min(NF - 1, Math.max(0, Math.floor(Math.max(0, heat) * NF)));
+        isF[bi].moveTo(px + sz, py); isF[bi].arc(px, py, sz, 0, Math.PI * 2);
       }
     });
+    for (let i = 0; i < NF; i++) {
+      ctx.fillStyle = `rgba(255,140,20,${((i + 0.5) / NF).toFixed(3)})`;
+      ctx.fill(isF[i]);
+    }
+    const isbF = []; for (let i = 0; i < NF; i++) isbF.push(new Path2D());
     innerStreamBlue.forEach(p => {
       const px = ox + Math.cos(p.angle) * (sR + W * p.r * colS);
       const py = oy + Math.sin(p.angle) * (sR + W * p.r * colS) * .28;
       if (Math.sin(p.angle) >= 0 && px >= -pad && px <= W + pad && py >= -pad && py <= H + pad) {
         const heat = p.brightness * (.6 + Math.sin(p.phase) * .4);
         const sz = p.size * (opts.particleMult || 1) * (.6 + Math.sin(p.phase) * .3 * (opts.particleVar || 1));
-        ctx.beginPath(); ctx.arc(px, py, sz, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,${Math.round(130 + Math.sin(p.phase) * 25)},10,${heat})`;
-        ctx.shadowBlur = sz * 4 * sb; ctx.shadowColor = `rgba(255,110,0,.9)`; ctx.fill();
+        const bi = Math.min(NF - 1, Math.max(0, Math.floor(Math.max(0, heat) * NF)));
+        isbF[bi].moveTo(px + sz, py); isbF[bi].arc(px, py, sz, 0, Math.PI * 2);
       }
     });
+    for (let i = 0; i < NF; i++) {
+      ctx.fillStyle = `rgba(255,130,10,${((i + 0.5) / NF).toFixed(3)})`;
+      ctx.fill(isbF[i]);
+    }
+    const osbF = []; for (let i = 0; i < NF; i++) osbF.push(new Path2D());
     outerStreamBlue.forEach(p => {
       const px = ox + Math.cos(p.angle) * (sR + W * p.r * colS);
       const py = oy + Math.sin(p.angle) * (sR + W * p.r * colS) * .28;
       if (Math.sin(p.angle) >= 0 && px >= -pad && px <= W + pad && py >= -pad && py <= H + pad) {
         const heat = p.brightness * (.5 + Math.sin(p.phase) * .4);
         const sz = p.size * (opts.particleMult || 1) * (.6 + Math.sin(p.phase) * .3 * (opts.particleVar || 1));
-        ctx.beginPath(); ctx.arc(px, py, sz, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${Math.round(56 + Math.sin(p.phase)*15)},${Math.round(189 + Math.sin(p.phase)*20)},248,${heat})`;
-        ctx.shadowBlur = sz * 4 * sb; ctx.shadowColor = `rgba(40,160,255,.8)`; ctx.fill();
+        const bi = Math.min(NF - 1, Math.max(0, Math.floor(Math.max(0, heat) * NF)));
+        osbF[bi].moveTo(px + sz, py); osbF[bi].arc(px, py, sz, 0, Math.PI * 2);
       }
     });
+    for (let i = 0; i < NF; i++) {
+      ctx.fillStyle = `rgba(56,189,248,${((i + 0.5) / NF).toFixed(3)})`;
+      ctx.fill(osbF[i]);
+    }
     ctx.restore();
 
 
