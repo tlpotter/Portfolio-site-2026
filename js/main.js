@@ -242,6 +242,7 @@ function drawPortal(canvas, opts) {
   // ── Solar flares ──
   const flares = [];
   setInterval(() => {
+    if (document.hidden) return;
     flares.push({
       angle:      Math.random() * Math.PI * 2,
       startT:     t,
@@ -260,7 +261,7 @@ function drawPortal(canvas, opts) {
   // ── Shooting stars ──
   const shooters = [];
   setInterval(() => {
-    if (!opts.shooters) return;
+    if (document.hidden || !opts.shooters) return;
     shooters.push({
       x: Math.random() * W, y: Math.random() * H * .5,
       vx: 2 + Math.random() * 5, vy: .3 + Math.random() * 1.2,
@@ -514,15 +515,24 @@ function drawPortal(canvas, opts) {
   // Static sphere gradient cache — rebuilt only when ox/oy/sR change
   let cachedSphere = null, cachedSphereKey = '';
   let bhVisible = true;
+  let pageVisible = !document.hidden;
   const bhIO = new IntersectionObserver(entries => {
     bhVisible = entries[0].isIntersecting;
-    if (bhVisible) requestAnimationFrame(frame);
+    if (bhVisible && pageVisible) requestAnimationFrame(frame);
   }, { threshold: 0 });
   bhIO.observe(canvas);
 
+  document.addEventListener('visibilitychange', () => {
+    pageVisible = !document.hidden;
+    if (pageVisible && bhVisible) {
+      lastFrameTime = 0; // reset throttle so first resumed frame fires immediately
+      requestAnimationFrame(frame);
+    }
+  });
+
   let lastFrameTime = 0;
   function frame(now) {
-    if (!bhVisible) return;
+    if (!bhVisible || !pageVisible) return;
     const minGap = opts.lensing ? 16 : 33; // desktop ~60fps, mobile ~30fps
     if (now - lastFrameTime < minGap) { requestAnimationFrame(frame); return; }
     lastFrameTime = now;
