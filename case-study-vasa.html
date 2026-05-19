@@ -11,6 +11,9 @@
   <link rel="stylesheet" href="css/styles.css"/>
   <link rel="stylesheet" href="css/case-study.css"/>
   <style>
+    /* ── Single-column body width (overrides 900px hero default) ── */
+    .cs-hero-inner { max-width: 700px; }
+
     /* ── Article layout ── */
     .cs-article {
       max-width: 700px;
@@ -102,7 +105,7 @@
       color: rgba(56,189,248,.9);
       font-weight: 600;
     }
-    /* ── Image grids within article ── */
+    /* ── Image grids within article (constrained to body width, no breakout) ── */
     .cs-art-img {
       width: 100%;
       border-radius: 12px;
@@ -113,64 +116,44 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
-      margin-top: 40px;
-      margin-bottom: 40px;
-      width: min(1280px, calc(100vw - 48px));
-      margin-left: 50%;
-      transform: translateX(-50%);
+      margin: 40px 0;
+      width: 100%;
     }
     .cs-art-img-3col {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
       gap: 10px;
-      margin-top: 40px;
-      margin-bottom: 40px;
-      width: min(1280px, calc(100vw - 48px));
-      margin-left: 50%;
-      transform: translateX(-50%);
+      margin: 40px 0;
+      width: 100%;
     }
     .cs-art-img-2col .cs-img-frame,
     .cs-art-img-3col .cs-img-frame {
       margin: 0;
+    }
+    /* ── Lead showcase image (body width, normal img flow) ── */
+    .cs-showcase-lead {
+      width: 100%;
+      border-radius: 12px;
+      display: block;
+      margin: 32px 0 12px;
     }
     /* ── Impact row ── */
     .cs-impact-row {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 12px;
-      margin: 48px 0;
+      margin: 32px 0;
     }
-    .cs-impact-row-2 {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      margin: 12px 0 48px;
+    /* ── Metadata block (chips, full width within article) ── */
+    .cs-meta-block {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
     }
-    /* ── Phase block within article ── */
-    .cs-art-phase {
-      border-left: 2px solid rgba(249,115,22,.35);
-      padding-left: 24px;
-      margin: 40px 0 20px;
-    }
-    .cs-art-phase-label {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: rgba(249,115,22,.65);
-      margin-bottom: 6px;
-    }
-    .cs-art-phase-title {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 10px;
-    }
-    .cs-art-phase-body {
-      font-size: 15px;
-      line-height: 1.75;
-      color: rgba(255,255,255,.65);
-      margin-bottom: 12px;
+    .cs-meta-block .cs-meta-item.cs-meta-full {
+      flex-basis: 100%;
+      width: 100%;
     }
     /* ── Divider ── */
     .cs-divider {
@@ -201,11 +184,6 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-    }
-    /* ── Led meta row (full width) ── */
-    .cs-meta-item.cs-meta-full {
-      flex-basis: 100%;
-      width: 100%;
     }
     @media (max-width: 640px) {
       .cs-art-img-2col { grid-template-columns: 1fr; }
@@ -269,36 +247,13 @@
     transition: width 0.1s linear;
     width: 0%;
   }
-  /* ── Strategic callout moments ── */
-  .cs-callout {
-    background: rgba(56,189,248,0.05);
-    border-left: 2px solid rgba(56,189,248,0.35);
-    border-radius: 0 10px 10px 0;
-    padding: 18px 22px;
-    margin: 28px 0;
-  }
-  .cs-callout-head {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: rgba(56,189,248,0.7);
-    font-family: var(--sans);
-    margin-bottom: 8px;
-  }
-  .cs-callout p {
-    font-size: 15px;
-    color: rgba(232,228,240,0.82);
-    line-height: 1.75;
-    margin: 0;
-  }
-  /* ── Problem callout (larger, hero-adjacent) ── */
+  /* ── Problem callout (hero-adjacent) ── */
   .cs-problem-callout {
     background: rgba(251,146,60,0.06);
     border-left: 3px solid rgba(251,146,60,0.5);
     border-radius: 0 12px 12px 0;
     padding: 24px 28px;
-    margin: 48px 0 0;
+    margin: 0;
   }
   .cs-problem-callout p {
     font-size: 17px;
@@ -350,7 +305,7 @@
   </ul>
 </nav>
 
-<!-- ── HERO ── -->
+<!-- ── 01. HERO TEXT BLOCK (text only, no image) ── -->
 <section id="cs-hero">
   <div class="cs-hero-inner">
     <a href="index.html#work" class="nav-back" style="display:inline-flex;align-items:center;margin-bottom:24px"><span class="nav-back-arrow" style="line-height:1;margin-top:-1px">←</span> All work</a>
@@ -362,90 +317,30 @@
     </div>
     <h1 class="cs-title">Better Than <em>Starbucks</em></h1>
     <p class="cs-lead">How a 10-person team built a native gym app that hit 300k installs and outshipped what Starbucks built with 70.</p>
-    <div class="cs-meta">
-      <div class="cs-meta-item">
-        <span class="cs-meta-lbl">Client</span>
-        <span class="cs-meta-val">VASA Fitness, a national gym chain</span>
-      </div>
-      <div class="cs-meta-item">
-        <span class="cs-meta-lbl">Agency</span>
-        <span class="cs-meta-val">Neudesic</span>
-      </div>
-      <div class="cs-meta-item">
-        <span class="cs-meta-lbl">Role</span>
-        <span class="cs-meta-val">UX Designer → UX Lead</span>
-      </div>
-      <div class="cs-meta-item">
-        <span class="cs-meta-lbl">Timeline</span>
-        <span class="cs-meta-val">2019 – 2021 · 13 months</span>
-      </div>
-      <div class="cs-meta-item">
-        <span class="cs-meta-lbl">Platform</span>
-        <span class="cs-meta-val">iOS · Android Native</span>
-      </div>
-      <div class="cs-meta-item cs-meta-full">
-        <span class="cs-meta-lbl">Led</span>
-        <span class="cs-meta-val">UX across iOS and Android, design-development collaboration, stakeholder presentations, usability testing cadence, feature prioritization</span>
-      </div>
-      <div class="cs-meta-item cs-meta-full">
-        <span class="cs-meta-lbl">Team</span>
-        <span class="cs-meta-val">10-person cross-functional consulting team (designers, iOS and Android devs, PM)</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── HERO IMAGE ── -->
-<section class="cs-section" style="padding:0">
-  <img
-    src="figma-export/VASA/VASA/VASAmockup.png"
-    alt="VASA app mockup overview"
-    class="cs-hero-img"
-    style="border-radius:0;max-height:560px;object-fit:cover;object-position:center"
-  />
-</section>
-
-<!-- ── OUTCOME STATS ── -->
-<section class="cs-section" style="padding-top:0;padding-bottom:0">
-  <div class="cs-article" style="margin-top:0">
-    <div class="cs-impact-row" style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
-      <div class="cs-stat-card glass">
-        <div class="cs-stat-num">300k</div>
-        <div class="cs-stat-lbl">App installs within three months of launch</div>
-      </div>
-      <div class="cs-stat-card glass">
-        <div class="cs-stat-num">$150k</div>
-        <div class="cs-stat-lbl">In direct app revenue post-launch</div>
-      </div>
-      <div class="cs-stat-card glass">
-        <div class="cs-stat-num">4.3★</div>
-        <div class="cs-stat-lbl">App Store rating across nearly 7,000 reviews</div>
-      </div>
-      <div class="cs-stat-card glass">
-        <div class="cs-stat-num">&lt;6mo</div>
-        <div class="cs-stat-lbl">From kickoff to both app stores</div>
-      </div>
-    </div>
-
-    <!-- ── Section 02: Problem Callout ── -->
-    <div class="cs-problem-callout">
-      <p><strong>The problem:</strong> Gym members at VASA Fitness, many of them parents with morning class routines, used a white-label app that couldn't access the system holding their actual data. Two logins to see one class schedule. KidCare reservations only available by phone. The average member dropped out after 18 months. Six months to ship a native iOS and Android app for a 10-person team that had never built one together.</p>
-    </div>
   </div>
 </section>
 
 <!-- ── ARTICLE BODY ── -->
-<section class="cs-section" style="padding-top:32px">
-  <div class="cs-article">
+<section class="cs-section" style="padding-top:0">
+  <div class="cs-article" style="margin-top:0">
 
-    <!-- ── Section 03: Final Product Showcase ── -->
-    <div class="cs-article-section" style="margin-top:0">
+    <!-- ── 02. Problem Callout ── -->
+    <div class="cs-problem-callout">
+      <p><strong>The problem:</strong> Gym members at VASA Fitness, many of them parents with morning class routines, used a white-label app that couldn't access the system holding their actual data. Two logins to see one class schedule. KidCare reservations only available by phone. The average member dropped out after 18 months. Six months to ship a native iOS and Android app for a 10-person team that had never built one together.</p>
+    </div>
+
+    <!-- ── 03. Final Product Showcase ── -->
+    <div class="cs-article-section" style="margin-top:56px">
       <div class="cs-article-label">What Shipped</div>
       <div class="cs-article-body">
         <p>VASA Mobile App on iOS and Android, plus a tablet sales tool and self-service support site.</p>
       </div>
 
-      <div class="cs-art-img-3col" style="margin-top:32px">
+      <a href="figma-export/VASA/VASA/VASAmockup.png" class="glightbox" data-title="VASA app mockup overview">
+        <img src="figma-export/VASA/VASA/VASAmockup.png" alt="VASA app mockup overview" class="cs-showcase-lead"/>
+      </a>
+
+      <div class="cs-art-img-3col" style="margin-top:12px">
         <div class="cs-img-frame portrait">
           <a href="figma-export/VASA/VASA/Mobile App/homescreen no kidcare, 3 classes.jpg" class="glightbox" data-title="Homescreen">
             <img src="figma-export/VASA/VASA/Mobile App/homescreen no kidcare, 3 classes.jpg" alt="VASA homescreen"/>
@@ -463,35 +358,91 @@
         </div>
       </div>
 
-      <div style="width:min(1280px,calc(100vw - 48px));margin-left:50%;transform:translateX(-50%);margin-top:10px;margin-bottom:0">
-        <div class="cs-img-frame landscape" style="border-radius:12px">
-          <a href="figma-export/VASA/VASA/Sales Tool/VASA_salestool.png" class="glightbox" data-title="Tablet sales tool">
-            <img src="figma-export/VASA/VASA/Sales Tool/VASA_salestool.png" alt="VASA tablet sales tool" style="object-fit:cover;object-position:center 20%"/>
-          </a>
+      <div class="cs-img-frame landscape" style="margin-top:10px;border-radius:12px">
+        <a href="figma-export/VASA/VASA/Sales Tool/VASA_salestool.png" class="glightbox" data-title="Tablet sales tool">
+          <img src="figma-export/VASA/VASA/Sales Tool/VASA_salestool.png" alt="VASA tablet sales tool" style="object-fit:cover;object-position:center 20%"/>
+        </a>
+      </div>
+    </div>
+
+    <!-- ── 04. Stat Cards ── -->
+    <div class="cs-article-section">
+      <div class="cs-article-label">Impact</div>
+      <div class="cs-impact-row" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px">
+        <div class="cs-stat-card glass">
+          <div class="cs-stat-num">300k</div>
+          <div class="cs-stat-lbl">App installs within three months of launch</div>
+        </div>
+        <div class="cs-stat-card glass">
+          <div class="cs-stat-num">$150k</div>
+          <div class="cs-stat-lbl">In direct app revenue post-launch</div>
+        </div>
+        <div class="cs-stat-card glass">
+          <div class="cs-stat-num">4.3★</div>
+          <div class="cs-stat-lbl">App Store rating across nearly 7,000 reviews</div>
+        </div>
+        <div class="cs-stat-card glass">
+          <div class="cs-stat-num">&lt;6mo</div>
+          <div class="cs-stat-lbl">From kickoff to both app stores</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 05. Project Metadata ── -->
+    <div class="cs-article-section">
+      <div class="cs-article-label">Project</div>
+      <div class="cs-meta-block">
+        <div class="cs-meta-item">
+          <span class="cs-meta-lbl">Client</span>
+          <span class="cs-meta-val">VASA Fitness, a national gym chain</span>
+        </div>
+        <div class="cs-meta-item">
+          <span class="cs-meta-lbl">Agency</span>
+          <span class="cs-meta-val">Neudesic</span>
+        </div>
+        <div class="cs-meta-item">
+          <span class="cs-meta-lbl">Role</span>
+          <span class="cs-meta-val">UX Designer → UX Lead</span>
+        </div>
+        <div class="cs-meta-item">
+          <span class="cs-meta-lbl">Timeline</span>
+          <span class="cs-meta-val">2019 – 2021 · 13 months</span>
+        </div>
+        <div class="cs-meta-item">
+          <span class="cs-meta-lbl">Platform</span>
+          <span class="cs-meta-val">iOS · Android Native</span>
+        </div>
+        <div class="cs-meta-item cs-meta-full">
+          <span class="cs-meta-lbl">Led</span>
+          <span class="cs-meta-val">UX across iOS and Android, design-development collaboration, stakeholder presentations, usability testing cadence, feature prioritization</span>
+        </div>
+        <div class="cs-meta-item cs-meta-full">
+          <span class="cs-meta-lbl">Team</span>
+          <span class="cs-meta-val">10-person cross-functional consulting team (designers, iOS and Android devs, PM)</span>
         </div>
       </div>
     </div>
 
     <hr class="cs-divider"/>
 
-    <!-- ── Section 04: The Problem ── -->
+    <!-- ── 06. The Problem ── -->
     <div class="cs-article-section" style="margin-top:0">
       <div class="cs-article-label">The Problem</div>
-      <h2 class="cs-article-title">An Excel sheet pretending <em>to be a platform</em></h2>
+      <h2 class="cs-article-title">Two apps <em>pretending</em> to be one</h2>
       <div class="cs-article-body">
         <p>VASA Fitness, a national gym chain, had a real-app problem. Their existing white-label app was a Netpulse template shared across dozens of gym brands. All of VASA's actual member data, accounts, class schedules, payments, KidCare reservations, lived in a separate system called PAC. The two systems didn't talk to each other.</p>
         <p>The result was maddening. Members logged into the app, got launched into a browser window, and had to log in again to a different system just to see their class schedule. Two logins, two interfaces, no continuity. KidCare scheduling, the daily-driver feature for the parents who made up most of the morning class population, wasn't available digitally at all. Members called the front desk to book it.</p>
       </div>
 
-      <div style="width:min(499px,calc(100vw - 48px));margin-left:50%;transform:translateX(-50%);margin-top:40px;margin-bottom:0;border-radius:12px;overflow:hidden">
+      <div style="margin-top:40px;border-radius:12px;overflow:hidden">
         <img src="figma-export/VASA/VASA/Portfolio site extra images/netpulse images..png" alt="Netpulse existing white-label app" style="width:100%;height:auto;display:block"/>
       </div>
     </div>
 
-    <!-- ── Section 05: My Role ── -->
+    <!-- ── 07. My Role ── -->
     <div class="cs-article-section">
       <div class="cs-article-label">My Role</div>
-      <h2 class="cs-article-title">Five workstreams, <em>one designer</em> in the middle</h2>
+      <h2 class="cs-article-title">From <em>designer</em> to <em>UX Lead</em></h2>
 
       <div class="cs-role-group-label">What I owned</div>
       <ul class="cs-role-list">
@@ -510,7 +461,7 @@
       </ul>
     </div>
 
-    <!-- ── Section 06: Research + Insight ── -->
+    <!-- ── 08. Research + Insight ── -->
     <div class="cs-article-section">
       <div class="cs-article-label">Research + Insight</div>
       <h2 class="cs-article-title">The map <em>nobody had</em></h2>
@@ -555,7 +506,7 @@
 
     <hr class="cs-divider"/>
 
-    <!-- ── Section 07: The Work ── -->
+    <!-- ── 09. The Work ── -->
     <div class="cs-article-section" style="margin-top:0">
       <div class="cs-article-label">The Work</div>
 
@@ -567,7 +518,7 @@
           <p>The platform tradeoff was the call that taught me the most. As the deadline closed in, it became clear we couldn't deliver the same quality on both platforms. iOS was strong. Android was functional but carried compromises. With 70% of VASA's members on iOS, we delivered a high-quality experience to the majority while replacing something broken for everyone else. We treated Android as a gap to close, not a permanent state.</p>
         </div>
 
-        <div style="width:min(1280px,calc(100vw - 48px));margin-left:50%;transform:translateX(-50%);margin-top:32px;margin-bottom:0;display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+        <div class="cs-art-img-3col" style="margin-top:32px">
           <div class="cs-img-frame portrait">
             <a href="figma-export/VASA/VASA/Mobile App/barcodeimgedit2.png" class="glightbox" data-title="Member barcode">
               <img src="figma-export/VASA/VASA/Mobile App/barcodeimgedit2.png" alt="Member barcode"/>
@@ -639,7 +590,7 @@
           <p>I became one of the primary communicators between VASA leadership and the delivery team. Translating business goals into design direction in stakeholder meetings, then translating design intent into implementation specifics in developer reviews. Two different audiences, two different languages, same product vision.</p>
         </div>
 
-        <div style="max-width:700px;margin:32px auto 0">
+        <div style="margin-top:32px">
           <div class="cs-img-frame landscape">
             <a href="figma-export/VASA/VASA/Portfolio site extra images/end team photo.png" class="glightbox" data-title="Neudesic VASA project team">
               <img src="figma-export/VASA/VASA/Portfolio site extra images/end team photo.png" alt="Neudesic VASA project team" style="object-fit:cover;object-position:center"/>
@@ -651,7 +602,7 @@
 
     <hr class="cs-divider"/>
 
-    <!-- ── Section 08: Outcomes ── -->
+    <!-- ── 10. Outcomes ── -->
     <div class="cs-article-section" style="margin-top:0">
       <div class="cs-article-label">Outcomes</div>
       <h2 class="cs-article-title">A unicorn <em>ships</em> its new face</h2>
@@ -672,10 +623,10 @@
 
     <hr class="cs-divider"/>
 
-    <!-- ── Section 09: Reflection ── -->
+    <!-- ── 11. Reflection ── -->
     <div class="cs-article-section" style="margin-top:0">
       <div class="cs-article-label">Reflection</div>
-      <h2 class="cs-article-title">What this <em>work taught me</em></h2>
+      <h2 class="cs-article-title">What this <em>work taught</em> me</h2>
       <div class="cs-article-body">
         <p>This project reinforced where design has the most impact. Not just in the screens, but in how decisions get made. Helping a team converge. Giving developers enough context to build with confidence. Testing assumptions with real members. Making tradeoffs explicit so the product can ship. The platform tradeoff was the call that taught me the most: choosing to ship a strong iOS experience on time rather than a mediocre experience on both required the conviction to stand behind an imperfect launch.</p>
       </div>
