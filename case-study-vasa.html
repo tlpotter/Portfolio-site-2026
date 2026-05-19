@@ -13,6 +13,12 @@
   <style>
     /* ── Single-column body width (overrides 900px hero default) ── */
     .cs-hero-inner { max-width: 700px; }
+    /* ── Seamless hero/article boundary (drop the shared hairline divider) ── */
+    section#cs-hero { border-bottom: none; padding-bottom: 0; }
+    /* ── Tighten gap between subtitle and the first showcase image ── */
+    #cs-hero .cs-lead { margin-bottom: 16px; }
+    /* ── Match body to the hero/section bg so nothing darker peeks through ── */
+    body { background: #060a0f; }
 
     /* ── Article layout ── */
     .cs-article {
@@ -105,7 +111,7 @@
       color: rgba(56,189,248,.9);
       font-weight: 600;
     }
-    /* ── Image grids within article (constrained to body width, no breakout) ── */
+    /* ── Image grids within article (break out past body width to ~1280px) ── */
     .cs-art-img {
       width: 100%;
       border-radius: 12px;
@@ -116,26 +122,38 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
-      margin: 40px 0;
-      width: 100%;
+      margin-top: 40px;
+      margin-bottom: 40px;
+      width: min(1280px, calc(100vw - 48px));
+      margin-left: 50%;
+      transform: translateX(-50%);
     }
     .cs-art-img-3col {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
       gap: 10px;
-      margin: 40px 0;
-      width: 100%;
+      margin-top: 40px;
+      margin-bottom: 40px;
+      width: min(1280px, calc(100vw - 48px));
+      margin-left: 50%;
+      transform: translateX(-50%);
     }
     .cs-art-img-2col .cs-img-frame,
     .cs-art-img-3col .cs-img-frame {
       margin: 0;
     }
-    /* ── Lead showcase image (body width, normal img flow) ── */
+    /* ── Lead showcase image (matches body image grid breakout width) ── */
     .cs-showcase-lead {
-      width: 100%;
-      border-radius: 12px;
       display: block;
-      margin: 32px 0 12px;
+      border-radius: 12px;
+      width: min(1280px, calc(100vw - 48px));
+      margin-left: 50%;
+      transform: translateX(-50%);
+      margin-top: 8px;
+      margin-bottom: 12px;
+      aspect-ratio: 8 / 3;
+      object-fit: cover;
+      object-position: center;
     }
     /* ── Impact row ── */
     .cs-impact-row {
@@ -324,49 +342,31 @@
 <section class="cs-section" style="padding-top:0">
   <div class="cs-article" style="margin-top:0">
 
-    <!-- ── 02. Problem Callout ── -->
-    <div class="cs-problem-callout">
-      <p><strong>The problem:</strong> Gym members at VASA Fitness, many of them parents with morning class routines, used a white-label app that couldn't access the system holding their actual data. Two logins to see one class schedule. KidCare reservations only available by phone. The average member dropped out after 18 months. Six months to ship a native iOS and Android app for a 10-person team that had never built one together.</p>
-    </div>
+    <!-- ── Product imagery ── -->
+    <a href="figma-export/VASA/VASA/VASAmockup.png" class="glightbox" data-title="VASA app mockup overview">
+      <img src="figma-export/VASA/VASA/VASAmockup.png" alt="VASA app mockup overview" class="cs-showcase-lead"/>
+    </a>
 
-    <!-- ── 03. Final Product Showcase ── -->
-    <div class="cs-article-section" style="margin-top:56px">
-      <div class="cs-article-label">What Shipped</div>
-      <div class="cs-article-body">
-        <p>VASA Mobile App on iOS and Android, plus a tablet sales tool and self-service support site.</p>
+    <div class="cs-art-img-3col" style="margin-top:12px;margin-bottom:0">
+      <div class="cs-img-frame portrait">
+        <a href="figma-export/VASA/VASA/Mobile App/Calendar class detail – 1.png" class="glightbox" data-title="Class scheduling">
+          <img src="figma-export/VASA/VASA/Mobile App/Calendar class detail – 1.png" alt="Class scheduling"/>
+        </a>
       </div>
-
-      <a href="figma-export/VASA/VASA/VASAmockup.png" class="glightbox" data-title="VASA app mockup overview">
-        <img src="figma-export/VASA/VASA/VASAmockup.png" alt="VASA app mockup overview" class="cs-showcase-lead"/>
-      </a>
-
-      <div class="cs-art-img-3col" style="margin-top:12px">
-        <div class="cs-img-frame portrait">
-          <a href="figma-export/VASA/VASA/Mobile App/homescreen no kidcare, 3 classes.jpg" class="glightbox" data-title="Homescreen">
-            <img src="figma-export/VASA/VASA/Mobile App/homescreen no kidcare, 3 classes.jpg" alt="VASA homescreen"/>
-          </a>
-        </div>
-        <div class="cs-img-frame portrait">
-          <a href="figma-export/VASA/VASA/Mobile App/Calendar class detail – 1.png" class="glightbox" data-title="Class scheduling">
-            <img src="figma-export/VASA/VASA/Mobile App/Calendar class detail – 1.png" alt="Class scheduling"/>
-          </a>
-        </div>
-        <div class="cs-img-frame portrait">
-          <a href="figma-export/VASA/VASA/Mobile App/Rewards Overview – 3.png" class="glightbox" data-title="Rewards overview">
-            <img src="figma-export/VASA/VASA/Mobile App/Rewards Overview – 3.png" alt="VASA rewards overview"/>
-          </a>
-        </div>
+      <div class="cs-img-frame portrait">
+        <a href="figma-export/VASA/VASA/Mobile App/Rewards Overview – 3.png" class="glightbox" data-title="Rewards overview">
+          <img src="figma-export/VASA/VASA/Mobile App/Rewards Overview – 3.png" alt="VASA rewards overview"/>
+        </a>
       </div>
-
-      <div class="cs-img-frame landscape" style="margin-top:10px;border-radius:12px">
-        <a href="figma-export/VASA/VASA/Sales Tool/VASA_salestool.png" class="glightbox" data-title="Tablet sales tool">
-          <img src="figma-export/VASA/VASA/Sales Tool/VASA_salestool.png" alt="VASA tablet sales tool" style="object-fit:cover;object-position:center 20%"/>
+      <div class="cs-img-frame portrait">
+        <a href="figma-export/VASA/VASA/Mobile App/locations detail page.png" class="glightbox" data-title="Gym locations">
+          <img src="figma-export/VASA/VASA/Mobile App/locations detail page.png" alt="Gym locations"/>
         </a>
       </div>
     </div>
 
-    <!-- ── 04. Stat Cards ── -->
-    <div class="cs-article-section">
+    <!-- ── Stat Cards ── -->
+    <div class="cs-article-section" style="margin-top:56px">
       <div class="cs-article-label">Impact</div>
       <div class="cs-impact-row" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px">
         <div class="cs-stat-card glass">
