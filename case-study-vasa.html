@@ -11,283 +11,10 @@
   <link rel="stylesheet" href="css/styles.css"/>
   <link rel="stylesheet" href="css/case-study.css"/>
   <style>
-    /* ── Single-column body width (overrides 900px hero default) ── */
-    .cs-hero-inner { max-width: 700px; }
-    /* ── Seamless hero/article boundary (drop the shared hairline divider) ── */
-    section#cs-hero { border-bottom: none; padding-bottom: 0; }
-    /* ── Tighten gap between subtitle and the first showcase image ── */
-    #cs-hero .cs-lead { margin-bottom: 16px; }
-    /* ── Match body to the hero/section bg so nothing darker peeks through ── */
-    body { background: #060a0f; }
-
-    /* ── Article layout ── */
-    .cs-article {
-      max-width: 700px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-    .cs-article-section {
-      margin-top: 72px;
-    }
-    .cs-article-body {
-      font-size: 17px;
-      line-height: 1.9;
-      color: rgba(255,255,255,.72);
-    }
-    .cs-article-body p {
-      margin-bottom: 1.5em;
-    }
-    .cs-article-body p:last-child {
-      margin-bottom: 0;
-    }
-    /* ── Pull quote ── */
-    .cs-pull {
-      font-family: 'Fraunces', Georgia, serif;
-      font-size: clamp(1.35rem, 2.8vw, 1.9rem);
-      font-style: italic;
-      font-weight: 300;
-      line-height: 1.45;
-      color: rgba(255,180,100,.85);
-      border-left: 3px solid rgba(255,255,255,.2);
-      padding: 4px 0 4px 28px;
-      margin: 56px 0;
-    }
-    /* ── Section label + title ── */
-    .cs-article-label {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: rgba(249,115,22,.7);
-      margin-bottom: 10px;
-    }
-    .cs-article-label::before {
-      content: '— ';
-    }
-    .cs-article-title {
-      font-family: 'Fraunces', Georgia, serif;
-      font-size: clamp(1.6rem, 4vw, 2.4rem);
-      font-weight: 600;
-      line-height: 1.15;
-      letter-spacing: -.01em;
-      color: #fff;
-      margin-bottom: 28px;
-    }
-    .cs-article-title em {
-      font-style: italic;
-      font-weight: 300;
-      background: linear-gradient(135deg,#fb923c,#38bdf8);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    /* ── Role list ── */
-    .cs-role-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      border-top: 1px solid rgba(255,255,255,.08);
-    }
-    .cs-role-list li {
-      padding: 14px 0;
-      border-bottom: 1px solid rgba(255,255,255,.08);
-      font-size: 15px;
-      color: rgba(255,255,255,.7);
-      padding-left: 20px;
-      position: relative;
-    }
-    .cs-role-list li::before {
-      content: '→';
-      position: absolute;
-      left: 0;
-      color: rgba(249,115,22,.7);
-      font-size: 13px;
-    }
-    .cs-role-list li strong {
-      color: rgba(56,189,248,.9);
-      font-weight: 600;
-    }
-    .cs-article-body strong {
-      color: rgba(56,189,248,.9);
-      font-weight: 600;
-    }
-    /* ── Image grids within article (break out past body width to ~1280px) ── */
-    .cs-art-img {
-      width: 100%;
-      border-radius: 12px;
-      display: block;
-      margin: 40px 0;
-    }
-    .cs-art-img-2col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 40px;
-      margin-bottom: 40px;
-      width: min(1280px, calc(100vw - 48px));
-      margin-left: 50%;
-      transform: translateX(-50%);
-    }
-    .cs-art-img-3col {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 10px;
-      margin-top: 40px;
-      margin-bottom: 40px;
-      width: min(1280px, calc(100vw - 48px));
-      margin-left: 50%;
-      transform: translateX(-50%);
-    }
-    .cs-art-img-2col .cs-img-frame,
-    .cs-art-img-3col .cs-img-frame {
-      margin: 0;
-    }
-    /* ── Lead showcase image (matches body image grid breakout width) ── */
-    .cs-showcase-lead {
-      display: block;
-      border-radius: 12px;
-      width: min(1280px, calc(100vw - 48px));
-      margin-left: 50%;
-      transform: translateX(-50%);
-      margin-top: 8px;
-      margin-bottom: 12px;
-      object-fit: cover;
-      object-position: center;
-    }
-    /* ── Impact row ── */
-    .cs-impact-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin: 32px 0;
-    }
-    /* ── Metadata block (chips, full width within article) ── */
-    .cs-meta-block {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 24px;
-    }
-    .cs-meta-block .cs-meta-item.cs-meta-full {
-      flex-basis: 100%;
-      width: 100%;
-    }
-    /* ── Divider ── */
-    .cs-divider {
-      border: none;
-      border-top: 1px solid rgba(255,255,255,.07);
-      margin: 72px 0;
-    }
-    /* ── Sub-beat spacing inside The Work ── */
-    .cs-subbeat {
-      margin-top: 56px;
-    }
-    .cs-article-label + .cs-subbeat {
-      margin-top: 0;
-    }
-    @media (max-width: 640px) {
-      .cs-art-img-2col { grid-template-columns: 1fr; }
-      .cs-art-img-3col { grid-template-columns: 1fr 1fr; }
-      .cs-impact-row { grid-template-columns: 1fr 1fr; }
-    }
-
-  /* ── Bottom progress nav ── */
-  #cs-bottom-nav {
-    position: fixed;
-    bottom: 0; left: 0; right: 0;
-    z-index: 200;
-    padding: 14px 40px 16px;
-    background: rgba(6,10,15,0.92);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border-top: 1px solid rgba(255,255,255,0.08);
-    transform: translateY(100%);
-    transition: transform 0.35s ease;
-  }
-  #cs-bottom-nav.visible { transform: translateY(0); }
-  #cs-bnav-row {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    margin-bottom: 10px;
-  }
-  #cs-bnav-sections {
-    display: flex;
-    gap: 20px;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-  #cs-bnav-sections::-webkit-scrollbar { display: none; }
-  .cs-bnav-sec {
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: rgba(232,228,240,0.25);
-    font-family: var(--sans);
-    white-space: nowrap;
-    cursor: pointer;
-    transition: color 0.2s;
-    text-decoration: none;
-    font-weight: 500;
-  }
-  .cs-bnav-sec.active { color: rgba(232,228,240,0.8); }
-  .cs-bnav-sec:hover { color: rgba(232,228,240,0.55); }
-  #cs-bnav-track {
-    height: 2px;
-    background: rgba(255,255,255,0.08);
-    border-radius: 1px;
-    position: relative;
-  }
-  #cs-bnav-fill {
-    position: absolute;
-    left: 0; top: 0; height: 100%;
-    background: rgba(56,189,248,0.7);
-    border-radius: 1px;
-    transition: width 0.1s linear;
-    width: 0%;
-  }
-  /* ── Problem callout (hero-adjacent) ── */
-  .cs-problem-callout {
-    background: rgba(251,146,60,0.06);
-    border-left: 3px solid rgba(251,146,60,0.5);
-    border-radius: 0 12px 12px 0;
-    padding: 24px 28px;
-    margin: 0;
-  }
-  .cs-problem-callout p {
-    font-size: 17px;
-    color: rgba(232,228,240,0.88);
-    line-height: 1.75;
-    margin: 0;
-  }
-  .cs-problem-callout strong {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: rgba(251,146,60,0.85);
-    display: inline-block;
-    margin-right: 8px;
-    font-family: var(--sans);
-    vertical-align: 2px;
-  }
-  /* ── Role group subheadings ── */
-  .cs-role-group-label {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: rgba(56,189,248,0.6);
-    font-family: var(--sans);
-    margin: 20px 0 8px;
-  }
-  .cs-role-group-label:first-child { margin-top: 0; }
-  @media (max-width: 800px) {
-    .cs-impact-row { display: grid !important; grid-template-columns: 1fr !important; gap: 12px !important; }
-    .cs-impact-row .cs-stat-card { width: 100% !important; flex: none !important; }
-    .cs-article { padding: 0 12px; }
-  }
+    /* Page-local: VASA's Research stat row has 3 stats, not 4 (shared default).
+       Top-of-page Impact stats use an inline style attribute on the element
+       itself to force the 2x2 grid, so this rule applies only to the Research row. */
+    .cs-impact-row { grid-template-columns: repeat(3, 1fr); margin: 32px 0; }
   </style>
 </head>
 <body>
@@ -325,13 +52,13 @@
   <div class="cs-article" style="margin-top:0">
 
     <!-- ── Product imagery ── -->
-    <a href="figma-export/VASA/VASA/Portfolio site extra images/VASA_header_photo.png" class="glightbox" data-title="VASA Fitness gym">
-      <img src="figma-export/VASA/VASA/Portfolio site extra images/VASA_header_photo.png" alt="VASA Fitness gym" class="cs-showcase-lead" style="aspect-ratio:8/3"/>
-    </a>
-
-    <a href="figma-export/VASA/VASA/VASAmockup.png" class="glightbox" data-title="VASA app mockup overview">
-      <img src="figma-export/VASA/VASA/VASAmockup.png" alt="VASA app mockup overview" class="cs-showcase-lead" style="aspect-ratio:16/9"/>
-    </a>
+    <div class="cs-img-breakout">
+      <div class="cs-img-frame landscape" style="aspect-ratio:16/9">
+        <a href="figma-export/VASA/VASA/VASAmockup.png" class="glightbox" data-title="VASA app mockup overview">
+          <img src="figma-export/VASA/VASA/VASAmockup.png" alt="VASA app mockup overview" style="object-fit:cover;object-position:center"/>
+        </a>
+      </div>
+    </div>
 
     <div class="cs-art-img-3col" style="margin-top:12px;margin-bottom:0">
       <div class="cs-img-frame portrait">
@@ -416,8 +143,10 @@
       <div class="cs-article-label">The Problem</div>
       <h2 class="cs-article-title">A <em>white-labeled</em> app nobody liked</h2>
 
-      <div style="margin:0 0 32px;border-radius:12px;overflow:hidden">
-        <img src="figma-export/VASA/VASA/Portfolio site extra images/netpulse images..png" alt="Netpulse existing white-label app" style="width:100%;height:auto;display:block"/>
+      <div style="margin:0 0 32px">
+        <a href="figma-export/VASA/VASA/Portfolio site extra images/netpulse images..png" class="glightbox" data-title="Netpulse white-label app, the existing VASA experience">
+          <img src="figma-export/VASA/VASA/Portfolio site extra images/netpulse images..png" alt="Netpulse existing white-label app" style="width:100%;height:auto;display:block"/>
+        </a>
       </div>
 
       <div class="cs-article-body">
@@ -454,20 +183,20 @@
       <h2 class="cs-article-title">Eight thousand <em>members</em>, one mom</h2>
 
       <div style="width:min(1280px,calc(100vw - 48px));margin-left:50%;transform:translateX(-50%);margin-top:0;margin-bottom:10px">
-        <div class="cs-img-frame landscape" style="border-radius:14px;aspect-ratio:64/27">
-          <a href="figma-export/VASA/VASA/Portfolio site extra images/VASA_User_testing_img.png" class="glightbox" data-title="Guerrilla usability testing at VASA">
-            <img src="figma-export/VASA/VASA/Portfolio site extra images/VASA_User_testing_img.png" alt="Guerrilla usability testing at VASA" style="object-fit:cover;object-position:center"/>
+        <div class="cs-img-frame landscape" style="aspect-ratio:64/27">
+          <a href="figma-export/VASA/VASA/Mobile App/guerila-testing.png" class="glightbox" data-title="Guerrilla usability testing at VASA gym locations">
+            <img src="figma-export/VASA/VASA/Mobile App/guerila-testing.png" alt="Guerrilla usability testing at VASA gym" style="object-fit:cover;object-position:center"/>
           </a>
         </div>
       </div>
 
       <div class="cs-art-img-2col" style="margin-top:0">
-        <div class="cs-img-frame landscape" style="background:#fff;padding:14px;border-radius:14px">
+        <div class="cs-img-frame landscape" style="background:#fff;padding:14px">
           <a href="figma-export/VASA/VASA/Portfolio site extra images/survey1.png" class="glightbox" data-title="Member survey results">
             <img src="figma-export/VASA/VASA/Portfolio site extra images/survey1.png" alt="Member survey results" style="object-fit:contain;object-position:left top"/>
           </a>
         </div>
-        <div class="cs-img-frame landscape" style="background:#fff;padding:14px;border-radius:14px">
+        <div class="cs-img-frame landscape" style="background:#fff;padding:14px">
           <a href="figma-export/VASA/VASA/Portfolio site extra images/survey2.png" class="glightbox" data-title="Member survey results">
             <img src="figma-export/VASA/VASA/Portfolio site extra images/survey2.png" alt="Member survey results" style="object-fit:contain;object-position:left top"/>
           </a>
@@ -617,8 +346,8 @@
 
         <div style="width:min(1280px,calc(100vw - 48px));margin-left:50%;transform:translateX(-50%);margin-top:0;margin-bottom:10px">
           <div class="cs-img-frame landscape" style="aspect-ratio:8/3">
-            <a href="figma-export/VASA/VASA/Portfolio site extra images/priority excercise with Mehul.png" class="glightbox" data-title="Priority exercise with Mehul Chaudhari">
-              <img src="figma-export/VASA/VASA/Portfolio site extra images/priority excercise with Mehul.png" alt="Priority exercise with Mehul Chaudhari" style="object-fit:cover;object-position:center calc(50% + 150px)"/>
+            <a href="figma-export/VASA/VASA/Mobile App/2019-12-05 13.34.35.jpg" class="glightbox" data-title="Working session with Mehul Chaudhari, December 2019">
+              <img src="figma-export/VASA/VASA/Mobile App/2019-12-05 13.34.35.jpg" alt="Working session with Mehul Chaudhari" style="object-fit:cover;object-position:center"/>
             </a>
           </div>
         </div>
@@ -717,6 +446,27 @@
 <script src="js/main.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
 <script>GLightbox({ touchNavigation: true, loop: true, zoomable: true });</script>
+<script>
+(function() {
+  // ── Auto-add captions under images using their glightbox data-title ──
+  document.querySelectorAll('a.glightbox[data-title]').forEach(link => {
+    const title = link.getAttribute('data-title');
+    if (!title) return;
+    // Prefer the closest .cs-img-frame as the wrap target; fall back to the link itself
+    const target = link.closest('.cs-img-frame') || link;
+    if (target.dataset.captioned === 'true') return;
+    const fig = document.createElement('figure');
+    fig.className = 'cs-figure';
+    target.parentNode.insertBefore(fig, target);
+    fig.appendChild(target);
+    const cap = document.createElement('div');
+    cap.className = 'cs-img-caption';
+    cap.textContent = title;
+    fig.appendChild(cap);
+    target.dataset.captioned = 'true';
+  });
+})();
+</script>
 <script>
 (function() {
   // ── Build bottom nav ──
