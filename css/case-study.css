@@ -458,14 +458,18 @@ section#cs-hero { border-bottom: none; padding-bottom: 0 }
   display: flex;
   align-items: center;
   justify-content: center;
+  background: rgba(0,0,0,0.5);
   border-top: 1px solid rgba(255,255,255,.06);
   box-sizing: border-box;
 }
 
-/* Bottom progress nav (sticky, scroll-driven) */
+/* Bottom progress nav (sticky, scroll-driven).
+   top:auto + display:block neutralize the global `nav { top: 0; display: flex }`
+   rule from styles.css for pages that use a <nav> element here instead of a <div>. */
 #cs-bottom-nav {
   position: fixed;
-  bottom: 0; left: 0; right: 0;
+  top: auto; bottom: 0; left: 0; right: 0;
+  display: block;
   z-index: 200;
   padding: 14px 40px 16px;
   background: rgba(6,10,15,.92);

@@ -11,234 +11,73 @@
   <link rel="stylesheet" href="css/styles.css"/>
   <link rel="stylesheet" href="css/case-study.css"/>
   <style>
-    .cs-article {
-      max-width: 700px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-    .cs-article-section { margin-top: 72px; }
-    .cs-article-body {
-      font-size: 17px;
-      line-height: 1.9;
-      color: rgba(255,255,255,.72);
-    }
-    .cs-article-body p { margin-bottom: 1.5em; }
-    .cs-article-body p:last-child { margin-bottom: 0; }
-    .cs-pull {
-      font-family: 'Fraunces', Georgia, serif;
-      font-size: clamp(1.35rem, 2.8vw, 1.9rem);
-      font-style: italic;
-      font-weight: 300;
-      line-height: 1.45;
-      color: rgba(255,180,100,.85);
-      border-left: 3px solid rgba(255,255,255,.2);
-      padding: 4px 0 4px 28px;
-      margin: 56px 0 12px;
-    }
-    .cs-pull-attr {
-      padding-left: 31px;
-      margin-bottom: 56px;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.35);
-    }
-    .cs-article-label {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: rgba(249,115,22,.7);
-      margin-bottom: 10px;
-    }
-    .cs-article-label::before { content: '— '; }
-    .cs-article-title {
-      font-family: 'Fraunces', Georgia, serif;
-      font-size: clamp(1.6rem, 4vw, 2.4rem);
-      font-weight: 600;
-      line-height: 1.15;
-      letter-spacing: -.01em;
-      color: #fff;
-      margin-bottom: 28px;
-    }
-    .cs-article-title em {
-      font-style: italic;
-      font-weight: 300;
-      background: linear-gradient(135deg,#fb923c,#38bdf8);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      -webkit-box-decoration-break: clone;
-      box-decoration-break: clone;
-      padding-right: 0.15em;
-    }
-    .cs-role-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      border-top: 1px solid rgba(255,255,255,.08);
-    }
-    .cs-role-list li {
-      padding: 14px 0;
-      border-bottom: 1px solid rgba(255,255,255,.08);
-      font-size: 15px;
-      color: rgba(255,255,255,.7);
-      padding-left: 20px;
-      position: relative;
-    }
-    .cs-role-list li::before {
-      content: '→';
-      position: absolute;
-      left: 0;
-      color: rgba(249,115,22,.7);
-      font-size: 13px;
-    }
-    .cs-role-list li strong { color: rgba(56,189,248,.9); font-weight: 600; }
-    .cs-article-body strong { color: rgba(56,189,248,.9); font-weight: 600; }
-    .cs-art-img { width: 100%; border-radius: 12px; display: block; margin: 40px 0; }
-    .cs-art-img-2col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 40px;
-      margin-bottom: 40px;
-      width: min(1280px, calc(100vw - 48px));
-      margin-left: 50%;
-      transform: translateX(-50%);
-    }
-    .cs-art-img-3col {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 10px;
-      margin-top: 40px;
-      margin-bottom: 40px;
-      width: min(1280px, calc(100vw - 48px));
-      margin-left: 50%;
-      transform: translateX(-50%);
-    }
-    .cs-art-img-2col .cs-img-frame,
-    .cs-art-img-3col .cs-img-frame { margin: 0; }
-    .cs-impact-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin: 48px 0;
-    }
-    .cs-art-phase {
-      border-left: 2px solid rgba(249,115,22,.35);
-      padding-left: 24px;
-      margin: 40px 0 20px;
-    }
-    .cs-art-phase-label {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: rgba(249,115,22,.65);
-      margin-bottom: 6px;
-    }
-    .cs-art-phase-title { font-size: 1.15rem; font-weight: 700; color: #fff; margin-bottom: 10px; }
-    .cs-art-phase-body { font-size: 15px; line-height: 1.75; color: rgba(255,255,255,.65); margin-bottom: 12px; }
-    .cs-callout {
-      background: rgba(56,189,248,0.05);
-      border-left: 2px solid rgba(56,189,248,0.35);
-      border-radius: 0 10px 10px 0;
-      padding: 18px 22px;
-      margin: 28px 0;
-    }
-    .cs-callout-head {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: rgba(56,189,248,.7);
-      margin-bottom: 6px;
-    }
-    .cs-callout p { font-size: 14px; line-height: 1.75; color: rgba(232,228,240,.7); margin: 0; }
-    .cs-divider { border: none; border-top: 1px solid rgba(255,255,255,.07); margin: 72px 0; }
-    /* ── Stat inline row ── */
+    /* Page-local: customer-trust card grid, breakout to match trio width
+       and font sizes uplifted 50% from the original compact version. */
     .cs-stat-inline {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 12px;
-      margin: 32px 0;
+      margin-top: 32px;
+      margin-bottom: 32px;
+      width: min(1280px, calc(100vw - 48px));
+      margin-left: 50%;
+      transform: translateX(-50%);
     }
     .cs-stat-inline-item {
       background: rgba(255,255,255,.03);
       border: 1px solid rgba(255,255,255,.07);
       border-radius: 12px;
-      padding: 20px;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
     }
     .cs-stat-inline-num {
       font-family: 'Fraunces', Georgia, serif;
-      font-size: 1.6rem;
+      font-size: 2.4rem;
       font-weight: 600;
       color: rgba(251,146,60,.9);
       line-height: 1;
-      margin-bottom: 8px;
+      margin-bottom: 12px;
     }
-    .cs-stat-inline-lbl { font-size: 13px; line-height: 1.55; color: rgba(255,255,255,.5); }
-    /* ── Image placeholder ── */
-    .cs-img-placeholder {
-      background: rgba(255,255,255,.03);
-      border: 1px dashed rgba(255,255,255,.12);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      gap: 8px;
-      min-height: 260px;
-      margin: 40px 0;
-      color: rgba(255,255,255,.25);
-      font-size: 13px;
-      letter-spacing: .08em;
-      text-transform: uppercase;
+    .cs-stat-inline-lbl { font-size: 20px; line-height: 1.55; color: rgba(255,255,255,.55); }
+    .cs-stat-inline-quote {
+      font-family: 'Fraunces', Georgia, serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 20px;
+      line-height: 1.5;
+      color: rgba(232,228,240,.78);
+      margin: 16px 0 20px;
+      flex: 1;
     }
-    .cs-img-placeholder span { font-size: 11px; color: rgba(255,255,255,.15); letter-spacing: .12em; }
-    .cs-art-img-2col .cs-img-placeholder,
-    .cs-art-img-3col .cs-img-placeholder { margin: 0; min-height: 200px; }
-
+    .cs-stat-inline-attr {
+      margin-top: auto;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .cs-stat-inline-attr-name {
+      font-size: 18px;
+      font-weight: 700;
+      color: rgba(255,255,255,.9);
+      letter-spacing: .02em;
+    }
+    .cs-stat-inline-attr-role {
+      font-size: 17px;
+      color: rgba(255,255,255,.55);
+      margin-top: 3px;
+      line-height: 1.4;
+    }
+    /* Sub-section header above the trust grid (and the 30-days grid) */
+    .cs-subsection-title {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #fff;
+      line-height: 1.25;
+      margin: 40px 0 4px;
+    }
     @media (max-width: 640px) {
-      .cs-art-img-2col { grid-template-columns: 1fr; }
-      .cs-art-img-3col { grid-template-columns: 1fr 1fr; }
-      .cs-impact-row { grid-template-columns: 1fr 1fr; }
-      .cs-stat-inline { grid-template-columns: 1fr 1fr; }
-    }
-
-    #cs-bottom-nav {
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
-      z-index: 200;
-      padding: 14px 40px 16px;
-      background: rgba(6,10,15,0.92);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-top: 1px solid rgba(255,255,255,0.08);
-      transform: translateY(100%);
-      transition: transform 0.35s ease;
-    }
-    #cs-bottom-nav.visible { transform: translateY(0); }
-    #cs-bnav-row { display: flex; align-items: center; gap: 20px; margin-bottom: 10px; }
-    #cs-bnav-sections { display: flex; gap: 20px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
-    #cs-bnav-sections::-webkit-scrollbar { display: none; }
-    .cs-bnav-sec {
-      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
-      color: rgba(232,228,240,0.25); font-family: var(--sans); white-space: nowrap;
-      cursor: pointer; transition: color 0.2s; text-decoration: none; font-weight: 500;
-    }
-    .cs-bnav-sec.active { color: rgba(232,228,240,0.8); }
-    .cs-bnav-sec:hover { color: rgba(232,228,240,0.55); }
-    #cs-bnav-track { height: 2px; background: rgba(255,255,255,0.08); border-radius: 1px; position: relative; }
-    #cs-bnav-fill {
-      position: absolute; left: 0; top: 0; height: 100%;
-      background: rgba(56,189,248,0.7); border-radius: 1px;
-      transition: width 0.1s linear; width: 0%;
-    }
-    @media (max-width: 800px) {
-      .cs-article { padding: 0 12px; }
-      #cs-bottom-nav { padding: 14px 16px 16px; }
+      .cs-stat-inline { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -257,418 +96,379 @@
   </ul>
 </nav>
 
-<!-- ── HERO ── -->
+<!-- ── 01. HERO TEXT BLOCK (text only, no image, no metadata strip) ── -->
 <section id="cs-hero">
   <div class="cs-hero-inner">
     <a href="index.html#work" class="nav-back" style="display:inline-flex;align-items:center;margin-bottom:24px"><span class="nav-back-arrow" style="line-height:1;margin-top:-1px">←</span> All work</a>
-    <div class="cs-num">Case Study — Invoca Call Review Console &nbsp;·&nbsp; 12 min read</div>
+    <div class="cs-num">Case Study — Invoca Contact Center Workflow &nbsp;·&nbsp; 6 min read</div>
     <div class="work-tags" style="margin-bottom:12px;margin-top:-8px">
-      <span class="work-tag">B2B SaaS</span>
-      <span class="work-tag">AI Product</span>
-      <span class="work-tag">Research</span>
+      <span class="work-tag">Enterprise B2B</span>
+      <span class="work-tag">Contact Center</span>
+      <span class="work-tag">Research-Led</span>
     </div>
     <h1 class="cs-title">What Should We <em>Build</em> <em>First?</em></h1>
-    <p class="cs-lead">How a focused week of research turned a vague mandate into a product direction — and how a redesigned call review workflow helped grow a $4–6M contact center product to $12–15M ARR.</p>
-    <div class="cs-meta">
-      <div class="cs-meta-item">
-        <span class="cs-meta-lbl">Company</span>
-        <span class="cs-meta-val">Invoca</span>
-      </div>
-      <div class="cs-meta-item">
-        <span class="cs-meta-lbl">Role</span>
-        <span class="cs-meta-val">Senior UX Designer</span>
-      </div>
-      <div class="cs-meta-item">
-        <span class="cs-meta-lbl">Timeline</span>
-        <span class="cs-meta-val">2023–2025 · ~2 years</span>
-      </div>
-      <div class="cs-meta-item">
-        <span class="cs-meta-lbl">Platform</span>
-        <span class="cs-meta-val">Web App · Enterprise SaaS</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── HERO IMAGE ── -->
-<section class="cs-section" style="padding:0">
-  <img src="figma-export/CRC Case Study/CRC-hero.png" alt="Invoca Call Review Console" class="cs-hero-img" style="border-radius:0;max-height:560px;object-fit:cover;object-position:top"/>
-</section>
-
-<!-- ── OUTCOME STATS ── -->
-<section class="cs-section" style="padding-top:32px;padding-bottom:0">
-  <div class="cs-article">
-    <div class="cs-impact-row">
-      <div class="cs-stat-card glass">
-        <div class="cs-stat-num">~3x</div>
-        <div class="cs-stat-lbl">ARR growth — $4–6M to $12–15M within two years of launch</div>
-      </div>
-      <div class="cs-stat-card glass">
-        <div class="cs-stat-num">&lt;6mo</div>
-        <div class="cs-stat-lbl">Beta shipped in under six months despite significant organizational headwinds</div>
-      </div>
-      <div class="cs-stat-card glass">
-        <div class="cs-stat-num">Core</div>
-        <div class="cs-stat-lbl">Redesigned the most-used workflow in the product — the one everything else depended on</div>
-      </div>
-    </div>
+    <p class="cs-lead">How a focused week of research turned a vague mandate into a product direction, and a redesigned call review workflow grew Invoca's contact center product from $4–6M to $12–15M ARR.</p>
   </div>
 </section>
 
 <!-- ── ARTICLE BODY ── -->
 <section class="cs-section" style="padding-top:0">
-  <div class="cs-article">
+  <div class="cs-article" style="margin-top:0">
 
-    <!-- Overview -->
-    <div class="cs-article-section">
-      <div class="cs-article-label">Overview</div>
-      <h2 class="cs-article-title">A product with customers, <em>but no momentum</em></h2>
-      <div class="cs-article-body">
-        <p>In early 2023, the VP of Invoca's contact center product asked a deceptively simple question: <strong>What should I build first?</strong></p>
-        <p>Invoca had a contact center product uncomfortably bolted onto a legacy marketing platform. It was generating only $4–6 million in ARR. It had customers, but it didn't have momentum. That question became the starting point for what would evolve from targeted improvements into a full redesign of the product's core workflow, a shift in how the team worked with engineering, and ultimately a foundation the product could actually grow on.</p>
-      </div>
-
-      <div class="cs-img-frame landscape" style="margin-top:32px">
-        <a href="figma-export/CRC Case Study/Calls-Report-2023.png" class="glightbox" data-title="The Calls Report as it existed in 2023 — the core workflow for every contact center user">
-          <img src="figma-export/CRC Case Study/Calls-Report-2023.png" alt="Calls Report 2023 current state" style="object-position:left center"/>
+    <!-- ── 02. Hero image + product trio ── -->
+    <div class="cs-img-breakout" style="margin-top:32px">
+      <div class="cs-img-frame landscape" style="aspect-ratio:16/9">
+        <a href="images/CRC Case Study/Call Detail Page Example.png" class="glightbox" data-title="Call Detail Page: QA / Sales Managers review sales calls of their sales agents to find coachable moments through reviewing the AI summary, transcript, and call audio.">
+          <img src="images/CRC Case Study/Call Detail Page Example.png" alt="Call Detail Page: QA / Sales Managers review sales calls of their sales agents to find coachable moments through reviewing the AI summary, transcript, and call audio." style="object-fit:cover;object-position:top"/>
         </a>
+      </div>
+    </div>
+
+    <div class="cs-art-img-3col" style="margin-top:12px">
+      <div class="cs-img-frame landscape" style="aspect-ratio:8/9">
+        <a href="images/CRC Case Study/CRC-CallDetail-spokenphrases.png" class="glightbox" data-title="Automated Scoring of Sales Agent Performance">
+          <img src="images/CRC Case Study/CRC-CallDetail-spokenphrases.png" alt="Automated Scoring of Sales Agent Performance"/>
+        </a>
+      </div>
+      <div class="cs-img-frame landscape" style="aspect-ratio:8/9">
+        <a href="images/CRC Case Study/CRC-CallDetail-Actions.png" class="glightbox" data-title="Actions: Users interact directly with the transcript">
+          <img src="images/CRC Case Study/CRC-CallDetail-Actions.png" alt="Actions: Users interact directly with the transcript" style="object-position:right top"/>
+        </a>
+      </div>
+      <div class="cs-img-frame landscape" style="aspect-ratio:8/9">
+        <a href="images/CRC Case Study/CRC-CallDetail-transciptcomments.png" class="glightbox" data-title="Contextual comments that reference specific moments in the call">
+          <img src="images/CRC Case Study/CRC-CallDetail-transciptcomments.png" alt="Contextual comments that reference specific moments in the call" style="object-position:calc(100% + 150px)"/>
+        </a>
+      </div>
+    </div>
+
+    <!-- ── 02b. Second hero (search & filter) + new trio (placeholders) ── -->
+    <div class="cs-img-breakout" style="margin-top:24px">
+      <div class="cs-img-frame landscape" style="aspect-ratio:16/9">
+        <a href="images/CRC Case Study/CRC-searchfilter-hero.png" class="glightbox" data-title="Call Review Console: Sales Manager / QA team search for calls of interest with a variety of advanced filters">
+          <img src="images/CRC Case Study/CRC-searchfilter-hero.png" alt="Call Review Console: Sales Manager / QA team search for calls of interest with a variety of advanced filters" style="object-fit:cover;object-position:top"/>
+        </a>
+      </div>
+    </div>
+
+    <div class="cs-art-img-3col" style="margin-top:12px">
+      <div class="cs-img-frame landscape" style="aspect-ratio:8/9">
+        <a href="images/CRC Case Study/CRC-filterr-AISummary.png" class="glightbox" data-title="Review AI summaries before diving into a call">
+          <img src="images/CRC Case Study/CRC-filterr-AISummary.png" alt="Review AI summaries before diving into a call"/>
+        </a>
+      </div>
+      <div class="cs-img-frame landscape" style="aspect-ratio:8/9">
+        <a href="images/CRC Case Study/CRC-filter-status.png" class="glightbox" data-title="Track review or evaluation status on calls">
+          <img src="images/CRC Case Study/CRC-filter-status.png" alt="Track review or evaluation status on calls"/>
+        </a>
+      </div>
+      <div class="cs-img-frame landscape" style="aspect-ratio:8/9">
+        <a href="images/CRC Case Study/CRC-filter-rangefilter.png" class="glightbox" data-title="Advanced filter capability with custom score ranges">
+          <img src="images/CRC Case Study/CRC-filter-rangefilter.png" alt="Advanced filter capability with custom score ranges"/>
+        </a>
+      </div>
+    </div>
+
+    <!-- ── 03. Impact stat cards ── -->
+    <div class="cs-article-section" style="margin-top:56px">
+      <div class="cs-article-label">Impact</div>
+      <div class="cs-impact-row" style="margin-top:20px">
+        <div class="cs-stat-card glass">
+          <div class="cs-stat-num">~3x</div>
+          <div class="cs-stat-lbl">ARR growth from $4–6M to $12–15M within two years</div>
+        </div>
+        <div class="cs-stat-card glass">
+          <div class="cs-stat-num">&lt;6mo</div>
+          <div class="cs-stat-lbl">From research to beta launch despite organizational headwinds</div>
+        </div>
+        <div class="cs-stat-card glass">
+          <div class="cs-stat-num">8</div>
+          <div class="cs-stat-lbl">Customer accounts analyzed in FullStory (58 individual call reviews)</div>
+        </div>
+        <div class="cs-stat-card glass">
+          <div class="cs-stat-num">5</div>
+          <div class="cs-stat-lbl">Customer companies interviewed (8 users total)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 04. Project Metadata ── -->
+    <div class="cs-article-section">
+      <div class="cs-article-label">Project</div>
+      <div class="cs-meta-block">
+        <div class="cs-meta-item">
+          <span class="cs-meta-lbl">Company</span>
+          <span class="cs-meta-val">Invoca (B2B SaaS, conversation intelligence)</span>
+        </div>
+        <div class="cs-meta-item">
+          <span class="cs-meta-lbl">Role</span>
+          <span class="cs-meta-val">Senior UX Designer</span>
+        </div>
+        <div class="cs-meta-item">
+          <span class="cs-meta-lbl">Timeline</span>
+          <span class="cs-meta-val">2023 – 2025 · ~2 years</span>
+        </div>
+        <div class="cs-meta-item">
+          <span class="cs-meta-lbl">Platform</span>
+          <span class="cs-meta-val">Web App · Enterprise SaaS</span>
+        </div>
+        <div class="cs-meta-item cs-meta-full">
+          <span class="cs-meta-lbl">Led</span>
+          <span class="cs-meta-val">Initial research sprint, deep-dive customer research, end-to-end design from concept to ship, UX review process introduction with engineering</span>
+        </div>
+        <div class="cs-meta-item cs-meta-full">
+          <span class="cs-meta-lbl">Team</span>
+          <span class="cs-meta-val">UX lead partnered with PM Erick Montez, plus designers Jake Rowe and Brittany Choy on research execution</span>
+        </div>
       </div>
     </div>
 
     <hr class="cs-divider"/>
 
-    <!-- Research: One Week -->
-    <div class="cs-article-section">
-      <div class="cs-article-label">Research</div>
+    <!-- ── 05. The Problem ── -->
+    <div class="cs-article-section" style="margin-top:0">
+      <div class="cs-article-label">The Problem</div>
       <h2 class="cs-article-title">One week to find <em>the answer</em></h2>
-      <div class="cs-article-body">
-        <p>How do you answer a question like that? With research. Not a months-long study — there wasn't appetite for that — but a focused, one-week effort I conceived and pitched to product leadership, looking at the entire contact center product to find where the biggest problems lived.</p>
-        <p>I started by pulling Pendo session replays to watch how users were actually navigating the product. I talked to the internal CS team — the people fielding customer complaints and workarounds every day. I reviewed existing research materials that had accumulated with minimal synthesis. Within that first week, a clear picture emerged: <strong>the Calls Report was the center of gravity.</strong> It was the workflow every contact center user touched daily, and it was the one they struggled with the most.</p>
-        <p>The Pendo data told a stark story. Less than half of customer accounts were even logging in each month. Of those that did, the engagement split was dramatic — a small segment of power users with extremely high event counts, and a long tail of users who barely touched the product. The product's stickiness metric sat at 19.7% DAU/MAU — average for SaaS, but the underlying distribution was unhealthy.</p>
-        <p>The data also revealed where complexity was creating the biggest barrier. Invoca's planned onboarding was 75 days — the actual average was 92. In 2022, only 11 out of 32 customers completed onboarding within the year. The Calls Report was where users needed to build confidence that the system was working — and it was failing them.</p>
+
+      <div class="cs-img-breakout" style="margin-top:0;margin-bottom:32px">
+        <div class="cs-img-frame landscape">
+          <a href="images/CRC Case Study/Calls-Report-2023.png" class="glightbox" data-title="The Calls Report as it existed in 2023, the workflow every contact center user touched daily">
+            <img src="images/CRC Case Study/Calls-Report-2023.png" alt="Calls Report 2023 current state" style="object-fit:cover;object-position:left top"/>
+          </a>
+        </div>
       </div>
 
       <div class="cs-article-body">
-        <p>The research caught the attention of Invoca's CEO, Gregg Johnson. He asked to review the project at a high level — we walked him through the Pendo findings, the CS feedback patterns, and the case for the Calls Report as the highest-impact investment. One question he asked stuck with me:</p>
-      </div>
-      <blockquote class="cs-pull">"Can I assume this is more than the typical level of research we conduct before a project?"</blockquote>
-      <div class="cs-pull-attr">Gregg Johnson — CEO, Invoca</div>
-
-      <div class="cs-article-body">
-        <p>Getting buy-in for deeper research was a recurring challenge at Invoca — the culture leaned toward building what users asked for rather than investing time to understand the underlying problem. So we split the research into shorter phases that could each earn continued investment, proving value incrementally rather than asking for trust upfront.</p>
+        <p>In early 2023, the VP of Invoca's contact center product asked a simple question: what should I build first?</p>
+        <p>Invoca had a contact center product uncomfortably bolted onto a legacy marketing platform. $4 to 6 million in ARR. It had customers, but it didn't have momentum. Invoca's planned onboarding was 75 days; the actual average was 92. In 2022, only 11 of 32 customers completed onboarding within the year. Less than half of customer accounts logged in each month. Of those that did, the engagement split was dramatic: a small segment of power users with extremely high event counts, and a long tail of users who barely touched the product.</p>
+        <p>The product had real users with real workflows. But it was fighting them.</p>
       </div>
     </div>
 
-    <hr class="cs-divider"/>
-
-    <!-- Thirty Days of Listening -->
+    <!-- ── 06. My Role ── -->
     <div class="cs-article-section">
-      <div class="cs-article-label">Customer Research</div>
-      <h2 class="cs-article-title">Thirty days <em>of listening</em></h2>
-      <div class="cs-article-body">
-        <p>Once we had approval to move forward, my PM partner Erick Montez joined the project. Erick and I would collaborate on call review and adjacent projects for the next year and a half. Jake Rowe and Brittany Choy also joined — supporting research and taking on significant design work. I led UX and collaborated with them regularly to keep the design vision aligned.</p>
-        <p>We planned a 3–4 week effort: FullStory session analysis, direct customer interviews, competitive design research, internal stakeholder conversations, and a heuristic analysis. We interviewed five customers ranging from 9-agent teams to 100+ agent organizations — eight users total, all focused specifically on their call review workflow and pain points.</p>
-        <p>Here's what they were doing: contact center QA analysts and sales managers were manually reviewing calls, hunting for coaching opportunities for their agents — looking for bad calls that needed intervention, good calls worth replicating, and anomalies that might signal a larger trend. The coaching was the point. Better call handling meant higher conversion rates. And the pressure was real — some QA reviewers had weekly call review quotas tied directly to their compensation and bonuses. This wasn't optional busywork.</p>
-        <p>The workflow had <strong>two distinct levels.</strong> First, find calls of interest within a massive body — for some customers, millions per month. Then, find <em>moments</em> of interest within a specific call — the fumbled pitch, the brilliantly handled objection. The Calls Report was supposed to make both levels efficient. It wasn't.</p>
-      </div>
+      <div class="cs-article-label">My Role</div>
+      <h2 class="cs-article-title">Designer, <em>researcher</em>, process advocate</h2>
 
-      <div class="cs-img-frame landscape" style="margin-top:32px">
-        <a href="figma-export/CRC Case Study/Calls-Report-current-stateflow-2023.png" class="glightbox" data-title="The two-level review workflow — and where the product was failing">
-          <img src="figma-export/CRC Case Study/Calls-Report-current-stateflow-2023.png" alt="Current state workflow diagram 2023" style="object-position:left center"/>
-        </a>
-      </div>
+      <div class="cs-role-group-label">What I owned</div>
+      <ul class="cs-role-list">
+        <li>Conceived, pitched, and led the initial <strong>product-wide research sprint</strong> to identify investment priorities</li>
+        <li>Designed and ran the deep-dive research plan: FullStory analysis (8 accounts, 58 reviews), customer interviews (5 companies, 8 users), competitive analysis across industries, heuristic review</li>
+        <li>Synthesized findings into a prioritized <strong>problem framework</strong> that aligned PM, engineering, and leadership</li>
+        <li>Designed the Call Review Console from concept through shipped product</li>
+        <li>Conducted concept testing directly with customers</li>
+        <li>Established the <strong>UX review process</strong> with engineering, a practice that started here and carried forward</li>
+      </ul>
+
+      <div class="cs-role-group-label" style="margin-top:28px">What I partnered on</div>
+      <ul class="cs-role-list">
+        <li>PM <strong>Erick Montez</strong> across the full research and design cycle</li>
+        <li><strong>Jake Rowe</strong> and <strong>Brittany Choy</strong> on interview execution and Dovetail synthesis</li>
+        <li>Coordinated with CS, Sales Engineering, and Onboarding teams to gather internal evidence</li>
+      </ul>
     </div>
 
-    <hr class="cs-divider"/>
-
-    <!-- 50% Confidence -->
+    <!-- ── 07. Research + Insight ── -->
     <div class="cs-article-section">
-      <div class="cs-article-label">What We Found</div>
-      <h2 class="cs-article-title">Fifty percent confidence <em>in a QA product</em></h2>
-      <div class="cs-article-body">
-        <p>A QA Manager at Windstream named Matt Dunn captured the experience bluntly: <em>"I don't use Invoca directly because it is too complicated and it overwhelms me."</em> He wasn't alone. Across all interviews, a clear hierarchy of problems emerged.</p>
-        <p><strong>Transcript issues were the #1 pain point.</strong> The transcription quality directly undermined everything downstream. If users couldn't trust the transcript, they couldn't trust the signals or scores built on top of it. Signal and scoring validation was next — users couldn't understand why things were scored the way they were, and the workflow forced constant tab-switching between the transcript and the Analysis tab, losing context every time.</p>
-        <p>Underneath all of it sat the foundational problem: <strong>lack of trust in the data.</strong> When we asked users directly how much they trusted the product's scoring and transcription, the answers were sobering.</p>
+      <div class="cs-article-label">Research + Insight</div>
+      <h2 class="cs-article-title">Thirty days of <em>listening</em></h2>
+
+      <div class="cs-art-img-2col" style="margin-top:12px;margin-bottom:32px">
+        <div class="cs-img-frame landscape" style="background:#fff;padding:14px">
+          <a href="images/CRC Case Study/mostfrequentpainpoints.png" class="glightbox" data-title="Most frequent pain points across customer interviews">
+            <img src="images/CRC Case Study/mostfrequentpainpoints.png" alt="Most frequent pain points chart" style="object-fit:contain;object-position:center"/>
+          </a>
+        </div>
+        <div class="cs-img-frame landscape">
+          <a href="images/CRC Case Study/CRC-theproble-withcallreview.png" class="glightbox" data-title="Synthesis: what's actually broken in Call Review">
+            <img src="images/CRC Case Study/CRC-theproble-withcallreview.png" alt="Problems with Call Review synthesis doc"/>
+          </a>
+        </div>
+        <div class="cs-img-frame landscape">
+          <a href="images/CRC Case Study/CRC-research-hypothesis.png" class="glightbox" data-title="Customer team process maturity hypothesis">
+            <img src="images/CRC Case Study/CRC-research-hypothesis.png" alt="Customer process maturity hypothesis"/>
+          </a>
+        </div>
+        <div class="cs-img-frame landscape">
+          <a href="images/CRC Case Study/CRC-interview-dovetail.png" class="glightbox" data-title="Customer interview synthesis in Dovetail">
+            <img src="images/CRC Case Study/CRC-interview-dovetail.png" alt="Interview synthesis in Dovetail"/>
+          </a>
+        </div>
       </div>
+
+      <div class="cs-article-body">
+        <p>I started with a one-week research sprint I conceived and pitched to product leadership: Pendo session replays to watch how users were actually navigating the product, conversations with the internal CS team, review of accumulated research that had minimal synthesis. Within that first week, the picture was clear: <strong>the Calls Report was the center of gravity.</strong> The workflow every contact center user touched daily, and the one they struggled with the most.</p>
+        <p>CEO Gregg Johnson asked to review the project. He paused at one point to ask if this was more research than the company typically conducted before a project. That moment captured the deeper challenge. Invoca's culture leaned toward building what users asked for rather than understanding the underlying problem. So we structured the research in shorter phases that could each earn continued investment, proving value incrementally rather than asking for trust upfront.</p>
+        <p>The deep dive ran for 30 days. Five customer companies, 8 users, 8 FullStory accounts analyzed. The workflow had two distinct levels: first, find calls of interest within a massive body — for some customers, millions per month. Then, find moments of interest within a specific call — the fumbled pitch, the brilliantly handled objection. The Calls Report was supposed to make both levels efficient. It wasn't. The pattern that emerged: users were spending entire workdays in a tool they didn't trust. Trust scores averaged around 50% across customers, with some as low as 10%. Without trust in the data, users were manually validating every call before they'd stake their reputation on insights or actions.</p>
+      </div>
+
+      <h3 class="cs-subsection-title">Only 50% trust in a QA product</h3>
 
       <div class="cs-stat-inline">
         <div class="cs-stat-inline-item">
+          <div class="cs-stat-inline-num">50%</div>
+          <div class="cs-stat-inline-lbl">Up from 10%, still not comfortable</div>
+          <div class="cs-stat-inline-quote">"Right now I'm personally not comfortable that we're there yet, but I am comfortable that we will get there."</div>
+          <div class="cs-stat-inline-attr">
+            <div class="cs-stat-inline-attr-name">Ronnie Brown</div>
+            <div class="cs-stat-inline-attr-role">Telesales Coach, T-Mobile</div>
+          </div>
+        </div>
+        <div class="cs-stat-inline-item">
           <div class="cs-stat-inline-num">45%</div>
-          <div class="cs-stat-inline-lbl">Christus Health — "accurate maybe 45% of the time in some areas"</div>
+          <div class="cs-stat-inline-lbl">On certain call types</div>
+          <div class="cs-stat-inline-quote">"I believe it is accurate. Maybe 45% of the time in some areas, depending on the length of the call."</div>
+          <div class="cs-stat-inline-attr">
+            <div class="cs-stat-inline-attr-name">Sherita Vance</div>
+            <div class="cs-stat-inline-attr-role">Health Plan Coordinator, Christus Health</div>
+          </div>
         </div>
         <div class="cs-stat-inline-item">
-          <div class="cs-stat-inline-num">10→50%</div>
-          <div class="cs-stat-inline-lbl">T-Mobile — started at 10%, worked up to 50%, still not comfortable staking decisions on it</div>
-        </div>
-        <div class="cs-stat-inline-item">
-          <div class="cs-stat-inline-num">~50%</div>
-          <div class="cs-stat-inline-lbl">The majority of customers rated their trust at around 50% or below</div>
+          <div class="cs-stat-inline-num">50%</div>
+          <div class="cs-stat-inline-lbl">On the toughest calls</div>
+          <div class="cs-stat-inline-quote">"If you take the most difficult calls, it's probably 50/50."</div>
+          <div class="cs-stat-inline-attr">
+            <div class="cs-stat-inline-attr-name">Mark Roblez</div>
+            <div class="cs-stat-inline-attr-role">Call Center Director, Money Solvers</div>
+          </div>
         </div>
       </div>
+
 
       <div class="cs-article-body">
-        <p>Without trust in the data, users were manually validating every call before they'd stake their reputation on sharing insights internally or taking action with agents. The automation Invoca offered was being treated as a suggestion, not a source of truth.</p>
+        <p>The reframe: this wasn't a UI problem, it was a trust problem. Every other issue (transcript quality, signal scoring, navigation) was a tributary feeding the same river. Until users could trust what the product told them at a glance, the workflow couldn't function as the daily driver it needed to be. That framing turned a list of complaints into a single design priority: the call review workflow needed to surface what mattered, fast, in a form users could verify in seconds.</p>
       </div>
+    </div>
 
-      <div class="cs-img-frame landscape" style="margin-top:32px;aspect-ratio:unset;height:auto">
-        <a href="figma-export/CRC Case Study/mostfrequentpainpoints.png" class="glightbox" data-title="Most frequent pain points — research findings">
-          <img src="figma-export/CRC Case Study/mostfrequentpainpoints.png" alt="Most frequent pain points chart" style="object-fit:contain;height:auto;position:static"/>
-        </a>
-      </div>
-      <p style="font-size:12px;color:rgba(255,255,255,.72);margin-top:10px">The count is the number of mentions of each pain point.</p>
+    <hr class="cs-divider"/>
 
-      <div class="cs-article-section" style="margin-top:40px">
-        <div class="cs-article-label">FullStory Analysis</div>
-        <h2 class="cs-article-title">Twenty-two minutes, <em>but only two per call</em></h2>
+    <!-- ── 08. The Work ── -->
+    <div class="cs-article-section" style="margin-top:0">
+      <div class="cs-article-label">The Work</div>
+
+      <!-- Sub-beat 1: Helping Users Pick the Right Call -->
+      <div class="cs-subbeat">
+        <h2 class="cs-article-title">Helping Users Pick the <em>Right Call</em></h2>
+
+        <div class="cs-art-img-2col" style="margin-top:0">
+          <div class="cs-img-frame landscape">
+            <a href="images/CRC Case Study/kayak_competitive_research.png" class="glightbox" data-title="Kayak: filtering as the primary interaction at scale">
+              <img src="images/CRC Case Study/kayak_competitive_research.png" alt="Kayak competitive research"/>
+            </a>
+          </div>
+          <div class="cs-img-frame landscape">
+            <a href="images/CRC Case Study/testingfeedback_BBQ.png" class="glightbox" data-title="Concept testing session, BBQ Guys QA team">
+              <img src="images/CRC Case Study/testingfeedback_BBQ.png" alt="Concept testing feedback from BBQ Guys" style="object-fit:cover;object-position:center"/>
+            </a>
+          </div>
+          <div class="cs-img-frame landscape">
+            <a href="images/CRC Case Study/gong-competitive-analysis.png" class="glightbox" data-title="Gong: conversation analysis for B2B sales teams">
+              <img src="images/CRC Case Study/gong-competitive-analysis.png" alt="Gong competitive research"/>
+            </a>
+          </div>
+          <div class="cs-img-frame landscape">
+            <a href="images/CRC Case Study/observe.ai_competitive_analysis.png" class="glightbox" data-title="Observe.ai: direct competitor, contact center QA">
+              <img src="images/CRC Case Study/observe.ai_competitive_analysis.png" alt="Observe.ai competitive research"/>
+            </a>
+          </div>
+        </div>
+
         <div class="cs-article-body">
-          <p>I watched hours of real user sessions across eight customer accounts. The average call review session was 22 minutes — but individual calls got just 1 minute 43 seconds each, and 53% got less than a minute. Nobody was listening to full recordings. Users scanned the transcript first and only played short audio snippets if something caught their eye. Some never touched the audio player at all.</p>
-          <p>Yet these same users were spending entire workdays in the product. One QA Analyst told us she was in it "full eight hours" on days without meetings. A daily-driver tool with a broken daily workflow.</p>
-          <p>Users also couldn't track which calls they'd reviewed — the onboarding team had built a workaround using a custom signal for "Call Reviewed = Yes / No" — and had almost no actions available after finishing a review beyond copying a call ID to match up with external systems.</p>
+          <p>The most important design question: what content do users care about most when deciding whether a call is worth reviewing?</p>
+          <p>The answer became clear from the FullStory data. Users were racing through calls at under two minutes each because there was no intermediate layer of information between the call list and the full transcript. They had no way to preview what a call was about before committing to it. AI summaries filled that gap. I pushed for summaries to be the dominant content element in the call list, not tucked behind a click or treated as secondary to metadata.</p>
+          <p>I advocated for leading with filtering as the primary interaction, matching users' actual mental model rather than forcing them into a table-first layout that research had shown wasn't working. Cross-industry patterns from Kayak, Carvana, and Gong showed how mature products handled high-volume search.</p>
         </div>
-      </div>
-    </div>
 
-    <hr class="cs-divider"/>
-
-    <!-- Competitive -->
-    <div class="cs-article-section">
-      <div class="cs-article-label">Competitive Research</div>
-      <h2 class="cs-article-title">What Kayak knows about finding <em>needles in haystacks</em></h2>
-      <div class="cs-article-body">
-        <p>I did substantial competitive research — direct competitors like Observe.ai, but also products outside the industry with structurally similar workflows. Gong's conversation analysis for B2B sales teams. Carvana's vehicle search at scale. Kayak's sophisticated filtering and sorting.</p>
-        <p>The cross-industry patterns were the most valuable. They showed how mature products had solved the same core problem — helping users find the specific thing they need within a massive body of options. Products like Kayak and Carvana that handled high-volume search well all treated <strong>filtering as the primary interaction</strong>, not an afterthought bolted onto a data table. That pattern became a foundational principle of the redesign.</p>
       </div>
 
-      <div class="cs-art-img-2col">
-        <div class="cs-img-frame landscape" style="margin:0">
-          <a href="figma-export/CRC Case Study/kayak_competitive_research.png" class="glightbox" data-title="Competitive research — Kayak">
-            <img src="figma-export/CRC Case Study/kayak_competitive_research.png" alt="Kayak competitive research"/>
-          </a>
-        </div>
-        <div class="cs-img-frame landscape" style="margin:0">
-          <a href="figma-export/CRC Case Study/carvana_competitive_research.png" class="glightbox" data-title="Competitive research — Carvana">
-            <img src="figma-export/CRC Case Study/carvana_competitive_research.png" alt="Carvana competitive research"/>
-          </a>
-        </div>
-        <div class="cs-img-frame landscape" style="margin:0">
-          <a href="figma-export/CRC Case Study/gong-competitive-analysis.png" class="glightbox" data-title="Competitive research — Gong">
-            <img src="figma-export/CRC Case Study/gong-competitive-analysis.png" alt="Gong competitive research"/>
-          </a>
-        </div>
-        <div class="cs-img-frame landscape" style="margin:0">
-          <a href="figma-export/CRC Case Study/observe.ai_competitive_analysis.png" class="glightbox" data-title="Competitive research — Observe.ai">
-            <img src="figma-export/CRC Case Study/observe.ai_competitive_analysis.png" alt="Observe.ai competitive research"/>
-          </a>
-        </div>
-      </div>
-    </div>
+      <!-- Sub-beat 2: Building New Instead of Patching Old -->
+      <div class="cs-subbeat">
+        <h2 class="cs-article-title">Building New Instead of <em>Patching Old</em></h2>
 
-    <hr class="cs-divider"/>
-
-    <!-- Build New -->
-    <div class="cs-article-section">
-      <div class="cs-article-label">The Decision</div>
-      <h2 class="cs-article-title">We stopped trying <em>to fix it</em></h2>
-      <div class="cs-article-body">
-        <p>The VP had initially approved smaller, targeted improvements to the existing Calls Report. That's where we started. But as the deeper research findings accumulated and we began working through solutions, it became clear that the problems weren't surface-level — they were structural. The existing page was a lead weight around our ankles.</p>
-        <p>I'd been advocating for building something new rather than patching the old system — the research made a compelling case that incremental fixes would inherit every bad pattern that had accumulated over the years. One of the engineering directors helped push the decision over the finish line when he put it directly: sometimes it's easier to build something new than to contend with all the baggage and technical debt. We made the call to build a new flow from the ground up — informed by everything we'd learned, unconstrained by everything that wasn't working.</p>
-      </div>
-    </div>
-
-    <div class="cs-article-body" style="margin-top:0">
-      <p><br>The instinct at most companies is to answer "what should we build first?" with whatever the loudest stakeholder wants. We answered it with a week of research — and that week changed the trajectory of the product.</p>
-    </div>
-
-    <hr class="cs-divider"/>
-
-    <!-- Design -->
-    <div class="cs-article-section">
-      <div class="cs-article-label">Design</div>
-      <h2 class="cs-article-title">Helping users pick the right call, <em>not a random one</em></h2>
-      <div class="cs-article-body">
-        <p>We explored multiple directions, made deliberate trade-offs about information density versus simplicity, and prioritized the filter and selection workflows that research had identified as the biggest pain points.</p>
-        <p>The most important design question we asked: <strong>what content do users care about most when deciding whether a call is worth reviewing?</strong></p>
-        <p>The answer became clear fast: <strong>AI summaries.</strong> The FullStory data had revealed something important — users were racing through calls at under two minutes each because there was no intermediate layer of information between the call list and the full transcript. They had no way to preview what a call was about before committing to it. AI summaries filled that gap — a quick read on what actually happened before committing to a full review. I pushed for summaries to be the dominant content element in the call list — not tucked behind a click or treated as secondary to metadata. It was the single most valued piece of content in the workflow.</p>
-        <p>The other critical content was <strong>scoring.</strong> Automated scorecards had existed in the product but the old Calls Report buried them. We made scores far more prominent — giving users an at-a-glance quality signal right in the call list, with the ability to override if they disagreed. Human judgment stayed the final authority while AI did the heavy lifting of initial assessment.</p>
-        <p>Based on the competitive analysis, I advocated strongly for leading with filtering as the primary interaction — matching users' actual mental model rather than forcing them into a table-first layout that research had shown wasn't working.</p>
-      </div>
-
-      <div class="cs-art-img-2col">
-        <div class="cs-img-frame landscape" style="margin:0">
-          <a href="figma-export/CRC Case Study/earlyconcept-searchfilterpage.png" class="glightbox" data-title="Early concept v1 — call list">
-            <img src="figma-export/CRC Case Study/earlyconcept-searchfilterpage.png" alt="Early concept call list v1"/>
-          </a>
+        <div class="cs-art-img-2col" style="margin-top:0;margin-bottom:32px">
+          <div class="cs-img-frame landscape">
+            <a href="images/CRC Case Study/Calls-Report-current-stateflow-2023.png" class="glightbox" data-title="Current-state workflow diagram, showing where the product was failing">
+              <img src="images/CRC Case Study/Calls-Report-current-stateflow-2023.png" alt="Current state workflow diagram 2023" style="object-fit:cover;object-position:left top"/>
+            </a>
+          </div>
+          <div class="cs-img-frame landscape">
+            <a href="images/CRC Case Study/earlyconcept-searchfilterpage.png" class="glightbox" data-title="Early concept v1, call list with filter-first layout">
+              <img src="images/CRC Case Study/earlyconcept-searchfilterpage.png" alt="Early concept call list v1"/>
+            </a>
+          </div>
+          <div class="cs-img-frame landscape">
+            <a href="images/CRC Case Study/earlyconcept-calldetail.png" class="glightbox" data-title="Early concept v1, call detail with transcript-centric layout">
+              <img src="images/CRC Case Study/earlyconcept-calldetail.png" alt="Early concept call detail v1"/>
+            </a>
+          </div>
+          <div class="cs-img-frame landscape">
+            <a href="images/CRC Case Study/earlyconcept-calldetailv2.png" class="glightbox" data-title="Refined v2, signals surfaced directly in the transcript">
+              <img src="images/CRC Case Study/earlyconcept-calldetailv2.png" alt="Early concept call detail v2"/>
+            </a>
+          </div>
         </div>
-        <div class="cs-img-frame landscape" style="margin:0">
-          <a href="figma-export/CRC Case Study/earlyconcept-calldetail.png" class="glightbox" data-title="Early concept v1 — call detail">
-            <img src="figma-export/CRC Case Study/earlyconcept-calldetail.png" alt="Early concept call detail v1"/>
-          </a>
-        </div>
-      </div>
-      <div class="cs-art-img-2col" style="margin-top:16px">
-        <div class="cs-img-frame landscape" style="margin:0">
-          <a href="figma-export/CRC Case Study/earlyconcept-searchfilterpagev2.png" class="glightbox" data-title="Early concept v2 — call list">
-            <img src="figma-export/CRC Case Study/earlyconcept-searchfilterpagev2.png" alt="Early concept call list v2"/>
-          </a>
-        </div>
-        <div class="cs-img-frame landscape" style="margin:0">
-          <a href="figma-export/CRC Case Study/earlyconcept-calldetailv2.png" class="glightbox" data-title="Early concept v2 — call detail">
-            <img src="figma-export/CRC Case Study/earlyconcept-calldetailv2.png" alt="Early concept call detail v2"/>
-          </a>
-        </div>
-      </div>
 
-      <!-- Call Detail -->
-      <div class="cs-article-section" style="margin-top:48px">
-        <div class="cs-article-label">Call Detail Page</div>
-        <h2 class="cs-article-title">Finding moments <em>within a call</em></h2>
         <div class="cs-article-body">
-          <p>The call list was only half the workflow. Once a user selected a call to review, the design challenge shifted — now they needed to find moments of interest within a single call, not calls within a list.</p>
-          <p>FullStory confirmed the transcript was the single most-used feature on the page. We put it at the center and gave users the tools to navigate it efficiently — without forcing them to read it end-to-end. Critically, we showed where signals were triggered <em>directly in the transcript</em>, eliminating the back-and-forth tab-switching the research had flagged as a major workflow breakdown. Users could review AI evaluations, check and override scores, and leave comments on specific moments — creating a feedback trail for other reviewers or the agent's manager.</p>
+          <p>The VP had initially approved smaller, targeted improvements to the existing Calls Report. As the deeper research findings accumulated, it became clear the problems weren't surface-level, they were structural. The page was a lead weight around our ankles.</p>
+          <p>I'd been advocating for building something new rather than patching the old system. One of the engineering directors helped push the decision over the finish line: sometimes it's easier to build something new than to contend with all the baggage and technical debt. We made the call to build a new flow from the ground up.</p>
         </div>
-
-      </div>
-    </div>
-
-
-    <hr class="cs-divider"/>
-
-    <!-- Concept Testing -->
-    <div class="cs-article-section">
-      <div class="cs-article-label">Concept Testing</div>
-      <h2 class="cs-article-title">When research <em>pays off.</em></h2>
-      <div class="cs-article-body">
-        <p>We brought interactive prototypes back to four customers for concept testing. The reactions were overwhelmingly positive across the board.</p>
-        <p>Sherita Vance at Christus Health — the same user who had rated her trust at 45% — saw the redesigned call list and said: <em>"I'm loving it, it's interactive."</em> When she clicked into the call detail page, she paused:</p>
       </div>
 
-      <blockquote class="cs-pull">"Oh my. Gimme a minute to soak it. Soak it in. This is nice."</blockquote>
-      <div class="cs-pull-attr">Sherita Vance — QA Manager, Christus Health</div>
+      <!-- Sub-beat 3: The Hard Part Wasn't the Design -->
+      <div class="cs-subbeat">
+        <h2 class="cs-article-title">The <em>Hard Part</em> Wasn't the Design</h2>
 
-      <div class="cs-article-body">
-        <p>At BBQ Guys, the group reaction was immediate: <em>"I like it. I really do. I like all the filters. I really like the review status. I like it overall. I'm impressed with it."</em></p>
-        <p>Ronnie Brown at T-Mobile — who had started the research phase rating his trust at 10% — summed it up at the end of his session: <em>"Honestly, I love it. I think this is better than what we're doing today for sure. It seems very easy to navigate and to use. I say thumbs up, looking good."</em></p>
-        <p>The confusion points that did surface were minor — 75% were related to prototype limitations and placeholder content, not the design concepts themselves. The refinements from testing were mostly specifics, not directional changes. The research foundation was solid.</p>
-      </div>
-
-      <div class="cs-img-frame landscape" style="margin-top:32px">
-        <a href="figma-export/CRC Case Study/testingfeedback_BBQ.png" class="glightbox" data-title="Concept testing feedback — BBQ Guys session">
-          <img src="figma-export/CRC Case Study/testingfeedback_BBQ.png" alt="Concept testing feedback from BBQ Guys"/>
-        </a>
-      </div>
-    </div>
-
-    <hr class="cs-divider"/>
-
-    <!-- Hard Part -->
-    <div class="cs-article-section">
-      <div class="cs-article-label">Process</div>
-      <h2 class="cs-article-title">The hard part wasn't <em>the design</em></h2>
-      <div class="cs-article-body">
-        <p>We launched the beta after about six months. Getting there was harder than the design work itself.</p>
-        <p>Invoca's engineering leadership was accustomed to having significant influence over what got built — and what didn't. Engineering leaders questioned the project repeatedly in the early stages — not the design decisions specifically, but whether this was the right investment at all. Political conversations had to happen between product and engineering leadership to keep it moving forward.</p>
-        <p>There was also a process challenge. Engineers weren't used to having their implementation reviewed by UX during development. The concept of a "UX review" — checking the built product against the design intent before it shipped — was new and initially met with resistance. I had to sell the process to the team, not just the design.</p>
-      </div>
-
-      <div class="cs-article-body">
-        <p>The engineering manager found the framing that made it click:</p>
-      </div>
-      <blockquote class="cs-pull">"It's like code review, but for UX."</blockquote>
-      <div class="cs-pull-attr">Engineering Manager, Invoca</div>
-
-      <div class="cs-article-body">
-        <p>We weren't just completing a project. We were helping parts of the company evolve into a different way of working — one where research informed decisions, where design had a seat at the table through implementation, and where UX quality was checked before shipping, not after. That cultural shift created real friction. But the precedent it set mattered for everything that came after.</p>
-      </div>
-    </div>
-
-    <hr class="cs-divider"/>
-
-    <!-- Iteration -->
-    <div class="cs-article-section">
-      <div class="cs-article-label">Post-Launch</div>
-      <h2 class="cs-article-title">Then we <em>listened again</em></h2>
-      <div class="cs-article-body">
-        <p>When we released the redesigned Call Review Console, the response was immediate and overwhelmingly positive. The CS team started hearing praise instead of complaints. But shipping isn't the finish line. We iterated based on real usage patterns.</p>
-      </div>
-      <ul class="cs-role-list" style="margin-top:24px">
-        <li><strong>Comment filtering</strong> — users wanted to find calls they or colleagues had already annotated</li>
-        <li><strong>"Mark as reviewed" and review status filtering</strong> — a simple addition that fundamentally changed how people managed their daily review queue, and eliminated the "Call Reviewed = Yes/No" custom signal workaround the onboarding team had built</li>
-        <li><strong>Helper content and contextual guidance</strong> — reducing the learning curve for new users</li>
-        <li><strong>"Last viewed" functionality</strong> — so reviewers could pick up where they left off across sessions</li>
-        <li><strong>Usability refinements</strong> — the kind of iteration that turns a good product into one people actually enjoy using</li>
-      </ul>
-      <div class="cs-article-body" style="margin-top:32px">
-        <p>Many of these features had been identified in the original research — we just hadn't been able to ship them all at once. The post-launch iteration gave us the chance to deliver on the full vision incrementally.</p>
-      </div>
-
-      <div class="cs-art-img-2col" style="margin-top:32px">
-        <div class="cs-img-frame landscape" style="margin:0">
-          <a href="figma-export/CRC Case Study/Call Review v1 Release.png" class="glightbox" data-title="Call Review Console — v1 release">
-            <img src="figma-export/CRC Case Study/Call Review v1 Release.png" alt="Call Review Console v1 release"/>
-          </a>
-        </div>
-        <div class="cs-img-frame landscape" style="margin:0">
-          <a href="figma-export/CRC Case Study/Call Detail v1 Release.png" class="glightbox" data-title="Call Detail Page — v1 release">
-            <img src="figma-export/CRC Case Study/Call Detail v1 Release.png" alt="Call Detail Page v1 release"/>
-          </a>
+        <div class="cs-article-body">
+          <p>Engineering leadership at Invoca was accustomed to having significant influence over what got built. They questioned the project repeatedly in early stages, not the design decisions, whether this was the right investment at all. Political conversations had to happen between product and engineering leadership to keep it moving.</p>
+          <p>There was also a process challenge. Engineers weren't used to having implementation reviewed by UX during development. The UX review concept was new and met with resistance. I had to sell the process to the team, not just the design. The framing that made it click came from an engineering manager: "It's like code review, but for UX."</p>
+          <p>We weren't just completing a project. We were helping parts of the company evolve into a different way of working: research informing decisions, design having a seat at the table through implementation, UX quality checked before shipping. That cultural shift created friction. The precedent it set mattered for everything that came after.</p>
         </div>
       </div>
     </div>
 
     <hr class="cs-divider"/>
 
-    <!-- Role -->
-    <div class="cs-article-section">
-      <div class="cs-article-label">My Role</div>
-      <h2 class="cs-article-title">From question to <em>shipped product</em></h2>
-      <div class="cs-article-body">
-        <p><strong>What I owned:</strong></p>
-      </div>
-      <ul class="cs-role-list">
-        <li>Led the initial product-wide research sprint — conceived, pitched to product leadership, and executed</li>
-        <li>Designed and ran the deep-dive research plan: <strong>FullStory session analysis</strong> across 8 customer accounts (58 individual call reviews analyzed), <strong>customer interviews</strong> with 5 companies and 8 users, <strong>competitive analysis</strong> across 3 products plus cross-industry references, heuristic review</li>
-        <li>Synthesized findings into a prioritized problem framework that aligned PM, engineering, and leadership on what to build and why</li>
-        <li>Created the opportunity-solution tree and UX menu of proposed enhancements</li>
-        <li>Designed the Call Review Console from concept through shipped product</li>
-        <li>Conducted concept testing directly with customers</li>
-        <li>Established the UX review process with engineering — a practice that started here and carried forward</li>
-      </ul>
-      <div class="cs-article-body" style="margin-top:28px">
-        <p><strong>What I partnered on:</strong></p>
-      </div>
-      <ul class="cs-role-list">
-        <li>Collaborated with PM Erick Montez across the full research and design cycle</li>
-        <li>Worked with Jake Rowe and Brittany Choy on interview execution and Dovetail synthesis</li>
-        <li>Coordinated with CS, Sales Engineering, and Onboarding teams to gather internal evidence</li>
-        <li>Navigated the product–engineering political dynamics with PM and product leadership</li>
-      </ul>
-    </div>
-
-    <hr class="cs-divider"/>
-
-    <!-- Outcomes -->
-    <div class="cs-article-section">
+    <!-- ── 09. Outcomes ── -->
+    <div class="cs-article-section" style="margin-top:0">
       <div class="cs-article-label">Outcomes</div>
-      <h2 class="cs-article-title">A foundation the product <em>could grow on</em></h2>
+      <h2 class="cs-article-title">From $4-6M to <em>$12-15M ARR</em></h2>
+
+      <div class="cs-art-img-2col" style="margin-top:12px;margin-bottom:32px">
+        <div class="cs-img-frame landscape">
+          <a href="images/CRC Case Study/Call Detail Page Example.png" class="glightbox" data-title="Call Detail Page: QA / Sales Managers review sales calls of their sales agents to find coachable moments through reviewing the AI summary, transcript, and call audio.">
+            <img src="images/CRC Case Study/Call Detail Page Example.png" alt="Call Detail Page" style="object-fit:cover;object-position:top"/>
+          </a>
+        </div>
+        <div class="cs-img-frame landscape">
+          <a href="images/CRC Case Study/CRC-search-filter-step.png" class="glightbox" data-title="Search and filter: the primary entry point to the call list">
+            <img src="images/CRC Case Study/CRC-search-filter-step.png" alt="Search and filter step" style="object-fit:cover;object-position:top"/>
+          </a>
+        </div>
+      </div>
+
       <div class="cs-article-body">
-        <p>The Call Review Console redesign wasn't just a UI facelift. It became the foundation the contact center product needed to grow.</p>
-        <p><strong>Product growth:</strong> The contact center product grew from approximately $4–6M ARR at project start to $12–15M ARR within two years of the redesign launching — roughly 3x growth. The Call Review Console was the core workflow that made the product viable for daily use by QA teams and sales managers. It didn't single-handedly drive that growth, but it removed the biggest barrier to it.</p>
-        <p><strong>Customer response:</strong> Strongly positive reception at launch, with the CS team reporting a notable shift from complaints to praise about the calls workflow.</p>
-        <p><strong>Process precedent:</strong> Established the UX review process with engineering — a practice that started with this project and carried forward into subsequent work.</p>
-        <p><strong>Organizational influence:</strong> Demonstrated to leadership that research-informed design could be done in phases, earn buy-in incrementally, and deliver results — changing the conversation about how product decisions were made.</p>
+        <p>Beta launched after about six months. The CS team started hearing praise instead of complaints. AI summaries, added late in the development cycle, became the most talked-about feature at launch. Customers didn't just want them — they wanted to download them, aggregate them across thousands of calls, and build workflows around them. Concept testing with customers had been overwhelmingly positive. The same Christus Health user who had rated her trust at 45% saw the call detail page and paused.</p>
+      </div>
+
+      <blockquote class="cs-pull">"Oh my. Gimme a minute to soak it in. This is nice."</blockquote>
+      <div class="cs-pull-attr">Sherita Vance, QA Manager, Christus Health</div>
+
+      <div class="cs-article-body">
+        <p>The contact center product grew from approximately $4 to 6M ARR at project start to $12 to 15M ARR within two years of the redesign launching. Roughly 3x growth. The Call Review Console didn't single-handedly drive that growth, but it removed the biggest barrier to it.</p>
+        <p>Post-launch, we kept iterating: comment filtering, "mark as reviewed" status (eliminating a workaround the onboarding team had built), helper content, "last viewed" so reviewers could pick up where they left off. Many of these features had been identified in the original research; we just hadn't shipped them all at once.</p>
+        <p>The UX review process started with this project carried forward into subsequent work.</p>
       </div>
     </div>
 
     <hr class="cs-divider"/>
 
-    <!-- Reflection -->
-    <div class="cs-article-section">
+    <!-- ── 10. Reflection ── -->
+    <div class="cs-article-section" style="margin-top:0">
       <div class="cs-article-label">Reflection</div>
-      <h2 class="cs-article-title">The work that <em>doesn't fit in a case study</em></h2>
+      <h2 class="cs-article-title">The hardest part <em>wasn't the</em> design</h2>
       <div class="cs-article-body">
-        <p>The question that started this project — <em>what should I build first?</em> — is one of the most important questions a product team can answer well. Most companies answer it with whatever users asked for most recently or whatever a sales rep needs to close a deal this quarter. We answered it with a week of research, and that week changed the trajectory of the product.</p>
-        <p>The hardest part wasn't designing the solution — the research gave us clarity on what to build, and the competitive analysis gave us patterns to draw from. The hardest part was the organizational work. Earning buy-in in phases, navigating the tension between product and engineering, introducing a new process in the middle of a high-stakes project. That's the work that determines whether good design actually ships.</p>
-        <p>Looking back, this project taught me that the most impactful UX work often isn't the most visually dramatic. The Call Review Console doesn't have a flashy hero image. It's a search-and-filter workflow for reviewing phone calls. But it was the workflow that mattered most to the people who used it every day — and getting it right unlocked everything that came after.</p>
+        <p>The question that started this project, what should I build first, is one of the most important questions a product team can answer well. Most companies answer it with whatever users asked for most recently or whatever a sales rep needs to close a deal. We answered it with a week of research, and that week changed the trajectory of the product.</p>
+        <p>The hardest part wasn't designing the solution. It was the organizational work. Earning buy-in in phases. Navigating product-engineering tension. Introducing a new process in the middle of a high-stakes project. That's the work that determines whether good design actually ships.</p>
       </div>
     </div>
 
@@ -698,6 +498,27 @@
 <script>GLightbox({ touchNavigation: true, loop: true, zoomable: true });</script>
 <script>
 (function() {
+  // ── Auto-add captions under images using their glightbox data-title ──
+  document.querySelectorAll('a.glightbox[data-title]').forEach(link => {
+    const title = link.getAttribute('data-title');
+    if (!title) return;
+    const target = link.closest('.cs-img-frame') || link;
+    if (target.dataset.captioned === 'true') return;
+    const fig = document.createElement('figure');
+    fig.className = 'cs-figure';
+    target.parentNode.insertBefore(fig, target);
+    fig.appendChild(target);
+    const cap = document.createElement('div');
+    cap.className = 'cs-img-caption';
+    cap.textContent = title;
+    fig.appendChild(cap);
+    target.dataset.captioned = 'true';
+  });
+})();
+</script>
+<script>
+(function() {
+  // ── Build bottom nav ──
   const bnav = document.createElement('div');
   bnav.id = 'cs-bottom-nav';
   bnav.innerHTML =

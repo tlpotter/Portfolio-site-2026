@@ -10,260 +10,6 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css"/>
   <link rel="stylesheet" href="css/styles.css"/>
   <link rel="stylesheet" href="css/case-study.css"/>
-  <style>
-    /* ── Article layout ── */
-    .cs-article {
-      max-width: 700px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-    .cs-article-section {
-      margin-top: 72px;
-    }
-    .cs-article-body {
-      font-size: 17px;
-      line-height: 1.9;
-      color: rgba(255,255,255,.72);
-    }
-    .cs-article-body p {
-      margin-bottom: 1.5em;
-    }
-    .cs-article-body p:last-child {
-      margin-bottom: 0;
-    }
-    /* ── Pull quote ── */
-    .cs-pull {
-      font-family: 'Fraunces', Georgia, serif;
-      font-size: clamp(1.35rem, 2.8vw, 1.9rem);
-      font-style: italic;
-      font-weight: 300;
-      line-height: 1.45;
-      color: rgba(255,180,100,.85);
-      border-left: 3px solid rgba(255,255,255,.2);
-      padding: 4px 0 4px 28px;
-      margin: 56px 0;
-    }
-    /* ── Section label + title ── */
-    .cs-article-label {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: rgba(249,115,22,.7);
-      margin-bottom: 10px;
-    }
-    .cs-article-label::before {
-      content: '— ';
-    }
-    .cs-article-title {
-      font-family: 'Fraunces', Georgia, serif;
-      font-size: clamp(1.6rem, 4vw, 2.4rem);
-      font-weight: 600;
-      line-height: 1.15;
-      letter-spacing: -.01em;
-      color: #fff;
-      margin-bottom: 28px;
-    }
-    .cs-article-title em {
-      font-style: italic;
-      font-weight: 300;
-      background: linear-gradient(135deg,#fb923c,#38bdf8);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    /* ── Role list ── */
-    .cs-role-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      border-top: 1px solid rgba(255,255,255,.08);
-    }
-    .cs-role-list li {
-      padding: 14px 0;
-      border-bottom: 1px solid rgba(255,255,255,.08);
-      font-size: 15px;
-      color: rgba(255,255,255,.7);
-      padding-left: 20px;
-      position: relative;
-    }
-    .cs-role-list li::before {
-      content: '→';
-      position: absolute;
-      left: 0;
-      color: rgba(249,115,22,.7);
-      font-size: 13px;
-    }
-    .cs-role-list li strong {
-      color: rgba(56,189,248,.9);
-      font-weight: 600;
-    }
-    .cs-article-body strong {
-      color: rgba(56,189,248,.9);
-      font-weight: 600;
-    }
-    /* ── Image grids within article ── */
-    .cs-art-img {
-      width: 100%;
-      border-radius: 12px;
-      display: block;
-      margin: 40px 0;
-    }
-    .cs-art-img-2col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 40px;
-      margin-bottom: 40px;
-      width: min(1280px, calc(100vw - 48px));
-      margin-left: 50%;
-      transform: translateX(-50%);
-    }
-    .cs-art-img-3col {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 10px;
-      margin-top: 40px;
-      margin-bottom: 40px;
-      width: min(1280px, calc(100vw - 48px));
-      margin-left: 50%;
-      transform: translateX(-50%);
-    }
-    .cs-art-img-2col .cs-img-frame,
-    .cs-art-img-3col .cs-img-frame {
-      margin: 0;
-    }
-    /* ── Impact row ── */
-    .cs-impact-row {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      margin: 48px 0;
-    }
-    /* ── Phase block within article ── */
-    .cs-art-phase {
-      border-left: 2px solid rgba(249,115,22,.35);
-      padding-left: 24px;
-      margin: 40px 0 20px;
-    }
-    .cs-art-phase-label {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: rgba(249,115,22,.65);
-      margin-bottom: 6px;
-    }
-    .cs-art-phase-title {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 10px;
-    }
-    .cs-art-phase-body {
-      font-size: 15px;
-      line-height: 1.75;
-      color: rgba(255,255,255,.65);
-      margin-bottom: 12px;
-    }
-    /* ── Callout box ── */
-    .cs-callout {
-      background: rgba(56,189,248,0.05);
-      border-left: 2px solid rgba(56,189,248,0.35);
-      border-radius: 0 10px 10px 0;
-      padding: 18px 22px;
-      margin: 28px 0;
-    }
-    .cs-callout-head {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: rgba(56,189,248,.7);
-      margin-bottom: 6px;
-    }
-    .cs-callout p {
-      font-size: 14px;
-      line-height: 1.75;
-      color: rgba(232,228,240,.7);
-      margin: 0;
-    }
-    /* ── Divider ── */
-    .cs-divider {
-      border: none;
-      border-top: 1px solid rgba(255,255,255,.07);
-      margin: 72px 0;
-    }
-
-    @media (max-width: 640px) {
-      .cs-art-img-2col { grid-template-columns: 1fr; }
-      .cs-art-img-3col { grid-template-columns: 1fr 1fr; }
-      .cs-impact-row { grid-template-columns: 1fr 1fr; }
-    }
-
-    /* ── Bottom progress nav ── */
-    #cs-bottom-nav {
-      position: fixed;
-      top: auto; bottom: 0; left: 0; right: 0;
-      z-index: 200;
-      display: block;
-      padding: 14px 40px 16px;
-      background: rgba(6,10,15,0.92);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-top: 1px solid rgba(255,255,255,0.08);
-      transform: translateY(100%);
-      transition: transform 0.35s ease;
-    }
-    #cs-bottom-nav.visible { transform: translateY(0); }
-    #cs-bnav-row {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      margin-bottom: 10px;
-    }
-    #cs-bnav-sections {
-      display: flex;
-      gap: 20px;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-    }
-    #cs-bnav-sections::-webkit-scrollbar { display: none; }
-    .cs-bnav-sec {
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(232,228,240,0.25);
-      font-family: var(--sans);
-      white-space: nowrap;
-      cursor: pointer;
-      transition: color 0.2s;
-      text-decoration: none;
-      font-weight: 500;
-    }
-    .cs-bnav-sec.active { color: rgba(232,228,240,0.8); }
-    .cs-bnav-sec:hover { color: rgba(232,228,240,0.55); }
-    #cs-bnav-track {
-      height: 2px;
-      background: rgba(255,255,255,0.08);
-      border-radius: 1px;
-      position: relative;
-    }
-    #cs-bnav-fill {
-      position: absolute;
-      left: 0; top: 0; height: 100%;
-      background: rgba(56,189,248,0.7);
-      border-radius: 1px;
-      transition: width 0.1s linear;
-      width: 0%;
-    }
-
-    @media (max-width: 800px) {
-      .cs-article { padding: 0 12px; }
-      #cs-bottom-nav { padding: 14px 16px 16px; }
-    }
-  </style>
 </head>
 <body>
 
@@ -280,342 +26,269 @@
   </ul>
 </nav>
 
-<!-- ── HERO ── -->
+<!-- ── 01. HERO TEXT BLOCK (text only) ── -->
 <section id="cs-hero">
   <div class="cs-hero-inner">
-    <a href="index.html#work" class="nav-back" style="display:inline-flex;align-items:center;margin-bottom:24px"><span class="nav-back-arrow" style="line-height:1;margin-top:-1px">←</span>&nbsp; All work</a>
-    <div class="cs-num">03 — Case Study</div>
-    <div class="work-tags" style="margin-bottom:16px">
-      <span class="work-tag">Enterprise</span>
-      <span class="work-tag">Data Visualization</span>
-      <span class="work-tag">B2B SaaS</span>
+    <a href="index.html#work" class="nav-back" style="display:inline-flex;align-items:center;margin-bottom:24px"><span class="nav-back-arrow" style="line-height:1;margin-top:-1px">←</span> All work</a>
+    <div class="cs-num">Case Study — Interos Supply Chain Risk Platform &nbsp;·&nbsp; 5 min read</div>
+    <div class="work-tags" style="margin-bottom:12px;margin-top:-8px">
+      <span class="work-tag">Enterprise B2B</span>
+      <span class="work-tag">Risk Intelligence</span>
+      <span class="work-tag">Data Density</span>
     </div>
-    <h1 class="cs-title">An Excel Sheet With a <em>Billion-Dollar Problem</em></h1>
-    <p class="cs-lead">How I redesigned the core product experience for a supply chain risk platform during its sprint to unicorn status — homescreen, company profile, alerts system, and more across 18 months embedded inside a rocket ship.</p>
-    <div class="cs-meta">
-      <div class="cs-meta-item">
-        <span class="cs-meta-lbl">Client</span>
-        <span class="cs-meta-val">Interos</span>
-      </div>
-      <div class="cs-meta-item">
-        <span class="cs-meta-lbl">Agency</span>
-        <span class="cs-meta-val">Neudesic</span>
-      </div>
-      <div class="cs-meta-item">
-        <span class="cs-meta-lbl">Role</span>
-        <span class="cs-meta-val">UX Feature Lead</span>
-      </div>
-      <div class="cs-meta-item">
-        <span class="cs-meta-lbl">Timeline</span>
-        <span class="cs-meta-val">2021 · 18 months</span>
-      </div>
-      <div class="cs-meta-item">
-        <span class="cs-meta-lbl">Platform</span>
-        <span class="cs-meta-val">Web App · Enterprise SaaS</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── HERO IMAGE ── -->
-<section class="cs-section" style="padding:0">
-  <img src="figma-export/Interos/homescreen_mockup.png" alt="Interos platform homescreen" class="cs-hero-img" style="border-radius:0;max-height:560px;object-fit:cover;object-position:top"/>
-</section>
-
-<!-- ── OUTCOME STATS ── -->
-<section class="cs-section" id="section-outcomes-top" style="padding-top:32px;padding-bottom:0">
-  <div class="cs-article">
-    <div class="cs-impact-row">
-      <div class="cs-stat-card glass">
-        <div class="cs-stat-num">V2</div>
-        <div class="cs-stat-lbl">First major platform redesign shipped July 2021</div>
-      </div>
-      <div class="cs-stat-card glass">
-        <div class="cs-stat-num">5</div>
-        <div class="cs-stat-lbl">Distinct workstreams led across the product</div>
-      </div>
-      <div class="cs-stat-card glass">
-        <div class="cs-stat-num">18mo</div>
-        <div class="cs-stat-lbl">Embedded engagement inside a fast-scaling startup</div>
-      </div>
-      <div class="cs-stat-card glass">
-        <div class="cs-stat-num">$1B+</div>
-        <div class="cs-stat-lbl">Valuation reached during the engagement — unicorn status</div>
-      </div>
-    </div>
+    <h1 class="cs-title">An Excel Sheet With a <em>Billion-Dollar</em> Problem</h1>
+    <p class="cs-lead">How I led design across five workstreams for a supply chain risk platform during its sprint to unicorn status, and built the UX review process that helped engineering ship it.</p>
   </div>
 </section>
 
 <!-- ── ARTICLE BODY ── -->
-<section class="cs-section" id="section-problem" style="padding-top:0">
-  <div class="cs-article">
+<section class="cs-section" style="padding-top:0">
+  <div class="cs-article" style="margin-top:0">
 
-    <!-- The Problem -->
-    <div class="cs-article-section">
-      <div class="cs-article-label">The Problem</div>
-      <h2 class="cs-article-title">An <em>excel sheet</em> pretending to be a platform</h2>
-      <div class="cs-article-body">
-        <p>When I joined Interos through Neudesic in early 2021, the company was moving fast — adding headcount, closing enterprise deals, and racing toward a valuation that would eventually cross $1 billion. The product, however, was a different story.</p>
-        <p>The legacy platform presented supply chain risk data exactly like an Excel spreadsheet: rows and rows of data points with no narrative, no hierarchy, and no path to action. Enterprise analysts managing thousands of suppliers across global tiers were barraged with information and left to interpret it entirely on their own. For a platform selling clarity around supply chain risk, it was doing the opposite of what it promised.</p>
-        <p>The new platform needed to do the inverse: condense complex datasets into meaningful aggregates, provide continuous monitoring through events and risk score changes, and give users a clear path from high-level overview down to the details that actually matter.</p>
-      </div>
-
-      <div class="cs-img-frame landscape" style="margin-top:32px">
-        <a href="figma-export/Interos/homescreen/legacy_platform.png" class="glightbox" data-title="Legacy platform — data-heavy, no narrative">
-          <img src="figma-export/Interos/homescreen/legacy_platform.png" alt="Interos legacy platform"/>
+    <!-- ── 02. Hero image + product trio ── -->
+    <div class="cs-img-breakout" style="margin-top:32px">
+      <div class="cs-img-frame landscape" style="aspect-ratio:16/9">
+        <a href="images/Interos/homescreen_mockup.png" class="glightbox" data-title="Homescreen: risk posture aggregate with drill-down paths">
+          <img src="images/Interos/homescreen_mockup.png" alt="Interos homescreen final design" style="object-fit:cover;object-position:top"/>
         </a>
+      </div>
+    </div>
+
+    <div class="cs-art-img-3col" style="margin-top:12px">
+      <div class="cs-img-frame landscape">
+        <a href="images/Interos/interos_companyprofile_mockup.png" class="glightbox" data-title="Company profile: progressive disclosure on risk scoring">
+          <img src="images/Interos/interos_companyprofile_mockup.png" alt="Interos company profile mockup"/>
+        </a>
+      </div>
+      <div class="cs-img-frame landscape">
+        <a href="images/Interos/interos_alerts_mockup.png" class="glightbox" data-title="Alerts and notifications: configurable risk thresholds">
+          <img src="images/Interos/interos_alerts_mockup.png" alt="Interos alerts mockup"/>
+        </a>
+      </div>
+      <div class="cs-img-frame landscape">
+        <a href="images/Interos/Events Timeline Updates - After.png" class="glightbox" data-title="Events timeline: filters surfaced, hierarchy restored">
+          <img src="images/Interos/Events Timeline Updates - After.png" alt="Events timeline final design"/>
+        </a>
+      </div>
+    </div>
+
+    <!-- ── 03. Impact stat cards ── -->
+    <div class="cs-article-section" style="margin-top:56px">
+      <div class="cs-article-label">Impact</div>
+      <div class="cs-impact-row" style="margin-top:20px">
+        <div class="cs-stat-card glass">
+          <div class="cs-stat-num">$1B+</div>
+          <div class="cs-stat-lbl">Valuation reached during the engagement (unicorn status)</div>
+        </div>
+        <div class="cs-stat-card glass">
+          <div class="cs-stat-num">5</div>
+          <div class="cs-stat-lbl">Workstreams led across the 18-month engagement</div>
+        </div>
+        <div class="cs-stat-card glass">
+          <div class="cs-stat-num">200+</div>
+          <div class="cs-stat-lbl">Headcount added at Interos during the 18-month engagement</div>
+        </div>
+        <div class="cs-stat-card glass">
+          <div class="cs-stat-num">1</div>
+          <div class="cs-stat-lbl">Junior designer mentored to independent ownership</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 04. Project Metadata ── -->
+    <div class="cs-article-section">
+      <div class="cs-article-label">Project</div>
+      <div class="cs-meta-block">
+        <div class="cs-meta-item">
+          <span class="cs-meta-lbl">Client</span>
+          <span class="cs-meta-val">Interos, an enterprise supply chain risk platform</span>
+        </div>
+        <div class="cs-meta-item">
+          <span class="cs-meta-lbl">Agency</span>
+          <span class="cs-meta-val">Neudesic</span>
+        </div>
+        <div class="cs-meta-item">
+          <span class="cs-meta-lbl">Role</span>
+          <span class="cs-meta-val">Senior UX Designer (Feature Lead)</span>
+        </div>
+        <div class="cs-meta-item">
+          <span class="cs-meta-lbl">Timeline</span>
+          <span class="cs-meta-val">2021 · 18 months</span>
+        </div>
+        <div class="cs-meta-item">
+          <span class="cs-meta-lbl">Platform</span>
+          <span class="cs-meta-val">Web App · Enterprise SaaS</span>
+        </div>
+        <div class="cs-meta-item cs-meta-full">
+          <span class="cs-meta-lbl">Led</span>
+          <span class="cs-meta-val">Discovery, end-to-end design across 5 workstreams, UX review process rollout, junior designer mentorship</span>
+        </div>
+        <div class="cs-meta-item cs-meta-full">
+          <span class="cs-meta-lbl">Team</span>
+          <span class="cs-meta-val">Embedded in Interos product team across 5 workstreams alongside PMs, engineers, and internal designers</span>
+        </div>
       </div>
     </div>
 
     <hr class="cs-divider"/>
 
-    <!-- My Role -->
-    <div class="cs-article-section" id="section-role">
-      <div class="cs-article-label">My Role</div>
-      <h2 class="cs-article-title">Feature lead across <em>five workstreams</em></h2>
+    <!-- ── 05. The Problem ── -->
+    <div class="cs-article-section" style="margin-top:0">
+      <div class="cs-article-label">The Problem</div>
+      <h2 class="cs-article-title">An Excel sheet <em>pretending to be</em> a platform</h2>
+
       <div class="cs-article-body">
-        <p>I was embedded in Interos's product team as a UX Feature Lead — sitting inside agile sprints alongside PMs, engineers, and their internal design team. My scope grew over time as trust built. By the end of the engagement I was leading design across five parallel workstreams, mentoring a junior designer, and acting as a bridge between design and an engineering team that had historically worked in isolation from UX.</p>
+        <p>Supply chain risk data is inherently complex. A single enterprise customer might monitor thousands of suppliers across global tiers, each surfacing dozens of risk signals: ransomware events, sanction changes, labor violations, financial instability, sourcing dependencies. The challenge for Interos's new platform was making all of that legible to analyst power users at a glance, condensing complex datasets into meaningful aggregates without losing the fidelity those analysts needed to act.</p>
+        <p>What had been built before was a legacy platform that surfaced supplier data as rows of attributes with no narrative and no path to action. Analysts called it an Excel sheet with a portal wrapped around it. For a product selling clarity around supply chain risk, the v1 experience did the opposite of what it promised.</p>
+        <p>I joined through Neudesic in early 2021, embedded as a UX Feature Lead inside Interos's product team. The platform redesign was already underway. Pages were being built in parallel by multiple designers, including third parties. My role was bringing design coherence and quality to core pages, expanding the company's minimal design system as those pages shipped, and acting as a bridge between design and an engineering team that had historically worked in isolation from UX.</p>
       </div>
-      <ul class="cs-role-list" style="margin-top:24px">
-        <li><strong>Homescreen redesign</strong> — core dashboard, the first thing users see on login</li>
-        <li><strong>Company profile</strong> — risk scoring interface, progressive disclosure, dark UI system</li>
-        <li><strong>Alerts &amp; notifications</strong> — in-app alerts, events feed, branded email digests</li>
-        <li><strong>Events timeline</strong> — restructured a third-party-created chronological event view</li>
-        <li><strong>Data lifecycle discovery</strong> — cross-department research engagement, journey mapping</li>
+    </div>
+
+    <!-- ── 06. My Role ── -->
+    <div class="cs-article-section">
+      <div class="cs-article-label">My Role</div>
+      <h2 class="cs-article-title">Five workstreams, <em>one designer</em> in the middle</h2>
+
+      <div class="cs-role-group-label">What I owned</div>
+      <ul class="cs-role-list">
+        <li>Design across <strong>5 workstreams</strong> over 18 months: homescreen, company profile, alerts and notifications, events timeline, data lifecycle research</li>
+        <li>UX review process design and rollout, advocated through to <strong>VP of Product</strong></li>
+        <li>Mentorship of a junior designer through tag-team collaboration across time zones</li>
+        <li>Expanding the existing minimal design system as new pages shipped</li>
+      </ul>
+
+      <div class="cs-role-group-label" style="margin-top:28px">What I partnered on</div>
+      <ul class="cs-role-list">
+        <li>Internal Interos design team and PMs across each workstream</li>
+        <li>Engineering leadership on the UX review proposal and implementation</li>
       </ul>
     </div>
 
-    <hr class="cs-divider"/>
+    <!-- ── 07. Research + Insight ── -->
+    <div class="cs-article-section">
+      <div class="cs-article-label">Research + Insight</div>
+      <h2 class="cs-article-title">The map <em>nobody had</em></h2>
 
-    <!-- Homescreen -->
-    <div class="cs-article-section" id="section-homescreen">
-      <div class="cs-article-label">Homescreen</div>
-      <h2 class="cs-article-title">The First <em>30 Seconds</em></h2>
-      <div class="cs-article-body">
-        <p>The homescreen is the most valuable real estate in any platform — it sets the mental model for everything else. The legacy homescreen was an overwhelming data dump. I started the redesign with one question: <strong>what does a user need to know within 30 seconds of logging in?</strong></p>
-        <p>The answer shaped everything. Supply chain analysts needed a fast read on their overall risk posture — not a list of raw scores. Executives needed a birds-eye snapshot. Managers needed to know what had changed since yesterday. The homescreen had to serve all three without fragmenting into three different products.</p>
-        <p>I started on paper. Filling a notebook with layout concepts before opening Figma — working out information hierarchy, card groupings, and drill-down patterns in rough sketches first. That process surfaced a key structural decision early: lead with risk posture at the aggregate level, then surface the most urgent changes, then allow drill-down. Simple hierarchy, but it required fighting the impulse to show everything at once.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Sketching image — full bleed -->
-  <div class="cs-art-img-3col" style="margin-top:32px">
-    <div class="cs-img-frame landscape">
-      <a href="figma-export/Interos/image 52.png" class="glightbox" data-title="Early sketching — homescreen concepts">
-        <img src="figma-export/Interos/image 52.png" alt="Homescreen sketches" style="object-position:center"/>
-      </a>
-    </div>
-    <div class="cs-img-frame landscape">
-      <a href="figma-export/Interos/homescreen/homescreen v1.png" class="glightbox" data-title="Homescreen v1 — initial direction">
-        <img src="figma-export/Interos/homescreen/homescreen v1.png" alt="Homescreen v1"/>
-      </a>
-    </div>
-    <div class="cs-img-frame landscape">
-      <a href="figma-export/Interos/homescreen/homescreen v2.png" class="glightbox" data-title="Homescreen v2 — refined layout">
-        <img src="figma-export/Interos/homescreen/homescreen v2.png" alt="Homescreen v2"/>
-      </a>
-    </div>
-  </div>
-
-  <div class="cs-article">
-    <div class="cs-article-body" style="margin-top:40px">
-      <p>Three rounds of iteration — each one tightening the information hierarchy, reducing noise, and sharpening the drill-down paths. The final design condensed the entire supply chain health picture into an aggregate that updated in real time, with clear entry points into the detail layers below.</p>
-    </div>
-
-    <div class="cs-img-frame landscape" style="margin-top:32px">
-      <a href="figma-export/Interos/homescreen/homescreen v3.png" class="glightbox" data-title="Homescreen v3 — final design">
-        <img src="figma-export/Interos/homescreen/homescreen v3.png" alt="Homescreen v3 final"/>
-      </a>
-    </div>
-
-    <hr class="cs-divider"/>
-
-    <!-- Process & Growth -->
-    <div class="cs-article-section" id="section-process">
-      <div class="cs-article-label">Process &amp; Growth</div>
-      <h2 class="cs-article-title">Building the Process <em>While Using It</em></h2>
-      <div class="cs-article-body">
-        <p>Interos added over 200 employees in two years. The company's valuation crossed $1 billion during the engagement. That kind of growth is exhilarating — and it creates real friction. Processes that work at 50 people break at 250. Design decisions that should have taken a day sometimes took a week to get in front of the right people. Keeping five to ten product pods aligned without a formal design process meant enormous coordination overhead.</p>
-        <p>Engineering was its own challenge. When I joined, engineers were not used to having their work reviewed by UX — and in some cases, not used to having their work stopped. The existing culture was build-first, design-after. That gap between design intent and what shipped was significant, and it showed in the product.</p>
-        <p>I worked with the team to propose a formal UX Review process: a critical quality checkpoint where the UX team would review in-progress engineering work before it went to QA. Some old-school engineers pushed back hard — they perceived it as a loss of control, a slowdown, a new layer of oversight they hadn't signed up for. What it actually was: a quality check that caught issues early rather than after they were already built.</p>
-        <p>Getting this off the ground required going above the immediate team. We brought the proposal to the VP of Product at Interos, who understood the cost of shipping broken design experiences to enterprise clients. With their backing, the UX Review process was implemented and became a standard part of the development cycle — not without friction, but successfully.</p>
+      <div class="cs-img-breakout" style="margin-top:0;margin-bottom:32px">
+        <div class="cs-img-frame landscape" style="aspect-ratio:auto;height:auto;background:#fff;padding:14px">
+          <a href="images/Interos/Interos Data Sources Lifecycle - Interos Data Acquisition Journey Map.jpg" class="glightbox" data-title="Data acquisition journey map: a single source of truth Interos didn't have before">
+            <img src="images/Interos/Interos Data Sources Lifecycle - Interos Data Acquisition Journey Map.jpg" alt="Data acquisition journey map" style="object-fit:contain;height:auto;position:static;display:block;width:100%"/>
+          </a>
+        </div>
       </div>
 
-      <div class="cs-callout">
-        <div class="cs-callout-head">What this taught me</div>
-        <p>In high-growth environments, the design work is only half the job. The other half is building the connective tissue — the relationships, rituals, and documentation practices — that let design actually ship. If you can't navigate the org, the best design in the world sits in Figma.</p>
+      <div class="cs-article-body">
+        <p>The most useful research wasn't about the product, it was about Interos itself. The company had grown fast enough that nobody had a clear picture of their own data acquisition process. Which sources had been purchased? Which were active? Who owned what? The answer depended entirely on who you asked.</p>
+        <p>I led a one-month engagement interviewing every department head across the data acquisition lifecycle. Mapped each team's role, identified where handoffs broke down, traced the process across every Jira board it touched. Output: an end-to-end journey map of the data lifecycle, with pain points annotated and recommendations structured as good, better, best so stakeholders at different investment levels could act on it.</p>
+        <p>That research clarified something about the product layer too. The core design challenge wasn't visual polish, it was data density. Supply chain risk is inherently complex. The job isn't to simplify it into something false. It's to give it enough structure that users can act on it. This framing shaped every workstream that followed: lead with risk posture at the aggregate level, surface the most urgent changes, allow drill-down only with intentional interaction. Progressive disclosure as a core principle, not a tactic.</p>
       </div>
     </div>
 
     <hr class="cs-divider"/>
 
-    <!-- Company Profile -->
-    <div class="cs-article-section" id="section-profile">
-      <div class="cs-article-label">Company Profile</div>
-      <h2 class="cs-article-title">Inheriting Someone <em>Else's Design</em></h2>
-      <div class="cs-article-body">
-        <p>I joined the company profile midway through development — which meant inheriting someone else's half-finished design. The existing work had real problems: poor contrast, inconsistent hierarchy, and dark UI patterns that weren't following established best practices. Text was hard to read. Interactive elements weren't distinguishable. Risk score data didn't breathe.</p>
-        <p>I was also inheriting a collaboration arrangement. A junior designer on the east coast was already on the project. We worked in a tag-team setup across time zones — when he logged off, I took over. It wasn't just a design challenge; it was a mentorship dynamic that I hadn't expected but came to value. Getting him to a point where he could own decisions independently was as much a part of my contribution as the pixels I shipped.</p>
+    <!-- ── 08. The Work ── -->
+    <div class="cs-article-section" style="margin-top:0">
+      <div class="cs-article-label">The Work</div>
+
+      <!-- Sub-beat 1: The First 30 Seconds (Homescreen) -->
+      <div class="cs-subbeat">
+        <h2 class="cs-article-title">The First <em>30 Seconds</em> (Homescreen)</h2>
+
+        <div class="cs-img-breakout" style="margin-top:0;margin-bottom:12px">
+          <div class="cs-img-frame landscape">
+            <a href="images/Interos/homescreen/homescreen v3.png" class="glightbox" data-title="Homescreen v3: aggregate risk posture with clear entry points">
+              <img src="images/Interos/homescreen/homescreen v3.png" alt="Homescreen v3 final" style="object-fit:cover;object-position:center"/>
+            </a>
+          </div>
+        </div>
+
+        <div class="cs-art-img-3col" style="margin-top:0">
+          <div class="cs-img-frame landscape">
+            <a href="images/Interos/image 52.png" class="glightbox" data-title="Early sketches: layout concepts before opening Figma">
+              <img src="images/Interos/image 52.png" alt="Homescreen sketches"/>
+            </a>
+          </div>
+          <div class="cs-img-frame landscape">
+            <a href="images/Interos/homescreen/homescreen v1.png" class="glightbox" data-title="Homescreen v1: initial information hierarchy">
+              <img src="images/Interos/homescreen/homescreen v1.png" alt="Homescreen v1"/>
+            </a>
+          </div>
+          <div class="cs-img-frame landscape">
+            <a href="images/Interos/homescreen/homescreen v2.png" class="glightbox" data-title="Homescreen v2: tightened drill-down paths">
+              <img src="images/Interos/homescreen/homescreen v2.png" alt="Homescreen v2"/>
+            </a>
+          </div>
+        </div>
+
+        <div class="cs-article-body">
+          <p>The homescreen sets the mental model for everything else. It's the most valuable real estate in the platform. I started with one question: what does a user need to know within 30 seconds of logging in?</p>
+          <p>That answer shaped everything. Supply chain analysts needed a fast read on their overall risk posture, not a list of raw scores. Executives needed a birds-eye snapshot. Managers needed to know what had changed since yesterday. The homescreen had to serve all three without fragmenting into three different products.</p>
+          <p>Three rounds of iteration, each tightening hierarchy, reducing noise, sharpening drill-down paths. The final design condensed the entire supply chain health picture into an aggregate that updated in real time, with clear entry points into the detail layers below.</p>
+        </div>
       </div>
 
-      <div class="cs-pull">
-        In the previous version, users had just a list of attributes — essentially data points. No context, no narrative. The redesign used progressive disclosure: show users what they need to understand their current situation, let them drill down from there.
+      <!-- Sub-beat 2: Inheriting Someone Else's Design (Company Profile) -->
+      <div class="cs-subbeat">
+        <h2 class="cs-article-title">Inheriting Someone <em>Else's</em> Design (Company Profile)</h2>
+
+        <div class="cs-art-img-2col" style="margin-top:0">
+          <div class="cs-img-frame landscape">
+            <a href="images/Interos/company profile/Profile - Risk Profile - Overview – 4.png" class="glightbox" data-title="Company profile redesign: layered dark UI with progressive disclosure">
+              <img src="images/Interos/company profile/Profile - Risk Profile - Overview – 4.png" alt="Company risk profile overview"/>
+            </a>
+          </div>
+          <div class="cs-img-frame landscape">
+            <a href="images/Interos/Sub Factor Narrative Enhancements - Expanded Components.png" class="glightbox" data-title="Sub factor narrative: aggregate first, detail on intentional interaction">
+              <img src="images/Interos/Sub Factor Narrative Enhancements - Expanded Components.png" alt="Sub factor narrative enhancements"/>
+            </a>
+          </div>
+        </div>
+
+        <div class="cs-article-body">
+          <p>I joined the company profile midway through development, inheriting another designer's half-finished work. The existing version had real problems: poor contrast, inconsistent hierarchy, dark UI patterns that weren't following established best practices. Risk score data didn't breathe.</p>
+          <p>I was also inheriting a collaboration arrangement. A junior designer on the east coast was already on the project. We worked tag-team across time zones; when he logged off, I took over. Getting him to a point where he could own decisions independently was as much a part of my contribution as the pixels I shipped.</p>
+          <p>The redesign established a proper dark UI system: layered backgrounds, consistent elevation, typographic hierarchy that made risk scores legible and actionable. Progressive disclosure as the core pattern. Surface the aggregate first. Gate detail behind intentional interaction.</p>
+        </div>
       </div>
 
-      <div class="cs-article-body">
-        <p>The redesign established a proper dark UI system: layered backgrounds, consistent elevation, and a typographic hierarchy that made risk scores legible and actionable. The core principle was progressive disclosure — surface the aggregate first, gate the detail behind intentional interaction.</p>
+      <!-- Sub-beat 3: Building the UX Review Process -->
+      <div class="cs-subbeat">
+        <h2 class="cs-article-title">Building the <em>UX Review</em> Process</h2>
+
+        <div class="cs-article-body">
+          <p>Engineering at Interos had historically worked in isolation from UX. When I joined, engineers were not used to having their work reviewed by design. The existing culture was build-first, design-after. That gap between intent and what shipped was significant.</p>
+          <p>I worked with the team to propose a formal UX Review process: a quality checkpoint where design would review in-progress engineering work before it went to QA. Some old-school engineers pushed back hard. They perceived it as oversight they hadn't signed up for.</p>
+          <p>Getting it implemented required going above the immediate team. We brought the proposal to the VP of Product, who understood the cost of shipping broken design experiences to enterprise clients. With their backing, the UX Review became a standard part of the development cycle. Not without friction, but successfully.</p>
+          <p>In high-growth environments, the design work is only half the job. The other half is building the connective tissue that lets design actually ship.</p>
+        </div>
       </div>
     </div>
-  </div>
-
-  <div class="cs-art-img-2col">
-    <div class="cs-img-frame landscape">
-      <a href="figma-export/Interos/company profile/Profile - Risk Profile - Overview – 4.png" class="glightbox" data-title="Company profile — risk profile overview">
-        <img src="figma-export/Interos/company profile/Profile - Risk Profile - Overview – 4.png" alt="Company risk profile overview"/>
-      </a>
-    </div>
-    <div class="cs-img-frame landscape">
-      <a href="figma-export/Interos/Sub Factor Narrative Enhancements - Expanded Components.png" class="glightbox" data-title="Sub factor narrative — progressive disclosure">
-        <img src="figma-export/Interos/Sub Factor Narrative Enhancements - Expanded Components.png" alt="Sub factor narrative enhancements"/>
-      </a>
-    </div>
-  </div>
-
-  <div class="cs-article">
-    <hr class="cs-divider"/>
-
-    <!-- Alerts -->
-    <div class="cs-article-section" id="section-alerts">
-      <div class="cs-article-label">Alerts &amp; Notifications</div>
-      <h2 class="cs-article-title">Risk Doesn't Wait for <em>You to Log In</em></h2>
-      <div class="cs-article-body">
-        <p>Supply chain risk doesn't follow business hours. A Tier 2 supplier hit by ransomware. A country placed under new sanctions overnight. A critical component manufacturer flagged for labor violations. Users needed to know about these events whether they were in the platform or not.</p>
-        <p>The alerts system was designed around three surfaces: in-app alerts for active users, an events feed for investigation, and a branded email digest for awareness outside the platform. The hardest design problem wasn't making the alerts work — it was managing volume. For large supply chains, the number of events could reach into the hundreds per day. Without ruthless prioritization, an alert system becomes noise.</p>
-        <p>The solution was configurable risk thresholds tied to categories and supply chain tiers — giving analysts control over what triggered an alert, at what severity, and for which suppliers. The email digest followed the same logic, surfacing only the highest-priority changes rather than blasting everything.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="cs-art-img-2col">
-    <div class="cs-img-frame landscape">
-      <a href="figma-export/Interos/alerts/Email Alert Visual Design v5 - Events.png" class="glightbox" data-title="Email alert — supply chain event notification">
-        <img src="figma-export/Interos/alerts/Email Alert Visual Design v5 - Events.png" alt="Email alert design"/>
-      </a>
-    </div>
-    <div class="cs-img-frame landscape">
-      <a href="figma-export/Interos/alerts/alertsflow.png" class="glightbox" data-title="Alerts — user flow diagram">
-        <img src="figma-export/Interos/alerts/alertsflow.png" alt="Alerts flow diagram"/>
-      </a>
-    </div>
-    <div class="cs-img-frame landscape">
-      <a href="figma-export/Interos/alerts/Alerts Config - Risk Category config with tiers.png" class="glightbox" data-title="Alerts configuration — risk category and tiers">
-        <img src="figma-export/Interos/alerts/Alerts Config - Risk Category config with tiers.png" alt="Alerts configuration"/>
-      </a>
-    </div>
-    <div class="cs-img-frame landscape">
-      <a href="figma-export/Interos/alerts/Profile - Events Feed - 3 column.png" class="glightbox" data-title="Events feed — 3 column layout">
-        <img src="figma-export/Interos/alerts/Profile - Events Feed - 3 column.png" alt="Events feed"/>
-      </a>
-    </div>
-  </div>
-
-  <div class="cs-article">
-    <hr class="cs-divider"/>
-
-    <!-- Events Timeline -->
-    <div class="cs-article-section" id="section-timeline">
-      <div class="cs-article-label">Events Timeline</div>
-      <h2 class="cs-article-title">The Timeline <em>Nobody Owned</em></h2>
-      <div class="cs-article-body">
-        <p>A third-party company had produced designs for the events timeline — a chronological view of supply chain events across the entire ecosystem. The brief was clear: the designs were visually complex, hard to parse, and needed a significant cleanup before they could be built.</p>
-        <p>My task was to simplify elements, fix the visual hierarchy so filters were prominent, and restructure the layout to surface the most important information first. The before/after speaks for itself — the original design buried the most critical information under layers of visual noise. The redesign pulled the filters to the top, cleaned the timeline rows, and established a consistent scanning pattern from left to right.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="cs-art-img-2col">
-    <div>
-      <div class="cs-meta-lbl" style="margin-bottom:8px;padding:0 0 0 0">Before</div>
-      <div class="cs-img-frame landscape">
-        <a href="figma-export/Interos/Expiro Events Timeline - Before.png" class="glightbox" data-title="Events timeline — before (third-party design)">
-          <img src="figma-export/Interos/Expiro Events Timeline - Before.png" alt="Events timeline before"/>
-        </a>
-      </div>
-    </div>
-    <div>
-      <div class="cs-meta-lbl" style="color:rgba(168,255,120,.6);margin-bottom:8px">After</div>
-      <div class="cs-img-frame landscape">
-        <a href="figma-export/Interos/Events Timeline Updates - After.png" class="glightbox" data-title="Events timeline — after redesign">
-          <img src="figma-export/Interos/Events Timeline Updates - After.png" alt="Events timeline after"/>
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <div class="cs-article">
-    <hr class="cs-divider"/>
-
-    <!-- Data Discovery -->
-    <div class="cs-article-section" id="section-discovery">
-      <div class="cs-article-label">Research</div>
-      <h2 class="cs-article-title">The Map <em>Nobody Had</em></h2>
-      <div class="cs-article-body">
-        <p>Alongside the feature work, I led a one-month research engagement that wasn't about the product at all — it was about Interos itself. The company had grown fast enough that nobody had a clear picture of their own data acquisition process. Which data sources had been purchased? Which were active? Who owned what? The answer depended entirely on who you asked.</p>
-        <p>I interviewed every department head across the data acquisition lifecycle — mapping each team's role, identifying where handoffs broke down, and tracing the process across every Jira board it touched. The output was an end-to-end journey map of the data lifecycle, with pain points annotated and recommendations structured as good / better / best options so stakeholders at different levels of investment could act on it.</p>
-      </div>
-    </div>
-
-    <a href="figma-export/Interos/Interos Data Sources Lifecycle - Interos Data Acquisition Journey Map.jpg" class="glightbox" data-title="Data acquisition lifecycle — journey map">
-      <img src="figma-export/Interos/Interos Data Sources Lifecycle - Interos Data Acquisition Journey Map.jpg" alt="Data acquisition journey map" class="cs-art-img" style="background:rgba(255,255,255,.03);padding:24px"/>
-    </a>
 
     <hr class="cs-divider"/>
 
-    <!-- Outcomes -->
-    <div class="cs-article-section" id="section-shipped">
+    <!-- ── 09. Outcomes ── -->
+    <div class="cs-article-section" style="margin-top:0">
       <div class="cs-article-label">Outcomes</div>
-      <h2 class="cs-article-title">A Unicorn Ships <em>Its New Face</em></h2>
+      <h2 class="cs-article-title">A unicorn <em>ships</em> its new face</h2>
       <div class="cs-article-body">
-        <p>Platform V2 launched in July 2021 — the first major redesign of the Interos product experience. Five workstreams delivered. Three flagship features shipped. A junior designer mentored through the engagement. And a data lifecycle map that gave the company a single source of truth it didn't have before.</p>
-        <p>The platform they shipped looked nothing like the Excel spreadsheet they started with. It had hierarchy, narrative, and a clear action path from aggregate to detail. That's the work.</p>
+        <p>Platform V2 launched in July 2021, the first major redesign of the Interos product experience. Five workstreams delivered. A junior designer mentored through the engagement. A data lifecycle map that gave the company a single source of truth it didn't have before. The UX Review process running as a standard part of the development cycle.</p>
+        <p>The platform shipped looked nothing like the spreadsheet they started with. It had hierarchy, narrative, and a clear action path from aggregate to detail.</p>
+        <p>Interos reached unicorn status, $1B+ valuation, during the engagement. Company headcount grew by 200+ in two years. The work shipped inside that velocity. The UX Review process carried forward beyond my engagement, becoming part of how the company shipped product to enterprise clients.</p>
       </div>
     </div>
-  </div>
 
-  <div class="cs-art-img-3col">
-    <div class="cs-img-frame landscape" style="grid-column:1/-1">
-      <a href="figma-export/Interos/interos_companyprofile_mockup.png" class="glightbox" data-title="Interos company profile — final design">
-        <img src="figma-export/Interos/interos_companyprofile_mockup.png" alt="Interos company profile mockup"/>
-      </a>
-    </div>
-    <div class="cs-img-frame landscape">
-      <a href="figma-export/Interos/interos_alerts_mockup.png" class="glightbox" data-title="Interos alerts — final design">
-        <img src="figma-export/Interos/interos_alerts_mockup.png" alt="Interos alerts mockup"/>
-      </a>
-    </div>
-    <div class="cs-img-frame landscape">
-      <a href="figma-export/Interos/homescreen_mockup.png" class="glightbox" data-title="Interos homescreen — final design">
-        <img src="figma-export/Interos/homescreen_mockup.png" alt="Interos homescreen mockup"/>
-      </a>
-    </div>
-  </div>
-
-  <div class="cs-article">
     <hr class="cs-divider"/>
 
-    <!-- Reflection -->
-    <div class="cs-article-section" id="section-reflection">
+    <!-- ── 10. Reflection ── -->
+    <div class="cs-article-section" style="margin-top:0">
       <div class="cs-article-label">Reflection</div>
-      <h2 class="cs-article-title">What This Work <em>Taught Me</em></h2>
+      <h2 class="cs-article-title">Designing inside <em>companies that outpace themselves</em></h2>
       <div class="cs-article-body">
-        <p>Interos taught me what it looks like to do UX inside a company that's outpacing its own process. The product was ambitious, the team was smart, and the design challenges were genuinely hard — but the infrastructure to support good design was still being built in real time while I was trying to use it.</p>
-        <p>The most valuable skill I developed here was <strong>designing for data density</strong> — finding the right level of abstraction for complex enterprise data so it becomes legible without losing fidelity. Supply chain risk is inherently complex. The job isn't to simplify it into something false. The job is to give it just enough structure that users can act on it.</p>
-        <p>If I were starting over, I'd push harder earlier to establish a shared design system. Across five workstreams and multiple collaborators, the lack of a unified component library created inconsistency that we spent time reconciling rather than eliminating. That's a lesson I've carried into every embedded engagement since.</p>
+        <p>Interos taught me what UX looks like inside a company outpacing its own process. The infrastructure to support good design was being built in real time while I was trying to use it. The most valuable skill I sharpened was designing for data density: finding the right level of abstraction for complex enterprise data so it becomes legible without losing fidelity. If I were starting over, I'd push harder earlier to expand the design system in step with the page work, so each new workstream inherited more shared structure than the last.</p>
       </div>
     </div>
 
-    <div style="height:72px"></div>
+    <div style="height:80px"></div>
   </div>
 </section>
 
@@ -636,57 +309,82 @@
   <p>© 2026</p>
 </footer>
 
-<!-- ── BOTTOM PROGRESS NAV ── -->
-<nav id="cs-bottom-nav" aria-label="Case study sections">
-  <div id="cs-bnav-row">
-    <div id="cs-bnav-sections">
-      <a class="cs-bnav-sec" href="#section-problem">Problem</a>
-      <a class="cs-bnav-sec" href="#section-process">Process</a>
-      <a class="cs-bnav-sec" href="#section-homescreen">Homescreen</a>
-      <a class="cs-bnav-sec" href="#section-profile">Profile</a>
-      <a class="cs-bnav-sec" href="#section-alerts">Alerts</a>
-      <a class="cs-bnav-sec" href="#section-timeline">Timeline</a>
-      <a class="cs-bnav-sec" href="#section-discovery">Discovery</a>
-      <a class="cs-bnav-sec" href="#section-shipped">Outcomes</a>
-      <a class="cs-bnav-sec" href="#section-reflection">Reflection</a>
-    </div>
-  </div>
-  <div id="cs-bnav-track"><div id="cs-bnav-fill"></div></div>
-</nav>
-
 <script src="js/main.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+<script>GLightbox({ touchNavigation: true, loop: true, zoomable: true });</script>
 <script>
-  GLightbox({ touchNavigation: true, loop: true, zoomable: true });
-
-  // ── Bottom nav: scroll progress + section highlighting ──
-  (function() {
-    const nav = document.getElementById('cs-bottom-nav');
-    const fill = document.getElementById('cs-bnav-fill');
-    const links = document.querySelectorAll('.cs-bnav-sec');
-    const sections = Array.from(links).map(l => document.querySelector(l.getAttribute('href'))).filter(Boolean);
-
-    function onScroll() {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-      fill.style.width = pct + '%';
-
-      // show/hide nav
-      if (scrollTop > 300) nav.classList.add('visible');
-      else nav.classList.remove('visible');
-
-      // active section
-      let activeIdx = 0;
-      sections.forEach((sec, i) => {
-        if (sec && sec.getBoundingClientRect().top <= 120) activeIdx = i;
-      });
-      links.forEach((l, i) => l.classList.toggle('active', i === activeIdx));
-    }
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-  })();
+(function() {
+  // ── Auto-add captions under images using their glightbox data-title ──
+  document.querySelectorAll('a.glightbox[data-title]').forEach(link => {
+    const title = link.getAttribute('data-title');
+    if (!title) return;
+    const target = link.closest('.cs-img-frame') || link;
+    if (target.dataset.captioned === 'true') return;
+    const fig = document.createElement('figure');
+    fig.className = 'cs-figure';
+    target.parentNode.insertBefore(fig, target);
+    fig.appendChild(target);
+    const cap = document.createElement('div');
+    cap.className = 'cs-img-caption';
+    cap.textContent = title;
+    fig.appendChild(cap);
+    target.dataset.captioned = 'true';
+  });
+})();
 </script>
+<script>
+(function() {
+  // ── Build bottom nav ──
+  const bnav = document.createElement('div');
+  bnav.id = 'cs-bottom-nav';
+  bnav.innerHTML =
+    '<div id="cs-bnav-row"><div id="cs-bnav-sections"></div></div>' +
+    '<div id="cs-bnav-track"><div id="cs-bnav-fill"></div></div>';
+  document.body.appendChild(bnav);
+
+  const fill   = document.getElementById('cs-bnav-fill');
+  const secBox = document.getElementById('cs-bnav-sections');
+  const sections = Array.from(document.querySelectorAll('.cs-article-section'));
+  const items = [];
+
+  sections.forEach((sec, i) => {
+    const lbl = sec.querySelector('.cs-article-label');
+    if (!lbl) return;
+    const id = 'sec-' + i;
+    sec.id = id;
+    const a = document.createElement('a');
+    a.href = '#' + id;
+    a.className = 'cs-bnav-sec';
+    a.textContent = lbl.textContent.replace(/^—\s*/, '').trim();
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    secBox.appendChild(a);
+    items.push({ sec, a });
+  });
+
+  const hero = document.getElementById('cs-hero');
+  let heroBottom = 0;
+  function calcHero() { heroBottom = hero ? hero.offsetTop + hero.offsetHeight : 400; }
+  calcHero();
+  window.addEventListener('resize', calcHero);
+
+  function onScroll() {
+    const sy = window.scrollY;
+    const docH = document.documentElement.scrollHeight - window.innerHeight;
+    fill.style.width = (docH > 0 ? Math.min(100, (sy / docH) * 100) : 0) + '%';
+    bnav.classList.toggle('visible', sy > heroBottom);
+    let active = null;
+    const threshold = sy + window.innerHeight * 0.4;
+    items.forEach(({ sec, a }) => { if (sec.offsetTop <= threshold) active = a; });
+    items.forEach(({ a }) => a.classList.toggle('active', a === active));
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+
 </body>
 </html>
