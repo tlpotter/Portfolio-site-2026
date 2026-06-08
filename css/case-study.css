@@ -197,10 +197,20 @@ section#cs-hero {
 }
 .cs-next-back:hover { color: rgba(56,189,248,1) }
 .cs-next-link {
-  display: flex; flex-direction: column; gap: 4px; text-align: right;
+  display: flex; align-items: center; gap: 20px;
   text-decoration: none; padding: 20px 28px; border-radius: 14px; transition: all .35s;
 }
 .cs-next-link:hover { background: rgba(255,255,255,.05); transform: translateX(4px) }
+.cs-next-thumb {
+  width: 96px; height: 64px;
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.07);
+}
+.cs-next-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cs-next-link-text { display: flex; flex-direction: column; gap: 4px; text-align: right }
 .cs-next-lbl { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(56,189,248,.7) }
 .cs-next-title { font-family: var(--serif); font-size: 20px; font-weight: 600; color: rgba(232,228,240,.85); font-style: italic }
 
@@ -235,14 +245,19 @@ section#cs-hero {
 
 /* ── Responsive ── */
 @media (max-width: 800px) {
-  section#cs-hero { padding: 60px 12px 0 }
-  .cs-section { padding: 56px 12px }
+  section#cs-hero { padding: 60px 24px 0 }
+  .cs-section { padding: 56px 24px }
   .cs-two-col, .cs-two-col-3, .cs-img-trio { grid-template-columns: 1fr }
   .cs-img-frame.landscape { aspect-ratio: 4/3 }
-  #cs-next { padding: 56px 12px }
+  #cs-next { padding: 56px 24px }
   .cs-next-inner { flex-direction: column; align-items: flex-start }
-  .cs-next-link { text-align: left; padding: 16px 0 }
-  .cs-article { padding: 0 12px }
+  .cs-next-link { padding: 16px 0 }
+  .cs-next-link-text { text-align: left }
+  /* Padding matches the image breakout gutter (calc(100vw - 48px) = 24px each side) */
+  .cs-article { padding: 0 24px }
+  /* Every image grid + impact row collapses to single column on mobile */
+  .cs-art-img-2col,
+  .cs-art-img-3col,
   .cs-impact-row { grid-template-columns: 1fr }
   .cs-impact-row .cs-stat-card { width: 100% }
   #cs-bottom-nav { padding: 14px 16px 16px }
@@ -518,10 +533,5 @@ section#cs-hero { border-bottom: none; padding-bottom: 0 }
   width: 0%;
 }
 
-/* Image-grid collapse for narrower screens (tighter than the 800px
-   bp above so 2-col grids stay double-up on tablets) */
-@media (max-width: 640px) {
-  .cs-art-img-2col { grid-template-columns: 1fr }
-  .cs-art-img-3col { grid-template-columns: 1fr 1fr }
-  .cs-impact-row { grid-template-columns: 1fr 1fr }
-}
+/* All image grids + impact row already collapse to 1-col at the
+   800px breakpoint above, so no further tightening is needed at 640px. */
