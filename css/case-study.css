@@ -245,22 +245,15 @@ section#cs-hero {
 
 /* ── Responsive ── */
 @media (max-width: 800px) {
-  section#cs-hero { padding: 60px 24px 0 }
-  .cs-section { padding: 56px 24px }
+  section#cs-hero { padding: 60px 12px 0 }
+  .cs-section { padding: 56px 12px }
   .cs-two-col, .cs-two-col-3, .cs-img-trio { grid-template-columns: 1fr }
   .cs-img-frame.landscape { aspect-ratio: 4/3 }
-  #cs-next { padding: 56px 24px }
+  #cs-next { padding: 56px 12px }
   .cs-next-inner { flex-direction: column; align-items: flex-start }
   .cs-next-link { padding: 16px 0 }
   .cs-next-link-text { text-align: left }
-  /* Padding matches the image breakout gutter (calc(100vw - 48px) = 24px each side) */
-  .cs-article { padding: 0 24px }
-  /* Every image grid + impact row collapses to single column on mobile */
-  .cs-art-img-2col,
-  .cs-art-img-3col,
-  .cs-impact-row { grid-template-columns: 1fr }
-  .cs-impact-row .cs-stat-card { width: 100% }
-  #cs-bottom-nav { padding: 14px 16px 16px }
+  #cs-bottom-nav { padding: 14px 12px 16px }
 }
 
 /* ============================================================
@@ -533,5 +526,24 @@ section#cs-hero { border-bottom: none; padding-bottom: 0 }
   width: 0%;
 }
 
-/* All image grids + impact row already collapse to 1-col at the
-   800px breakpoint above, so no further tightening is needed at 640px. */
+/* ============================================================
+   Mobile overrides for v2 layout — MUST come after the unscoped v2
+   rules above so they win the cascade at <= 800px. Earlier @media
+   blocks earlier in the file don't override the v2 defaults because
+   CSS cascade goes by source order when specificity is equal.
+   ============================================================ */
+@media (max-width: 800px) {
+  /* Body padding cut 50% from 24px to 12px */
+  .cs-article { padding: 0 12px }
+
+  /* Image breakout grids: full-bleed minus 12px each side (was 48px total) */
+  .cs-art-img-2col,
+  .cs-art-img-3col,
+  .cs-img-breakout { width: calc(100vw - 24px) }
+
+  /* Single column for every image grid + impact stat row on mobile */
+  .cs-art-img-2col,
+  .cs-art-img-3col,
+  .cs-impact-row { grid-template-columns: 1fr }
+  .cs-impact-row .cs-stat-card { width: 100% }
+}
