@@ -186,29 +186,67 @@ section:not(#hero){padding:88px max(60px, calc((100vw - 1280px) / 2));position:r
 .tl-linkedin{display:block;margin-top:auto;padding-top:24px;font-size:13px;font-weight:600;color:rgba(56,189,248,.7);text-decoration:none;letter-spacing:.04em;transition:color .2s}
 .tl-linkedin:hover{color:rgba(56,189,248,1)}
 
-/* ── AI & DESIGN ── */
-#ai-design{border-top:1px solid rgba(255,255,255,.04)}
-.ai-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:16px}
-.ai-card{padding:40px;border-radius:20px;transition:all .35s;display:flex;flex-direction:column}
-.ai-card-label{font-size:13px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(251,146,60,.95);border-bottom:1px solid rgba(251,146,60,.18);padding-bottom:12px;margin-bottom:22px}
-.ai-card p{font-size:17px;line-height:1.95;color:rgba(232,228,240,.72);margin-bottom:0}
-.ai-card-primary p{font-size:17px;color:rgba(232,228,240,.88)}
+/* AI section removed; its content moved into the bento work grid as
+   .work-text-card .text-a / .text-b cards. */
 
 /* ── WORK CARDS ── */
-.work-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.work-card{display:block;text-decoration:none;color:inherit;padding:34px;border-radius:18px;transition:all .35s;cursor:pointer;position:relative;overflow:hidden}
+/* Bento work grid: featured (2/3) + stacked text cards (1/3) on row 1, then
+   two 2-up case study rows. Desktop placement uses grid-template-areas on
+   top of DOM source order — DOM order matches the mobile stack order so we
+   never rely on per-card grid-area to diverge from source order. */
+.work-grid{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  grid-template-areas:
+    "f f f f a a"
+    "f f f f b b"
+    "c c c i i i"
+    "v v v j j j";
+  gap:14px;
+}
+.work-card{display:block;text-decoration:none;color:inherit;padding:17px;border-radius:18px;transition:all .35s;cursor:pointer;position:relative;overflow:hidden}
 .work-card::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(251,146,60,.06),transparent 60%);opacity:0;transition:opacity .35s;pointer-events:none}
 .work-card:hover::after{opacity:1}
-.work-card.wide{grid-column:span 2;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.work-card:focus-visible{outline:2px solid rgba(56,189,248,.7);outline-offset:3px}
+/* Featured card: same image-top stack as the other case study cards, just
+   wider (spans 4 of 6 bento columns) and taller (image 520px = +30%). */
+.work-card.featured{grid-area:f}
+.work-card.featured .featured-vis{height:520px}
+.work-card.featured .work-title{font-size:32px}
+/* Standard case study card grid placements */
+.work-card.cs-crc{grid-area:c}
+.work-card.cs-interos{grid-area:i}
+.work-card.cs-vasa{grid-area:v}
+/* Job Search Crawler card hidden for now. Remove this rule (and the
+   .coming-soon class) once the case study page exists. */
+.work-card.cs-crawler{grid-area:j;display:none}
+/* Text cards (Designing for AI / with AI): not links, no hover affordance */
+.work-text-card{padding:28px;border-radius:18px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+.work-text-card.text-a{grid-area:a}
+.work-text-card.text-b{grid-area:b}
+.work-text-card .work-meta{
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:.15em;
+  color:rgba(251,146,60,.95);
+  margin-bottom:18px;
+}
+.work-text-body{font-size:14px;line-height:1.75;color:rgba(232,228,240,.72);margin:0}
+.work-text-body + .work-text-body{margin-top:14px}
+/* Coming soon card: no link affordances */
+.work-card.coming-soon{cursor:default}
+.work-card.coming-soon::after{display:none}
+.work-card.coming-soon:hover{transform:none;box-shadow:none}
+.work-vis.placeholder{background:linear-gradient(135deg,rgba(251,146,60,.06),rgba(56,189,248,.05))}
+.work-vis.placeholder::after{content:'Coming soon';font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.32);position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}
+.work-card-soon-badge{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgba(251,146,60,.7);padding:6px 12px;border:1px solid rgba(251,146,60,.3);border-radius:20px}
+/* Shared card content typography */
 .work-meta{font-size:11px;letter-spacing:.12em;color:rgba(255,255,255,.45);margin-bottom:14px;text-transform:uppercase;font-weight:600}
 .work-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}
 .work-tag{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(251,180,100,.9);background:rgba(251,146,60,.1);border:1px solid rgba(251,146,60,.2);padding:3px 8px;border-radius:5px}
 .work-title{font-family:var(--serif);font-size:24px;font-weight:600;color:#fff;line-height:1.2;margin-bottom:12px}
-.work-card.wide .work-title{font-size:32px}
-.work-desc{font-size:15px;line-height:1.9;color:rgba(232,228,240,.65);margin-bottom:20px}
-.work-link{font-size:13px;font-weight:600;letter-spacing:.08em;color:rgba(56,189,248,.75);text-decoration:none;transition:color .25s;display:inline-flex;align-items:center;gap:6px}
-.work-card:hover .work-link{color:rgba(56,189,248,1)}
-.work-vis{height:270px;border-radius:12px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.work-desc{font-size:15px;line-height:1.9;color:rgba(232,228,240,.65)}
+.work-vis{height:400px;border-radius:12px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
 .work-vis img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
 .work-vis-top{margin-bottom:20px}
 .work-placeholder{border:1px dashed rgba(255,255,255,.12);background:rgba(255,255,255,.02)}
@@ -248,6 +286,18 @@ footer{border-top:1px solid rgba(255,255,255,.04);padding:18px max(60px, calc((1
 footer p{font-size:12px;color:rgba(255,255,255,.4);letter-spacing:.06em}
 
 /* ── RESPONSIVE ── */
+/* Tablet (~800–1023px): bento collapses to 2-up. Featured runs full-width. */
+@media(max-width:1023px) and (min-width:801px){
+  .work-grid{
+    grid-template-columns:1fr 1fr;
+    grid-template-areas:
+      "f f"
+      "a b"
+      "c i"
+      "v j";
+  }
+}
+
 @media(max-width:800px){
   body{cursor:auto}
   #cur,#curRing{display:none}
@@ -256,8 +306,19 @@ footer p{font-size:12px;color:rgba(255,255,255,.4);letter-spacing:.06em}
   nav{padding:18px var(--mobile-padding)}.nav-links{display:none}
   section:not(#hero){padding:64px var(--mobile-padding)}
   .hero-content{padding:0 var(--mobile-padding)}
-  .about-grid,.work-grid,.skills-grid,.ai-grid{grid-template-columns:1fr}
-  .work-card.wide{grid-column:span 1;grid-template-columns:1fr}
+  .about-grid,.skills-grid{grid-template-columns:1fr}
+  /* Mobile bento: single column, DOM source order. */
+  .work-grid{
+    grid-template-columns:1fr;
+    grid-template-areas:
+      "f"
+      "a"
+      "b"
+      "c"
+      "i"
+      "v"
+      "j";
+  }
   .contact-card{grid-template-columns:1fr;gap:36px;padding:36px var(--mobile-padding)}
   footer{flex-direction:column;gap:6px;text-align:center;padding:18px var(--mobile-padding)}
 }

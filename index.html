@@ -57,63 +57,64 @@
   </div>
 </section>
 
-<section id="ai-design">
-  <div class="sec-label">AI &amp; Design</div>
-  <h2 class="sec-title">For AI. <em>With AI.</em></h2>
-  <div class="ai-grid">
-    <div class="ai-card ai-card-primary glass">
-      <div class="ai-card-label">Designing for AI</div>
-      <p>AI is only as useful as the experience around it. I've designed LLM evaluation tools, model training workflows, and conversation intelligence products that help real people make sense of what AI is doing under the hood — and trust it enough to act on it.</p>
-      <p>Designing for custom models means translating high complexity into simple, intuitive experiences — making AI accessible to the people who need to use it, not just the people who built it.</p>
-    </div>
-    <div class="ai-card glass">
-      <div class="ai-card-label">Designing with AI</div>
-      <p>I practice what I design. This site was built with Claude Code. I use Claude to write copy and generate options I can evaluate, Gemini for deep-dive research, and Figma Make to prototype fast.</p>
-      <p>I also run my work through multiple AI models to stress-test decisions — getting different perspectives the same way I'd pull in another designer for a crit. AI handles the production velocity so I can focus on making better decisions.</p>
-    </div>
-  </div>
-</section>
-
 <section id="work">
   <div class="sec-label">Work</div>
   <h2 class="sec-title">Case <em>studies</em></h2>
+  <!-- Bento layout: DOM source order matches mobile stack order (featured, text-a,
+       text-b, crc, interos, vasa, crawler). Desktop placement comes from
+       grid-template-areas in .work-grid, not from per-card order overrides. -->
   <div class="work-grid">
-    <a href="case-study-invoca-ai.html" class="work-card wide glass">
-      <div>
-        <div class="work-meta">2025 · Invoca · Web App</div>
-        <div class="work-tags"><span class="work-tag">AI Product</span><span class="work-tag">LLM Evaluation</span><span class="work-tag">B2B SaaS</span></div>
-        <div class="work-title">AI Model Training Concept</div>
-        <p class="work-desc">End-to-end UX concept for training custom LLMs on phone call data — from automated topic discovery through model validation. A self-service redesign that exposed the invisible human infrastructure propping up a powerful product.</p>
-        <span class="work-link">View case study →</span>
+    <a href="case-study-invoca-callreview.html" class="work-card featured glass">
+      <div class="work-vis work-vis-top featured-vis">
+        <img src="images/home/CRC-thumb.png" alt="Invoca Call Review Console"/>
       </div>
-      <div class="work-vis work-vis-top" style="height:320px">
-        <img src="images/Signal Discovery Automation/step2 - define.png" alt="AI Signal Blueprint concept" style="object-position:top left;transform:scale(1.2);transform-origin:top left"/>
-      </div>
-    </a>
-    <a href="case-study-invoca-callreview.html" class="work-card glass">
-      <div class="work-vis work-vis-top"><img src="images/CRC Case Study/CRC-CallDetail-Actions.png" alt="Invoca Call Review Console" style="object-position:right center;transform:scale(1.4);transform-origin:right center"/></div>
       <div class="work-meta">2023–2025 · Invoca · Web App</div>
       <div class="work-tags"><span class="work-tag">B2B SaaS</span><span class="work-tag">AI Product</span><span class="work-tag">Research</span></div>
       <div class="work-title">Invoca Contact Center Workflow Redesign</div>
-      <p class="work-desc">Redesigned the core workflows agents and supervisors rely on daily — from call handling to coaching and performance management — contributing to millions in ARR growth.</p>
-      <span class="work-link">View case study →</span>
+      <p class="work-desc">Redesigned the daily workflows agents and supervisors rely on, helping triple the product's ARR.</p>
     </a>
-    <a href="case-study-interos.html" class="work-card glass">
-      <div class="work-vis work-vis-top"><img src="images/home/Interos_thumb.webp" alt="Interos homescreen mockup" style="transform-origin:right center"/></div>
+    <div class="work-text-card text-a glass">
+      <div class="work-meta">Designing for AI</div>
+      <p class="work-text-body">AI is only as useful as the experience around it. I've designed LLM evaluation tools, model training workflows, and conversation intelligence products that help real people make sense of what AI is doing under the hood, and trust it enough to act on it.</p>
+      <p class="work-text-body">Designing for custom models means translating high complexity into simple, intuitive experiences, making AI accessible to the people who need to use it, not just the people who built it.</p>
+    </div>
+    <div class="work-text-card text-b glass">
+      <div class="work-meta">Designing with AI</div>
+      <p class="work-text-body">I practice what I design. This site was built with Claude Code. I use Claude to write copy and generate options I can evaluate, Gemini for deep-dive research, and Figma Make to prototype fast.</p>
+      <p class="work-text-body">I also run my work through multiple AI models to stress-test decisions: getting different perspectives the same way I'd pull in another designer for a crit. AI handles the production velocity so I can focus on making better decisions.</p>
+    </div>
+    <a href="case-study-invoca-ai.html" class="work-card cs-crc glass">
+      <div class="work-vis work-vis-top"><img src="images/home/invoca_ai_training_thumb.png" alt="AI Signal Blueprint concept" style="object-position:top left;transform-origin:top left"/></div>
+      <div class="work-meta">2026 · Invoca · Web App</div>
+      <div class="work-tags"><span class="work-tag">AI Product</span><span class="work-tag">LLM Evaluation</span><span class="work-tag">B2B SaaS</span></div>
+      <div class="work-title">AI Model Training Concept</div>
+      <p class="work-desc">An end-to-end concept that made custom LLM training self-service, exposing the hidden human work behind the product.</p>
+    </a>
+    <a href="case-study-interos.html" class="work-card cs-interos glass">
+      <div class="work-vis work-vis-top"><img src="images/home/interos-thumb.png" alt="Interos homescreen mockup" style="transform-origin:right center"/></div>
       <div class="work-meta">2021–2022 · Interos / Neudesic · Web App</div>
       <div class="work-tags"><span class="work-tag">Enterprise</span><span class="work-tag">Data Visualization</span><span class="work-tag">B2B SaaS</span></div>
       <div class="work-title">Interos Supply Chain Risk</div>
-      <p class="work-desc">Project lead for UX on a supply chain risk platform during a period of hypergrowth that culminated in a $1B+ valuation — designing the dashboards enterprises used to detect and respond to supplier threats in real time.</p>
-      <span class="work-link">View case study →</span>
+      <p class="work-desc">Led UX projects on the risk platform enterprises relied on as Interos scaled to a $1B+ valuation.</p>
     </a>
-    <a href="case-study-vasa.html" class="work-card glass">
+    <a href="case-study-vasa.html" class="work-card cs-vasa glass">
       <div class="work-vis work-vis-top"><img src="images/home/VASAmockup_thumb.webp" alt="VASA Fitness app mockup"/></div>
       <div class="work-meta">2019–2021 · VASA Fitness / Neudesic · iOS & Android</div>
       <div class="work-tags"><span class="work-tag">Consumer</span><span class="work-tag">Mobile</span><span class="work-tag">Fitness</span></div>
       <div class="work-title">VASA Fitness Mobile App</div>
-      <p class="work-desc">Took a national gym chain's fragmented member experience — scattered across booking, check-in, and account management — and designed a single mobile app that brought it all together for millions of users.</p>
-      <span class="work-link">View case study →</span>
+      <p class="work-desc">Unified a fragmented gym membership experience into one app: 300K installs, 4.3 stars.</p>
     </a>
+    <!-- Coming soon: rendered as a div, not an anchor, so it's not focusable
+         or activatable. Swap to an <a href="case-study-job-crawler.html"> and
+         drop the .coming-soon class once the case study page exists. -->
+    <div class="work-card cs-crawler coming-soon glass">
+      <div class="work-vis work-vis-top placeholder"></div>
+      <div class="work-meta">2026 · Personal Project · Web App</div>
+      <div class="work-tags"><span class="work-tag">AI Product</span><span class="work-tag">Side Project</span><span class="work-tag">Automation</span></div>
+      <div class="work-title">Job Search Crawler</div>
+      <p class="work-desc">PLACEHOLDER: final copy pending. Designed and built an automated pipeline that crawls ATS job boards and surfaces matching roles daily.</p>
+      <span class="work-card-soon-badge">Case study coming soon</span>
+    </div>
   </div>
 </section>
 
