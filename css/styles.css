@@ -321,4 +321,12 @@ footer p{font-size:12px;color:rgba(255,255,255,.4);letter-spacing:.06em}
   }
   .contact-card{grid-template-columns:1fr;gap:36px;padding:36px var(--mobile-padding)}
   footer{flex-direction:column;gap:6px;text-align:center;padding:18px var(--mobile-padding)}
+  /* Let each card image render at its natural aspect ratio on mobile rather
+     than being cropped to fit a fixed 400px-tall box. Cards become different
+     heights but each thumb renders fully. */
+  .work-vis{height:auto;display:block}
+  .work-vis img{width:100%;height:auto;object-fit:initial}
+  .work-card.featured .featured-vis{height:auto}
+  /* Placeholder has no image, so preserve a minimum height for visual presence */
+  .work-vis.placeholder{min-height:200px}
 }
