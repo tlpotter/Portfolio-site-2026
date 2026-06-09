@@ -28,7 +28,7 @@ nav{
   background:linear-gradient(to bottom,rgba(6,10,15,.92),transparent);
   transition:opacity .4s ease;
 }
-nav.scrolled{opacity:.45}
+nav.scrolled{opacity:.75}
 nav.scrolled:hover{opacity:1}
 @keyframes logo-shimmer{
   0%,78%{background-position:-180% center,100% 0}
