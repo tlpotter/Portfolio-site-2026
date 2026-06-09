@@ -552,3 +552,19 @@ section#cs-hero { border-bottom: none; padding-bottom: 0 }
   .cs-impact-row { grid-template-columns: 1fr }
   .cs-impact-row .cs-stat-card { width: 100% }
 }
+
+/* Confidentiality disclaimer shown on protected case studies, sits between
+   the case-study content and the cs-next / contact sections. */
+.cs-confidentiality {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 48px 24px 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(232, 228, 240, .45);
+  text-align: center;
+  font-style: italic;
+}
+@media (max-width: 800px) {
+  .cs-confidentiality { padding: 32px var(--mobile-padding) 0 }
+}
