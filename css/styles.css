@@ -11,7 +11,7 @@
   /* Single source of truth for mobile horizontal padding. Used by every
      mobile @media rule across styles.css and case-study.css so paddings
      stay symmetric and consistent regardless of which page you're on. */
-  --mobile-padding:12px;
+  --mobile-padding:24px;
 }
 html{scroll-behavior:smooth;overflow-x:hidden}
 body{background:#020608;color:#eef2ff;font-family:var(--sans);font-size:18px;line-height:1.6;overflow-x:hidden;cursor:none;position:relative}
