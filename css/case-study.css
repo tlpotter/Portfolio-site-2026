@@ -535,8 +535,9 @@ section#cs-hero { border-bottom: none; padding-bottom: 0 }
    CSS cascade goes by source order when specificity is equal.
    ============================================================ */
 @media (max-width: 800px) {
-  /* Article body padding sourced from --mobile-padding */
-  .cs-article { padding: 0 var(--mobile-padding) }
+  /* .cs-article sits inside .cs-section which already applies --mobile-padding,
+     so zero out the article's own horizontal padding to avoid doubling. */
+  .cs-article { padding: 0 }
 
   /* Image breakout grids: full-bleed minus --mobile-padding each side.
      calc(100vw - 2 * var(--mobile-padding)) keeps gutters symmetric and
