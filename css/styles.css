@@ -8,8 +8,12 @@
   --blue:#00d4ff;
   --blue2:#00aaff;
   --blue3:#6366f1;
+  /* Single source of truth for mobile horizontal padding. Used by every
+     mobile @media rule across styles.css and case-study.css so paddings
+     stay symmetric and consistent regardless of which page you're on. */
+  --mobile-padding:12px;
 }
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;overflow-x:hidden}
 body{background:#020608;color:#eef2ff;font-family:var(--sans);font-size:18px;line-height:1.6;overflow-x:hidden;cursor:none;position:relative}
 
 /* ── CURSOR ── */
@@ -247,11 +251,13 @@ footer p{font-size:12px;color:rgba(255,255,255,.4);letter-spacing:.06em}
 @media(max-width:800px){
   body{cursor:auto}
   #cur,#curRing{display:none}
-  nav{padding:18px 24px}.nav-links{display:none}
-  section:not(#hero){padding:64px 24px}
-  .hero-content{padding:0 24px}
+  /* All mobile horizontal padding sourced from --mobile-padding so every
+     element on every page (homepage + case studies) lines up symmetrically. */
+  nav{padding:18px var(--mobile-padding)}.nav-links{display:none}
+  section:not(#hero){padding:64px var(--mobile-padding)}
+  .hero-content{padding:0 var(--mobile-padding)}
   .about-grid,.work-grid,.skills-grid,.ai-grid{grid-template-columns:1fr}
   .work-card.wide{grid-column:span 1;grid-template-columns:1fr}
-  .contact-card{grid-template-columns:1fr;gap:36px;padding:36px 24px}
-  footer{flex-direction:column;gap:6px;text-align:center;padding:18px 24px}
+  .contact-card{grid-template-columns:1fr;gap:36px;padding:36px var(--mobile-padding)}
+  footer{flex-direction:column;gap:6px;text-align:center;padding:18px var(--mobile-padding)}
 }
