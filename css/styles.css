@@ -321,12 +321,17 @@ footer p{font-size:12px;color:rgba(255,255,255,.4);letter-spacing:.06em}
   }
   .contact-card{grid-template-columns:1fr;gap:36px;padding:36px var(--mobile-padding)}
   footer{flex-direction:column;gap:6px;text-align:center;padding:18px var(--mobile-padding)}
-  /* Let each card image render at its natural aspect ratio on mobile rather
-     than being cropped to fit a fixed 400px-tall box. Cards become different
-     heights but each thumb renders fully. */
-  .work-vis{height:auto;display:block}
-  .work-vis img{width:100%;height:auto;object-fit:initial}
-  .work-card.featured .featured-vis{height:auto}
-  /* Placeholder has no image, so preserve a minimum height for visual presence */
-  .work-vis.placeholder{min-height:200px}
+  /* Mobile card images: uniform 4:3 box for visual consistency across the
+     bento. Three of four thumbs are 4:3 natively (no cropping); the wider
+     VASA thumb (~2.74:1) gets cropped horizontally to fit, with the phone
+     mockup centered so it stays readable. */
+  .work-vis{height:auto;display:block;aspect-ratio:4/3}
+  .work-vis img{width:100%;height:100%;object-fit:cover;object-position:center}
+  .work-card.featured .featured-vis{height:auto;aspect-ratio:4/3}
+  .work-vis.placeholder{min-height:0}
+  /* Stack hero CTAs vertically on mobile. Side-by-side buttons + the 20px
+     gap can exceed the viewport on narrow phones, which contributed to the
+     slight horizontal overflow you were seeing. */
+  .hero-ctas{flex-direction:column;align-items:stretch;gap:14px;width:100%;max-width:320px}
+  .hero-ctas .btn{justify-content:center}
 }
