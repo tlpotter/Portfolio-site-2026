@@ -266,6 +266,14 @@ section:not(#hero){padding:88px max(60px, calc((100vw - 1280px) / 2));position:r
 .tool{font-size:13px;color:rgba(232,228,240,.6);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);padding:4px 12px;border-radius:6px;transition:all .25s}
 .tool:hover{color:#fff;border-color:rgba(56,189,248,.35);background:rgba(56,189,248,.1)}
 
+/* ── CRAFT PREVIEW (homepage) ── */
+.craft-preview-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:32px}
+.craft-preview-card{display:block;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02);transition:transform .35s,border-color .35s,box-shadow .35s;aspect-ratio:16/9}
+.craft-preview-card:hover{transform:translateY(-4px);border-color:rgba(56,189,248,.25);box-shadow:0 16px 48px rgba(56,189,248,.08)}
+.craft-preview-card img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
+.craft-preview-link{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;letter-spacing:.04em;color:rgba(56,189,248,.85);text-decoration:none;transition:color .25s}
+.craft-preview-link:hover{color:rgba(56,189,248,1)}
+
 /* ── CONTACT ── */
 #contact{border-top:1px solid rgba(255,255,255,.04);padding-bottom:100px}
 .contact-card{padding:64px;border-radius:24px;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;position:relative;overflow:hidden}
@@ -334,4 +342,5 @@ footer p{font-size:12px;color:rgba(255,255,255,.4);letter-spacing:.06em}
      slight horizontal overflow you were seeing. */
   .hero-ctas{flex-direction:column;align-items:stretch;gap:14px;width:100%;max-width:320px}
   .hero-ctas .btn{justify-content:center}
+  .craft-preview-grid{grid-template-columns:1fr}
 }
