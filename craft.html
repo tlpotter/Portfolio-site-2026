@@ -17,9 +17,13 @@
        with a brief caption. Layout sits inside the standard site chrome. */
     /* Match the site's standard 1280px content frame via padding rather than
        an inner max-width, so images grow on wide displays instead of getting
-       squeezed inside a narrow column. */
-    .craft-main { padding: 0 max(60px, calc((100vw - 1280px) / 2)) }
-    .craft-group { margin-bottom: 48px }
+       squeezed inside a narrow column. Groups are <div> not <section> so the
+       global section:not(#hero) padding rule doesn't double up horizontally. */
+    .craft-main { padding: 80px max(60px, calc((100vw - 1280px) / 2)) 0 }
+    /* Override the centered 900px hero inner from case-study.css so the back
+       link and title align flush-left with the gallery images below. */
+    #cs-hero .cs-hero-inner { max-width: none; margin: 0 }
+    .craft-group { margin-bottom: 150px }
     .craft-group:last-child { margin-bottom: 0 }
     .craft-group-head {
       font-family: var(--serif);
@@ -72,9 +76,16 @@
     /* 2x2 figure grid for the Greyhound infographic series */
     .craft-grid-2x2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 40px }
     .craft-grid-2x2 .craft-figure { margin: 0 }
+    /* Greyhound app concept infographic: anchor crop to the left edge so the
+       chart's lead-in stays visible instead of being centered out of frame. */
+    #craft-greyhound-appconcept .craft-img-wrap img { object-position: left top }
+    /* Discount Tire infographic: drop the 16:9 crop and render at natural
+       aspect so the full graphic shows. */
+    #craft-discounttire-infographic .craft-img-wrap { aspect-ratio: auto }
+    #craft-discounttire-infographic .craft-img-wrap img { height: auto; object-fit: initial }
     @media (max-width: 800px) {
       .craft-main { padding: 0 var(--mobile-padding) }
-      .craft-group { margin-bottom: 32px }
+      .craft-group { margin-bottom: 64px }
       .craft-group-head { font-size: 26px; margin-bottom: 24px }
       .craft-figure { margin-bottom: 28px }
       .craft-grid-2x2 { grid-template-columns: 1fr }
@@ -107,90 +118,80 @@
   <div class="cs-hero-inner">
     <a href="index.html#work" class="nav-back" style="display:inline-flex;align-items:center;margin-bottom:24px"><span class="nav-back-arrow" style="line-height:1;margin-top:-1px">←</span> All work</a>
     <h1 class="cs-title">Craft</h1>
-    <p class="cs-lead">Smaller examples of my work</p>
+    <p class="cs-lead">Smaller examples of my work focusing on visuals</p>
   </div>
 </section>
 
 <!-- ── GALLERY ── -->
 <main class="craft-main">
 
-  <section class="craft-group">
-    <h2 class="craft-group-head"><em>Greyhound</em></h2>
+  <div class="craft-group">
+    <h2 class="craft-group-head">Greyhound</h2>
     <figure class="craft-figure" id="craft-greyhound-appconcept">
       <a href="images/craft/greyhound_appconcept_infographic.jpg" class="glightbox craft-img-wrap" data-title="Greyhound — app concept overview infographic">
         <img src="images/craft/greyhound_appconcept_infographic.jpg" alt="Greyhound app concept infographic"/>
       </a>
-      <figcaption class="craft-figcaption">App concept overview infographic.</figcaption>
+      <figcaption class="craft-figcaption">Mobile App concept overview infographic.</figcaption>
     </figure>
     <div class="craft-grid-2x2">
       <figure class="craft-figure">
-        <a href="images/craft/greyhound_infographic1.png" class="glightbox craft-img-wrap" data-title="Greyhound — concept infographic, page 1">
-          <img src="images/craft/greyhound_infographic1.png" alt="Greyhound infographic, page 1"/>
+        <a href="images/craft/greyhound_infographic1.png" class="glightbox craft-img-wrap" data-title="Greyhound Breakdown Infographic — part 1">
+          <img src="images/craft/greyhound_infographic1.png" alt="Greyhound Breakdown Infographic — part 1"/>
         </a>
-        <figcaption class="craft-figcaption">Concept infographic — page 1.</figcaption>
+        <figcaption class="craft-figcaption">Greyhound Breakdown Infographic — part 1.</figcaption>
       </figure>
       <figure class="craft-figure">
-        <a href="images/craft/greyhound_infographic2.png" class="glightbox craft-img-wrap" data-title="Greyhound — concept infographic, page 2">
-          <img src="images/craft/greyhound_infographic2.png" alt="Greyhound infographic, page 2"/>
+        <a href="images/craft/greyhound_infographic2.png" class="glightbox craft-img-wrap" data-title="Greyhound Breakdown Infographic — part 2">
+          <img src="images/craft/greyhound_infographic2.png" alt="Greyhound Breakdown Infographic — part 2"/>
         </a>
-        <figcaption class="craft-figcaption">Concept infographic — page 2.</figcaption>
+        <figcaption class="craft-figcaption">Greyhound Breakdown Infographic — part 2.</figcaption>
       </figure>
       <figure class="craft-figure">
-        <a href="images/craft/greyhound_infographic3.png" class="glightbox craft-img-wrap" data-title="Greyhound — concept infographic, page 3">
-          <img src="images/craft/greyhound_infographic3.png" alt="Greyhound infographic, page 3"/>
+        <a href="images/craft/greyhound_infographic3.png" class="glightbox craft-img-wrap" data-title="Greyhound Breakdown Infographic — part 3">
+          <img src="images/craft/greyhound_infographic3.png" alt="Greyhound Breakdown Infographic — part 3"/>
         </a>
-        <figcaption class="craft-figcaption">Concept infographic — page 3.</figcaption>
+        <figcaption class="craft-figcaption">Greyhound Breakdown Infographic — part 3.</figcaption>
       </figure>
       <figure class="craft-figure">
-        <a href="images/craft/greyhound_infographic4.png" class="glightbox craft-img-wrap" data-title="Greyhound — concept infographic, page 4">
-          <img src="images/craft/greyhound_infographic4.png" alt="Greyhound infographic, page 4"/>
+        <a href="images/craft/greyhound_infographic4.png" class="glightbox craft-img-wrap" data-title="Greyhound Breakdown Infographic — part 4">
+          <img src="images/craft/greyhound_infographic4.png" alt="Greyhound Breakdown Infographic — part 4"/>
         </a>
-        <figcaption class="craft-figcaption">Concept infographic — page 4.</figcaption>
+        <figcaption class="craft-figcaption">Greyhound Breakdown Infographic — part 4.</figcaption>
       </figure>
     </div>
     <figure class="craft-figure">
       <a href="images/craft/greyhound_mockup.png" class="glightbox craft-img-wrap" data-title="Greyhound — mobile app concept mockup">
         <img src="images/craft/greyhound_mockup.png" alt="Greyhound mobile app mockup"/>
       </a>
-      <figcaption class="craft-figcaption">Greyhound mobile app concept mockup.</figcaption>
+      <figcaption class="craft-figcaption">Greyhound Adventures mobile app concept. A regional airbnb like experience and travel planner concept</figcaption>
     </figure>
-  </section>
+  </div>
 
-  <section class="craft-group">
-    <h2 class="craft-group-head"><em>Discount Tire</em></h2>
+  <div class="craft-group">
+    <h2 class="craft-group-head">Discount Tire</h2>
     <figure class="craft-figure" id="craft-discounttire-infographic">
       <a href="images/craft/discounttire_infographicv04.jpg" class="glightbox craft-img-wrap" data-title="Discount Tire — service infographic">
         <img src="images/craft/discounttire_infographicv04.jpg" alt="Discount Tire service infographic"/>
       </a>
-      <figcaption class="craft-figcaption">Service infographic.</figcaption>
+      <figcaption class="craft-figcaption">Discount Tire app Ecosystem Concept.</figcaption>
     </figure>
     <figure class="craft-figure">
-      <a href="images/craft/discounttire_mobileimg_mockup.png" class="glightbox craft-img-wrap" data-title="Discount Tire — mobile experience mockup">
-        <img src="images/craft/discounttire_mobileimg_mockup.png" alt="Discount Tire mobile mockup"/>
+      <a href="images/craft/discounttire_mobileimg_mockup.png" class="glightbox craft-img-wrap" data-title="Discount Tire app Ecosystem Concept">
+        <img src="images/craft/discounttire_mobileimg_mockup.png" alt="Discount Tire app Ecosystem Concept"/>
       </a>
-      <figcaption class="craft-figcaption">Mobile experience mockup.</figcaption>
+      <figcaption class="craft-figcaption">Discount Tire Consumer Mobile App Concept.</figcaption>
     </figure>
-  </section>
+  </div>
 
-  <section class="craft-group">
-    <h2 class="craft-group-head"><em>Werner</em></h2>
+  <div class="craft-group">
+    <h2 class="craft-group-head">Werner</h2>
     <figure class="craft-figure">
       <a href="images/craft/Werner tracking link.png" class="glightbox craft-img-wrap" data-title="Werner — shipment tracking page">
         <img src="images/craft/Werner tracking link.png" alt="Werner shipment tracking page"/>
       </a>
-      <figcaption class="craft-figcaption">Shipment tracking page.</figcaption>
+      <figcaption class="craft-figcaption">Consumer Tracking Link - Track large deliveries across shipping journey from manufactuer to your doorstep.</figcaption>
     </figure>
-  </section>
-
-  <section class="craft-group">
-    <h2 class="craft-group-head"><em>FSA</em></h2>
-    <figure class="craft-figure">
-      <a href="images/craft/FSA_website_mockup.png" class="glightbox craft-img-wrap" data-title="FSA — website mockup">
-        <img src="images/craft/FSA_website_mockup.png" alt="FSA website mockup"/>
-      </a>
-      <figcaption class="craft-figcaption">Website mockup.</figcaption>
-    </figure>
-  </section>
+  </div>
 
 </main>
 
