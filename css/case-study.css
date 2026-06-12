@@ -420,12 +420,13 @@ section#cs-hero { border-bottom: none; padding-bottom: 0 }
   gap: 12px;
   margin: 32px 0;
 }
-/* Shared 2x2 impact-row variant. Scoped to desktop so the mobile @media
-   rule (`.cs-impact-row { grid-template-columns: 1fr }`) still wins below
-   800px — otherwise the higher-specificity .cs-impact-2x2 selector would
-   keep it at 2 columns on mobile. */
+/* Shared impact-row column variants. Scoped to desktop so the mobile
+   @media rule (`.cs-impact-row { grid-template-columns: 1fr }`) still
+   wins below 800px — otherwise the higher-specificity .cs-impact-{2x2,
+   3up} selector would keep multiple columns on mobile. */
 @media (min-width: 801px) {
   .cs-impact-row.cs-impact-2x2 { grid-template-columns: 1fr 1fr }
+  .cs-impact-row.cs-impact-3up { grid-template-columns: repeat(3, 1fr) }
 }
 
 /* Project metadata chip block */
@@ -601,6 +602,18 @@ section#cs-hero { border-bottom: none; padding-bottom: 0 }
   .cs-subbeat .cs-art-img-3col {
     margin-top: 100px;
     margin-bottom: 50px;
+  }
+
+  /* "Reduced" images on mobile — the multi-image grid containers (2-col /
+     3-col) collapse to a 1-col stack of smaller frames, so they don't need
+     the same hero-sized breathing room. Tighten them to 12px above and
+     below so each stack reads as one cohesive group. */
+  .cs-article-section .cs-art-img-2col,
+  .cs-article-section .cs-art-img-3col,
+  .cs-subbeat .cs-art-img-2col,
+  .cs-subbeat .cs-art-img-3col {
+    margin-top: 12px;
+    margin-bottom: 12px;
   }
 }
 
