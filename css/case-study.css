@@ -451,8 +451,9 @@ section#cs-hero { border-bottom: none; padding-bottom: 0 }
 .cs-subbeat { margin-top: 56px }
 .cs-article-label + .cs-subbeat { margin-top: 0 }
 
-/* Body image breathing room. Image blocks inside .cs-article-section
-   or .cs-subbeat get 150px above and below on desktop, 50px on mobile.
+/* Body image breathing room. Top:bottom margins are asymmetric (2:1 —
+   wider above, tighter below) so images visually anchor to the text
+   they precede. Desktop 200/100, mobile 100/50 (same ratio, halved).
    !important is needed because individual blocks set inline margin-top
    /margin-bottom (legacy from the v2 article layout). The top-of-page
    product showcase lives directly in .cs-article (not in any section),
@@ -463,8 +464,8 @@ section#cs-hero { border-bottom: none; padding-bottom: 0 }
 .cs-subbeat .cs-img-breakout,
 .cs-subbeat .cs-art-img-2col,
 .cs-subbeat .cs-art-img-3col {
-  margin-top: 150px !important;
-  margin-bottom: 150px !important;
+  margin-top: 200px !important;
+  margin-bottom: 100px !important;
 }
 
 /* Image card (Behance-style with footer caption — JS auto-wraps each
@@ -577,15 +578,15 @@ section#cs-hero { border-bottom: none; padding-bottom: 0 }
   .cs-impact-row { grid-template-columns: 1fr }
   .cs-impact-row .cs-stat-card { width: 100% }
 
-  /* Mobile: tighten the body image breathing room from desktop's 150px
-     down to 50px. */
+  /* Mobile mirrors the desktop 2:1 pattern at half the values:
+     100px above, 50px below. */
   .cs-article-section .cs-img-breakout,
   .cs-article-section .cs-art-img-2col,
   .cs-article-section .cs-art-img-3col,
   .cs-subbeat .cs-img-breakout,
   .cs-subbeat .cs-art-img-2col,
   .cs-subbeat .cs-art-img-3col {
-    margin-top: 50px !important;
+    margin-top: 100px !important;
     margin-bottom: 50px !important;
   }
 }
