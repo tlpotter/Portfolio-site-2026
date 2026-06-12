@@ -420,6 +420,13 @@ section#cs-hero { border-bottom: none; padding-bottom: 0 }
   gap: 12px;
   margin: 32px 0;
 }
+/* Shared 2x2 impact-row variant. Scoped to desktop so the mobile @media
+   rule (`.cs-impact-row { grid-template-columns: 1fr }`) still wins below
+   800px — otherwise the higher-specificity .cs-impact-2x2 selector would
+   keep it at 2 columns on mobile. */
+@media (min-width: 801px) {
+  .cs-impact-row.cs-impact-2x2 { grid-template-columns: 1fr 1fr }
+}
 
 /* Project metadata chip block */
 .cs-meta-block {
