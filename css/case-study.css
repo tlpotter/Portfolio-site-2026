@@ -451,6 +451,22 @@ section#cs-hero { border-bottom: none; padding-bottom: 0 }
 .cs-subbeat { margin-top: 56px }
 .cs-article-label + .cs-subbeat { margin-top: 0 }
 
+/* Body image breathing room. Image blocks inside .cs-article-section
+   or .cs-subbeat get 150px above and below on desktop, 50px on mobile.
+   !important is needed because individual blocks set inline margin-top
+   /margin-bottom (legacy from the v2 article layout). The top-of-page
+   product showcase lives directly in .cs-article (not in any section),
+   so it's not affected by this rule. */
+.cs-article-section .cs-img-breakout,
+.cs-article-section .cs-art-img-2col,
+.cs-article-section .cs-art-img-3col,
+.cs-subbeat .cs-img-breakout,
+.cs-subbeat .cs-art-img-2col,
+.cs-subbeat .cs-art-img-3col {
+  margin-top: 150px !important;
+  margin-bottom: 150px !important;
+}
+
 /* Image card (Behance-style with footer caption — JS auto-wraps each
    <a class="glightbox" data-title="…"> inside a <figure class="cs-figure">
    and appends a .cs-img-caption div with the data-title text) */
@@ -560,6 +576,18 @@ section#cs-hero { border-bottom: none; padding-bottom: 0 }
   .cs-art-img-3col,
   .cs-impact-row { grid-template-columns: 1fr }
   .cs-impact-row .cs-stat-card { width: 100% }
+
+  /* Mobile: tighten the body image breathing room from desktop's 150px
+     down to 50px. */
+  .cs-article-section .cs-img-breakout,
+  .cs-article-section .cs-art-img-2col,
+  .cs-article-section .cs-art-img-3col,
+  .cs-subbeat .cs-img-breakout,
+  .cs-subbeat .cs-art-img-2col,
+  .cs-subbeat .cs-art-img-3col {
+    margin-top: 50px !important;
+    margin-bottom: 50px !important;
+  }
 }
 
 /* Confidentiality disclaimer shown on protected case studies, sits between
