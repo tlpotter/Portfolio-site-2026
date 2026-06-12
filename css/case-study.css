@@ -447,25 +447,36 @@ section#cs-hero { border-bottom: none; padding-bottom: 0 }
   margin: 72px 0;
 }
 
-/* Sub-beat blocks inside The Work */
-.cs-subbeat { margin-top: 56px }
+/* Section + subbeat vertical rhythm */
+.cs-article-section { margin-top: 150px }
+.cs-subbeat { margin-top: 100px }
 .cs-article-label + .cs-subbeat { margin-top: 0 }
 
 /* Body image breathing room. Top:bottom margins are asymmetric (2:1 —
    wider above, tighter below) so images visually anchor to the text
    they precede. Desktop 200/100, mobile 100/50 (same ratio, halved).
-   !important is needed because individual blocks set inline margin-top
-   /margin-bottom (legacy from the v2 article layout). The top-of-page
-   product showcase lives directly in .cs-article (not in any section),
-   so it's not affected by this rule. */
+   The top-of-page product showcase lives directly in .cs-article (not
+   in any section), so it's not affected by this rule. */
 .cs-article-section .cs-img-breakout,
 .cs-article-section .cs-art-img-2col,
 .cs-article-section .cs-art-img-3col,
 .cs-subbeat .cs-img-breakout,
 .cs-subbeat .cs-art-img-2col,
 .cs-subbeat .cs-art-img-3col {
-  margin-top: 200px !important;
-  margin-bottom: 100px !important;
+  margin-top: 200px;
+  margin-bottom: 100px;
+}
+
+/* Image grouping: when a breakout is immediately followed by a 2-col
+   grid, treat them as one visual block. The breakout drops its bottom
+   margin and the 2-col pulls up to 32px so the pair reads as a unit
+   rather than two separated images. Uses :has() so no markup changes
+   are needed. */
+.cs-img-breakout:has(+ .cs-art-img-2col) {
+  margin-bottom: 0;
+}
+.cs-img-breakout + .cs-art-img-2col {
+  margin-top: 12px;
 }
 
 /* Image card (Behance-style with footer caption — JS auto-wraps each
@@ -586,8 +597,8 @@ section#cs-hero { border-bottom: none; padding-bottom: 0 }
   .cs-subbeat .cs-img-breakout,
   .cs-subbeat .cs-art-img-2col,
   .cs-subbeat .cs-art-img-3col {
-    margin-top: 100px !important;
-    margin-bottom: 50px !important;
+    margin-top: 100px;
+    margin-bottom: 50px;
   }
 }
 
