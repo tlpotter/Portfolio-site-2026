@@ -467,14 +467,16 @@ section#cs-hero { border-bottom: none; padding-bottom: 0 }
   margin-bottom: 100px;
 }
 
-/* Image grouping: when a breakout is immediately followed by a 2-col
-   grid, treat them as one visual block. The breakout drops its bottom
-   margin and the 2-col pulls up to 32px so the pair reads as a unit
-   rather than two separated images. Uses :has() so no markup changes
-   are needed. */
+/* Image grouping: when a breakout is immediately followed by another
+   breakout or a 2-col grid, treat the pair as one visual block. The
+   preceding image drops its bottom margin and the next pulls up to
+   12px so consecutive images read as a unit. Uses :has() so no markup
+   changes are needed. */
+.cs-img-breakout:has(+ .cs-img-breakout),
 .cs-img-breakout:has(+ .cs-art-img-2col) {
   margin-bottom: 0;
 }
+.cs-img-breakout + .cs-img-breakout,
 .cs-img-breakout + .cs-art-img-2col {
   margin-top: 12px;
 }
