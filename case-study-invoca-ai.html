@@ -288,9 +288,6 @@
 
     <!-- ── 07. Research + Insight ── -->
     <div class="cs-article-section">
-      <div class="cs-article-label">Research + Insight</div>
-      <h2 class="cs-article-title">Finding the <em>human layer</em> underneath</h2>
-
       <!-- Bookends problem diagram -->
       <figure class="cs-diagram-card">
         <div class="cs-diagram-body">
@@ -371,6 +368,9 @@
         <div class="cs-img-caption">The bookends problem: discovery and validation both broken, training in the middle worked</div>
       </figure>
 
+      <div class="cs-article-label">Research + Insight</div>
+      <h2 class="cs-article-title">Finding the <em>human layer</em> underneath</h2>
+
       <div class="cs-article-body">
         <p>I worked with PM Zach Cohen to scope a research effort. We interviewed four Invoca team members who spent their days guiding customers through AI signal creation. They lived inside the workflow's gaps every day, building signals on behalf of customers, interpreting ambiguous definitions, coaching people through a tool that was supposed to be self-service.</p>
         <p>The pattern was immediate and unanimous. Invoca had quietly built an entire human infrastructure around the workflow's weaknesses. Every new AI Gold customer received 8 hours of dedicated time from analytics services. For larger enterprise accounts like T-Mobile, the arrangement was contracted hours yearly with a dedicated analyst handling all signal creation. The product worked, but only with a person standing next to it explaining what to do.</p>
@@ -421,12 +421,9 @@
 
     <!-- ── 08. The Work ── -->
     <div class="cs-article-section" style="margin-top:0">
-      <div class="cs-article-label">The Work</div>
 
       <!-- Sub-beat 1: Stage 1 Topic Explorer -->
       <div class="cs-subbeat">
-        <h2 class="cs-article-title">Stage 1: <em>Topic Explorer</em></h2>
-
         <div class="cs-img-breakout" style="margin-top:0;margin-bottom:32px">
           <div class="cs-img-frame landscape">
             <a href="images/Signal Discovery Automation/step1 - topicexplorer.png" class="glightbox" data-title="Topic cards expose anticipated themes and unknown unknowns from call data">
@@ -435,6 +432,9 @@
           </div>
         </div>
 
+        <div class="cs-article-label">The Work</div>
+        <h2 class="cs-article-title">Stage 1: <em>Topic Explorer</em></h2>
+
         <div class="cs-article-body">
           <p>Instead of dropping users into call review, surface topics automatically from their call data. Cards showing themes the system has already identified, with references to specific call snippets as evidence. Two buckets: anticipated use cases that every customer in a vertical would likely need, and unknown unknowns, anomalies and patterns the customer wouldn't have thought to look for. Don't make me hunt. Show me what's there.</p>
         </div>
@@ -442,8 +442,6 @@
 
       <!-- Sub-beat 2: Stage 2 Signal Blueprint -->
       <div class="cs-subbeat">
-        <h2 class="cs-article-title">Stage 2: <em>Signal Blueprint</em></h2>
-
         <div class="cs-img-breakout" style="margin-top:0;margin-bottom:32px">
           <div class="cs-img-frame landscape">
             <a href="images/Signal Discovery Automation/step2 - define.png" class="glightbox" data-title="Edge cases and AI-vs-keyword candidacy decided before round zero">
@@ -452,6 +450,8 @@
           </div>
         </div>
 
+        <h2 class="cs-article-title">Stage 2: <em>Signal Blueprint</em></h2>
+
         <div class="cs-article-body">
           <p>Once a user picks a topic, structured guidance helps them define what the signal should find. What to include. What to exclude. Critically, the page recommends some use cases as good candidates for AI signals and flags others that aren't. AI signals were weaker at certain things, empathy and emotion-based detection in particular, and the v1 workflow never told users that. They'd train for weeks and discover the limitation the hard way. This step moved the analytics team's pre-round-zero process into the product.</p>
         </div>
@@ -459,8 +459,6 @@
 
       <!-- Sub-beat 3: Stage 3 LLM-as-a-Judge Training -->
       <div class="cs-subbeat">
-        <h2 class="cs-article-title">Stage 3: <em>LLM-as-a-Judge</em> Training</h2>
-
         <div class="cs-art-img-2col" style="margin-top:0">
           <div class="cs-img-frame landscape">
             <a href="images/Signal Discovery Automation/step3a - automatic-training.png" class="glightbox" data-title="Two AIs train, the user resolves only the calls they disagree on">
@@ -474,6 +472,8 @@
           </div>
         </div>
 
+        <h2 class="cs-article-title">Stage 3: <em>LLM-as-a-Judge</em> Training</h2>
+
         <div class="cs-article-body">
           <p>Manual training stayed as an option. The new path: a second LLM evaluates calls alongside the custom model. Where they agree, no human input needed. Where they disagree, the user becomes the tiebreaker. Still in the loop, but only at decision points that actually require judgment.</p>
           <p>This was the design problem that made the project hard. LLM outputs are probabilistic, not deterministic. The SMEs evaluating them aren't engineers, they're marketing analysts and QA managers. Evaluation criteria are inherently subjective. The feedback loop between training and results is opaque, measured in hours not milliseconds. Designing an interface that makes this legible to non-technical users without oversimplifying the underlying complexity is the core challenge of AI product design. There's no design system for it. The frameworks have to be invented for each context.</p>
@@ -482,8 +482,6 @@
 
       <!-- Sub-beat 4: Stage 4 Automated Validation -->
       <div class="cs-subbeat">
-        <h2 class="cs-article-title">Stage 4: Automated <em>Validation</em></h2>
-
         <div class="cs-img-breakout" style="margin-top:0;margin-bottom:10px">
           <div class="cs-img-frame landscape">
             <a href="images/Signal Discovery Automation/step4-accuracygood-tiebreaker.png" class="glightbox" data-title="Good-accuracy state: signal cleared, ongoing accuracy displayed honestly">
@@ -504,6 +502,8 @@
             </a>
           </div>
         </div>
+
+        <h2 class="cs-article-title">Stage 4: Automated <em>Validation</em></h2>
 
         <div class="cs-article-body">
           <p>Productize what the analytics team had been doing manually with spreadsheets: automated accuracy testing on live call data, with feedback mechanisms for different outcomes. The validation step needed to be honest. A product that only tells you the good news isn't building trust. The feedback acknowledges limitations directly, including recommending some use cases switch to keyword-based signals or other detection methods when AI isn't the right tool.</p>

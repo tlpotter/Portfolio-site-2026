@@ -23,7 +23,9 @@ section#cs-hero {
   background: #060a0f;
   border-bottom: 1px solid rgba(255,255,255,.04);
 }
-.cs-hero-inner { max-width: 900px; margin: 0 auto }
+/* Hero title block spans the full section content width (no max-width)
+   so the title aligns with the hero image below at wide viewports. */
+.cs-hero-inner { max-width: none; margin: 0 }
 .cs-num {
   font-size: 11px; letter-spacing: .18em; color: rgba(255,255,255,.4);
   text-transform: uppercase; margin-bottom: 16px;
@@ -43,7 +45,7 @@ section#cs-hero {
 .cs-lead {
   font-size: 22px; line-height: 1.8;
   color: rgba(232,228,240,.7);
-  max-width: 900px; margin-bottom: 40px;
+  margin-bottom: 40px;
 }
 .cs-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px }
 .cs-meta-item {
@@ -267,8 +269,8 @@ section#cs-hero {
 /* Body bg pulled to section bg so no seam between hero and article */
 body { background: #060a0f }
 
-/* Single-column hero text width (override default 900px) */
-.cs-hero-inner { max-width: 700px }
+/* Hero inner already spans the breakout width via the desktop rule;
+   no extra max-width override needed on mobile. */
 section#cs-hero { border-bottom: none; padding-bottom: 0 }
 #cs-hero .cs-lead { margin-bottom: 16px }
 

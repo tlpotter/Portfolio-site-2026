@@ -20,9 +20,9 @@
        squeezed inside a narrow column. Groups are <div> not <section> so the
        global section:not(#hero) padding rule doesn't double up horizontally. */
     .craft-main { padding: 80px max(60px, calc((100vw - 1280px) / 2)) 0 }
-    /* Override the centered 900px hero inner from case-study.css so the back
-       link and title align flush-left with the gallery images below. */
-    #cs-hero .cs-hero-inner { max-width: none; margin: 0 }
+    /* The shared .cs-hero-inner rule in case-study.css now uses the breakout
+       pattern, so the back link and title align flush with the gallery
+       images below without a page-local override. */
     .craft-group { margin-bottom: 150px }
     .craft-group:last-child { margin-bottom: 0 }
     .craft-group-head {
@@ -79,10 +79,12 @@
     /* Greyhound app concept infographic: anchor crop to the left edge so the
        chart's lead-in stays visible instead of being centered out of frame. */
     #craft-greyhound-appconcept .craft-img-wrap img { object-position: left top }
-    /* Discount Tire infographic: drop the 16:9 crop and render at natural
-       aspect so the full graphic shows. */
-    #craft-discounttire-infographic .craft-img-wrap { aspect-ratio: auto }
-    #craft-discounttire-infographic .craft-img-wrap img { height: auto; object-fit: initial }
+    /* Discount Tire infographic + Greyhound components: drop the 16:9 crop
+       and render at natural aspect so the full graphic shows. */
+    #craft-discounttire-infographic .craft-img-wrap,
+    #craft-greyhound-components .craft-img-wrap { aspect-ratio: auto }
+    #craft-discounttire-infographic .craft-img-wrap img,
+    #craft-greyhound-components .craft-img-wrap img { height: auto; object-fit: initial }
     @media (max-width: 800px) {
       .craft-main { padding: 0 var(--mobile-padding) }
       .craft-group { margin-bottom: 64px }
@@ -164,6 +166,12 @@
         <img src="images/craft/greyhound_mockup.png" alt="Greyhound mobile app mockup"/>
       </a>
       <figcaption class="craft-figcaption">Greyhound Adventures mobile app concept. A regional airbnb like experience and travel planner concept</figcaption>
+    </figure>
+    <figure class="craft-figure" id="craft-greyhound-components">
+      <a href="images/craft/greyhound components.png" class="glightbox craft-img-wrap" data-title="Greyhound — UI components">
+        <img src="images/craft/greyhound components.png" alt="Greyhound UI components"/>
+      </a>
+      <figcaption class="craft-figcaption">UI components.</figcaption>
     </figure>
   </div>
 

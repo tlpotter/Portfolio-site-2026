@@ -50,7 +50,9 @@
 <section class="cs-section" style="padding-top:0">
   <div class="cs-article" style="margin-top:0">
 
-    <!-- ── 02. Hero image + product trio ── -->
+    <!-- ── 02. Hero image + product trio. All full-width; the trio below
+            uses aspect-ratio 50/27 (height ≈ 96% of the 16/9 hero — that
+            was the 60%-of-hero 80/27 frame bumped 60% taller). ── -->
     <div class="cs-img-breakout" style="margin-top:32px">
       <div class="cs-img-frame landscape" style="aspect-ratio:16/9">
         <a href="images/Interos/homescreen_mockup.png" class="glightbox" data-title="Homescreen: risk posture aggregate with drill-down paths">
@@ -59,20 +61,26 @@
       </div>
     </div>
 
-    <div class="cs-art-img-3col" style="margin-top:12px">
-      <div class="cs-img-frame landscape">
+    <div class="cs-img-breakout" style="margin-top:12px">
+      <div class="cs-img-frame landscape" style="aspect-ratio:50/27">
         <a href="images/Interos/interos_companyprofile_mockup.png" class="glightbox" data-title="Company profile: progressive disclosure on risk scoring">
-          <img src="images/Interos/interos_companyprofile_mockup.png" alt="Interos company profile mockup"/>
+          <img src="images/Interos/interos_companyprofile_mockup.png" alt="Interos company profile mockup" style="object-fit:cover;object-position:top"/>
         </a>
       </div>
-      <div class="cs-img-frame landscape">
+    </div>
+
+    <div class="cs-img-breakout" style="margin-top:12px">
+      <div class="cs-img-frame landscape" style="aspect-ratio:50/27">
         <a href="images/Interos/interos_alerts_mockup.png" class="glightbox" data-title="Alerts and notifications: configurable risk thresholds">
-          <img src="images/Interos/interos_alerts_mockup.png" alt="Interos alerts mockup"/>
+          <img src="images/Interos/interos_alerts_mockup.png" alt="Interos alerts mockup" style="object-fit:cover;object-position:top"/>
         </a>
       </div>
-      <div class="cs-img-frame landscape">
+    </div>
+
+    <div class="cs-img-breakout" style="margin-top:12px">
+      <div class="cs-img-frame landscape" style="aspect-ratio:50/27">
         <a href="images/Interos/Events Timeline Updates - After.png" class="glightbox" data-title="Events timeline: filters surfaced, hierarchy restored">
-          <img src="images/Interos/Events Timeline Updates - After.png" alt="Events timeline final design"/>
+          <img src="images/Interos/Events Timeline Updates - After.png" alt="Events timeline final design" style="object-fit:cover;object-position:top"/>
         </a>
       </div>
     </div>
@@ -80,7 +88,7 @@
     <!-- ── 03. Impact stat cards ── -->
     <div class="cs-article-section" style="margin-top:56px">
       <div class="cs-article-label">Impact</div>
-      <div class="cs-impact-row" style="margin-top:20px">
+      <div class="cs-impact-row" style="margin-top:20px;grid-template-columns:repeat(3,1fr)">
         <div class="cs-stat-card glass">
           <div class="cs-stat-num">$1B+</div>
           <div class="cs-stat-lbl">Valuation reached during the engagement (unicorn status)</div>
@@ -88,10 +96,6 @@
         <div class="cs-stat-card glass">
           <div class="cs-stat-num">5</div>
           <div class="cs-stat-lbl">Workstreams led across the 18-month engagement</div>
-        </div>
-        <div class="cs-stat-card glass">
-          <div class="cs-stat-num">200+</div>
-          <div class="cs-stat-lbl">Headcount added at Interos during the 18-month engagement</div>
         </div>
         <div class="cs-stat-card glass">
           <div class="cs-stat-num">1</div>
@@ -171,9 +175,6 @@
 
     <!-- ── 07. Research + Insight ── -->
     <div class="cs-article-section">
-      <div class="cs-article-label">Research + Insight</div>
-      <h2 class="cs-article-title">The map <em>nobody had</em></h2>
-
       <div class="cs-img-breakout" style="margin-top:0;margin-bottom:32px">
         <div class="cs-img-frame landscape" style="aspect-ratio:auto;height:auto;background:#fff;padding:14px">
           <a href="images/Interos/Interos Data Sources Lifecycle - Interos Data Acquisition Journey Map.jpg" class="glightbox" data-title="Data acquisition journey map: a single source of truth Interos didn't have before">
@@ -181,6 +182,9 @@
           </a>
         </div>
       </div>
+
+      <div class="cs-article-label">Research + Insight</div>
+      <h2 class="cs-article-title">The map <em>nobody had</em></h2>
 
       <div class="cs-article-body">
         <p>The most useful research wasn't about the product, it was about Interos itself. The company had grown fast enough that nobody had a clear picture of their own data acquisition process. Which sources had been purchased? Which were active? Who owned what? The answer depended entirely on who you asked.</p>
@@ -193,37 +197,42 @@
 
     <!-- ── 08. The Work ── -->
     <div class="cs-article-section" style="margin-top:0">
-      <div class="cs-article-label">The Work</div>
 
       <!-- Sub-beat 1: The First 30 Seconds (Homescreen) -->
       <div class="cs-subbeat">
-        <h2 class="cs-article-title">The First <em>30 Seconds</em> (Homescreen)</h2>
-
         <div class="cs-img-breakout" style="margin-top:0;margin-bottom:12px">
           <div class="cs-img-frame landscape">
             <a href="images/Interos/homescreen/homescreen v3.png" class="glightbox" data-title="Homescreen v3: aggregate risk posture with clear entry points">
-              <img src="images/Interos/homescreen/homescreen v3.png" alt="Homescreen v3 final" style="object-fit:cover;object-position:center"/>
+              <img src="images/Interos/homescreen/homescreen v3.png" alt="Homescreen v3 final" style="object-fit:cover;object-position:top"/>
             </a>
           </div>
         </div>
 
-        <div class="cs-art-img-3col" style="margin-top:0">
+        <div class="cs-art-img-2col" style="margin-top:0">
           <div class="cs-img-frame landscape">
-            <a href="images/Interos/image 52.png" class="glightbox" data-title="Early sketches: layout concepts before opening Figma">
-              <img src="images/Interos/image 52.png" alt="Homescreen sketches"/>
+            <a href="images/Interos/interos_homescreen_whiteboard1.png" class="glightbox" data-title="Homescreen whiteboard exploration, 1 of 3">
+              <img src="images/Interos/interos_homescreen_whiteboard1.png" alt="Homescreen whiteboard exploration 1"/>
             </a>
           </div>
           <div class="cs-img-frame landscape">
-            <a href="images/Interos/homescreen/homescreen v1.png" class="glightbox" data-title="Homescreen v1: initial information hierarchy">
-              <img src="images/Interos/homescreen/homescreen v1.png" alt="Homescreen v1"/>
+            <a href="images/Interos/interos_homescreen_whiteboard2.png" class="glightbox" data-title="Homescreen whiteboard exploration, 2 of 3">
+              <img src="images/Interos/interos_homescreen_whiteboard2.png" alt="Homescreen whiteboard exploration 2"/>
             </a>
           </div>
           <div class="cs-img-frame landscape">
-            <a href="images/Interos/homescreen/homescreen v2.png" class="glightbox" data-title="Homescreen v2: tightened drill-down paths">
-              <img src="images/Interos/homescreen/homescreen v2.png" alt="Homescreen v2"/>
+            <a href="images/Interos/interos_homescreen_whiteboard3.png" class="glightbox" data-title="Homescreen whiteboard exploration, 3 of 3">
+              <img src="images/Interos/interos_homescreen_whiteboard3.png" alt="Homescreen whiteboard exploration 3"/>
+            </a>
+          </div>
+          <div class="cs-img-frame landscape">
+            <a href="images/Interos/homescreen/bitsight_review.png" class="glightbox" data-title="BitSight review: competitive landscape and pattern study">
+              <img src="images/Interos/homescreen/bitsight_review.png" alt="BitSight competitive review"/>
             </a>
           </div>
         </div>
+
+        <div class="cs-article-label">The Work</div>
+        <h2 class="cs-article-title">The First <em>30 Seconds</em> (Homescreen)</h2>
 
         <div class="cs-article-body">
           <p>The homescreen sets the mental model for everything else. It's the most valuable real estate in the platform. I started with one question: what does a user need to know within 30 seconds of logging in?</p>
@@ -234,8 +243,6 @@
 
       <!-- Sub-beat 2: Inheriting Someone Else's Design (Company Profile) -->
       <div class="cs-subbeat">
-        <h2 class="cs-article-title">Inheriting Someone <em>Else's</em> Design (Company Profile)</h2>
-
         <div class="cs-art-img-2col" style="margin-top:0">
           <div class="cs-img-frame landscape">
             <a href="images/Interos/company profile/Profile - Risk Profile - Overview – 4.png" class="glightbox" data-title="Company profile redesign: layered dark UI with progressive disclosure">
@@ -248,6 +255,8 @@
             </a>
           </div>
         </div>
+
+        <h2 class="cs-article-title">Inheriting Someone <em>Else's</em> Design (Company Profile)</h2>
 
         <div class="cs-article-body">
           <p>I joined the company profile midway through development, inheriting another designer's half-finished work. The existing version had real problems: poor contrast, inconsistent hierarchy, dark UI patterns that weren't following established best practices. Risk score data didn't breathe.</p>
@@ -278,7 +287,7 @@
       <div class="cs-article-body">
         <p>Platform V2 launched in July 2021, the first major redesign of the Interos product experience. Five workstreams delivered. A junior designer mentored through the engagement. A data lifecycle map that gave the company a single source of truth it didn't have before. The UX Review process running as a standard part of the development cycle.</p>
         <p>The platform shipped looked nothing like the spreadsheet they started with. It had hierarchy, narrative, and a clear action path from aggregate to detail.</p>
-        <p>Interos reached unicorn status, $1B+ valuation, during the engagement. Company headcount grew by 200+ in two years. The work shipped inside that velocity. The UX Review process carried forward beyond my engagement, becoming part of how the company shipped product to enterprise clients.</p>
+        <p>Interos reached unicorn status, $1B+ valuation, during the engagement. The work shipped inside that velocity. The UX Review process carried forward beyond my engagement, becoming part of how the company shipped product to enterprise clients.</p>
       </div>
     </div>
 
