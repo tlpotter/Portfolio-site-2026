@@ -71,8 +71,8 @@
   <div class="sec-label">Work</div>
   <h2 class="sec-title">Case <em>studies</em></h2>
   <!-- Bento layout: DOM source order matches mobile stack order (featured, text-a,
-       text-b, crc, interos, vasa, crawler). Desktop placement comes from
-       grid-template-areas in .work-grid, not from per-card order overrides. -->
+       text-b, AI concept [.cs-crc], crawler, interos, vasa). Desktop placement
+       comes from grid-template-areas in .work-grid, not from per-card overrides. -->
   <div class="work-grid">
     <a href="case-study-invoca-callreview.html" class="work-card featured glass">
       <div class="work-vis work-vis-top featured-vis">
@@ -100,6 +100,14 @@
       <div class="work-title">AI Model Training Concept</div>
       <p class="work-desc">An end-to-end concept that made custom LLM training self-service, exposing the hidden human work behind the product.</p>
     </a>
+    <!-- Job Search Crawler: links to its case study. -->
+    <a href="case-study-job-crawler.html" class="work-card cs-crawler glass">
+      <div class="work-vis work-vis-top"><img src="images/home/jobcrawler_thumb.png" alt="Job Search Crawler dashboard"/></div>
+      <div class="work-meta">2026 · Personal Project · Web App</div>
+      <div class="work-tags"><span class="work-tag">AI Product</span><span class="work-tag">Side Project</span><span class="work-tag">AI Evaluation</span></div>
+      <div class="work-title">Job Search Crawler with AI Evaluation</div>
+      <p class="work-desc">An AI tool that runs my job search end to end: crawls a dozen sources daily, scores every role for fit, and emails a ranked shortlist each morning.</p>
+    </a>
     <a href="case-study-interos.html" class="work-card cs-interos glass">
       <div class="work-vis work-vis-top"><img src="images/home/interos-thumbv2.png" alt="Interos homescreen mockup" style="transform-origin:right center"/></div>
       <div class="work-meta">2021–2022 · Interos / Neudesic · Web App</div>
@@ -114,17 +122,6 @@
       <div class="work-title">VASA Fitness Mobile App</div>
       <p class="work-desc">Unified a fragmented gym membership experience into one app: 300K installs, 4.3 stars.</p>
     </a>
-    <!-- Coming soon: rendered as a div, not an anchor, so it's not focusable
-         or activatable. Swap to an <a href="case-study-job-crawler.html"> and
-         drop the .coming-soon class once the case study page exists. -->
-    <div class="work-card cs-crawler coming-soon glass">
-      <div class="work-vis work-vis-top placeholder"></div>
-      <div class="work-meta">2026 · Personal Project · Web App</div>
-      <div class="work-tags"><span class="work-tag">AI Product</span><span class="work-tag">Side Project</span><span class="work-tag">Automation</span></div>
-      <div class="work-title">Job Search Crawler</div>
-      <p class="work-desc">PLACEHOLDER: final copy pending. Designed and built an automated pipeline that crawls ATS job boards and surfaces matching roles daily.</p>
-      <span class="work-card-soon-badge">Case study coming soon</span>
-    </div>
   </div>
 </section>
 

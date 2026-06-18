@@ -200,8 +200,8 @@ section:not(#hero){padding:88px max(60px, calc((100vw - 1280px) / 2));position:r
   grid-template-areas:
     "f f f f a a"
     "f f f f b b"
-    "c c c i i i"
-    "v v v j j j";
+    "c c c j j j"
+    "i i i v v v";
   gap:14px;
 }
 .work-card{display:block;text-decoration:none;color:inherit;padding:17px;border-radius:18px;transition:all .35s;cursor:pointer;position:relative;overflow:hidden}
@@ -217,9 +217,7 @@ section:not(#hero){padding:88px max(60px, calc((100vw - 1280px) / 2));position:r
 .work-card.cs-crc{grid-area:c}
 .work-card.cs-interos{grid-area:i}
 .work-card.cs-vasa{grid-area:v}
-/* Job Search Crawler card hidden for now. Remove this rule (and the
-   .coming-soon class) once the case study page exists. */
-.work-card.cs-crawler{grid-area:j;display:none}
+.work-card.cs-crawler{grid-area:j}
 /* Text cards (Designing for AI / with AI): not links, no hover affordance */
 .work-text-card{padding:28px;border-radius:18px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
 .work-text-card.text-a{grid-area:a}
@@ -233,13 +231,10 @@ section:not(#hero){padding:88px max(60px, calc((100vw - 1280px) / 2));position:r
 }
 .work-text-body{font-size:14px;line-height:1.75;color:rgba(232,228,240,.72);margin:0}
 .work-text-body + .work-text-body{margin-top:14px}
-/* Coming soon card: no link affordances */
-.work-card.coming-soon{cursor:default}
-.work-card.coming-soon::after{display:none}
-.work-card.coming-soon:hover{transform:none;box-shadow:none}
+/* Crawler card placeholder thumbnail (no real image yet): subtle gradient.
+   The card otherwise uses the standard .work-card + .glass styles so its
+   hover lift and glow match the other case study cards exactly. */
 .work-vis.placeholder{background:linear-gradient(135deg,rgba(251,146,60,.06),rgba(56,189,248,.05))}
-.work-vis.placeholder::after{content:'Coming soon';font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.32);position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}
-.work-card-soon-badge{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgba(251,146,60,.7);padding:6px 12px;border:1px solid rgba(251,146,60,.3);border-radius:20px}
 /* Shared card content typography */
 .work-meta{font-size:11px;letter-spacing:.12em;color:rgba(255,255,255,.45);margin-bottom:14px;text-transform:uppercase;font-weight:600}
 .work-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}
@@ -301,8 +296,8 @@ footer p{font-size:12px;color:rgba(255,255,255,.4);letter-spacing:.06em}
     grid-template-areas:
       "f f"
       "a b"
-      "c i"
-      "v j";
+      "c j"
+      "i v";
   }
 }
 
@@ -323,9 +318,9 @@ footer p{font-size:12px;color:rgba(255,255,255,.4);letter-spacing:.06em}
       "a"
       "b"
       "c"
+      "j"
       "i"
-      "v"
-      "j";
+      "v";
   }
   .contact-card{grid-template-columns:1fr;gap:36px;padding:36px var(--mobile-padding)}
   footer{flex-direction:column;gap:6px;text-align:center;padding:18px var(--mobile-padding)}
