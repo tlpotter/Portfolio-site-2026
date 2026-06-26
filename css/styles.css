@@ -214,10 +214,10 @@ section:not(#hero){padding:88px max(60px, calc((100vw - 1280px) / 2));position:r
 .work-card.featured .featured-vis{height:520px}
 .work-card.featured .work-title{font-size:32px}
 /* Standard case study card grid placements */
-.work-card.cs-crc{grid-area:c}
+.work-card.cs-crc{grid-area:j}
 .work-card.cs-interos{grid-area:i}
 .work-card.cs-vasa{grid-area:v}
-.work-card.cs-crawler{grid-area:j}
+.work-card.cs-crawler{grid-area:c}
 /* Text cards (Designing for AI / with AI): not links, no hover affordance */
 .work-text-card{padding:28px;border-radius:18px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
 .work-text-card.text-a{grid-area:a}
