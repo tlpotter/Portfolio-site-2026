@@ -71,7 +71,10 @@
   let last = 0;
   (function tick(now) {
     requestAnimationFrame(tick);
-    if (now - last < 50) return; // ~20fps — very light on CPU
+    const tier = window.__bhQualityTier || 'high';
+    const heroActive = window.__bhHeroActive !== false;
+    const gap = heroActive && tier === 'low' ? 200 : heroActive && tier === 'medium' ? 100 : 50;
+    if (now - last < gap) return; // back off while the heavier hero canvas is active
     last = now;
 
     const W = sf.width, H = sf.height;
@@ -142,7 +145,7 @@ document.addEventListener('mousemove', e => {
    ══════════════════════════════════════ */
 function drawPortal(canvas, opts) {
   const ctx = canvas.getContext('2d');
-  let W = canvas.width, H = canvas.height;
+  let W = canvas._bhCssW || canvas.width, H = canvas._bhCssH || canvas.height;
   let t = 0, fc = 0;
 
   // ── Stars — stratified jitter grid so stars spread evenly with no clumping ──
@@ -278,6 +281,7 @@ function drawPortal(canvas, opts) {
   let useLensing = opts.lensing === true;
   let osc, octx, lensed, lensedCtx, lut;
   let lastW = W, lastH = H;
+  let lastLensingWidth = 0;
 
   // Always create both canvas paths — either may be needed after a resize
   osc       = document.createElement('canvas');
@@ -291,7 +295,8 @@ function drawPortal(canvas, opts) {
   function buildLUT() {
     if (!useLensing) return;
     // Cap at 600px wide for performance — drawImage scales it up
-    const ow = Math.min(W, 600);
+    lastLensingWidth = opts.lensingWidth || 600;
+    const ow = Math.min(W, lastLensingWidth);
     const oh = Math.round(H * ow / W);
     osc.width    = ow;  osc.height    = oh;
     lensed.width = ow;  lensed.height = oh;
@@ -337,7 +342,9 @@ function drawPortal(canvas, opts) {
       octx.fillStyle = g; octx.fill(); octx.restore();
     });
 
-    stars.forEach(s => {
+    const starStep = opts.starStep || 1;
+    stars.forEach((s, i) => {
+      if (i % starStep) return;
       s.phase += s.speed;
       const a = s.a * (.4 + Math.sin(s.phase) * .6);
       octx.beginPath(); octx.arc(s.nx * ow, s.ny * oh, s.r, 0, Math.PI * 2);
@@ -516,8 +523,34 @@ function drawPortal(canvas, opts) {
   let cachedSphere = null, cachedSphereKey = '';
   let bhVisible = true;
   let pageVisible = !document.hidden;
+  const perf = { samples: [], cooldownUntil: 0 };
+  function maybeAdaptQuality(renderCost) {
+    if (!opts.onQualityChange || !opts.qualityTier || opts.qualityTier === 'low') return;
+    const now = performance.now();
+    if (now < perf.cooldownUntil) return;
+    perf.samples.push(renderCost);
+    if (perf.samples.length < 60) return;
+
+    const samples = perf.samples.slice().sort((a, b) => a - b);
+    const avg = perf.samples.reduce((sum, v) => sum + v, 0) / perf.samples.length;
+    const p95 = samples[Math.floor(samples.length * 0.95)];
+    perf.samples.length = 0;
+
+    let nextTier = opts.qualityTier;
+    if (opts.qualityTier === 'high' && (avg > 18 || p95 > 28)) {
+      nextTier = (avg > 28 || p95 > 45) ? 'low' : 'medium';
+    } else if (opts.qualityTier === 'medium' && (avg > 24 || p95 > 38)) {
+      nextTier = 'low';
+    }
+
+    if (nextTier !== opts.qualityTier) {
+      perf.cooldownUntil = now + 8000;
+      opts.onQualityChange(nextTier);
+    }
+  }
   const bhIO = new IntersectionObserver(entries => {
     bhVisible = entries[0].isIntersecting;
+    window.__bhHeroActive = bhVisible;
     if (bhVisible && pageVisible) requestAnimationFrame(frame);
   }, { threshold: 0 });
   bhIO.observe(canvas);
@@ -533,17 +566,20 @@ function drawPortal(canvas, opts) {
   let lastFrameTime = 0;
   function frame(now) {
     if (!bhVisible || !pageVisible) return;
-    const minGap = opts.lensing ? 16 : 33; // desktop ~60fps, mobile ~30fps
+    const minGap = opts.frameGap || (opts.lensing ? 16 : 33); // adaptive quality controls target fps
     if (now - lastFrameTime < minGap) { requestAnimationFrame(frame); return; }
     lastFrameTime = now;
+    const renderStart = performance.now();
     t += .009 * (opts.speedMult || 1); fc++;
-    W = canvas.width; H = canvas.height;
+    W = canvas._bhCssW || canvas.width; H = canvas._bhCssH || canvas.height;
     useLensing = opts.lensing === true; // re-check each frame so resize switches paths
     const sb = 0;                      // shadowBlur multiplier on particles — disabled everywhere; only sphere keeps its glow
     const pad = W * 0.05;              // bounds margin for offscreen culling
+    const discStep = opts.discStep || 1;
+    const streamStep = opts.streamStep || 1;
 
     // Rebuild LUT if canvas was resized or lensing just turned on
-    if (useLensing && (W !== lastW || H !== lastH || !lut)) {
+    if (useLensing && (W !== lastW || H !== lastH || !lut || lastLensingWidth !== (opts.lensingWidth || 600))) {
       lastW = W; lastH = H;
       buildLUT();
     }
@@ -575,7 +611,7 @@ function drawPortal(canvas, opts) {
 
     // ── Star field — gradient-masked, no hard clip edge ──
     if (useLensing) {
-      if (fc % 3 === 0) {
+      if (fc % (opts.lensingEvery || 3) === 0) {
         renderStarsToOsc(); applyLensing();
       }
       if (lut) ctx.drawImage(lensed, 0, 0, W, H);
@@ -595,26 +631,32 @@ function drawPortal(canvas, opts) {
         plainCtx.beginPath(); plainCtx.arc(n.nx*W, n.ny*H*(n.rnx/n.rny), n.rnx*W*pulse, 0, Math.PI*2);
         plainCtx.fillStyle = g; plainCtx.fill(); plainCtx.restore();
       });
-      stars.forEach(s => {
+      const starStep = opts.starStep || 1;
+      stars.forEach((s, i) => {
+        if (i % starStep) return;
         s.phase += s.speed;
         const a = s.a * (.4 + Math.sin(s.phase) * .6);
         plainCtx.beginPath(); plainCtx.arc(s.nx * W, s.ny * H, s.r, 0, Math.PI * 2);
         plainCtx.fillStyle = `rgba(255,255,255,${a})`; plainCtx.fill();
       });
-      plainCtx.globalCompositeOperation = 'destination-in';
-      const sm = plainCtx.createLinearGradient(0, oy * 0.48, 0, oy);
-      sm.addColorStop(0, 'rgba(0,0,0,1)'); sm.addColorStop(1, 'rgba(0,0,0,0)');
-      plainCtx.fillStyle = sm; plainCtx.fillRect(0, 0, W, H);
-      plainCtx.globalCompositeOperation = 'source-over';
+      if (opts.starMask !== false) {
+        plainCtx.globalCompositeOperation = 'destination-in';
+        const sm = plainCtx.createLinearGradient(0, oy * 0.48, 0, oy);
+        sm.addColorStop(0, 'rgba(0,0,0,1)'); sm.addColorStop(1, 'rgba(0,0,0,0)');
+        plainCtx.fillStyle = sm; plainCtx.fillRect(0, 0, W, H);
+        plainCtx.globalCompositeOperation = 'source-over';
+      }
       ctx.drawImage(plainStars, 0, 0);
     }
 
     // Clip remaining effects (constellations, shooters, plasma) above horizon
     ctx.save();
     ctx.globalAlpha = Math.max(discA, sphA);
-    ctx.beginPath();
-    ctx.rect(0, 0, W, oy + 4);
-    ctx.clip();
+    if (opts.upperEffectsClip !== false) {
+      ctx.beginPath();
+      ctx.rect(0, 0, W, oy + 4);
+      ctx.clip();
+    }
 
     // ── Constellations ──
     constellations.forEach(pts => {
@@ -654,7 +696,7 @@ function drawPortal(canvas, opts) {
     // ── Plasma energy blobs — (04) screen compositing ──
     ctx.save();
     ctx.globalCompositeOperation = 'screen';
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < (opts.plasmaCount || 8); i++) {
       const angle = i * .785 + t * (.112 + i * .00616) * (i % 2 === 0 ? 1 : -1);
       const dist  = minR + (maxR - minR) * (.22 + Math.sin(t * .6 + i * .8) * .16);
       const bx    = ox + Math.cos(angle) * dist;
@@ -720,7 +762,7 @@ function drawPortal(canvas, opts) {
       ctx.restore();
     });
 
-    const numRings = 11;
+    const numRings = opts.ringCount || 11;
     for (let i = 0; i < numRings; i++) {
       const pct        = i / (numRings - 1);
       const r          = (minR + (maxR - minR) * (pct * pct * .8 + pct * .2)) * colS;
@@ -735,7 +777,8 @@ function drawPortal(canvas, opts) {
     // ── Disc back half ──
     const suckB = opts.suckBoost || 1;
     ctx.save(); ctx.globalAlpha = discA * .75;
-    disc.forEach(p => {
+    disc.forEach((p, i) => {
+      if (i % discStep) return;
       p.angle += p.speed * (opts.speedMult || 1); p.phase += .04;
       const px = ox + Math.cos(p.angle) * W * p.r * colS;
       const py = oy + Math.sin(p.angle) * W * p.r * colS * .26;
@@ -755,7 +798,8 @@ function drawPortal(canvas, opts) {
     // ── Inner stream back half (bucketed by alpha — 8 fills instead of N) ──
     const NB = 8;
     const isB = []; for (let i = 0; i < NB; i++) isB.push(new Path2D());
-    innerStream.forEach(p => {
+    innerStream.forEach((p, i) => {
+      if (i % streamStep) return;
       p.angle += p.speed * (opts.speedMult || 1); p.phase += .05;
       const px = ox + Math.cos(p.angle) * (sR + W * p.r * colS);
       const py = oy + Math.sin(p.angle) * (sR + W * p.r * colS) * .28;
@@ -771,7 +815,8 @@ function drawPortal(canvas, opts) {
       ctx.fill(isB[i]);
     }
     const isbB = []; for (let i = 0; i < NB; i++) isbB.push(new Path2D());
-    innerStreamBlue.forEach(p => {
+    innerStreamBlue.forEach((p, i) => {
+      if (i % streamStep) return;
       p.angle += p.speed * (opts.speedMult || 1); p.phase += .045;
       const px = ox + Math.cos(p.angle) * (sR + W * p.r * colS);
       const py = oy + Math.sin(p.angle) * (sR + W * p.r * colS) * .28;
@@ -787,7 +832,8 @@ function drawPortal(canvas, opts) {
       ctx.fill(isbB[i]);
     }
     const osbB = []; for (let i = 0; i < NB; i++) osbB.push(new Path2D());
-    outerStreamBlue.forEach(p => {
+    outerStreamBlue.forEach((p, i) => {
+      if (i % streamStep) return;
       p.angle += p.speed * (opts.speedMult || 1) * suckB; p.phase += .035;
       const px = ox + Math.cos(p.angle) * (sR + W * p.r * colS);
       const py = oy + Math.sin(p.angle) * (sR + W * p.r * colS) * .28;
@@ -1034,7 +1080,8 @@ function drawPortal(canvas, opts) {
 
     // ── Disc front half ──
     ctx.save();
-    disc.forEach(p => {
+    disc.forEach((p, i) => {
+      if (i % discStep) return;
       const px = ox + Math.cos(p.angle) * W * p.r * colS;
       const py = oy + Math.sin(p.angle) * W * p.r * colS * .26;
       if (Math.sin(p.angle) >= 0) {
@@ -1053,7 +1100,8 @@ function drawPortal(canvas, opts) {
     // ── Inner stream front half (bucketed) ──
     const NF = 8;
     const isF = []; for (let i = 0; i < NF; i++) isF.push(new Path2D());
-    innerStream.forEach(p => {
+    innerStream.forEach((p, i) => {
+      if (i % streamStep) return;
       const px = ox + Math.cos(p.angle) * (sR + W * p.r * colS);
       const py = oy + Math.sin(p.angle) * (sR + W * p.r * colS) * .28;
       if (Math.sin(p.angle) >= 0 && px >= -pad && px <= W + pad && py >= -pad && py <= H + pad) {
@@ -1068,7 +1116,8 @@ function drawPortal(canvas, opts) {
       ctx.fill(isF[i]);
     }
     const isbF = []; for (let i = 0; i < NF; i++) isbF.push(new Path2D());
-    innerStreamBlue.forEach(p => {
+    innerStreamBlue.forEach((p, i) => {
+      if (i % streamStep) return;
       const px = ox + Math.cos(p.angle) * (sR + W * p.r * colS);
       const py = oy + Math.sin(p.angle) * (sR + W * p.r * colS) * .28;
       if (Math.sin(p.angle) >= 0 && px >= -pad && px <= W + pad && py >= -pad && py <= H + pad) {
@@ -1083,7 +1132,8 @@ function drawPortal(canvas, opts) {
       ctx.fill(isbF[i]);
     }
     const osbF = []; for (let i = 0; i < NF; i++) osbF.push(new Path2D());
-    outerStreamBlue.forEach(p => {
+    outerStreamBlue.forEach((p, i) => {
+      if (i % streamStep) return;
       const px = ox + Math.cos(p.angle) * (sR + W * p.r * colS);
       const py = oy + Math.sin(p.angle) * (sR + W * p.r * colS) * .28;
       if (Math.sin(p.angle) >= 0 && px >= -pad && px <= W + pad && py >= -pad && py <= H + pad) {
@@ -1252,7 +1302,8 @@ function drawPortal(canvas, opts) {
     fade.addColorStop(0, 'rgba(1,2,5,.85)'); fade.addColorStop(.55, 'rgba(1,2,5,.18)'); fade.addColorStop(1, 'rgba(1,2,5,0)');
     ctx.fillStyle = fade; ctx.fillRect(0, 0, W, H);
 
-requestAnimationFrame(frame);
+    maybeAdaptQuality(performance.now() - renderStart);
+    requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
 }
@@ -1373,37 +1424,139 @@ requestAnimationFrame(frame);
 /* ── INIT ── */
 const bh = document.getElementById('bhCanvas');
 
+const BH_QUALITY = {
+  high: {
+    dprMax: 1.5,
+    frameGap: 16,
+    lensing: true,
+    lensingWidth: 600,
+    lensingEvery: 3,
+    discStep: 1,
+    streamStep: 1,
+    starStep: 1,
+    plasmaCount: 8,
+    ringCount: 11,
+    starMask: true,
+    upperEffectsClip: true,
+    shooters: true,
+    desktopDiscCount: 300,
+    desktopStarCount: 200
+  },
+  medium: {
+    dprMax: 1,
+    frameGap: 33,
+    lensing: true,
+    lensingWidth: 360,
+    lensingEvery: 4,
+    discStep: 2,
+    streamStep: 1,
+    starStep: 1,
+    plasmaCount: 6,
+    ringCount: 9,
+    starMask: true,
+    upperEffectsClip: true,
+    shooters: false,
+    desktopDiscCount: 220,
+    desktopStarCount: 150
+  },
+  low: {
+    dprMax: 1,
+    frameGap: 42,
+    lensing: false,
+    lensingWidth: 300,
+    lensingEvery: 6,
+    discStep: 3,
+    streamStep: 2,
+    starStep: 2,
+    plasmaCount: 4,
+    ringCount: 7,
+    starMask: false,
+    upperEffectsClip: false,
+    shooters: false,
+    desktopDiscCount: 150,
+    desktopStarCount: 90
+  }
+};
+
+function getInitialBHQualityTier() {
+  try {
+    const saved = localStorage.getItem('bh-quality-tier');
+    if (BH_QUALITY[saved]) return saved;
+  } catch (_) {}
+
+  const reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const cores = navigator.hardwareConcurrency || 4;
+  const memory = navigator.deviceMemory || 4;
+  if (reducedMotion || cores <= 2 || memory <= 2) return 'low';
+  if (cores <= 4 || memory <= 4) return 'medium';
+  return 'high';
+}
+
 // Mutable opts object — originY is recomputed on resize so sphere center
 // always sits exactly on the hero/about section boundary
-const bhOpts = { originY: .88, maxR: .43, sphereR: .048, starCount: 200, discCount: 480, shooters: true, lensing: true };
+const bhOpts = { originY: .88, maxR: .43, sphereR: .048, starCount: 200, discCount: 300, shooters: true, lensing: true };
+let bhQualityTier = getInitialBHQualityTier();
+window.__bhQualityTier = bhQualityTier;
+
+function applyBHQuality(tier, options) {
+  const nextTier = BH_QUALITY[tier] ? tier : 'high';
+  const q = BH_QUALITY[nextTier];
+  bhQualityTier = nextTier;
+  window.__bhQualityTier = nextTier;
+  Object.assign(bhOpts, {
+    qualityTier: nextTier,
+    dprMax: q.dprMax,
+    frameGap: q.frameGap,
+    lensingWidth: q.lensingWidth,
+    lensingEvery: q.lensingEvery,
+    discStep: q.discStep,
+    streamStep: q.streamStep,
+    starStep: q.starStep,
+    plasmaCount: q.plasmaCount,
+    ringCount: q.ringCount,
+    starMask: q.starMask,
+    upperEffectsClip: q.upperEffectsClip
+  });
+
+  if (options && options.persist) {
+    try { localStorage.setItem('bh-quality-tier', nextTier); } catch (_) {}
+  }
+  if (options && options.resize) resizeBH();
+}
 
 function resizeBH() {
   const heroH  = document.getElementById('hero').offsetHeight || window.innerHeight;
   const mobile = window.innerWidth < 800;
   const ext    = heroH * (mobile ? 0.4 : 0.35);
-  const dpr = Math.min(window.devicePixelRatio || 1, mobile ? 1 : 1.5);
+  const q = BH_QUALITY[bhQualityTier] || BH_QUALITY.high;
+  const dpr = Math.min(window.devicePixelRatio || 1, mobile ? 1 : q.dprMax);
   const cssW = window.innerWidth;
   const cssH = Math.round(heroH + ext);
   bh.width  = Math.round(cssW * dpr);
   bh.height = Math.round(cssH * dpr);
   bh.style.width  = cssW + 'px';
   bh.style.height = cssH + 'px';
+  bh._bhCssW = cssW;
+  bh._bhCssH = cssH;
+  bh._bhDpr = dpr;
   const ctx2d = bh.getContext('2d');
   if (ctx2d) { ctx2d.setTransform(1,0,0,1,0,0); ctx2d.scale(dpr, dpr); }
-  bhOpts.originY  = (heroH * (mobile ? 0.86 : 0.80)) / bh.height;
+  bhOpts.originY  = (heroH * (mobile ? 0.86 : 0.80)) / cssH;
   bhOpts.sphereR       = mobile ? 0.085 : 0.048;
   bhOpts.maxR          = mobile ? 0.72  : 0.43;
   bhOpts.glowScale     = mobile ? 0.80  : 1.0;
   bhOpts.discRBase     = mobile ? 0.14  : 0.048;
   bhOpts.discLayerStep = mobile ? 0.16  : 0.045;
   bhOpts.discSizeScale = mobile ? 0.85  : 1.0;
-  bhOpts.discCount     = mobile ? 160   : 300;
-  bhOpts.starCount     = mobile ? 80    : 200;
+  bhOpts.discCount     = mobile ? 160   : q.desktopDiscCount;
+  bhOpts.starCount     = mobile ? 80    : q.desktopStarCount;
   bhOpts.particleMult  = mobile ? 0.75  : 1.0;
   bhOpts.particleVar   = mobile ? 1.0   : 1.0;
-  bhOpts.shooters      = !mobile;
-  bhOpts.lensing       = !mobile; // pixel-by-pixel GPU readback is too slow on mobile
+  bhOpts.shooters      = !mobile && q.shooters;
+  bhOpts.lensing       = !mobile && q.lensing; // pixel-by-pixel GPU readback is too slow on mobile/low tier
 }
+applyBHQuality(bhQualityTier);
+bhOpts.onQualityChange = (tier) => applyBHQuality(tier, { persist: true, resize: true });
 resizeBH();
 window.addEventListener('resize', resizeBH);
 drawPortal(bh, bhOpts);
