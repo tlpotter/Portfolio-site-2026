@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <!-- Microsoft Clarity (loads on every page for full-session behavior capture) -->
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "x7iukafy20");
+  </script>
+  <title>Job Search Crawler — Ted Potter</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg"/>
+  <meta name="robots" content="noindex"/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fraunces:ital,wght@0,300;0,600;1,300;1,600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css"/>
+  <link rel="stylesheet" href="../css/styles.css"/>
+  <link rel="stylesheet" href="../css/case-study.css"/>
+  <style>
+    /* ── Live-demo launch callout (mirrors the AI Signals prototype card) ── */
+    .cs-proto-callout {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(56,189,248,0.2);
+      box-shadow: 0 8px 32px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.06);
+      border-radius: 18px;
+      padding: 36px 40px;
+      margin: 48px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .cs-proto-callout .cs-article-label { margin-bottom: 0; }
+    .cs-proto-callout h3 {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 24px;
+      font-weight: 600;
+      color: #fff;
+      line-height: 1.2;
+      margin: 0;
+    }
+    .cs-proto-callout h3 em {
+      font-style: italic;
+      font-weight: 300;
+      background: linear-gradient(135deg,#fb923c,#38bdf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .cs-proto-callout p {
+      font-size: 15px;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.7);
+      margin: 0;
+    }
+    .cs-proto-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      align-self: flex-start;
+      margin-top: 6px;
+      padding: 12px 24px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(251,146,60,.4), rgba(249,115,22,.4));
+      border: 1px solid rgba(251,146,60,.5);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: .02em;
+      text-decoration: none;
+      transition: all .3s;
+      box-shadow: 0 4px 20px rgba(251,146,60,.2);
+    }
+    .cs-proto-cta:hover {
+      background: linear-gradient(135deg, rgba(251,146,60,.6), rgba(249,115,22,.6));
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(251,146,60,.35);
+    }
+
+    /* ── Architecture diagram card (matches the AI Signals case study) ── */
+    .cs-diagram-card {
+      width: min(1280px, calc(100vw - 48px));
+      margin-left: 50%;
+      transform: translateX(-50%);
+      margin-top: 100px;
+      margin-bottom: 100px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .cs-diagram-card .cs-diagram-body {
+      padding: 40px clamp(20px, 5vw, 60px) 28px;
+    }
+    .cs-diagram-card svg { width: 100%; height: auto; display: block; }
+    .cs-diagram-card .cs-img-caption {
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    /* ── Source overview grid (IMAGE 03) ── */
+    .cs-source-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .cs-source-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .cs-source-card.is-primary {
+      border-color: rgba(251,146,60,0.45);
+      background: rgba(251,146,60,0.05);
+    }
+    .cs-source-eyebrow {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase; color: rgba(255,255,255,0.5);
+    }
+    .cs-source-card.is-primary .cs-source-eyebrow { color: rgba(251,146,60,0.85); }
+    .cs-source-title {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 20px; font-weight: 600; color: #fff; line-height: 1.2;
+    }
+    .cs-source-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .cs-source-chips span {
+      font-size: 12px; color: rgba(232,228,240,0.72);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 4px 10px; border-radius: 6px;
+    }
+
+    /* ── Dedup before/after (IMAGE 04) ── */
+    .cs-dedup {
+      display: flex; align-items: center; justify-content: center;
+      gap: clamp(20px, 5vw, 56px); flex-wrap: wrap; padding: 10px 0;
+    }
+    .cs-dedup-side { text-align: center; }
+    .cs-dedup-eyebrow {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 10px;
+    }
+    .cs-dedup-num {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: clamp(42px, 7vw, 68px); font-weight: 600; line-height: 1;
+      background: linear-gradient(135deg, #fb923c, #38bdf8);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .cs-dedup-side.is-after .cs-dedup-num {
+      background: linear-gradient(135deg, #34d399, #38bdf8);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .cs-dedup-lbl { font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 10px; }
+    .cs-dedup-arrow { font-size: 34px; color: rgba(255,255,255,0.3); line-height: 1; }
+
+    @media (max-width: 800px) {
+      .cs-source-grid { grid-template-columns: 1fr; }
+      .cs-dedup-arrow { transform: rotate(90deg); }
+    }
+
+    /* Light gray 1px stroke around every image on this page (real framed
+       images + the remaining screenshot placeholders), so they read as a
+       consistent set. The designed graphics already carry their own border. */
+    .cs-img-frame,
+    .cs-img-placeholder { border: 1px solid rgba(255,255,255,0.18); }
+
+  </style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="curRing"></div>
+
+<nav>
+  <a href="../" class="nav-logo">Ted Potter</a>
+  <ul class="nav-links">
+    <li><a href="../#about">About</a></li>
+    <li><a href="../#work">Work</a></li>
+    <li><a href="../craft/">Craft</a></li>
+    <li><a href="../#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-badge">
+    <span class="nav-badge-text">Available for hire</span>
+    <span class="nav-badge-hover">Let's talk <span class="nav-badge-arrow">↓</span></span>
+  </a>
+</nav>
+
+<!-- ── 01. HERO TEXT BLOCK ── -->
+<section id="cs-hero">
+  <div class="cs-hero-inner">
+    <a href="../#work" class="nav-back" style="display:inline-flex;align-items:center;margin-bottom:24px"><span class="nav-back-arrow" style="line-height:1;margin-top:-1px">←</span> All work</a>
+    <div class="cs-num">Case Study — Job Search Crawler &nbsp;·&nbsp; 7 min read</div>
+    <div class="work-tags" style="margin-bottom:12px;margin-top:-8px">
+      <span class="work-tag">AI Product</span>
+      <span class="work-tag">Side Project</span>
+      <span class="work-tag">Automation</span>
+    </div>
+    <h1 class="cs-title">I Built My Own <em>Way Out</em></h1>
+    <p class="cs-lead">I went looking for a UX role in one of the roughest tech markets in years. Instead of grinding LinkedIn every morning, I built an AI tool to run the search for me, end to end: data pipeline, job-fit scoring, daily email digest, all designed and built solo.</p>
+  </div>
+</section>
+
+<!-- ── ARTICLE BODY ── -->
+<section class="cs-section" style="padding-top:0">
+  <div class="cs-article" style="margin-top:0">
+
+    <!-- ── 02. Hero image ── -->
+    <div class="cs-img-breakout" style="margin-top:32px">
+      <div class="cs-img-frame landscape" style="aspect-ratio:3/2">
+        <a href="../images/home/jobcrawler_thumb.png" class="glightbox">
+          <img src="../images/home/jobcrawler_thumb.png" alt="Full dashboard, dark glassmorphic UI, ranked and scored job feed" style="object-fit:cover;object-position:top"/>
+        </a>
+      </div>
+    </div>
+
+    <!-- Live-demo CTA: surfaced near the top so reviewers can try the real app
+         right after the overview, before reading the build story. -->
+    <div class="cs-proto-callout">
+      <div class="cs-article-label" style="color:rgba(56,189,248,0.75)">Live Demo</div>
+      <h3>Poke at the <em>real thing</em></h3>
+      <p>Not a mockup. Launch the full, live app loaded with read-only demo data: real listings, real AI job-fit scores, and the actual interface I open every morning.</p>
+      <a href="https://job-search-tool-rose.vercel.app/demo-login" target="_blank" rel="noopener noreferrer" class="cs-proto-cta">Launch the live demo (read-only) ↗</a>
+    </div>
+
+    <!-- ── 03. Impact stat cards ── -->
+    <div class="cs-article-section">
+      <div class="cs-article-label">Impact</div>
+      <div class="cs-impact-row cs-impact-2x2" style="margin-top:20px">
+        <div class="cs-stat-card glass">
+          <div class="cs-stat-num">$1–2/mo</div>
+          <div class="cs-stat-lbl">AI scoring cost, down from about $50 a month</div>
+        </div>
+        <div class="cs-stat-card glass">
+          <div class="cs-stat-num">12+</div>
+          <div class="cs-stat-lbl">Data sources scanned, tens of thousands of companies daily</div>
+        </div>
+        <div class="cs-stat-card glass">
+          <div class="cs-stat-num">5</div>
+          <div class="cs-stat-lbl">Factor job-fit score, fully transparent and inspectable</div>
+        </div>
+        <div class="cs-stat-card glass">
+          <div class="cs-stat-num">8am</div>
+          <div class="cs-stat-lbl">A ranked, AI-evaluated email digest, every morning</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 04. Project Metadata ── -->
+    <div class="cs-article-section">
+      <div class="cs-article-label">Project</div>
+      <div class="cs-meta-block">
+        <div class="cs-meta-item">
+          <span class="cs-meta-lbl">Role</span>
+          <span class="cs-meta-val">Solo: product, design, and build</span>
+        </div>
+        <div class="cs-meta-item">
+          <span class="cs-meta-lbl">Users</span>
+          <span class="cs-meta-val">Job seekers (built for myself)</span>
+        </div>
+        <div class="cs-meta-item cs-meta-full">
+          <span class="cs-meta-lbl">Stack</span>
+          <span class="cs-meta-val">React, Next.js, TypeScript, Supabase, Vercel, scheduled crawl via GitHub Actions + cron-job.org</span>
+        </div>
+        <div class="cs-meta-item cs-meta-full">
+          <span class="cs-meta-lbl">Built with</span>
+          <span class="cs-meta-val">Claude Code, Claude, and ChatGPT for the build; ATS, aggregator, and board APIs (Ashby, Greenhouse, Lever, Workday, BambooHR, iCIMS, Adzuna, JSearch, The Muse, Dribbble, Built In)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 05. Scratch Your Own Itch ── -->
+    <div class="cs-article-section">
+      <div class="cs-article-label">The Idea</div>
+      <h2 class="cs-article-title">Scratch your own <em>itch</em></h2>
+      <div class="cs-article-body">
+        <p>I went looking for a UX role in one of the roughest tech markets in years. The obvious move was to open LinkedIn every morning and start scrolling. Instead I asked a different question: I'm a product designer who works on AI products all day. Could I build my own?</p>
+        <p>So I did. The Job Search Crawler kicks off every morning at 8am, takes around twenty minutes to scan more than a dozen job sources, scores every role against my actual experience, and emails me a ranked, AI-evaluated shortlist. I designed it, specced it, and built it solo, using a stack of APIs and tools I had never touched before. AI wrote most of the code. I made the decisions.</p>
+      </div>
+    </div>
+
+    <!-- ── 06. Product Manager for a Team of One ── -->
+    <div class="cs-article-section">
+      <div class="cs-article-label">Approach</div>
+      <h2 class="cs-article-title">Product manager for a <em>team of one</em></h2>
+      <div class="cs-article-body">
+        <p>I scoped this the way I'd scope any product: the smallest thing that proves the idea. A search feed, basic filters, a database. I ideated the architecture with Claude and ChatGPT, weighing options I didn't fully understand at first and learning enough to make an informed call on each one.</p>
+        <p>The stack came together fast, and most of it was free. Supabase for the database, GitHub to host the repo, Vercel for the app, React, Next.js, and TypeScript for the UI. The crawl runs on a schedule, kicked off by cron-job.org, an external timer service that pings the job on time, after the scheduler I started with kept drifting and skipping runs. Hosting, database, and email all sit on free tiers, which still feels a little like magic after years of paying a hundred dollars a year just to host a basic site. The real costs are the parts doing the thinking: a $20 a month Claude subscription that powers the build through Claude Code, plus the data and AI APIs I get to below.</p>
+      </div>
+
+      <!-- IMAGE 02. Architecture diagram.
+           BUILD NOTE: generate this in the same visual style as the AI Signals /
+           Invoca case study SVG diagram (cs-diagram-card). Show the flow:
+           external timer (cron-job.org) triggers the scheduled crawl (GitHub
+           Actions), which pulls from the mixed sources (ATS platforms plus
+           aggregator and board APIs), then dedup, keyword scoring, AI job-fit
+           scoring (LLM), Supabase, and out to the dashboard plus the daily
+           email digest. Placeholder until generated. -->
+      <figure class="cs-diagram-card">
+        <div class="cs-diagram-body">
+          <svg viewBox="0 0 1200 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architecture diagram. A cron-job.org timer triggers a scheduled crawl on GitHub Actions, which pulls from 12+ mixed sources, then dedup, keyword scoring, and AI job-fit scoring with an LLM, into Supabase, and out to the dashboard and a daily email digest.">
+            <defs>
+              <marker id="jc-arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="strokeWidth">
+                <path d="M 0 0 L 10 5 L 0 10 z" fill="rgba(255,255,255,0.3)"/>
+              </marker>
+            </defs>
+
+            <!-- ── ROW 1: Timer → Scheduled Crawl → Mixed Sources → Dedup ── -->
+
+            <!-- Timer -->
+            <rect x="30" y="70" width="250" height="104" rx="14" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"/>
+            <text x="155" y="54" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">TRIGGER</text>
+            <text x="155" y="125" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="24" font-weight="600">Timer</text>
+            <text x="155" y="151" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">cron-job.org · 8am daily</text>
+
+            <line x1="280" y1="122" x2="330" y2="122" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
+
+            <!-- Scheduled Crawl -->
+            <rect x="330" y="70" width="250" height="104" rx="14" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"/>
+            <text x="455" y="54" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">WORKFLOW</text>
+            <text x="455" y="125" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="24" font-weight="600">GitHub Actions</text>
+            <text x="455" y="151" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">runs the crawl in the repo</text>
+
+            <line x1="580" y1="122" x2="630" y2="122" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
+
+            <!-- Mixed Sources (orange: the data layer, the hard part) -->
+            <rect x="630" y="70" width="250" height="104" rx="14" fill="rgba(251,146,60,0.06)" stroke="rgba(251,146,60,0.5)" stroke-width="2"/>
+            <text x="755" y="54" text-anchor="middle" fill="rgba(251,146,60,0.85)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">12+ SOURCES</text>
+            <text x="755" y="125" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="24" font-weight="600">Mixed Sources</text>
+            <text x="755" y="151" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">ATS · aggregators · boards</text>
+
+            <line x1="880" y1="122" x2="930" y2="122" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
+
+            <!-- Dedup -->
+            <rect x="930" y="70" width="250" height="104" rx="14" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"/>
+            <text x="1055" y="54" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">80K → 7K</text>
+            <text x="1055" y="125" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="24" font-weight="600">Dedup</text>
+            <text x="1055" y="151" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">drop duplicate listings</text>
+
+            <!-- Return connector: Dedup down and back to Keyword Scoring -->
+            <path d="M 1055 174 C 1055 252 155 228 155 306" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
+
+            <!-- ── ROW 2: Keyword Scoring → Job-Fit Scoring → Supabase → outputs ── -->
+
+            <!-- Keyword Scoring -->
+            <rect x="30" y="306" width="250" height="104" rx="14" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"/>
+            <text x="155" y="290" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">FIRST PASS</text>
+            <text x="155" y="361" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="24" font-weight="600">Keyword Scoring</text>
+            <text x="155" y="387" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">title, salary, AI keywords</text>
+
+            <line x1="280" y1="358" x2="330" y2="358" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
+
+            <!-- AI Job-Fit Scoring (blue: the LLM centerpiece) -->
+            <rect x="330" y="306" width="250" height="104" rx="14" fill="rgba(56,189,248,0.07)" stroke="rgba(56,189,248,0.5)" stroke-width="2"/>
+            <text x="455" y="290" text-anchor="middle" fill="rgba(56,189,248,0.9)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">LLM</text>
+            <text x="455" y="361" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="24" font-weight="600">Job-Fit Scoring</text>
+            <text x="455" y="387" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">0–100 across 5 factors</text>
+
+            <line x1="580" y1="358" x2="630" y2="358" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
+
+            <!-- Supabase -->
+            <rect x="630" y="306" width="250" height="104" rx="14" fill="rgba(167,139,250,0.07)" stroke="rgba(167,139,250,0.5)" stroke-width="2"/>
+            <text x="755" y="290" text-anchor="middle" fill="rgba(167,139,250,0.9)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">STORE</text>
+            <text x="755" y="361" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="24" font-weight="600">Supabase</text>
+            <text x="755" y="387" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">Postgres database</text>
+
+            <!-- Fork from Supabase to the two outputs -->
+            <path d="M 880 348 C 906 338 906 327 928 327" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
+            <path d="M 880 368 C 906 378 906 389 928 389" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
+
+            <!-- Outputs -->
+            <text x="1055" y="292" text-anchor="middle" fill="rgba(52,211,153,0.9)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">DELIVER</text>
+            <rect x="930" y="304" width="250" height="46" rx="12" fill="rgba(52,211,153,0.07)" stroke="rgba(52,211,153,0.5)" stroke-width="2"/>
+            <text x="1055" y="333" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="18" font-weight="600">Dashboard</text>
+            <rect x="930" y="366" width="250" height="46" rx="12" fill="rgba(52,211,153,0.07)" stroke="rgba(52,211,153,0.5)" stroke-width="2"/>
+            <text x="1055" y="395" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="18" font-weight="600">Daily email digest</text>
+
+            <!-- Footing -->
+            <text x="600" y="454" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5" letter-spacing="0.5">One scheduled run, about 20 minutes end to end, every morning.</text>
+          </svg>
+        </div>
+        <div class="cs-img-caption">The pipeline: a timer kicks off a scheduled crawl across a dozen sources, then dedup, keyword and AI job-fit scoring, into Supabase and out to the dashboard and a daily email.</div>
+      </figure>
+    </div>
+
+    <!-- ── 07. The Hard Part Was the Data ── -->
+    <div class="cs-article-section">
+      <div class="cs-article-label">The Challenge</div>
+      <h2 class="cs-article-title">The hard part was <em>the data</em></h2>
+      <div class="cs-article-body">
+        <p>The feed is only as good as what feeds it. My first version pulled from a small, hardcoded list of companies and ran them one at a time. Fine for a demo. Useless for an actual search.</p>
+        <p>So the real engineering challenge became sourcing. The crawler pulls from more than a dozen sources of three kinds: the major applicant tracking systems companies post through directly (Ashby, Greenhouse, Lever, Workday, BambooHR, iCIMS), aggregator APIs like Adzuna, JSearch, and The Muse, and design-specific boards like Dribbble and Built In. The ATS pages matter most. They're the canonical source, before a listing ever syndicates out to LinkedIn or Indeed and goes stale. I scaled the company list from a few dozen to tens of thousands across the ATS platforms and added a concurrency pool so the crawl fires dozens of requests in parallel instead of plodding through them one by one. One of the aggregator APIs runs about $25 a month, and I blew past its request cap once before I added usage tracking. Going from a handful of companies to tens of thousands is the difference between a toy and a tool, and most of the hard problems lived right here.</p>
+      </div>
+
+      <!-- IMAGE 03 · Source overview (designed graphic) -->
+      <figure class="cs-diagram-card" style="margin-top:48px;margin-bottom:48px">
+        <div class="cs-diagram-body">
+          <div class="cs-source-grid">
+            <div class="cs-source-card is-primary">
+              <div class="cs-source-eyebrow">Post directly · canonical</div>
+              <div class="cs-source-title">ATS platforms</div>
+              <div class="cs-source-chips"><span>Ashby</span><span>Greenhouse</span><span>Lever</span><span>Workday</span><span>BambooHR</span><span>iCIMS</span></div>
+            </div>
+            <div class="cs-source-card">
+              <div class="cs-source-eyebrow">Broad coverage</div>
+              <div class="cs-source-title">Aggregator APIs</div>
+              <div class="cs-source-chips"><span>Adzuna</span><span>JSearch</span><span>The Muse</span></div>
+            </div>
+            <div class="cs-source-card">
+              <div class="cs-source-eyebrow">Design-specific</div>
+              <div class="cs-source-title">Design boards</div>
+              <div class="cs-source-chips"><span>Dribbble</span><span>Built In</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="cs-img-caption">More than a dozen sources of three kinds. The ATS platforms matter most: the canonical source companies post to directly, before listings syndicate out and go stale.</div>
+      </figure>
+
+      <!-- IMAGE 04 · Dedup before/after (designed graphic) -->
+      <figure class="cs-diagram-card" style="margin-top:48px;margin-bottom:48px">
+        <div class="cs-diagram-body">
+          <div class="cs-dedup">
+            <div class="cs-dedup-side">
+              <div class="cs-dedup-eyebrow">Before dedup</div>
+              <div class="cs-dedup-num">~80,000</div>
+              <div class="cs-dedup-lbl">listings, many duplicated</div>
+            </div>
+            <div class="cs-dedup-arrow">→</div>
+            <div class="cs-dedup-side is-after">
+              <div class="cs-dedup-eyebrow">After dedup</div>
+              <div class="cs-dedup-num">~7,000</div>
+              <div class="cs-dedup-lbl">unique roles</div>
+            </div>
+          </div>
+        </div>
+        <div class="cs-img-caption">Tightening the dedup pass collapsed the database from around 80,000 listings to roughly 7,000 unique roles.</div>
+      </figure>
+    </div>
+
+    <!-- ── 08. Sorting Signal From Noise ── -->
+    <div class="cs-article-section">
+      <div class="cs-article-label">Scoring v1</div>
+      <h2 class="cs-article-title">Sorting signal from <em>noise</em></h2>
+      <div class="cs-article-body">
+        <p>Early on the feed was a mess. I'd ask for senior roles and get junior ones. I'd ask for product designer and get product managers, because the word "product" sat in the title.</p>
+        <p>I built a first-pass scoring layer with Claude to push the stronger listings up: correct titles, salary listed, benefits mentioned, AI in the mix. It was mostly keyword matching, and it did its job. It screened out the obvious noise. But the top of the stack was still haphazard. Every promising role still needed me to read it and judge whether my background actually fit. That was the next problem worth solving.</p>
+      </div>
+
+      <div class="cs-art-img-2col">
+        <div class="cs-img-frame" style="aspect-ratio:9/5">
+          <a href="../images/Job Crawler/filter controls.png" class="glightbox">
+            <img src="../images/Job Crawler/filter controls.png" alt="Filter panel: title, source, remote, date, and minimum-score controls"/>
+          </a>
+        </div>
+        <div class="cs-img-frame" style="aspect-ratio:9/5">
+          <a href="../images/Job Crawler/AI_score_breakdown.png" class="glightbox">
+            <img src="../images/Job Crawler/AI_score_breakdown.png" alt="AI job-fit score breakdown with per-factor scores"/>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 09. Opening the Black Box ── -->
+    <div class="cs-article-section">
+      <div class="cs-article-label">AI Job-Fit</div>
+      <h2 class="cs-article-title">Opening the <em>black box</em></h2>
+      <div class="cs-article-body">
+        <p>This is the part I care about most, because it's the same problem I design for professionally.</p>
+        <p>I added an AI job-fit evaluation layer. Every promising role gets read by an LLM and compared against a detailed record of my experience that lives in the project. The model returns a 0 to 100 job-fit score, and suddenly the roles I'd actually want were rising to the top on their own.</p>
+        <p>But a single number is a black box. What does an 80 even mean? Why 80 and not 65? Any user would ask that, so I did the work to make the score defensible. I researched how to evaluate job fit more rigorously, then broke the score into five dimensions: Role and skills, Company health, Compensation, Industry fit, and Growth signals. I added a short AI summary on each listing and a full breakdown on the detail page, so the score isn't a verdict handed down. It's a transparent argument I can inspect.</p>
+        <p>This is LLM-as-judge work, and it's the same evaluation-interface and model-trust design I do at the day job: deciding what the model scores, how it explains itself, and where the human stays in control. I just pointed it at my own problem.</p>
+      </div>
+
+      <!-- Hidden for now (IMAGE 07 + 08). Uncomment to restore.
+      <div class="cs-art-img-2col">
+        <div class="cs-img-placeholder short">IMAGE 07 · AI summary on a listing card: the short, plain-language fit summary</div>
+        <div class="cs-img-placeholder short">IMAGE 08 · Job-fit score breakdown: the five dimensions with per-factor scores</div>
+      </div>
+      -->
+    </div>
+
+    <!-- ── 10. Where the AI Made Odd Choices ── -->
+    <div class="cs-article-section">
+      <div class="cs-article-label">Lessons</div>
+      <h2 class="cs-article-title">Where the AI made <em>odd choices</em></h2>
+      <div class="cs-article-body">
+        <p>Letting AI write the code was a genuine accelerant. Whenever I hit something I didn't know how to do, the answer came back in seconds. But AI doesn't flag its own bad decisions. You only find them by paying attention.</p>
+        <p>Two of them cost me real money. The app was re-scoring my entire database on every crawl, thousands of paid API calls to re-evaluate roles it had already scored. I rewrote the logic to check for an existing score before calling the model. The bigger one was duplicates. My first dedup pass looked robust and wasn't. When I tightened it, the database dropped from around 80,000 listings to roughly 7,000. I'd been storing, scoring, and paying for the same jobs over and over.</p>
+        <p>Then I right-sized the model. I'd started on Claude Opus 4.7, a top-tier model that was overkill for comparing a job post to a resume and was burning $30 to $50 a month. I moved to Claude Haiku for the same quality at a fraction of the cost, then to ChatGPT nano, which dropped it again. The scoring now runs for a dollar or two a month.</p>
+      </div>
+
+      <!-- IMAGE 09 · Cost over time (designed graphic) -->
+      <figure class="cs-diagram-card" style="margin-top:48px;margin-bottom:48px">
+        <div class="cs-diagram-body">
+          <svg viewBox="0 0 1000 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Monthly AI spend dropping across model swaps: Claude Opus 4.7 at $30 to $50 a month, down to Claude Haiku at $10 to $20 a month, down to ChatGPT nano at $1 to $2 a month.">
+            <text x="70" y="34" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">MONTHLY AI SPEND</text>
+
+            <!-- baseline -->
+            <line x1="70" y1="320" x2="930" y2="320" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+
+            <!-- descending trend line -->
+            <polyline points="185,108 500,240 815,310" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" stroke-dasharray="6 6"/>
+
+            <!-- Opus 4.7 (orange: high cost) -->
+            <rect x="110" y="108" width="150" height="212" rx="8" fill="rgba(251,146,60,0.18)" stroke="rgba(251,146,60,0.6)" stroke-width="1.5"/>
+            <text x="185" y="92" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="22" font-weight="600">$30–50 / mo</text>
+            <text x="185" y="350" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="18" font-weight="600">Claude Opus 4.7</text>
+            <text x="185" y="371" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">top-tier, overkill</text>
+
+            <!-- Haiku (blue: middle) -->
+            <rect x="425" y="240" width="150" height="80" rx="8" fill="rgba(56,189,248,0.18)" stroke="rgba(56,189,248,0.6)" stroke-width="1.5"/>
+            <text x="500" y="224" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="22" font-weight="600">$10–20 / mo</text>
+            <text x="500" y="350" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="18" font-weight="600">Claude Haiku</text>
+            <text x="500" y="371" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">same quality</text>
+
+            <!-- ChatGPT nano (green: lowest cost) -->
+            <rect x="740" y="310" width="150" height="10" rx="5" fill="rgba(52,211,153,0.22)" stroke="rgba(52,211,153,0.6)" stroke-width="1.5"/>
+            <text x="815" y="294" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="22" font-weight="600">$1–2 / mo</text>
+            <text x="815" y="350" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="18" font-weight="600">ChatGPT nano</text>
+            <text x="815" y="371" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">runs here now</text>
+
+            <text x="500" y="393" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5" letter-spacing="0.5">Right-sizing the model took scoring from $30–50 to $1–2 a month.</text>
+          </svg>
+        </div>
+        <div class="cs-img-caption">Monthly AI spend dropped across model swaps: Claude Opus 4.7, then Claude Haiku, then ChatGPT nano.</div>
+      </figure>
+    </div>
+
+    <!-- ── 11. Making It Mine ── -->
+    <div class="cs-article-section">
+      <div class="cs-article-label">The Craft</div>
+      <h2 class="cs-article-title">Making it <em>mine</em></h2>
+      <div class="cs-article-body">
+        <p>The first UI was a generic component-library default, and it felt like one. For a tool I'd open every morning, that wasn't good enough. I rebuilt it in the dark, glassmorphic style of my portfolio, with the small interaction details that make something feel considered. If I was going to live in it, I wanted it to be something I was proud of.</p>
+      </div>
+
+      <div class="cs-art-img-3col">
+        <div class="cs-img-frame" style="aspect-ratio:60/95">
+          <a href="../images/Job Crawler/jobcrawler_design1.png" class="glightbox" data-title="Initial POC build with no styling applied.">
+            <img src="../images/Job Crawler/jobcrawler_design1.png" alt="Initial POC build with no styling applied."/>
+          </a>
+        </div>
+        <div class="cs-img-frame" style="aspect-ratio:60/95">
+          <a href="../images/Job Crawler/jobcrawler_design2.png" class="glightbox" data-title="AddedDaisyUI for front end framework.">
+            <img src="../images/Job Crawler/jobcrawler_design2.png" alt="AddedDaisyUI for front end framework."/>
+          </a>
+        </div>
+        <div class="cs-img-frame" style="aspect-ratio:60/95">
+          <a href="../images/Job Crawler/jobcrawler_design3.png" class="glightbox" data-title="Dark Design with custom styling, matching the portfolio's aesthetic.">
+            <img src="../images/Job Crawler/jobcrawler_design3.png" alt="Dark Design with custom styling, matching the portfolio's aesthetic."/>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 12. The Real Problem Isn't Finding Jobs ── -->
+    <div class="cs-article-section">
+      <div class="cs-article-label">What's Next</div>
+      <h2 class="cs-article-title">The real problem isn't <em>finding jobs</em></h2>
+      <div class="cs-article-body">
+        <p>Finding roles turned out to be the easy half. The hard half is reaching a human on the other side. Applications vanish into a black hole of hundreds or thousands of applicants, where no feedback comes back save the automated rejection email. Referrals and recruiter conversations are what actually move.</p>
+        <p>So that's where the product goes next. The roadmap maps a user's network against companies that are hiring, surfacing where a warm referral is one introduction away, and drafts personalized recruiter follow-ups after you apply. One rule sits underneath all of it: the AI drafts, it never sends. That's the same human-in-control principle I hold to in my professional AI work. The tool does the legwork. The person owns every message that goes out.</p>
+      </div>
+
+      <!-- Hidden for now (IMAGE 11). Uncomment to restore.
+      <div class="cs-img-breakout">
+        <div class="cs-img-placeholder tall">IMAGE 11 · Roadmap concept: referral-mapping view, or an AI-drafted recruiter message held in a draft state, awaiting the user's send</div>
+      </div>
+      -->
+    </div>
+
+    <!-- ── 13. Did It Work? ── -->
+    <div class="cs-article-section">
+      <div class="cs-article-label">Outcome</div>
+      <h2 class="cs-article-title">Did it <em>work?</em></h2>
+      <div class="cs-article-body">
+        <p>Yes, with an honest caveat. Every morning I review a ranked, scored, pre-summarized shortlist in a few minutes instead of scrolling job boards for an hour. The signal-to-noise is dramatically better, and the time it hands back is real.</p>
+        <p>What it hasn't solved is the brutal math of the current market. A strong tech role still draws hundreds of applicants, and a better-organized search doesn't change those odds on its own. That's exactly why the next chapter is about people, not listings.</p>
+        <p>But the project answered the question I started with. As a product designer, can I independently scope, design, and ship a working AI product? This is the proof. Not a prototype, not a mockup. Something I use every single day.</p>
+      </div>
+
+      <!-- Hidden for now (IMAGE 12). Uncomment to restore.
+      <div class="cs-img-breakout">
+        <div class="cs-img-placeholder tall">IMAGE 12 · The 8am email digest: the daily ranked shortlist as it lands in the inbox</div>
+      </div>
+      -->
+    </div>
+
+    <div style="height:80px"></div>
+  </div>
+</section>
+
+<!-- ── NEXT ── -->
+<section id="cs-next">
+  <div class="cs-next-inner">
+    <a href="../#work" class="cs-next-back">← Back to all work</a>
+    <a href="../case-study-invoca-ai/" class="cs-next-link">
+      <div class="cs-next-thumb"><img src="../images/home/invoca_ai_training_thumb.png" alt="AI Model Training Concept preview"/></div>
+      <div class="cs-next-link-text">
+        <span class="cs-next-lbl">Next case study</span>
+        <span class="cs-next-title">AI Model Training Concept →</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="contact" class="cs-section">
+  <div class="contact-card glass">
+    <div>
+      <h2 class="contact-head">Let's<br><em>talk.</em></h2>
+      <p class="contact-sub">Open to Senior or Staff UX design roles in enterprise, AI, or consumer. Available now.</p>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:tedpotter23@gmail.com" class="c-item glass" style="border:1px solid rgba(255,255,255,.07)">
+        <div><div class="c-lbl">Email</div><div class="c-val">tedpotter23@gmail.com</div></div>
+        <span class="c-arr">↗</span>
+      </a>
+      <a href="https://linkedin.com/in/tedlpotter" target="_blank" rel="noopener noreferrer" class="c-item glass" style="border:1px solid rgba(255,255,255,.07)">
+        <div><div class="c-lbl">LinkedIn</div><div class="c-val">linkedin.com/in/tedlpotter</div></div>
+        <span class="c-arr">↗</span>
+      </a>
+      <a href="../Ted_Potter_Senior_Product_Designer_Resume_B2B_SaaS.pdf" download="Ted Potter - Senior Product Designer Resume.pdf" class="c-item glass" style="border:1px solid rgba(255,255,255,.07)">
+        <div><div class="c-lbl">Resume</div><div class="c-val">Download PDF</div></div>
+        <span class="c-arr">↓</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Ted Potter — Senior UX Designer</p>
+  <p>Phoenix, AZ</p>
+  <p>© 2026</p>
+</footer>
+
+<script src="../js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+<script>GLightbox({ touchNavigation: true, loop: true, zoomable: true });</script>
+<script>
+(function() {
+  // ── Auto-add captions under images using their glightbox data-title ──
+  document.querySelectorAll('a.glightbox[data-title]').forEach(link => {
+    const title = link.getAttribute('data-title');
+    if (!title) return;
+    const target = link.closest('.cs-img-frame') || link;
+    if (target.dataset.captioned === 'true') return;
+    const fig = document.createElement('figure');
+    fig.className = 'cs-figure';
+    target.parentNode.insertBefore(fig, target);
+    fig.appendChild(target);
+    const cap = document.createElement('div');
+    cap.className = 'cs-img-caption';
+    cap.textContent = title;
+    fig.appendChild(cap);
+    target.dataset.captioned = 'true';
+  });
+})();
+</script>
+<script>
+(function() {
+  // ── Build bottom nav ──
+  const bnav = document.createElement('div');
+  bnav.id = 'cs-bottom-nav';
+  bnav.innerHTML =
+    '<div id="cs-bnav-row"><div id="cs-bnav-sections"></div></div>' +
+    '<div id="cs-bnav-track"><div id="cs-bnav-fill"></div></div>';
+  document.body.appendChild(bnav);
+
+  const fill   = document.getElementById('cs-bnav-fill');
+  const secBox = document.getElementById('cs-bnav-sections');
+  const sections = Array.from(document.querySelectorAll('.cs-article-section'));
+  const items = [];
+
+  sections.forEach((sec, i) => {
+    const lbl = sec.querySelector('.cs-article-label');
+    if (!lbl) return;
+    const id = 'sec-' + i;
+    sec.id = id;
+    const a = document.createElement('a');
+    a.href = '#' + id;
+    a.className = 'cs-bnav-sec';
+    a.textContent = lbl.textContent.replace(/^—\s*/, '').trim();
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    secBox.appendChild(a);
+    items.push({ sec, a });
+  });
+
+  const hero = document.getElementById('cs-hero');
+  let heroBottom = 0;
+  function calcHero() { heroBottom = hero ? hero.offsetTop + hero.offsetHeight : 400; }
+  calcHero();
+  window.addEventListener('resize', calcHero);
+
+  function onScroll() {
+    const sy = window.scrollY;
+    const docH = document.documentElement.scrollHeight - window.innerHeight;
+    fill.style.width = (docH > 0 ? Math.min(100, (sy / docH) * 100) : 0) + '%';
+    bnav.classList.toggle('visible', sy > heroBottom);
+    let active = null;
+    const threshold = sy + window.innerHeight * 0.4;
+    items.forEach(({ sec, a }) => { if (sec.offsetTop <= threshold) active = a; });
+    items.forEach(({ a }) => a.classList.toggle('active', a === active));
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+
+</body>
+</html>
