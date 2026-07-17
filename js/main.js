@@ -1635,7 +1635,7 @@ const bhOpts = {
   plasmaAlpha: .45,
   // Restore the dark-blue system halo at partial strength. Its translucent
   // radial gradients tint the sky without covering the fixed stars beneath.
-  ambientGlowAlpha: .72
+  ambientGlowAlpha: .88
 };
 let bhQualityTier = getInitialBHQualityTier();
 window.__bhQualityTier = bhQualityTier;
