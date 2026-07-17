@@ -64,9 +64,18 @@
 
   const skyNebulae = Array.from({ length: 5 }, () => ({
     x: Math.random(), y: Math.random(),
-    r: .09 + Math.random() * .13,          // fraction of viewport width
+    r: .10 + Math.random() * .12,          // fraction of viewport width
+    squash: .32 + Math.random() * .28,
+    rot: Math.random() * Math.PI,
     color: ['56,120,220', '120,90,220', '20,160,200', '251,146,60'][Math.floor(Math.random() * 4)],
-    a: .025 + Math.random() * .03
+    a: .03 + Math.random() * .025,
+    // Overlapping wisps keep these from reading as generic circular glows.
+    clouds: Array.from({ length: 7 }, () => ({
+      x: (Math.random() - .5) * 1.15,
+      y: (Math.random() - .5) * .7,
+      r: .34 + Math.random() * .42,
+      a: .38 + Math.random() * .5
+    }))
   }));
 
   const galaxies = Array.from({ length: 6 }, () => ({
@@ -85,12 +94,20 @@
 
     skyNebulae.forEach(n => {
       const x = n.x * vw, y = n.y * vh, r = n.r * vw;
-      const g = deepCtx.createRadialGradient(x, y, 0, x, y, r);
-      g.addColorStop(0, `rgba(${n.color},${n.a})`);
-      g.addColorStop(.55, `rgba(${n.color},${n.a * .45})`);
-      g.addColorStop(1, `rgba(${n.color},0)`);
-      deepCtx.fillStyle = g;
-      deepCtx.beginPath(); deepCtx.arc(x, y, r, 0, Math.PI * 2); deepCtx.fill();
+      deepCtx.save();
+      deepCtx.translate(x, y);
+      deepCtx.rotate(n.rot);
+      deepCtx.scale(1, n.squash);
+      n.clouds.forEach(c => {
+        const cx = c.x * r, cy = c.y * r, cr = c.r * r;
+        const g = deepCtx.createRadialGradient(cx, cy, 0, cx, cy, cr);
+        g.addColorStop(0, `rgba(${n.color},${n.a * c.a})`);
+        g.addColorStop(.48, `rgba(${n.color},${n.a * c.a * .42})`);
+        g.addColorStop(1, `rgba(${n.color},0)`);
+        deepCtx.fillStyle = g;
+        deepCtx.beginPath(); deepCtx.arc(cx, cy, cr, 0, Math.PI * 2); deepCtx.fill();
+      });
+      deepCtx.restore();
     });
 
     galaxies.forEach(gx => {
@@ -360,8 +377,10 @@ function drawPortal(canvas, opts) {
   // LENSING — gravitational warp of the star field
   // Uses a half-res offscreen canvas + pre-computed displacement LUT
   // ────────────────────────────────────
-  // useLensing is re-evaluated every frame from opts so resize switches code paths correctly
-  let useLensing = opts.lensing === true;
+  // useLensing is re-evaluated every frame from opts so resize switches code paths correctly.
+  // The homepage uses the fixed high-DPI page sky as its single sky layer; the
+  // portal's older, lower-resolution sky renderer remains available for demos.
+  let useLensing = opts.skyLayer !== false && opts.lensing === true;
   let osc, octx, lensed, lensedCtx, lut;
   let lastW = W, lastH = H;
   let lastLensingWidth = 0;
@@ -658,7 +677,7 @@ function drawPortal(canvas, opts) {
     const renderStart = performance.now();
     t += .009 * (opts.speedMult || 1); fc++;
     W = canvas._bhCssW || canvas.width; H = canvas._bhCssH || canvas.height;
-    useLensing = opts.lensing === true; // re-check each frame so resize switches paths
+    useLensing = opts.skyLayer !== false && opts.lensing === true; // re-check after resize/tier changes
     const sb = 0;                      // shadowBlur multiplier on particles — disabled everywhere; only sphere keeps its glow
     const pad = W * 0.05;              // bounds margin for offscreen culling
     const discStep = opts.discStep || 1;
@@ -681,58 +700,63 @@ function drawPortal(canvas, opts) {
     const discA = opts.discAlpha          !== undefined ? opts.discAlpha          : 1;
     const sphA  = opts.sphereAlpha        !== undefined ? opts.sphereAlpha        : 1;
 
-    // ── Background gradient — cached, only rebuild on resize ──
+    // ── Subtle backdrop tint — cached, only rebuild on resize ──
+    // Keep this translucent so the crisp fixed page sky remains visible through
+    // the hero instead of being replaced by a second, opaque canvas background.
     if (!cachedBg || W !== cachedBgW || H !== cachedBgH) {
+      const bgA = opts.backdropAlpha !== undefined ? opts.backdropAlpha : 1;
       cachedBg = ctx.createLinearGradient(0, 0, 0, H);
-      cachedBg.addColorStop(0,    'rgba(1,2,5,1)');
-      cachedBg.addColorStop(0.30, 'rgba(2,6,16,1)');
-      cachedBg.addColorStop(0.58, 'rgba(3,11,26,1)');
-      cachedBg.addColorStop(0.72, 'rgba(2,9,20,0.92)');
-      cachedBg.addColorStop(0.84, 'rgba(2,7,14,0.65)');
-      cachedBg.addColorStop(0.93, 'rgba(2,6,10,0.28)');
+      cachedBg.addColorStop(0,    `rgba(1,2,5,${bgA})`);
+      cachedBg.addColorStop(0.30, `rgba(2,6,16,${bgA * .8})`);
+      cachedBg.addColorStop(0.58, `rgba(3,11,26,${bgA * .55})`);
+      cachedBg.addColorStop(0.72, `rgba(2,9,20,${bgA * .34})`);
+      cachedBg.addColorStop(0.84, `rgba(2,7,14,${bgA * .18})`);
+      cachedBg.addColorStop(0.93, `rgba(2,6,10,${bgA * .06})`);
       cachedBg.addColorStop(1,    'rgba(2,6,8,0)');
       cachedBgW = W; cachedBgH = H;
     }
     ctx.fillStyle = cachedBg; ctx.fillRect(0, 0, W, H);
 
-    // ── Star field — gradient-masked, no hard clip edge ──
-    if (useLensing) {
-      if (fc % (opts.lensingEvery || 3) === 0) {
-        renderStarsToOsc(); applyLensing();
+    // ── Optional portal-local sky (disabled on the homepage) ──
+    if (opts.skyLayer !== false) {
+      if (useLensing) {
+        if (fc % (opts.lensingEvery || 3) === 0) {
+          renderStarsToOsc(); applyLensing();
+        }
+        if (lut) ctx.drawImage(lensed, 0, 0, W, H);
+      } else {
+        // Plain stars — reuse persistent canvas, avoids GC thrash every frame
+        if (plainStars.width !== W || plainStars.height !== H) {
+          plainStars.width = W; plainStars.height = H;
+        }
+        plainCtx.clearRect(0, 0, W, H);
+        nebulae.forEach(n => {
+          n.phase += n.speed;
+          const pulse = 1 + Math.sin(n.phase) * .08;
+          const g = plainCtx.createRadialGradient(n.nx*W, n.ny*H, 0, n.nx*W, n.ny*H, n.rnx*W*pulse);
+          g.addColorStop(0, `rgba(${n.color},${.08 + Math.sin(n.phase)*.02})`);
+          g.addColorStop(1, `rgba(${n.color},0)`);
+          plainCtx.save(); plainCtx.scale(1, n.rny / n.rnx);
+          plainCtx.beginPath(); plainCtx.arc(n.nx*W, n.ny*H*(n.rnx/n.rny), n.rnx*W*pulse, 0, Math.PI*2);
+          plainCtx.fillStyle = g; plainCtx.fill(); plainCtx.restore();
+        });
+        const starStep = opts.starStep || 1;
+        stars.forEach((s, i) => {
+          if (i % starStep) return;
+          s.phase += s.speed;
+          const a = s.a * (.4 + Math.sin(s.phase) * .6);
+          plainCtx.beginPath(); plainCtx.arc(s.nx * W, s.ny * H, s.r, 0, Math.PI * 2);
+          plainCtx.fillStyle = `rgba(255,255,255,${a})`; plainCtx.fill();
+        });
+        if (opts.starMask !== false) {
+          plainCtx.globalCompositeOperation = 'destination-in';
+          const sm = plainCtx.createLinearGradient(0, oy * 0.48, 0, oy);
+          sm.addColorStop(0, 'rgba(0,0,0,1)'); sm.addColorStop(1, 'rgba(0,0,0,0)');
+          plainCtx.fillStyle = sm; plainCtx.fillRect(0, 0, W, H);
+          plainCtx.globalCompositeOperation = 'source-over';
+        }
+        ctx.drawImage(plainStars, 0, 0);
       }
-      if (lut) ctx.drawImage(lensed, 0, 0, W, H);
-    } else {
-      // Plain stars — reuse persistent canvas, avoids GC thrash every frame
-      if (plainStars.width !== W || plainStars.height !== H) {
-        plainStars.width = W; plainStars.height = H;
-      }
-      plainCtx.clearRect(0, 0, W, H);
-      nebulae.forEach(n => {
-        n.phase += n.speed;
-        const pulse = 1 + Math.sin(n.phase) * .08;
-        const g = plainCtx.createRadialGradient(n.nx*W, n.ny*H, 0, n.nx*W, n.ny*H, n.rnx*W*pulse);
-        g.addColorStop(0, `rgba(${n.color},${.08 + Math.sin(n.phase)*.02})`);
-        g.addColorStop(1, `rgba(${n.color},0)`);
-        plainCtx.save(); plainCtx.scale(1, n.rny / n.rnx);
-        plainCtx.beginPath(); plainCtx.arc(n.nx*W, n.ny*H*(n.rnx/n.rny), n.rnx*W*pulse, 0, Math.PI*2);
-        plainCtx.fillStyle = g; plainCtx.fill(); plainCtx.restore();
-      });
-      const starStep = opts.starStep || 1;
-      stars.forEach((s, i) => {
-        if (i % starStep) return;
-        s.phase += s.speed;
-        const a = s.a * (.4 + Math.sin(s.phase) * .6);
-        plainCtx.beginPath(); plainCtx.arc(s.nx * W, s.ny * H, s.r, 0, Math.PI * 2);
-        plainCtx.fillStyle = `rgba(255,255,255,${a})`; plainCtx.fill();
-      });
-      if (opts.starMask !== false) {
-        plainCtx.globalCompositeOperation = 'destination-in';
-        const sm = plainCtx.createLinearGradient(0, oy * 0.48, 0, oy);
-        sm.addColorStop(0, 'rgba(0,0,0,1)'); sm.addColorStop(1, 'rgba(0,0,0,0)');
-        plainCtx.fillStyle = sm; plainCtx.fillRect(0, 0, W, H);
-        plainCtx.globalCompositeOperation = 'source-over';
-      }
-      ctx.drawImage(plainStars, 0, 0);
     }
 
     // Fade remaining effects (constellations, shooters, plasma) out near the
@@ -747,27 +771,29 @@ function drawPortal(canvas, opts) {
       : () => 1;
 
     // ── Constellations ──
-    constellations.forEach(pts => {
-      for (let i = 0; i < pts.length; i++) {
-        for (let j = i + 1; j < pts.length; j++) {
-          const d = Math.hypot(pts[i].x - pts[j].x, pts[i].y - pts[j].y);
-          if (d < 160) {
-            const lf = vfade((pts[i].y + pts[j].y) / 2);
-            if (lf <= 0) continue;
-            ctx.beginPath(); ctx.moveTo(pts[i].x, pts[i].y); ctx.lineTo(pts[j].x, pts[j].y);
-            ctx.strokeStyle = `rgba(0,212,255,${(1 - d / 160) * .1 * lf})`; ctx.lineWidth = .5; ctx.stroke();
+    if (opts.constellations !== false) {
+      constellations.forEach(pts => {
+        for (let i = 0; i < pts.length; i++) {
+          for (let j = i + 1; j < pts.length; j++) {
+            const d = Math.hypot(pts[i].x - pts[j].x, pts[i].y - pts[j].y);
+            if (d < 160) {
+              const lf = vfade((pts[i].y + pts[j].y) / 2);
+              if (lf <= 0) continue;
+              ctx.beginPath(); ctx.moveTo(pts[i].x, pts[i].y); ctx.lineTo(pts[j].x, pts[j].y);
+              ctx.strokeStyle = `rgba(0,212,255,${(1 - d / 160) * .1 * lf})`; ctx.lineWidth = .5; ctx.stroke();
+            }
           }
+          pts[i].phase += .006;
+          const pf = vfade(pts[i].y);
+          if (pf <= 0) continue;
+          const a = (.5 + Math.sin(pts[i].phase) * .3) * pf;
+          ctx.beginPath(); ctx.arc(pts[i].x, pts[i].y, pts[i].r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(0,212,255,${a})`;
+          ctx.shadowBlur = 5; ctx.shadowColor = 'rgba(0,212,255,.7)';
+          ctx.fill(); ctx.shadowBlur = 0;
         }
-        pts[i].phase += .006;
-        const pf = vfade(pts[i].y);
-        if (pf <= 0) continue;
-        const a = (.5 + Math.sin(pts[i].phase) * .3) * pf;
-        ctx.beginPath(); ctx.arc(pts[i].x, pts[i].y, pts[i].r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(0,212,255,${a})`;
-        ctx.shadowBlur = 5; ctx.shadowColor = 'rgba(0,212,255,.7)';
-        ctx.fill(); ctx.shadowBlur = 0;
-      }
-    });
+      });
+    }
 
     // ── Shooting stars ──
     for (let i = shooters.length - 1; i >= 0; i--) {
@@ -790,6 +816,7 @@ function drawPortal(canvas, opts) {
     // ── Plasma energy blobs — (04) screen compositing ──
     ctx.save();
     ctx.globalCompositeOperation = 'screen';
+    ctx.globalAlpha = opts.plasmaAlpha !== undefined ? opts.plasmaAlpha : 1;
     for (let i = 0; i < (opts.plasmaCount || 8); i++) {
       const angle = i * .785 + t * (.112 + i * .00616) * (i % 2 === 0 ? 1 : -1);
       const dist  = minR + (maxR - minR) * (.22 + Math.sin(t * .6 + i * .8) * .16);
@@ -816,7 +843,8 @@ function drawPortal(canvas, opts) {
 
     // ── Ground energy pool + halo — fade with everything during collapse ──
     const glowA = Math.max(discA, sphA);
-    ctx.save(); ctx.globalAlpha = glowA;
+    const ambientGlowA = opts.ambientGlowAlpha !== undefined ? opts.ambientGlowAlpha : 1;
+    ctx.save(); ctx.globalAlpha = glowA * ambientGlowA;
 
     const pool = ctx.createRadialGradient(ox, oy, 0, ox, oy, W * .6);
     pool.addColorStop(0,   `rgba(0,80,160,${.15 + Math.sin(t * .7) * .03})`);
@@ -1590,7 +1618,23 @@ function getInitialBHQualityTier() {
 
 // Mutable opts object — originY is recomputed on resize so sphere center
 // always sits exactly on the hero/about section boundary
-const bhOpts = { originY: .88, maxR: .43, sphereR: .048, starCount: 200, discCount: 300, shooters: true, lensing: true };
+const bhOpts = {
+  originY: .88,
+  maxR: .43,
+  sphereR: .048,
+  starCount: 200,
+  discCount: 300,
+  shooters: true,
+  lensing: true,
+  // The fixed #starField now owns the sky across the whole page. Keeping the
+  // hero canvas transparent removes its blurry duplicate stars and lets the
+  // same stars, galaxies, and nebulae continue naturally through the hero.
+  skyLayer: false,
+  constellations: false,
+  backdropAlpha: .18,
+  plasmaAlpha: .45,
+  ambientGlowAlpha: .42
+};
 let bhQualityTier = getInitialBHQualityTier();
 window.__bhQualityTier = bhQualityTier;
 
