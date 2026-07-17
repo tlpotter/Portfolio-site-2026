@@ -408,8 +408,9 @@ function drawPortal(canvas, opts) {
 
     const ocx = ow * .5;
     const ocy = oh * (opts.originY || .88);
-    const ors = ow * (opts.sphereR || .072);
-    const STR = ow * ow * .034;
+    const systemScale = Math.min(1, (opts.maxSystemWidth || W) / W);
+    const ors = ow * (opts.sphereR || .072) * systemScale;
+    const STR = ow * ow * .034 * systemScale * systemScale;
 
     lut = new Uint16Array(ow * oh * 2);
     for (let y = 0; y < oh; y++) {
@@ -679,7 +680,8 @@ function drawPortal(canvas, opts) {
     W = canvas._bhCssW || canvas.width; H = canvas._bhCssH || canvas.height;
     useLensing = opts.skyLayer !== false && opts.lensing === true; // re-check after resize/tier changes
     const sb = 0;                      // shadowBlur multiplier on particles — disabled everywhere; only sphere keeps its glow
-    const pad = W * 0.05;              // bounds margin for offscreen culling
+    const systemW = Math.min(W, opts.maxSystemWidth || W);
+    const pad = systemW * 0.05;        // bounds margin for offscreen culling
     const discStep = opts.discStep || 1;
     const streamStep = opts.streamStep || 1;
 
@@ -693,8 +695,8 @@ function drawPortal(canvas, opts) {
 
     const ox   = W * .5;
     const oy   = H * (opts.originY || .88);
-    const sR   = W * (opts.sphereR || .072);
-    const maxR = W * (opts.maxR || .65);
+    const sR   = systemW * (opts.sphereR || .072);
+    const maxR = systemW * (opts.maxR || .65);
     const minR = sR * 2.4;
     const colS  = opts.collapseOrbitScale !== undefined ? opts.collapseOrbitScale : 1;
     const discA = opts.discAlpha          !== undefined ? opts.discAlpha          : 1;
@@ -847,7 +849,7 @@ function drawPortal(canvas, opts) {
     const ambientGlowA = opts.ambientGlowAlpha !== undefined ? opts.ambientGlowAlpha : 1;
     ctx.save(); ctx.globalAlpha = glowA * ambientGlowA;
 
-    const pool = ctx.createRadialGradient(ox, oy, 0, ox, oy, W * .6);
+    const pool = ctx.createRadialGradient(ox, oy, 0, ox, oy, systemW * .6);
     pool.addColorStop(0,   `rgba(0,80,160,${.15 + Math.sin(t * .7) * .03})`);
     pool.addColorStop(.18, `rgba(0,50,120,${.10 + Math.sin(t * .5) * .02})`);
     pool.addColorStop(.4,  `rgba(0,150,255,${.06 + Math.sin(t * .4) * .01})`);
@@ -856,7 +858,7 @@ function drawPortal(canvas, opts) {
     ctx.fillStyle = pool; ctx.fillRect(0, 0, W, H);
 
     // ── Extended blue halo — behind entire graphic, outside clip ──
-    const halo = ctx.createRadialGradient(ox, oy, sR * 1.2, ox, oy, W * 0.82);
+    const halo = ctx.createRadialGradient(ox, oy, sR * 1.2, ox, oy, systemW * 0.82);
     halo.addColorStop(0,    `rgba(0,100,220,${0.10 + Math.sin(t * 0.4) * 0.02})`);
     halo.addColorStop(0.18, `rgba(0,80,200,${0.08 + Math.sin(t * 0.3) * 0.01})`);
     halo.addColorStop(0.38, `rgba(10,60,180,${0.05 + Math.sin(t * 0.5) * 0.01})`);
@@ -905,8 +907,8 @@ function drawPortal(canvas, opts) {
     disc.forEach((p, i) => {
       if (i % discStep) return;
       p.angle += p.speed * (opts.speedMult || 1); p.phase += .04;
-      const px = ox + Math.cos(p.angle) * W * p.r * colS;
-      const py = oy + Math.sin(p.angle) * W * p.r * colS * .26;
+      const px = ox + Math.cos(p.angle) * systemW * p.r * colS;
+      const py = oy + Math.sin(p.angle) * systemW * p.r * colS * .26;
       if (Math.sin(p.angle) < 0) {
         const heat = p.brightness * (.7 + Math.sin(p.phase) * .3);
         const frac = Math.max(0, Math.min(1, (p.r - (opts.discRBase || .048) + .007) / .08));
@@ -926,8 +928,8 @@ function drawPortal(canvas, opts) {
     innerStream.forEach((p, i) => {
       if (i % streamStep) return;
       p.angle += p.speed * (opts.speedMult || 1); p.phase += .05;
-      const px = ox + Math.cos(p.angle) * (sR + W * p.r * colS);
-      const py = oy + Math.sin(p.angle) * (sR + W * p.r * colS) * .28;
+      const px = ox + Math.cos(p.angle) * (sR + systemW * p.r * colS);
+      const py = oy + Math.sin(p.angle) * (sR + systemW * p.r * colS) * .28;
       if (Math.sin(p.angle) < 0 && px >= -pad && px <= W + pad && py >= -pad && py <= H + pad) {
         const heat = p.brightness * (.6 + Math.sin(p.phase) * .4);
         const sz = p.size * (opts.particleMult || 1) * (.6 + Math.sin(p.phase) * .3 * (opts.particleVar || 1));
@@ -943,8 +945,8 @@ function drawPortal(canvas, opts) {
     innerStreamBlue.forEach((p, i) => {
       if (i % streamStep) return;
       p.angle += p.speed * (opts.speedMult || 1); p.phase += .045;
-      const px = ox + Math.cos(p.angle) * (sR + W * p.r * colS);
-      const py = oy + Math.sin(p.angle) * (sR + W * p.r * colS) * .28;
+      const px = ox + Math.cos(p.angle) * (sR + systemW * p.r * colS);
+      const py = oy + Math.sin(p.angle) * (sR + systemW * p.r * colS) * .28;
       if (Math.sin(p.angle) < 0 && px >= -pad && px <= W + pad && py >= -pad && py <= H + pad) {
         const heat = p.brightness * (.6 + Math.sin(p.phase) * .4);
         const sz = p.size * (opts.particleMult || 1) * (.6 + Math.sin(p.phase) * .3 * (opts.particleVar || 1));
@@ -960,8 +962,8 @@ function drawPortal(canvas, opts) {
     outerStreamBlue.forEach((p, i) => {
       if (i % streamStep) return;
       p.angle += p.speed * (opts.speedMult || 1) * suckB; p.phase += .035;
-      const px = ox + Math.cos(p.angle) * (sR + W * p.r * colS);
-      const py = oy + Math.sin(p.angle) * (sR + W * p.r * colS) * .28;
+      const px = ox + Math.cos(p.angle) * (sR + systemW * p.r * colS);
+      const py = oy + Math.sin(p.angle) * (sR + systemW * p.r * colS) * .28;
       if (Math.sin(p.angle) < 0 && px >= -pad && px <= W + pad && py >= -pad && py <= H + pad) {
         const heat = p.brightness * (.5 + Math.sin(p.phase) * .4);
         const sz = p.size * (opts.particleMult || 1) * (.6 + Math.sin(p.phase) * .3 * (opts.particleVar || 1));
@@ -1072,7 +1074,7 @@ function drawPortal(canvas, opts) {
         if (elapsed < 0) continue;
         const p = elapsed / ring.duration;
         if (p >= 1) { opts._pulseRings.splice(i, 1); continue; }
-        const radius = sR * 1.1 + p * W * 0.38;
+        const radius = sR * 1.1 + p * systemW * 0.38;
         const opacity = (1 - p) * (1 - p) * 0.7;
         ctx.save();
         ctx.globalCompositeOperation = 'screen';
@@ -1207,8 +1209,8 @@ function drawPortal(canvas, opts) {
     ctx.save();
     disc.forEach((p, i) => {
       if (i % discStep) return;
-      const px = ox + Math.cos(p.angle) * W * p.r * colS;
-      const py = oy + Math.sin(p.angle) * W * p.r * colS * .26;
+      const px = ox + Math.cos(p.angle) * systemW * p.r * colS;
+      const py = oy + Math.sin(p.angle) * systemW * p.r * colS * .26;
       if (Math.sin(p.angle) >= 0) {
         const heat = p.brightness * (.7 + Math.sin(p.phase) * .3);
         const frac = Math.max(0, Math.min(1, (p.r - (opts.discRBase || .048) + .007) / .08));
@@ -1227,8 +1229,8 @@ function drawPortal(canvas, opts) {
     const isF = []; for (let i = 0; i < NF; i++) isF.push(new Path2D());
     innerStream.forEach((p, i) => {
       if (i % streamStep) return;
-      const px = ox + Math.cos(p.angle) * (sR + W * p.r * colS);
-      const py = oy + Math.sin(p.angle) * (sR + W * p.r * colS) * .28;
+      const px = ox + Math.cos(p.angle) * (sR + systemW * p.r * colS);
+      const py = oy + Math.sin(p.angle) * (sR + systemW * p.r * colS) * .28;
       if (Math.sin(p.angle) >= 0 && px >= -pad && px <= W + pad && py >= -pad && py <= H + pad) {
         const heat = p.brightness * (.6 + Math.sin(p.phase) * .4);
         const sz = p.size * (opts.particleMult || 1) * (.6 + Math.sin(p.phase) * .3 * (opts.particleVar || 1));
@@ -1243,8 +1245,8 @@ function drawPortal(canvas, opts) {
     const isbF = []; for (let i = 0; i < NF; i++) isbF.push(new Path2D());
     innerStreamBlue.forEach((p, i) => {
       if (i % streamStep) return;
-      const px = ox + Math.cos(p.angle) * (sR + W * p.r * colS);
-      const py = oy + Math.sin(p.angle) * (sR + W * p.r * colS) * .28;
+      const px = ox + Math.cos(p.angle) * (sR + systemW * p.r * colS);
+      const py = oy + Math.sin(p.angle) * (sR + systemW * p.r * colS) * .28;
       if (Math.sin(p.angle) >= 0 && px >= -pad && px <= W + pad && py >= -pad && py <= H + pad) {
         const heat = p.brightness * (.6 + Math.sin(p.phase) * .4);
         const sz = p.size * (opts.particleMult || 1) * (.6 + Math.sin(p.phase) * .3 * (opts.particleVar || 1));
@@ -1259,8 +1261,8 @@ function drawPortal(canvas, opts) {
     const osbF = []; for (let i = 0; i < NF; i++) osbF.push(new Path2D());
     outerStreamBlue.forEach((p, i) => {
       if (i % streamStep) return;
-      const px = ox + Math.cos(p.angle) * (sR + W * p.r * colS);
-      const py = oy + Math.sin(p.angle) * (sR + W * p.r * colS) * .28;
+      const px = ox + Math.cos(p.angle) * (sR + systemW * p.r * colS);
+      const py = oy + Math.sin(p.angle) * (sR + systemW * p.r * colS) * .28;
       if (Math.sin(p.angle) >= 0 && px >= -pad && px <= W + pad && py >= -pad && py <= H + pad) {
         const heat = p.brightness * (.5 + Math.sin(p.phase) * .4);
         const sz = p.size * (opts.particleMult || 1) * (.6 + Math.sin(p.phase) * .3 * (opts.particleVar || 1));
@@ -1396,7 +1398,7 @@ function drawPortal(canvas, opts) {
     // ── Collapse blip flash ──
     if (opts._blipFlash > 0) {
       const bf = opts._blipFlash;
-      const fg = ctx.createRadialGradient(ox, oy, 0, ox, oy, W * 0.6);
+      const fg = ctx.createRadialGradient(ox, oy, 0, ox, oy, systemW * 0.6);
       fg.addColorStop(0,   `rgba(255,240,200,${bf})`);
       fg.addColorStop(0.2, `rgba(255,180,80,${bf * 0.8})`);
       fg.addColorStop(0.5, `rgba(255,100,20,${bf * 0.4})`);
@@ -1443,7 +1445,8 @@ function drawPortal(canvas, opts) {
     const rect = canvas.getBoundingClientRect();
     const cx = rect.left + rect.width * 0.5;
     const cy = rect.top + rect.height * bhOpts.originY;
-    const sr = rect.width * bhOpts.sphereR;
+    const systemWidth = Math.min(rect.width, bhOpts.maxSystemWidth || rect.width);
+    const sr = systemWidth * bhOpts.sphereR;
     const dx = e.clientX - cx, dy = e.clientY - cy;
     canvas.style.cursor = Math.hypot(dx, dy) <= sr * 1.4 ? 'pointer' : 'default';
   });
@@ -1453,7 +1456,8 @@ function drawPortal(canvas, opts) {
     const rect = canvas.getBoundingClientRect();
     const cx = rect.left + rect.width * 0.5;
     const cy = rect.top + rect.height * bhOpts.originY;
-    const sr = rect.width * bhOpts.sphereR;
+    const systemWidth = Math.min(rect.width, bhOpts.maxSystemWidth || rect.width);
+    const sr = systemWidth * bhOpts.sphereR;
     const dx = e.clientX - cx, dy = e.clientY - cy;
     if (Math.hypot(dx, dy) > sr * 1.4) return;
 
@@ -1621,6 +1625,7 @@ function getInitialBHQualityTier() {
 // always sits exactly on the hero/about section boundary
 const bhOpts = {
   originY: .88,
+  maxSystemWidth: 1600,
   maxR: .43,
   sphereR: .048,
   starCount: 200,
