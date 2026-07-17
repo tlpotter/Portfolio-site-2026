@@ -705,7 +705,8 @@ function drawPortal(canvas, opts) {
     // the hero instead of being replaced by a second, opaque canvas background.
     if (!cachedBg || W !== cachedBgW || H !== cachedBgH) {
       const bgA = opts.backdropAlpha !== undefined ? opts.backdropAlpha : 1;
-      cachedBg = ctx.createLinearGradient(0, 0, 0, H);
+      const bgDepth = opts.backdropDepth !== undefined ? opts.backdropDepth : 1;
+      cachedBg = ctx.createLinearGradient(0, 0, 0, H * bgDepth);
       cachedBg.addColorStop(0,    `rgba(1,2,5,${bgA})`);
       cachedBg.addColorStop(0.30, `rgba(2,6,16,${bgA * .8})`);
       cachedBg.addColorStop(0.58, `rgba(3,11,26,${bgA * .55})`);
@@ -1632,6 +1633,7 @@ const bhOpts = {
   skyLayer: false,
   constellations: false,
   backdropAlpha: .18,
+  backdropDepth: .5,
   plasmaAlpha: .45,
   // Restore the dark-blue system halo at partial strength. Its translucent
   // radial gradients tint the sky without covering the fixed stars beneath.
