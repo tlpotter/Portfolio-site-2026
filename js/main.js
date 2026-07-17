@@ -59,7 +59,7 @@
   function resize() {
     vw = window.innerWidth;
     vh = window.innerHeight;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const dpr = Math.min(window.devicePixelRatio || 1, 3);
     sf.width  = Math.round(vw * dpr);
     sf.height = Math.round(vh * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -67,7 +67,7 @@
   resize();
   window.addEventListener('resize', resize, { passive: true });
 
-  const COUNT = 500;
+  const COUNT = 1000;
   const stars = Array.from({ length: COUNT }, () => ({
     x:     Math.random(),
     y:     Math.random(),
@@ -1437,7 +1437,7 @@ const BH_QUALITY = {
     dprMax: 1.5,
     frameGap: 16,
     lensing: true,
-    lensingWidth: 600,
+    lensingWidth: 900,
     lensingEvery: 3,
     discStep: 1,
     streamStep: 1,
@@ -1448,7 +1448,7 @@ const BH_QUALITY = {
     upperEffectsClip: true,
     shooters: true,
     desktopDiscCount: 300,
-    desktopStarCount: 200
+    desktopStarCount: 400
   },
   medium: {
     dprMax: 1,
