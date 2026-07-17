@@ -53,9 +53,79 @@
 
   // Draw in CSS pixels, but back the canvas with device pixels so stars stay
   // crisp on high-DPI screens. An unscaled canvas gets stretched by the browser
-  // and the tiny star dots smear into fuzzy blobs. Cap DPR at 2 to keep the
-  // buffer light.
+  // and the tiny star dots smear into fuzzy blobs. Cap DPR at 3.
   let vw = window.innerWidth, vh = window.innerHeight;
+
+  // ── Deep-sky layer: nebulae + tiny galaxies ──
+  // Static content, pre-rendered to an offscreen canvas once per resize, so
+  // the per-frame cost is a single drawImage no matter how rich the layer is.
+  const deep = document.createElement('canvas');
+  const deepCtx = deep.getContext('2d');
+
+  const skyNebulae = Array.from({ length: 5 }, () => ({
+    x: Math.random(), y: Math.random(),
+    r: .09 + Math.random() * .13,          // fraction of viewport width
+    color: ['56,120,220', '120,90,220', '20,160,200', '251,146,60'][Math.floor(Math.random() * 4)],
+    a: .025 + Math.random() * .03
+  }));
+
+  const galaxies = Array.from({ length: 6 }, () => ({
+    x: Math.random(), y: Math.random(),
+    r: .012 + Math.random() * .02,         // fraction of viewport width
+    rot: Math.random() * Math.PI,
+    squash: .3 + Math.random() * .35,      // elliptical tilt
+    color: ['200,220,255', '255,215,170', '190,170,255'][Math.floor(Math.random() * 3)],
+    a: .10 + Math.random() * .12,
+    spiral: Math.random() > .4
+  }));
+
+  function renderDeepSky(dpr) {
+    deep.width = sf.width; deep.height = sf.height;
+    deepCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    skyNebulae.forEach(n => {
+      const x = n.x * vw, y = n.y * vh, r = n.r * vw;
+      const g = deepCtx.createRadialGradient(x, y, 0, x, y, r);
+      g.addColorStop(0, `rgba(${n.color},${n.a})`);
+      g.addColorStop(.55, `rgba(${n.color},${n.a * .45})`);
+      g.addColorStop(1, `rgba(${n.color},0)`);
+      deepCtx.fillStyle = g;
+      deepCtx.beginPath(); deepCtx.arc(x, y, r, 0, Math.PI * 2); deepCtx.fill();
+    });
+
+    galaxies.forEach(gx => {
+      const r = gx.r * vw;
+      deepCtx.save();
+      deepCtx.translate(gx.x * vw, gx.y * vh);
+      deepCtx.rotate(gx.rot);
+      deepCtx.scale(1, gx.squash);
+
+      // Outer disc
+      let g = deepCtx.createRadialGradient(0, 0, 0, 0, 0, r);
+      g.addColorStop(0, `rgba(${gx.color},${gx.a * .5})`);
+      g.addColorStop(1, `rgba(${gx.color},0)`);
+      deepCtx.fillStyle = g;
+      deepCtx.beginPath(); deepCtx.arc(0, 0, r, 0, Math.PI * 2); deepCtx.fill();
+
+      // Bright core
+      g = deepCtx.createRadialGradient(0, 0, 0, 0, 0, r * .3);
+      g.addColorStop(0, `rgba(255,246,228,${Math.min(1, gx.a * 1.4)})`);
+      g.addColorStop(1, 'rgba(255,246,228,0)');
+      deepCtx.fillStyle = g;
+      deepCtx.beginPath(); deepCtx.arc(0, 0, r * .3, 0, Math.PI * 2); deepCtx.fill();
+
+      // Faint spiral arms — two offset arcs, squashed elliptical by the transform
+      if (gx.spiral) {
+        deepCtx.strokeStyle = `rgba(${gx.color},${gx.a * .5})`;
+        deepCtx.lineWidth = r * .13;
+        deepCtx.lineCap = 'round';
+        deepCtx.beginPath(); deepCtx.arc(0, 0, r * .55, .3, 2.4); deepCtx.stroke();
+        deepCtx.beginPath(); deepCtx.arc(0, 0, r * .55, Math.PI + .3, Math.PI + 2.4); deepCtx.stroke();
+      }
+      deepCtx.restore();
+    });
+  }
+
   function resize() {
     vw = window.innerWidth;
     vh = window.innerHeight;
@@ -63,11 +133,12 @@
     sf.width  = Math.round(vw * dpr);
     sf.height = Math.round(vh * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    renderDeepSky(dpr);
   }
   resize();
   window.addEventListener('resize', resize, { passive: true });
 
-  const COUNT = 1000;
+  const COUNT = 2000;
   const stars = Array.from({ length: COUNT }, () => ({
     x:     Math.random(),
     y:     Math.random(),
@@ -87,16 +158,20 @@
     last = now;
 
     ctx.clearRect(0, 0, vw, vh);
+    ctx.drawImage(deep, 0, 0, vw, vh);
 
-    stars.forEach(s => {
+    // Low tier draws every other star — halves the fill cost on weak machines
+    const step = tier === 'low' ? 2 : 1;
+    for (let i = 0; i < stars.length; i += step) {
+      const s = stars[i];
       s.phase += s.speed;
       const a = s.a * (.3 + Math.sin(s.phase) * .7);
-      if (a <= 0) return;
+      if (a <= 0) continue;
       ctx.beginPath();
       ctx.arc(s.x * vw, s.y * vh, s.r, 0, Math.PI * 2);
       ctx.fillStyle = `rgba(255,255,255,${a})`;
       ctx.fill();
-    });
+    }
   })(0);
 })();
 
@@ -171,7 +246,7 @@ function drawPortal(canvas, opts) {
   }));
 
   // ── Nebulae (normalized) ──
-  const nebulae = Array.from({ length: 3 }, () => ({
+  const nebulae = Array.from({ length: 5 }, () => ({
     nx: Math.random(), ny: Math.random() * .75,
     rnx: .06 + Math.random() * .14, rny: .03 + Math.random() * .07,
     color: Math.random() > .5 ? '251,146,60' : '56,189,248',
@@ -302,7 +377,10 @@ function drawPortal(canvas, opts) {
 
   function buildLUT() {
     if (!useLensing) return;
-    // Cap at 600px wide for performance — drawImage scales it up
+    // Buffer width comes from the quality tier (1280 high / 480 medium) —
+    // drawImage scales it up to the canvas. Wider buffer = sharper stars and
+    // a less magnified lens edge; the adaptive tier system drops it on
+    // machines that can't keep up.
     lastLensingWidth = opts.lensingWidth || 600;
     const ow = Math.min(W, lastLensingWidth);
     const oh = Math.round(H * ow / W);
@@ -657,14 +735,16 @@ function drawPortal(canvas, opts) {
       ctx.drawImage(plainStars, 0, 0);
     }
 
-    // Clip remaining effects (constellations, shooters, plasma) above horizon
+    // Fade remaining effects (constellations, shooters, plasma) out near the
+    // horizon instead of hard-clipping them. The old rect clip razor-cut the
+    // soft plasma glows at y = oy and left a visible horizontal seam across
+    // the scene. Each effect multiplies its alpha by vfade(y): fully visible
+    // above the horizon, smoothly reaching zero just below it.
     ctx.save();
     ctx.globalAlpha = Math.max(discA, sphA);
-    if (opts.upperEffectsClip !== false) {
-      ctx.beginPath();
-      ctx.rect(0, 0, W, oy + 4);
-      ctx.clip();
-    }
+    const vfade = opts.upperEffectsClip !== false
+      ? (y) => Math.max(0, Math.min(1, ((oy + sR * .6) - y) / (sR * 1.6)))
+      : () => 1;
 
     // ── Constellations ──
     constellations.forEach(pts => {
@@ -672,12 +752,16 @@ function drawPortal(canvas, opts) {
         for (let j = i + 1; j < pts.length; j++) {
           const d = Math.hypot(pts[i].x - pts[j].x, pts[i].y - pts[j].y);
           if (d < 160) {
+            const lf = vfade((pts[i].y + pts[j].y) / 2);
+            if (lf <= 0) continue;
             ctx.beginPath(); ctx.moveTo(pts[i].x, pts[i].y); ctx.lineTo(pts[j].x, pts[j].y);
-            ctx.strokeStyle = `rgba(0,212,255,${(1 - d / 160) * .1})`; ctx.lineWidth = .5; ctx.stroke();
+            ctx.strokeStyle = `rgba(0,212,255,${(1 - d / 160) * .1 * lf})`; ctx.lineWidth = .5; ctx.stroke();
           }
         }
         pts[i].phase += .006;
-        const a = .5 + Math.sin(pts[i].phase) * .3;
+        const pf = vfade(pts[i].y);
+        if (pf <= 0) continue;
+        const a = (.5 + Math.sin(pts[i].phase) * .3) * pf;
         ctx.beginPath(); ctx.arc(pts[i].x, pts[i].y, pts[i].r, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(0,212,255,${a})`;
         ctx.shadowBlur = 5; ctx.shadowColor = 'rgba(0,212,255,.7)';
@@ -689,14 +773,16 @@ function drawPortal(canvas, opts) {
     for (let i = shooters.length - 1; i >= 0; i--) {
       const s = shooters[i]; s.x += s.vx; s.y += s.vy; s.life -= s.decay;
       if (s.life <= 0 || s.x > W + 50) { shooters.splice(i, 1); continue; }
+      const sf2 = vfade(s.y);
+      if (sf2 <= 0) continue;
       const g = ctx.createLinearGradient(s.x - s.vx * 16, s.y - s.vy * 16, s.x, s.y);
       g.addColorStop(0, `rgba(${s.color},0)`);
-      g.addColorStop(1, `rgba(255,255,255,${s.life})`);
+      g.addColorStop(1, `rgba(255,255,255,${s.life * sf2})`);
       ctx.save(); ctx.shadowBlur = 10; ctx.shadowColor = `rgba(${s.color},.9)`;
       ctx.strokeStyle = g; ctx.lineWidth = 1.5 * s.life;
       ctx.beginPath(); ctx.moveTo(s.x - s.vx * 16, s.y - s.vy * 16); ctx.lineTo(s.x, s.y); ctx.stroke();
       ctx.beginPath(); ctx.arc(s.x, s.y, 2 * s.life, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(255,255,255,${s.life})`; ctx.fill();
+      ctx.fillStyle = `rgba(255,255,255,${s.life * sf2})`; ctx.fill();
       ctx.restore();
     }
 
@@ -711,9 +797,11 @@ function drawPortal(canvas, opts) {
       const by    = oy + Math.sin(angle) * dist * .38;
       const sz    = sR * (.85 + Math.sin(t * .8 + i) * .3);
       const col   = i % 2 === 0 ? '255,80,0' : '0,160,255';
+      const pf = vfade(by);
+      if (pf <= 0) continue;
       const g = ctx.createRadialGradient(bx, by, 0, bx, by, sz);
-      g.addColorStop(0, `rgba(${col},${.16 + Math.sin(t + i) * .05})`);
-      g.addColorStop(.5, `rgba(${col},.07)`);
+      g.addColorStop(0, `rgba(${col},${(.16 + Math.sin(t + i) * .05) * pf})`);
+      g.addColorStop(.5, `rgba(${col},${.07 * pf})`);
       g.addColorStop(1, `rgba(${col},0)`);
       ctx.beginPath(); ctx.arc(bx, by, sz, 0, Math.PI * 2);
       ctx.fillStyle = g; ctx.fill();
@@ -723,7 +811,7 @@ function drawPortal(canvas, opts) {
 
 
 
-    // Remove clip — sphere, glow, and particles render freely below the horizon
+    // Restore alpha — sphere, glow, and particles render freely below the horizon
     ctx.restore();
 
     // ── Ground energy pool + halo — fade with everything during collapse ──
@@ -1437,7 +1525,7 @@ const BH_QUALITY = {
     dprMax: 1.5,
     frameGap: 16,
     lensing: true,
-    lensingWidth: 900,
+    lensingWidth: 1280,
     lensingEvery: 3,
     discStep: 1,
     streamStep: 1,
@@ -1448,13 +1536,13 @@ const BH_QUALITY = {
     upperEffectsClip: true,
     shooters: true,
     desktopDiscCount: 300,
-    desktopStarCount: 400
+    desktopStarCount: 800
   },
   medium: {
     dprMax: 1,
     frameGap: 33,
     lensing: true,
-    lensingWidth: 360,
+    lensingWidth: 480,
     lensingEvery: 4,
     discStep: 2,
     streamStep: 1,
@@ -1465,7 +1553,7 @@ const BH_QUALITY = {
     upperEffectsClip: true,
     shooters: false,
     desktopDiscCount: 220,
-    desktopStarCount: 150
+    desktopStarCount: 300
   },
   low: {
     dprMax: 1,
@@ -1482,7 +1570,7 @@ const BH_QUALITY = {
     upperEffectsClip: false,
     shooters: false,
     desktopDiscCount: 150,
-    desktopStarCount: 90
+    desktopStarCount: 180
   }
 };
 
