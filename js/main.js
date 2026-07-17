@@ -51,9 +51,18 @@
   if (!sf) return;
   const ctx = sf.getContext('2d');
 
+  // Draw in CSS pixels, but back the canvas with device pixels so stars stay
+  // crisp on high-DPI screens. An unscaled canvas gets stretched by the browser
+  // and the tiny star dots smear into fuzzy blobs. Cap DPR at 2 to keep the
+  // buffer light.
+  let vw = window.innerWidth, vh = window.innerHeight;
   function resize() {
-    sf.width  = window.innerWidth;
-    sf.height = window.innerHeight;
+    vw = window.innerWidth;
+    vh = window.innerHeight;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    sf.width  = Math.round(vw * dpr);
+    sf.height = Math.round(vh * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
   resize();
   window.addEventListener('resize', resize, { passive: true });
@@ -62,7 +71,7 @@
   const stars = Array.from({ length: COUNT }, () => ({
     x:     Math.random(),
     y:     Math.random(),
-    r:     .1 + Math.random() * .9,
+    r:     .5 + Math.random() * 1,
     a:     .05 + Math.random() * .55,
     phase: Math.random() * Math.PI * 2,
     speed: .003 + Math.random() * .008
@@ -77,15 +86,14 @@
     if (now - last < gap) return; // back off while the heavier hero canvas is active
     last = now;
 
-    const W = sf.width, H = sf.height;
-    ctx.clearRect(0, 0, W, H);
+    ctx.clearRect(0, 0, vw, vh);
 
     stars.forEach(s => {
       s.phase += s.speed;
       const a = s.a * (.3 + Math.sin(s.phase) * .7);
       if (a <= 0) return;
       ctx.beginPath();
-      ctx.arc(s.x * W, s.y * H, s.r, 0, Math.PI * 2);
+      ctx.arc(s.x * vw, s.y * vh, s.r, 0, Math.PI * 2);
       ctx.fillStyle = `rgba(255,255,255,${a})`;
       ctx.fill();
     });
