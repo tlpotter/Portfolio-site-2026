@@ -177,8 +177,11 @@
     ctx.clearRect(0, 0, vw, vh);
     ctx.drawImage(deep, 0, 0, vw, vh);
 
-    // Low tier draws every other star — halves the fill cost on weak machines
-    const step = tier === 'low' ? 2 : 1;
+    // Mobile draws half the background stars. The low quality tier can halve
+    // that reduced set again on especially constrained devices.
+    const mobileStep = vw < 800 ? 2 : 1;
+    const qualityStep = tier === 'low' ? 2 : 1;
+    const step = mobileStep * qualityStep;
     for (let i = 0; i < stars.length; i += step) {
       const s = stars[i];
       s.phase += s.speed;
