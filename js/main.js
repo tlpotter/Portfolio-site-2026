@@ -1621,10 +1621,11 @@ function getInitialBHQualityTier() {
   return 'high';
 }
 
-// Mutable opts object — originY is recomputed on resize so sphere center
-// always sits exactly on the hero/about section boundary
+// Mutable opts object — originY is recomputed on resize, with a fixed visual
+// offset that keeps the system comfortably below the hero buttons.
 const bhOpts = {
   originY: .88,
+  verticalOffset: 100,
   maxSystemWidth: 1600,
   maxR: .43,
   sphereR: .048,
@@ -1690,7 +1691,7 @@ function resizeBH() {
   bh._bhDpr = dpr;
   const ctx2d = bh.getContext('2d');
   if (ctx2d) { ctx2d.setTransform(1,0,0,1,0,0); ctx2d.scale(dpr, dpr); }
-  bhOpts.originY  = (heroH * (mobile ? 0.86 : 0.80)) / cssH;
+  bhOpts.originY  = (heroH * (mobile ? 0.86 : 0.80) + bhOpts.verticalOffset) / cssH;
   bhOpts.sphereR       = mobile ? 0.085 : 0.048;
   bhOpts.maxR          = mobile ? 0.72  : 0.43;
   bhOpts.glowScale     = mobile ? 0.80  : 1.0;
