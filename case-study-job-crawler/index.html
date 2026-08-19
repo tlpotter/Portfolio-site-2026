@@ -305,12 +305,13 @@
            which pull from 24 mixed sources (ATS platforms plus aggregator and
            board APIs), then dedup and classify. Per user: keyword gate, AI job-fit
            scoring (LLM), Supabase, and out to the dashboard, the daily email
-           digest, and resume tailoring. The durable queue on a Cloud Run worker
-           sits underneath, dashed, because it is a runtime the steps lean on
-           rather than another stop in the chain. -->
+           digest, and resume tailoring. The Cloud Run worker sits underneath as a
+           second lane, not a later step: nightly scoring runs in-process in the
+           crawl, while the worker handles what the app queues and writes back to
+           the same database. -->
       <figure class="cs-diagram-card">
         <div class="cs-diagram-body">
-          <svg viewBox="0 0 1200 620" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architecture diagram. A cron-job.org timer triggers GitHub Actions, which runs the crawl in daily, fast, and paced lanes across 24 sources, then dedup and classify. Per user, a keyword gate feeds AI job-fit scoring, into Supabase, and out to the dashboard, the daily email digest, and resume tailoring. Scoring also hands off to a durable queue on a Cloud Run worker underneath, which runs the OpenAI calls for AI fit scoring, email digests, and resume scoring and tailoring.">
+          <svg viewBox="0 0 1200 620" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architecture diagram. A cron-job.org timer triggers GitHub Actions, which runs the crawl in daily, fast, and paced lanes across 24 sources, then dedup and classify. Per user, a keyword gate feeds AI job-fit scoring, which writes to Supabase, and out to the dashboard, the daily email digest, and resume tailoring. Alongside that chain, a Cloud Run worker picks up work queued from the app - onboarding, profile edits, tailor requests - runs its own OpenAI calls for fit scoring, digests and resume work, and writes results back to the same database.">
             <defs>
               <marker id="jc-arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="strokeWidth">
                 <path d="M 0 0 L 10 5 L 0 10 z" fill="rgba(255,255,255,0.3)"/>
@@ -390,24 +391,33 @@
             <rect x="930" y="394" width="250" height="38" rx="11" fill="rgba(52,211,153,0.07)" stroke="rgba(52,211,153,0.5)" stroke-width="2"/>
             <text x="1055" y="419" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="17" font-weight="600">Resume tailoring</text>
 
-            <!-- ── ROW 3: the durable queue underneath it all ──
-                 The band is dashed because it is a second runtime, not another
-                 stop on the conveyor belt. The arrows into and out of it are
-                 solid: the handoff itself is real dataflow. -->
-            <path d="M 455 410 L 455 492" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
-            <text x="468" y="457" fill="rgba(255,255,255,0.45)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.4">QUEUES</text>
-            <path d="M 1055 492 L 1055 438" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
+            <!-- ── ROW 3: the worker, a second lane rather than a later step ──
+                 Nightly fit scoring runs in-process inside the Actions crawl
+                 (crawl pipeline step 9) and writes straight to Supabase, so it
+                 does not queue through here. The worker is the app-triggered
+                 lane: onboarding, profile edits and tailor requests, each making
+                 its own OpenAI calls and writing back to the same database.
+                 Dashed because it is a separate runtime, not a stop in the row. -->
+
+            <!-- What wakes the worker -->
+            <text x="155" y="521" text-anchor="middle" fill="rgba(255,255,255,0.45)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">FROM THE APP</text>
+            <text x="155" y="548" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">onboarding · edits · tailor requests</text>
+            <line x1="285" y1="534" x2="330" y2="534" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
 
             <rect x="330" y="494" width="850" height="80" rx="14" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.22)" stroke-width="1.5" stroke-dasharray="6 5"/>
-            <text x="755" y="478" text-anchor="middle" fill="rgba(255,255,255,0.45)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">DURABLE QUEUE</text>
+            <text x="350" y="478" fill="rgba(255,255,255,0.45)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">DURABLE QUEUE</text>
             <text x="755" y="530" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="21" font-weight="600">Cloud Run worker</text>
             <text x="755" y="554" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">runs OpenAI calls for AI fit scoring, email digests, and resume scoring and tailoring</text>
+
+            <!-- Worker results land in the same database the feed reads from -->
+            <path d="M 755 492 L 755 414" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
+            <text x="768" y="457" fill="rgba(255,255,255,0.45)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.4">WRITES</text>
 
             <!-- Footing -->
             <text x="600" y="600" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5" letter-spacing="0.5">One scheduled run every morning, plus a worker that keeps going after the browser closes.</text>
           </svg>
         </div>
-        <div class="cs-img-caption">The pipeline: a timer kicks off staggered crawl lanes across 24 sources, then dedup and classify. Per user, a keyword gate feeds AI job-fit scoring into Supabase, and out to the dashboard, the daily email, and resume tailoring. A durable queue on a Cloud Run worker runs the OpenAI calls behind fit scoring, digests, and resume work.</div>
+        <div class="cs-img-caption">The pipeline: a timer kicks off staggered crawl lanes across 24 sources, then dedup and classify. Per user, a keyword gate feeds AI job-fit scoring into Supabase, and out to the dashboard, the daily email, and resume tailoring. Running beside it, not after it, a Cloud Run worker takes what the app queues and writes back to the same database.</div>
       </figure>
     </div>
 
