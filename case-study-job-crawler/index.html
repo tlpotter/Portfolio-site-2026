@@ -210,13 +210,17 @@
     <!-- ── 02. Hero video ── -->
     <div class="cs-img-breakout" style="margin-top:32px">
       <!-- Silent, looping product walkthrough. Autoplays muted so it reads as a
-           moving hero image rather than a video the reader has to start. -->
+           moving hero image rather than a video the reader has to start, but
+           click or Enter stops it so a frame can be studied. -->
       <div class="cs-img-frame cs-video-frame">
         <video
           src="../video/jobcrawler-hero.mp4"
           poster="../video/jobcrawler-hero-poster.jpg"
-          autoplay muted loop playsinline preload="metadata"
-          aria-label="Screen recording of Match Moth: a ranked, AI-scored job feed, the score breakdown for a single listing, and the resume-tailoring view"></video>
+          autoplay muted loop playsinline preload="metadata" tabindex="0"
+          aria-label="Screen recording of Match Moth: a ranked, AI-scored job feed, the score breakdown for a single listing, and the resume-tailoring view. Press Enter to pause or resume."></video>
+        <span class="cs-video-badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+        </span>
       </div>
     </div>
 
@@ -297,21 +301,23 @@
       <!-- IMAGE 02. Architecture diagram.
            BUILD NOTE: generate this in the same visual style as the AI Signals /
            Invoca case study SVG diagram (cs-diagram-card). Show the flow:
-           external timer (cron-job.org) triggers the scheduled crawl (GitHub
-           Actions), which pulls from the mixed sources (ATS platforms plus
-           aggregator and board APIs), then dedup, keyword scoring, AI job-fit
-           scoring (LLM), Supabase, and out to the dashboard plus the daily
-           email digest. Placeholder until generated. -->
+           external timer (cron-job.org) triggers the crawl lanes (GitHub Actions),
+           which pull from 24 mixed sources (ATS platforms plus aggregator and
+           board APIs), then dedup and classify. Per user: keyword gate, AI job-fit
+           scoring (LLM), Supabase, and out to the dashboard, the daily email
+           digest, and resume tailoring. The durable queue on a Cloud Run worker
+           sits underneath, dashed, because it is a runtime the steps lean on
+           rather than another stop in the chain. -->
       <figure class="cs-diagram-card">
         <div class="cs-diagram-body">
-          <svg viewBox="0 0 1200 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architecture diagram. A cron-job.org timer triggers a scheduled crawl on GitHub Actions, which pulls from 12+ mixed sources, then dedup, keyword scoring, and AI job-fit scoring with an LLM, into Supabase, and out to the dashboard and a daily email digest.">
+          <svg viewBox="0 0 1200 620" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architecture diagram. A cron-job.org timer triggers GitHub Actions, which runs the crawl in daily, fast, and paced lanes across 24 sources, then dedup and classify. Per user, a keyword gate feeds AI job-fit scoring, into Supabase, and out to the dashboard, the daily email digest, and resume tailoring. Scoring also hands off to a durable queue on a Cloud Run worker underneath, which runs the OpenAI calls for AI fit scoring, email digests, and resume scoring and tailoring.">
             <defs>
               <marker id="jc-arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="strokeWidth">
                 <path d="M 0 0 L 10 5 L 0 10 z" fill="rgba(255,255,255,0.3)"/>
               </marker>
             </defs>
 
-            <!-- ── ROW 1: Timer → Scheduled Crawl → Mixed Sources → Dedup ── -->
+            <!-- ── ROW 1: Timer → Scheduled Crawl → Mixed Sources → Dedup + Classify ── -->
 
             <!-- Timer -->
             <rect x="30" y="70" width="250" height="104" rx="14" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"/>
@@ -325,34 +331,34 @@
             <rect x="330" y="70" width="250" height="104" rx="14" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"/>
             <text x="455" y="54" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">WORKFLOW</text>
             <text x="455" y="125" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="24" font-weight="600">GitHub Actions</text>
-            <text x="455" y="151" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">runs the crawl in the repo</text>
+            <text x="455" y="151" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">daily, fast, and paced lanes</text>
 
             <line x1="580" y1="122" x2="630" y2="122" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
 
             <!-- Mixed Sources (orange: the data layer, the hard part) -->
             <rect x="630" y="70" width="250" height="104" rx="14" fill="rgba(251,146,60,0.06)" stroke="rgba(251,146,60,0.5)" stroke-width="2"/>
-            <text x="755" y="54" text-anchor="middle" fill="rgba(251,146,60,0.85)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">12+ SOURCES</text>
+            <text x="755" y="54" text-anchor="middle" fill="rgba(251,146,60,0.85)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">24 SOURCES</text>
             <text x="755" y="125" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="24" font-weight="600">Mixed Sources</text>
             <text x="755" y="151" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">ATS · aggregators · boards</text>
 
             <line x1="880" y1="122" x2="930" y2="122" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
 
-            <!-- Dedup -->
+            <!-- Dedup + Classify -->
             <rect x="930" y="70" width="250" height="104" rx="14" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"/>
             <text x="1055" y="54" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">80K → 7K</text>
-            <text x="1055" y="125" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="24" font-weight="600">Dedup</text>
-            <text x="1055" y="151" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">drop duplicate listings</text>
+            <text x="1055" y="125" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="23" font-weight="600">Dedup + Classify</text>
+            <text x="1055" y="151" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">role, seniority, salary</text>
 
-            <!-- Return connector: Dedup down and back to Keyword Scoring -->
+            <!-- Return connector: Dedup down and back to the Keyword Gate -->
             <path d="M 1055 174 C 1055 252 155 228 155 306" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
 
-            <!-- ── ROW 2: Keyword Scoring → Job-Fit Scoring → Supabase → outputs ── -->
+            <!-- ── ROW 2: Keyword Gate → Job-Fit Scoring → Supabase → outputs ── -->
 
-            <!-- Keyword Scoring -->
+            <!-- Keyword Gate -->
             <rect x="30" y="306" width="250" height="104" rx="14" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"/>
-            <text x="155" y="290" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">FIRST PASS</text>
-            <text x="155" y="361" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="24" font-weight="600">Keyword Scoring</text>
-            <text x="155" y="387" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">title, salary, AI keywords</text>
+            <text x="155" y="290" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">PER USER</text>
+            <text x="155" y="361" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="24" font-weight="600">Keyword Gate</text>
+            <text x="155" y="387" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">recall-tuned first pass</text>
 
             <line x1="280" y1="358" x2="330" y2="358" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
 
@@ -368,24 +374,40 @@
             <rect x="630" y="306" width="250" height="104" rx="14" fill="rgba(167,139,250,0.07)" stroke="rgba(167,139,250,0.5)" stroke-width="2"/>
             <text x="755" y="290" text-anchor="middle" fill="rgba(167,139,250,0.9)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">STORE</text>
             <text x="755" y="361" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="24" font-weight="600">Supabase</text>
-            <text x="755" y="387" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">Postgres database</text>
+            <text x="755" y="387" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">Postgres · row-level security</text>
 
-            <!-- Fork from Supabase to the two outputs -->
-            <path d="M 880 348 C 906 338 906 327 928 327" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
-            <path d="M 880 368 C 906 378 906 389 928 389" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
+            <!-- Fork from Supabase to the three outputs -->
+            <path d="M 880 346 C 905 334 905 321 928 321" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
+            <path d="M 880 360 C 905 360 905 367 928 367" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
+            <path d="M 880 374 C 905 392 905 413 928 413" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
 
             <!-- Outputs -->
             <text x="1055" y="292" text-anchor="middle" fill="rgba(52,211,153,0.9)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">DELIVER</text>
-            <rect x="930" y="304" width="250" height="46" rx="12" fill="rgba(52,211,153,0.07)" stroke="rgba(52,211,153,0.5)" stroke-width="2"/>
-            <text x="1055" y="333" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="18" font-weight="600">Dashboard</text>
-            <rect x="930" y="366" width="250" height="46" rx="12" fill="rgba(52,211,153,0.07)" stroke="rgba(52,211,153,0.5)" stroke-width="2"/>
-            <text x="1055" y="395" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="18" font-weight="600">Daily email digest</text>
+            <rect x="930" y="302" width="250" height="38" rx="11" fill="rgba(52,211,153,0.07)" stroke="rgba(52,211,153,0.5)" stroke-width="2"/>
+            <text x="1055" y="327" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="17" font-weight="600">Dashboard</text>
+            <rect x="930" y="348" width="250" height="38" rx="11" fill="rgba(52,211,153,0.07)" stroke="rgba(52,211,153,0.5)" stroke-width="2"/>
+            <text x="1055" y="373" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="17" font-weight="600">Daily email digest</text>
+            <rect x="930" y="394" width="250" height="38" rx="11" fill="rgba(52,211,153,0.07)" stroke="rgba(52,211,153,0.5)" stroke-width="2"/>
+            <text x="1055" y="419" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="17" font-weight="600">Resume tailoring</text>
+
+            <!-- ── ROW 3: the durable queue underneath it all ──
+                 The band is dashed because it is a second runtime, not another
+                 stop on the conveyor belt. The arrows into and out of it are
+                 solid: the handoff itself is real dataflow. -->
+            <path d="M 455 410 L 455 492" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
+            <text x="468" y="457" fill="rgba(255,255,255,0.45)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.4">QUEUES</text>
+            <path d="M 1055 492 L 1055 438" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
+
+            <rect x="330" y="494" width="850" height="80" rx="14" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.22)" stroke-width="1.5" stroke-dasharray="6 5"/>
+            <text x="755" y="478" text-anchor="middle" fill="rgba(255,255,255,0.45)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">DURABLE QUEUE</text>
+            <text x="755" y="530" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="21" font-weight="600">Cloud Run worker</text>
+            <text x="755" y="554" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">runs OpenAI calls for AI fit scoring, email digests, and resume scoring and tailoring</text>
 
             <!-- Footing -->
-            <text x="600" y="454" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5" letter-spacing="0.5">One scheduled run, about 20 minutes end to end, every morning.</text>
+            <text x="600" y="600" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5" letter-spacing="0.5">One scheduled run every morning, plus a worker that keeps going after the browser closes.</text>
           </svg>
         </div>
-        <div class="cs-img-caption">The pipeline: a timer kicks off a scheduled crawl across a dozen sources, then dedup, keyword and AI job-fit scoring, into Supabase and out to the dashboard and a daily email.</div>
+        <div class="cs-img-caption">The pipeline: a timer kicks off staggered crawl lanes across 24 sources, then dedup and classify. Per user, a keyword gate feeds AI job-fit scoring into Supabase, and out to the dashboard, the daily email, and resume tailoring. A durable queue on a Cloud Run worker runs the OpenAI calls behind fit scoring, digests, and resume work.</div>
       </figure>
     </div>
 
@@ -716,12 +738,31 @@
   onScroll();
 })();
 
-/* Hero video: honour reduced-motion by holding it on the poster frame. */
+/* Hero video: click or Enter to pause, and honour reduced-motion. */
 (function () {
-  const v = document.querySelector('.cs-video-frame video');
+  const frame = document.querySelector('.cs-video-frame');
+  const v = frame && frame.querySelector('video');
   if (!v) return;
+
+  const sync = () => frame.classList.toggle('is-paused', v.paused);
+  v.addEventListener('play', sync);
+  v.addEventListener('pause', sync);
+
+  const toggle = () => {
+    // In reduced-motion mode the native controls own the interaction, so
+    // handling the click here too would fight them.
+    if (v.controls) return;
+    if (v.paused) v.play().catch(() => {}); else v.pause();
+  };
+  v.addEventListener('click', toggle);
+  v.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter' && e.key !== ' ' && e.key !== 'Spacebar') return;
+    e.preventDefault(); // Space would otherwise scroll the article.
+    toggle();
+  });
+
   const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const sync = () => {
+  const applyMotion = () => {
     if (mq.matches) {
       // load() rewinds and re-shows the poster, so the frame does not sit on
       // the video's black opening frame. controls let them start it by choice.
@@ -731,9 +772,10 @@
       v.loop = true; v.controls = false;
       v.play().catch(() => {});
     }
+    sync();
   };
-  mq.addEventListener('change', sync);
-  sync();
+  mq.addEventListener('change', applyMotion);
+  applyMotion();
 })();
 </script>
 
