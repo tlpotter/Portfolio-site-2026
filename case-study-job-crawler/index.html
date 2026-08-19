@@ -12,7 +12,7 @@
       y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "x7iukafy20");
   </script>
-  <title>Job Search Crawler — Ted Potter</title>
+  <title>Match Moth Job Search — Ted Potter</title>
   <link rel="icon" type="image/svg+xml" href="../favicon.svg"/>
   <meta name="robots" content="noindex"/>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fraunces:ital,wght@0,300;0,600;1,300;1,600&display=swap" rel="stylesheet"/>
@@ -192,7 +192,7 @@
 <section id="cs-hero">
   <div class="cs-hero-inner">
     <a href="../#work" class="nav-back" style="display:inline-flex;align-items:center;margin-bottom:24px"><span class="nav-back-arrow" style="line-height:1;margin-top:-1px">←</span> All work</a>
-    <div class="cs-num">Case Study — Job Search Crawler &nbsp;·&nbsp; 7 min read</div>
+    <div class="cs-num">Case Study — Match Moth Job Search &nbsp;·&nbsp; 7 min read</div>
     <div class="work-tags" style="margin-bottom:12px;margin-top:-8px">
       <span class="work-tag">AI Product</span>
       <span class="work-tag">Side Project</span>
@@ -207,12 +207,16 @@
 <section class="cs-section" style="padding-top:0">
   <div class="cs-article" style="margin-top:0">
 
-    <!-- ── 02. Hero image ── -->
+    <!-- ── 02. Hero video ── -->
     <div class="cs-img-breakout" style="margin-top:32px">
-      <div class="cs-img-frame landscape" style="aspect-ratio:3/2">
-        <a href="../images/home/jobcrawler_thumb.png" class="glightbox">
-          <img src="../images/home/jobcrawler_thumb.png" alt="Full dashboard, dark glassmorphic UI, ranked and scored job feed" style="object-fit:cover;object-position:top"/>
-        </a>
+      <!-- Silent, looping product walkthrough. Autoplays muted so it reads as a
+           moving hero image rather than a video the reader has to start. -->
+      <div class="cs-img-frame cs-video-frame">
+        <video
+          src="../video/jobcrawler-hero.mp4"
+          poster="../video/jobcrawler-hero-poster.jpg"
+          autoplay muted loop playsinline preload="metadata"
+          aria-label="Screen recording of Match Moth: a ranked, AI-scored job feed, the score breakdown for a single listing, and the resume-tailoring view"></video>
       </div>
     </div>
 
@@ -277,7 +281,7 @@
       <h2 class="cs-article-title">Scratch your own <em>itch</em></h2>
       <div class="cs-article-body">
         <p>I went looking for a UX role in one of the roughest tech markets in years. The obvious move was to open LinkedIn every morning and start scrolling. Instead I asked a different question: I'm a product designer who works on AI products all day. Could I build my own?</p>
-        <p>So I did. The Job Search Crawler kicks off every morning at 8am, takes around twenty minutes to scan more than a dozen job sources, scores every role against my actual experience, and emails me a ranked, AI-evaluated shortlist. I designed it, specced it, and built it solo, using a stack of APIs and tools I had never touched before. AI wrote most of the code. I made the decisions.</p>
+        <p>So I did. Match Moth kicks off every morning at 8am, takes around twenty minutes to scan more than a dozen job sources, scores every role against my actual experience, and emails me a ranked, AI-evaluated shortlist. I designed it, specced it, and built it solo, using a stack of APIs and tools I had never touched before. AI wrote most of the code. I made the decisions.</p>
       </div>
     </div>
 
@@ -710,6 +714,26 @@
 
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
+})();
+
+/* Hero video: honour reduced-motion by holding it on the poster frame. */
+(function () {
+  const v = document.querySelector('.cs-video-frame video');
+  if (!v) return;
+  const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const sync = () => {
+    if (mq.matches) {
+      // load() rewinds and re-shows the poster, so the frame does not sit on
+      // the video's black opening frame. controls let them start it by choice.
+      v.autoplay = false; v.loop = false; v.controls = true;
+      v.pause(); v.load();
+    } else {
+      v.loop = true; v.controls = false;
+      v.play().catch(() => {});
+    }
+  };
+  mq.addEventListener('change', sync);
+  sync();
 })();
 </script>
 
