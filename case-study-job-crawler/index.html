@@ -312,7 +312,7 @@
            which still describes the legacy in-process path. -->
       <figure class="cs-diagram-card">
         <div class="cs-diagram-body">
-          <svg viewBox="0 0 1200 570" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architecture diagram. A cron-job.org timer triggers GitHub Actions, which runs the crawl in daily, fast, and paced lanes across 24 sources, then dedup and classify, and saves the listings. The crawl then queues what changed to a Google Cloud Run worker, where the per-user keyword gate and the AI job-fit scoring LLM run. Results go into Supabase and out to the full app, the daily email digest, and resume tailoring. The same worker also handles digests, rescores, and resume tailoring on demand.">
+          <svg viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architecture diagram. A cron-job.org timer triggers GitHub Actions, which runs the crawl in daily, fast, and paced lanes across 24 sources, then dedup and classify, and saves the listings. The crawl then queues what changed to a Google Cloud Run worker, where the per-user keyword gate and the AI job-fit scoring LLM run. Results go into Supabase, and out to the daily email digest and resume tailoring. Underneath, the Match Moth web app on Vercel reads that same database to serve the job feed, score breakdowns, tracker and resume workspace, and is what queues the on-demand rescores and tailoring back onto the worker.">
             <defs>
               <marker id="jc-arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="strokeWidth">
                 <path d="M 0 0 L 10 5 L 0 10 z" fill="rgba(255,255,255,0.3)"/>
@@ -388,29 +388,54 @@
             <text x="755" y="361" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="24" font-weight="600">Supabase</text>
             <text x="755" y="387" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">Postgres · row-level security</text>
 
-            <!-- Fork from Supabase to the three outputs -->
-            <path d="M 880 346 C 905 334 905 321 928 321" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
-            <path d="M 880 360 C 905 360 905 367 928 367" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
-            <path d="M 880 374 C 905 392 905 413 928 413" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
+            <!-- Fork from Supabase to the two things that leave it as output.
+                 The app itself is the band below, not a box here: it is a
+                 runtime, and listing it beside "digest" mixed two levels. -->
+            <path d="M 880 350 C 905 344 905 334 928 334" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
+            <path d="M 880 366 C 905 372 905 382 928 382" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
 
-            <!-- Outputs -->
-            <text x="1055" y="292" text-anchor="middle" fill="rgba(52,211,153,0.9)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">DELIVER</text>
-            <rect x="930" y="302" width="250" height="38" rx="11" fill="rgba(52,211,153,0.07)" stroke="rgba(52,211,153,0.5)" stroke-width="2"/>
-            <text x="1055" y="327" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="17" font-weight="600">Full App</text>
-            <rect x="930" y="348" width="250" height="38" rx="11" fill="rgba(52,211,153,0.07)" stroke="rgba(52,211,153,0.5)" stroke-width="2"/>
-            <text x="1055" y="373" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="17" font-weight="600">Daily email digest</text>
-            <rect x="930" y="394" width="250" height="38" rx="11" fill="rgba(52,211,153,0.07)" stroke="rgba(52,211,153,0.5)" stroke-width="2"/>
-            <text x="1055" y="419" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="17" font-weight="600">Resume tailoring</text>
+            <!-- Outputs. Icon sits at a fixed inset and the label centres in the
+                 space left over, so neither depends on the other's measured width. -->
+            <text x="1055" y="304" text-anchor="middle" fill="rgba(52,211,153,0.9)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">DELIVER</text>
 
-            <!-- The worker is not only the nightly lane -->
-            <text x="306" y="478" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">The same worker sends the digests and, on demand, rescores a</text>
-            <text x="306" y="498" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">changed profile or tailors a resume to one job.</text>
+            <rect x="930" y="314" width="250" height="40" rx="11" fill="rgba(52,211,153,0.07)" stroke="rgba(52,211,153,0.5)" stroke-width="2"/>
+            <g transform="translate(948,326) scale(0.667)" fill="none" stroke="rgba(52,211,153,0.95)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="4.5" width="20" height="15" rx="2.5"/>
+              <path d="M2.8 6.2 12 13l9.2-6.8"/>
+            </g>
+            <text x="1072" y="340" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="17" font-weight="600">Daily email digest</text>
 
-            <!-- Footing -->
-            <text x="600" y="540" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5" letter-spacing="0.5">One scheduled crawl each morning, then a worker that keeps going after the browser closes.</text>
+            <rect x="930" y="362" width="250" height="40" rx="11" fill="rgba(52,211,153,0.07)" stroke="rgba(52,211,153,0.5)" stroke-width="2"/>
+            <g transform="translate(948,374) scale(0.667)" fill="none" stroke="rgba(52,211,153,0.95)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 3.5h9l5 5v12a1.5 1.5 0 0 1-1.5 1.5h-12A1.5 1.5 0 0 1 4 20.5v-15A1.5 1.5 0 0 1 5.5 3.5z"/>
+              <path d="M14 3.5v5.5h5"/>
+              <path d="M7.5 13h9M7.5 17h5.5"/>
+            </g>
+            <text x="1072" y="388" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="17" font-weight="600">Resume tailoring</text>
+
+            <!-- ── The app: the third runtime, and the one the reader touches ──
+                 Solid navy rather than the worker's dashed outline: this is the
+                 surface, not a background process. It reads the database, and it
+                 is also what puts the on-demand jobs on the worker's queue, which
+                 closes the loop the diagram otherwise only implies. -->
+            <path d="M 755 410 L 755 494" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
+            <text x="768" y="458" fill="rgba(255,255,255,0.45)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.4">READS</text>
+
+            <path d="M 306 492 L 306 448" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
+            <text x="322" y="476" fill="rgba(255,255,255,0.45)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.4">QUEUES RESCORES &amp; TAILORING</text>
+
+            <rect x="16" y="496" width="1164" height="84" rx="16" fill="#152443" stroke="rgba(96,165,250,0.42)" stroke-width="1.5"/>
+            <g id="jc-app-icon" transform="translate(473,516) scale(0.95)" fill="none" stroke="rgba(147,197,253,0.95)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3.5" width="20" height="17" rx="2.5"/>
+              <path d="M2 9h20"/>
+              <circle cx="5.6" cy="6.3" r="0.85" fill="rgba(147,197,253,0.95)" stroke="none"/>
+              <circle cx="8.4" cy="6.3" r="0.85" fill="rgba(147,197,253,0.95)" stroke="none"/>
+            </g>
+            <text id="jc-app-title" x="614" y="534" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="21" font-weight="600">Match Moth Web App</text>
+            <text x="600" y="558" text-anchor="middle" fill="rgba(255,255,255,0.55)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">Next.js on Vercel · job feed, score breakdowns, tracker, resume workspace</text>
           </svg>
         </div>
-        <div class="cs-img-caption">The pipeline: a timer kicks off staggered crawl lanes across 24 sources, then dedup and classify. The crawl saves the listings and queues what changed; a Google Cloud Run worker picks it up, runs the per-user keyword gate and the OpenAI fit-scoring calls, and writes into Supabase, which feeds the full app, the daily email, and resume tailoring.</div>
+        <div class="cs-img-caption">The pipeline: a timer kicks off staggered crawl lanes across 24 sources, then dedup and classify. The crawl saves the listings and queues what changed; a Google Cloud Run worker picks it up, runs the per-user keyword gate and the OpenAI fit-scoring calls, and writes into Supabase. The Match Moth web app reads that database to serve the feed, and queues the on-demand work back to the worker.</div>
       </figure>
     </div>
 
