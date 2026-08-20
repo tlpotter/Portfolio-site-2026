@@ -1,43 +1,3 @@
-/* ── PROTECTED CASE STUDY GATE ── */
-(function(){
-  const HASH = '100aa5ee77f448f54a90f9d5338cf1fd59649bab93fc14d6e9884a617741ebce';
-  const modal = document.getElementById('pw-modal');
-  if (!modal) return;
-  let targetHref = '';
-
-  async function sha256(str) {
-    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
-    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
-  }
-
-  document.querySelectorAll('[data-protected]').forEach(el => {
-    el.addEventListener('click', e => {
-      e.preventDefault();
-      targetHref = el.dataset.href || '';
-      document.getElementById('pw-error').textContent = '';
-      document.getElementById('pw-input').value = '';
-      modal.style.display = 'flex';
-      setTimeout(() => document.getElementById('pw-input').focus(), 50);
-    });
-  });
-
-  async function attempt() {
-    const val = document.getElementById('pw-input').value;
-    const h = await sha256(val);
-    if (h === HASH) {
-      modal.style.display = 'none';
-      window.location.href = targetHref;
-    } else {
-      document.getElementById('pw-error').textContent = 'Incorrect password.';
-      document.getElementById('pw-input').select();
-    }
-  }
-
-  document.getElementById('pw-submit').addEventListener('click', attempt);
-  document.getElementById('pw-input').addEventListener('keydown', e => { if (e.key === 'Enter') attempt(); });
-  document.getElementById('pw-cancel').addEventListener('click', () => { modal.style.display = 'none'; });
-  modal.addEventListener('click', e => { if (e.target === modal) modal.style.display = 'none'; });
-})();
 
 /* ── NAV BADGE ANIMATE IN ── */
 (function(){
@@ -1678,7 +1638,8 @@ function applyBHQuality(tier, options) {
 }
 
 function resizeBH() {
-  const heroH  = document.getElementById('hero').offsetHeight || window.innerHeight;
+  const hero   = document.getElementById('hero');
+  const heroH  = (hero && hero.offsetHeight) || window.innerHeight;
   const mobile = window.innerWidth < 800;
   const ext    = heroH * (mobile ? 0.4 : 0.35);
   const q = BH_QUALITY[bhQualityTier] || BH_QUALITY.high;
@@ -1708,9 +1669,11 @@ function resizeBH() {
   bhOpts.shooters      = !mobile && q.shooters;
   bhOpts.lensing       = !mobile && q.lensing; // pixel-by-pixel GPU readback is too slow on mobile/low tier
 }
-applyBHQuality(bhQualityTier);
-bhOpts.onQualityChange = (tier) => applyBHQuality(tier, { persist: true, resize: true });
-resizeBH();
-window.addEventListener('resize', resizeBH);
-drawPortal(bh, bhOpts);
+if (bh) {
+  applyBHQuality(bhQualityTier);
+  bhOpts.onQualityChange = (tier) => applyBHQuality(tier, { persist: true, resize: true });
+  resizeBH();
+  window.addEventListener('resize', resizeBH);
+  drawPortal(bh, bhOpts);
+}
 

@@ -13,10 +13,13 @@
     })(window, document, "clarity", "script", "x7iukafy20");
   </script>
   <title>Match Moth Job Search — Ted Potter</title>
+  <meta name="description" content="An AI tool that runs a job search end to end: a daily crawl across 24 sources, per-user AI fit scoring, and a ranked shortlist emailed every morning."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:title" content="Match Moth Job Search"/>
+  <meta property="og:description" content="An AI tool that runs a job search end to end: a daily crawl across 24 sources, per-user AI fit scoring, and a ranked shortlist emailed every morning."/>
   <link rel="icon" type="image/svg+xml" href="../favicon.svg"/>
-  <meta name="robots" content="noindex"/>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fraunces:ital,wght@0,300;0,600;1,300;1,600&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.3.1/dist/css/glightbox.min.css" integrity="sha384-GPAzSuZc0kFvdIev6wm9zg8gnafE8tLso7rsAYQfc9hAdWCpOcpcNI5W9lWkYcsd" crossorigin="anonymous" referrerpolicy="no-referrer">
   <link rel="stylesheet" href="../css/styles.css"/>
   <link rel="stylesheet" href="../css/case-study.css"/>
   <style>
@@ -312,7 +315,7 @@
            which still describes the legacy in-process path. -->
       <figure class="cs-diagram-card">
         <div class="cs-diagram-body">
-          <svg viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architecture diagram. A cron-job.org timer triggers GitHub Actions, which runs the crawl in daily, fast, and paced lanes across 24 sources, then dedup and classify, and saves the listings. The crawl then queues what changed to a Google Cloud Run worker, where the per-user keyword gate and the AI job-fit scoring LLM run. Results go into Supabase, and out to the daily email digest and resume tailoring. Underneath, the Match Moth web app on Vercel reads that same database to serve the job feed, score breakdowns, tracker and resume workspace, and is what queues the on-demand rescores and tailoring back onto the worker.">
+          <svg viewBox="0 0 1200 670" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architecture diagram. A cron-job.org timer triggers GitHub Actions, which runs the crawl in daily, fast, and paced lanes across 24 sources, then dedup and classify, and saves the listings. The crawl then queues what changed to a Google Cloud Run worker, where the per-user keyword gate and the AI job-fit scoring LLM run. Results go into Supabase, and out to the daily email digest and resume tailoring. Underneath, the Match Moth web app on Vercel reads that same database to serve the job feed, score breakdowns, tracker and resume workspace, and is what queues the on-demand rescores and tailoring back onto the worker.">
             <defs>
               <marker id="jc-arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="strokeWidth">
                 <path d="M 0 0 L 10 5 L 0 10 z" fill="rgba(255,255,255,0.3)"/>
@@ -322,7 +325,7 @@
             <!-- The dashed enclosure marks the second runtime: everything inside
                  it executes on Cloud Run, not on the Actions runner. Drawn first
                  so the node boxes paint over it. -->
-            <rect x="16" y="274" width="580" height="170" rx="16" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.22)" stroke-width="1.5" stroke-dasharray="6 5"/>
+            <rect x="16" y="262" width="580" height="216" rx="16" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.22)" stroke-width="1.5" stroke-dasharray="6 5"/>
 
             <!-- ── ROW 1: the crawl, on the GitHub Actions runner ── -->
 
@@ -358,7 +361,7 @@
 
             <!-- The handoff. The Actions run saves the listings, then queues the
                  range of what changed; the scoring itself happens elsewhere. -->
-            <path d="M 1055 174 C 1055 240 155 250 155 306" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
+            <path d="M 1055 174 C 1055 244 230 250 230 306" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
             <text x="605" y="228" text-anchor="middle" fill="rgba(255,255,255,0.45)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.6">QUEUES WHAT CHANGED</text>
 
             <!-- ── ROW 2: scoring, on the Cloud Run worker ── -->
@@ -373,12 +376,12 @@
 
             <!-- AI Job-Fit Scoring (blue: the LLM centerpiece) -->
             <rect x="330" y="306" width="250" height="104" rx="14" fill="rgba(56,189,248,0.07)" stroke="rgba(56,189,248,0.5)" stroke-width="2"/>
-            <text x="455" y="290" text-anchor="middle" fill="rgba(56,189,248,0.9)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">LLM</text>
+            <text x="455" y="290" text-anchor="middle" fill="rgba(56,189,248,0.9)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">OPENAI</text>
             <text x="455" y="361" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="24" font-weight="600">Job-Fit Scoring</text>
             <text x="455" y="387" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">0–100 across 5 factors</text>
 
             <!-- Runtime caption, inside the enclosure it names -->
-            <text x="306" y="430" text-anchor="middle" fill="rgba(255,255,255,0.45)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">ON THE GOOGLE CLOUD RUN WORKER</text>
+            <text x="306" y="448" text-anchor="middle" fill="rgba(255,255,255,0.45)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">ON THE GOOGLE CLOUD RUN WORKER</text>
 
             <line x1="596" y1="358" x2="630" y2="358" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
 
@@ -418,21 +421,22 @@
                  surface, not a background process. It reads the database, and it
                  is also what puts the on-demand jobs on the worker's queue, which
                  closes the loop the diagram otherwise only implies. -->
-            <path d="M 755 410 L 755 494" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
-            <text x="768" y="458" fill="rgba(255,255,255,0.45)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.4">READS</text>
+            <path d="M 755 410 L 755 564" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
+            <text x="768" y="492" fill="rgba(255,255,255,0.45)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.4">READS</text>
 
-            <path d="M 306 492 L 306 448" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
-            <text x="322" y="476" fill="rgba(255,255,255,0.45)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.4">QUEUES RESCORES &amp; TAILORING</text>
+            <path d="M 306 564 L 306 482" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
+            <text x="322" y="528" fill="rgba(255,255,255,0.45)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.4">QUEUES RESCORES &amp; TAILORING</text>
 
-            <rect x="16" y="496" width="1164" height="84" rx="16" fill="#152443" stroke="rgba(96,165,250,0.42)" stroke-width="1.5"/>
-            <g id="jc-app-icon" transform="translate(473,516) scale(0.95)" fill="none" stroke="rgba(147,197,253,0.95)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <text x="36" y="556" fill="rgba(147,197,253,0.75)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">ON VERCEL</text>
+            <rect x="16" y="566" width="1164" height="84" rx="16" fill="#152443" stroke="rgba(96,165,250,0.42)" stroke-width="1.5"/>
+            <g id="jc-app-icon" transform="translate(473,586) scale(0.95)" fill="none" stroke="rgba(147,197,253,0.95)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
               <rect x="2" y="3.5" width="20" height="17" rx="2.5"/>
               <path d="M2 9h20"/>
               <circle cx="5.6" cy="6.3" r="0.85" fill="rgba(147,197,253,0.95)" stroke="none"/>
               <circle cx="8.4" cy="6.3" r="0.85" fill="rgba(147,197,253,0.95)" stroke="none"/>
             </g>
-            <text id="jc-app-title" x="614" y="534" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="21" font-weight="600">Match Moth Web App</text>
-            <text x="600" y="558" text-anchor="middle" fill="rgba(255,255,255,0.55)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">Next.js on Vercel · job feed, score breakdowns, tracker, resume workspace</text>
+            <text id="jc-app-title" x="614" y="604" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="21" font-weight="600">Match Moth Web App</text>
+            <text x="600" y="628" text-anchor="middle" fill="rgba(255,255,255,0.55)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">Next.js · job feed, score breakdowns, application tracker, resume workspace</text>
           </svg>
         </div>
         <div class="cs-img-caption">The pipeline: a timer kicks off staggered crawl lanes across 24 sources, then dedup and classify. The crawl saves the listings and queues what changed; a Google Cloud Run worker picks it up, runs the per-user keyword gate and the OpenAI fit-scoring calls, and writes into Supabase. The Match Moth web app reads that database to serve the feed, and queues the on-demand work back to the worker.</div>
@@ -510,12 +514,12 @@
       <div class="cs-art-img-2col">
         <div class="cs-img-frame" style="aspect-ratio:9/5">
           <a href="../images/Job Crawler/filter controls.png" class="glightbox">
-            <img src="../images/Job Crawler/filter controls.png" alt="Filter panel: title, source, remote, date, and minimum-score controls"/>
+            <img src="../images/Job Crawler/filter controls.png" alt="Filter panel: title, source, remote, date, and minimum-score controls" fetchpriority="high" decoding="async" width="502" height="780"/>
           </a>
         </div>
         <div class="cs-img-frame" style="aspect-ratio:9/5">
           <a href="../images/Job Crawler/AI_score_breakdown.png" class="glightbox">
-            <img src="../images/Job Crawler/AI_score_breakdown.png" alt="AI job-fit score breakdown with per-factor scores"/>
+            <picture><source media="(max-width: 800px)" srcset="../images/Job%20Crawler/AI_score_breakdown-750w.webp" type="image/webp"><img src="../images/Job Crawler/AI_score_breakdown.png" alt="AI job-fit score breakdown with per-factor scores" loading="lazy" decoding="async" width="932" height="728"/></picture>
           </a>
         </div>
       </div>
@@ -598,17 +602,17 @@
       <div class="cs-art-img-3col">
         <div class="cs-img-frame" style="aspect-ratio:60/95">
           <a href="../images/Job Crawler/jobcrawler_design1.png" class="glightbox" data-title="Initial POC build with no styling applied.">
-            <img src="../images/Job Crawler/jobcrawler_design1.png" alt="Initial POC build with no styling applied."/>
+            <img src="../images/Job Crawler/jobcrawler_design1.png" alt="Initial POC build with no styling applied." loading="lazy" decoding="async" width="600" height="956"/>
           </a>
         </div>
         <div class="cs-img-frame" style="aspect-ratio:60/95">
           <a href="../images/Job Crawler/jobcrawler_design2.png" class="glightbox" data-title="AddedDaisyUI for front end framework.">
-            <img src="../images/Job Crawler/jobcrawler_design2.png" alt="AddedDaisyUI for front end framework."/>
+            <img src="../images/Job Crawler/jobcrawler_design2.png" alt="AddedDaisyUI for front end framework." loading="lazy" decoding="async" width="600" height="1016"/>
           </a>
         </div>
         <div class="cs-img-frame" style="aspect-ratio:60/95">
           <a href="../images/Job Crawler/jobcrawler_design3.png" class="glightbox" data-title="Dark Design with custom styling, matching the portfolio's aesthetic.">
-            <img src="../images/Job Crawler/jobcrawler_design3.png" alt="Dark Design with custom styling, matching the portfolio's aesthetic."/>
+            <img src="../images/Job Crawler/jobcrawler_design3.png" alt="Dark Design with custom styling, matching the portfolio's aesthetic." loading="lazy" decoding="async" width="600" height="888"/>
           </a>
         </div>
       </div>
@@ -656,7 +660,7 @@
   <div class="cs-next-inner">
     <a href="../#work" class="cs-next-back">← Back to all work</a>
     <a href="../case-study-invoca-ai/" class="cs-next-link">
-      <div class="cs-next-thumb"><img src="../images/home/invoca_ai_training_thumb.png" alt="AI Model Training Concept preview"/></div>
+      <div class="cs-next-thumb"><picture><source media="(max-width: 800px)" srcset="../images/home/invoca_ai_training_thumb-750w.webp" type="image/webp"><img src="../images/home/invoca_ai_training_thumb.png" alt="AI Model Training Concept preview" loading="lazy" decoding="async" width="1176" height="796"/></picture></div>
       <div class="cs-next-link-text">
         <span class="cs-next-lbl">Next case study</span>
         <span class="cs-next-title">AI Model Training Concept →</span>
@@ -696,81 +700,10 @@
 </footer>
 
 <script src="../js/main.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/glightbox@3.3.1/dist/js/glightbox.min.js" integrity="sha384-MZZbZ6RXJudK43v1qY1zOWKOU2yfeBPatuFoKyHAaAgHTUZhwblRTc9CphTt4IGQ" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>GLightbox({ touchNavigation: true, loop: true, zoomable: true });</script>
+<script src="../js/case-study.js"></script>
 <script>
-(function() {
-  // ── Auto-add captions under images using their glightbox data-title ──
-  document.querySelectorAll('a.glightbox[data-title]').forEach(link => {
-    const title = link.getAttribute('data-title');
-    if (!title) return;
-    const target = link.closest('.cs-img-frame') || link;
-    if (target.dataset.captioned === 'true') return;
-    const fig = document.createElement('figure');
-    fig.className = 'cs-figure';
-    target.parentNode.insertBefore(fig, target);
-    fig.appendChild(target);
-    const cap = document.createElement('div');
-    cap.className = 'cs-img-caption';
-    cap.textContent = title;
-    fig.appendChild(cap);
-    target.dataset.captioned = 'true';
-  });
-})();
-</script>
-<script>
-(function() {
-  // ── Build bottom nav ──
-  const bnav = document.createElement('div');
-  bnav.id = 'cs-bottom-nav';
-  bnav.innerHTML =
-    '<div id="cs-bnav-row"><div id="cs-bnav-sections"></div></div>' +
-    '<div id="cs-bnav-track"><div id="cs-bnav-fill"></div></div>';
-  document.body.appendChild(bnav);
-
-  const fill   = document.getElementById('cs-bnav-fill');
-  const secBox = document.getElementById('cs-bnav-sections');
-  const sections = Array.from(document.querySelectorAll('.cs-article-section'));
-  const items = [];
-
-  sections.forEach((sec, i) => {
-    const lbl = sec.querySelector('.cs-article-label');
-    if (!lbl) return;
-    const id = 'sec-' + i;
-    sec.id = id;
-    const a = document.createElement('a');
-    a.href = '#' + id;
-    a.className = 'cs-bnav-sec';
-    a.textContent = lbl.textContent.replace(/^—\s*/, '').trim();
-    a.addEventListener('click', e => {
-      e.preventDefault();
-      sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-    secBox.appendChild(a);
-    items.push({ sec, a });
-  });
-
-  const hero = document.getElementById('cs-hero');
-  let heroBottom = 0;
-  function calcHero() { heroBottom = hero ? hero.offsetTop + hero.offsetHeight : 400; }
-  calcHero();
-  window.addEventListener('resize', calcHero);
-
-  function onScroll() {
-    const sy = window.scrollY;
-    const docH = document.documentElement.scrollHeight - window.innerHeight;
-    fill.style.width = (docH > 0 ? Math.min(100, (sy / docH) * 100) : 0) + '%';
-    bnav.classList.toggle('visible', sy > heroBottom);
-    let active = null;
-    const threshold = sy + window.innerHeight * 0.4;
-    items.forEach(({ sec, a }) => { if (sec.offsetTop <= threshold) active = a; });
-    items.forEach(({ a }) => a.classList.toggle('active', a === active));
-  }
-
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-})();
-
 /* Hero video: click or Enter to pause, and honour reduced-motion. */
 (function () {
   const frame = document.querySelector('.cs-video-frame');
