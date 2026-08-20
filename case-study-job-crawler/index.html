@@ -427,24 +427,29 @@
       <figure class="cs-diagram-card" style="margin-top:48px;margin-bottom:48px">
         <div class="cs-diagram-body">
           <div class="cs-source-grid">
+            <!-- Roster taken from `sources` + `fastAtsSources` in lib/crawler/index.ts
+                 plus the two that run on their own workflows (Workday, Eightfold).
+                 indeed / the-muse / builtin are still on disk but not imported, and
+                 dribbble / coroflot / hn-hiring were deleted outright, so none of
+                 them appear here. -->
             <div class="cs-source-card is-primary">
               <div class="cs-source-eyebrow">Post directly · canonical</div>
               <div class="cs-source-title">ATS platforms</div>
-              <div class="cs-source-chips"><span>Ashby</span><span>Greenhouse</span><span>Lever</span><span>Workday</span><span>BambooHR</span><span>iCIMS</span></div>
+              <div class="cs-source-chips"><span>Greenhouse</span><span>Lever</span><span>Ashby</span><span>Workday</span><span>SmartRecruiters</span><span>Recruitee</span><span>Breezy</span><span>BambooHR</span><span>Workable</span><span>iCIMS</span><span>Oracle Cloud</span><span>Eightfold</span></div>
+            </div>
+            <div class="cs-source-card">
+              <div class="cs-source-eyebrow">Straight from the company</div>
+              <div class="cs-source-title">Employer careers sites</div>
+              <div class="cs-source-chips"><span>Amazon</span><span>Apple</span><span>Google</span><span>38 Fortune 500 RSS feeds</span></div>
             </div>
             <div class="cs-source-card">
               <div class="cs-source-eyebrow">Broad coverage</div>
-              <div class="cs-source-title">Aggregator APIs</div>
-              <div class="cs-source-chips"><span>Adzuna</span><span>JSearch</span><span>The Muse</span></div>
-            </div>
-            <div class="cs-source-card">
-              <div class="cs-source-eyebrow">Design-specific</div>
-              <div class="cs-source-title">Design boards</div>
-              <div class="cs-source-chips"><span>Dribbble</span><span>Built In</span></div>
+              <div class="cs-source-title">Aggregators &amp; remote boards</div>
+              <div class="cs-source-chips"><span>Adzuna</span><span>JSearch</span><span>RemoteOK</span><span>We Work Remotely</span><span>Jobicy</span><span>Himalayas</span><span>Remotive</span><span>Working Nomads</span></div>
             </div>
           </div>
         </div>
-        <div class="cs-img-caption">More than a dozen sources of three kinds. The ATS platforms matter most: the canonical source companies post to directly, before listings syndicate out and go stale.</div>
+        <div class="cs-img-caption">24 sources of three kinds, across four staggered crawl lanes. The ATS platforms matter most: the canonical source companies post to directly, before listings syndicate out and go stale.</div>
       </figure>
 
       <!-- IMAGE 04 · Dedup before/after (designed graphic) -->
@@ -464,7 +469,7 @@
             </div>
           </div>
         </div>
-        <div class="cs-img-caption">Tightening the dedup pass collapsed the database from around 80,000 listings to roughly 7,000 unique roles.</div>
+        <div class="cs-img-caption">Spring 2026: tightening dedup cut ~80,000 listings to ~7,000 unique roles. Since loosened — it was collapsing large employers to one role apiece.</div>
       </figure>
     </div>
 
