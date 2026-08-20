@@ -303,22 +303,28 @@
            Invoca case study SVG diagram (cs-diagram-card). Show the flow:
            external timer (cron-job.org) triggers the crawl lanes (GitHub Actions),
            which pull from 24 mixed sources (ATS platforms plus aggregator and
-           board APIs), then dedup and classify. Per user: keyword gate, AI job-fit
-           scoring (LLM), Supabase, and out to the dashboard, the daily email
-           digest, and resume tailoring. The Cloud Run worker sits underneath as a
-           second lane, not a later step: nightly scoring runs in-process in the
-           crawl, while the worker handles what the app queues and writes back to
-           the same database. -->
+           board APIs), then dedup and classify. The Actions run saves the listings
+           and queues the change range; the per-user keyword gate and the AI
+           job-fit LLM calls run on the Google Cloud Run worker, inside the dashed
+           enclosure, and write into Supabase, which feeds the full app, the
+           daily email digest, and resume tailoring. Verified against the code
+           (lib/flotilla/crawl.ts, worker/processor.ts), not the architecture doc,
+           which still describes the legacy in-process path. -->
       <figure class="cs-diagram-card">
         <div class="cs-diagram-body">
-          <svg viewBox="0 0 1200 620" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architecture diagram. A cron-job.org timer triggers GitHub Actions, which runs the crawl in daily, fast, and paced lanes across 24 sources, then dedup and classify. Per user, a keyword gate feeds AI job-fit scoring, which writes to Supabase, and out to the dashboard, the daily email digest, and resume tailoring. Alongside that chain, a Cloud Run worker picks up work queued from the app - onboarding, profile edits, tailor requests - runs its own OpenAI calls for fit scoring, digests and resume work, and writes results back to the same database.">
+          <svg viewBox="0 0 1200 570" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architecture diagram. A cron-job.org timer triggers GitHub Actions, which runs the crawl in daily, fast, and paced lanes across 24 sources, then dedup and classify, and saves the listings. The crawl then queues what changed to a Google Cloud Run worker, where the per-user keyword gate and the AI job-fit scoring LLM run. Results go into Supabase and out to the full app, the daily email digest, and resume tailoring. The same worker also handles digests, rescores, and resume tailoring on demand.">
             <defs>
               <marker id="jc-arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="strokeWidth">
                 <path d="M 0 0 L 10 5 L 0 10 z" fill="rgba(255,255,255,0.3)"/>
               </marker>
             </defs>
 
-            <!-- ── ROW 1: Timer → Scheduled Crawl → Mixed Sources → Dedup + Classify ── -->
+            <!-- The dashed enclosure marks the second runtime: everything inside
+                 it executes on Cloud Run, not on the Actions runner. Drawn first
+                 so the node boxes paint over it. -->
+            <rect x="16" y="274" width="580" height="170" rx="16" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.22)" stroke-width="1.5" stroke-dasharray="6 5"/>
+
+            <!-- ── ROW 1: the crawl, on the GitHub Actions runner ── -->
 
             <!-- Timer -->
             <rect x="30" y="70" width="250" height="104" rx="14" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"/>
@@ -346,14 +352,16 @@
 
             <!-- Dedup + Classify -->
             <rect x="930" y="70" width="250" height="104" rx="14" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"/>
-            <text x="1055" y="54" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">80K → 7K</text>
+            <text x="1055" y="54" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">GLOBAL JOB LIST</text>
             <text x="1055" y="125" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="23" font-weight="600">Dedup + Classify</text>
             <text x="1055" y="151" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">role, seniority, salary</text>
 
-            <!-- Return connector: Dedup down and back to the Keyword Gate -->
-            <path d="M 1055 174 C 1055 252 155 228 155 306" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
+            <!-- The handoff. The Actions run saves the listings, then queues the
+                 range of what changed; the scoring itself happens elsewhere. -->
+            <path d="M 1055 174 C 1055 240 155 250 155 306" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
+            <text x="605" y="228" text-anchor="middle" fill="rgba(255,255,255,0.45)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.6">QUEUES WHAT CHANGED</text>
 
-            <!-- ── ROW 2: Keyword Gate → Job-Fit Scoring → Supabase → outputs ── -->
+            <!-- ── ROW 2: scoring, on the Cloud Run worker ── -->
 
             <!-- Keyword Gate -->
             <rect x="30" y="306" width="250" height="104" rx="14" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"/>
@@ -369,11 +377,14 @@
             <text x="455" y="361" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="24" font-weight="600">Job-Fit Scoring</text>
             <text x="455" y="387" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">0–100 across 5 factors</text>
 
-            <line x1="580" y1="358" x2="630" y2="358" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
+            <!-- Runtime caption, inside the enclosure it names -->
+            <text x="306" y="430" text-anchor="middle" fill="rgba(255,255,255,0.45)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">ON THE GOOGLE CLOUD RUN WORKER</text>
+
+            <line x1="596" y1="358" x2="630" y2="358" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
 
             <!-- Supabase -->
             <rect x="630" y="306" width="250" height="104" rx="14" fill="rgba(167,139,250,0.07)" stroke="rgba(167,139,250,0.5)" stroke-width="2"/>
-            <text x="755" y="290" text-anchor="middle" fill="rgba(167,139,250,0.9)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">STORE</text>
+            <text x="755" y="290" text-anchor="middle" fill="rgba(167,139,250,0.9)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">DATABASE</text>
             <text x="755" y="361" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="24" font-weight="600">Supabase</text>
             <text x="755" y="387" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">Postgres · row-level security</text>
 
@@ -385,39 +396,21 @@
             <!-- Outputs -->
             <text x="1055" y="292" text-anchor="middle" fill="rgba(52,211,153,0.9)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">DELIVER</text>
             <rect x="930" y="302" width="250" height="38" rx="11" fill="rgba(52,211,153,0.07)" stroke="rgba(52,211,153,0.5)" stroke-width="2"/>
-            <text x="1055" y="327" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="17" font-weight="600">Dashboard</text>
+            <text x="1055" y="327" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="17" font-weight="600">Full App</text>
             <rect x="930" y="348" width="250" height="38" rx="11" fill="rgba(52,211,153,0.07)" stroke="rgba(52,211,153,0.5)" stroke-width="2"/>
             <text x="1055" y="373" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="17" font-weight="600">Daily email digest</text>
             <rect x="930" y="394" width="250" height="38" rx="11" fill="rgba(52,211,153,0.07)" stroke="rgba(52,211,153,0.5)" stroke-width="2"/>
             <text x="1055" y="419" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="17" font-weight="600">Resume tailoring</text>
 
-            <!-- ── ROW 3: the worker, a second lane rather than a later step ──
-                 Nightly fit scoring runs in-process inside the Actions crawl
-                 (crawl pipeline step 9) and writes straight to Supabase, so it
-                 does not queue through here. The worker is the app-triggered
-                 lane: onboarding, profile edits and tailor requests, each making
-                 its own OpenAI calls and writing back to the same database.
-                 Dashed because it is a separate runtime, not a stop in the row. -->
-
-            <!-- What wakes the worker -->
-            <text x="155" y="521" text-anchor="middle" fill="rgba(255,255,255,0.45)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">FROM THE APP</text>
-            <text x="155" y="548" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">onboarding · edits · tailor requests</text>
-            <line x1="285" y1="534" x2="330" y2="534" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
-
-            <rect x="330" y="494" width="850" height="80" rx="14" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.22)" stroke-width="1.5" stroke-dasharray="6 5"/>
-            <text x="350" y="478" fill="rgba(255,255,255,0.45)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">DURABLE QUEUE</text>
-            <text x="755" y="530" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="21" font-weight="600">Cloud Run worker</text>
-            <text x="755" y="554" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">runs OpenAI calls for AI fit scoring, email digests, and resume scoring and tailoring</text>
-
-            <!-- Worker results land in the same database the feed reads from -->
-            <path d="M 755 492 L 755 414" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
-            <text x="768" y="457" fill="rgba(255,255,255,0.45)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.4">WRITES</text>
+            <!-- The worker is not only the nightly lane -->
+            <text x="306" y="478" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">The same worker sends the digests and, on demand, rescores a</text>
+            <text x="306" y="498" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">changed profile or tailors a resume to one job.</text>
 
             <!-- Footing -->
-            <text x="600" y="600" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5" letter-spacing="0.5">One scheduled run every morning, plus a worker that keeps going after the browser closes.</text>
+            <text x="600" y="540" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5" letter-spacing="0.5">One scheduled crawl each morning, then a worker that keeps going after the browser closes.</text>
           </svg>
         </div>
-        <div class="cs-img-caption">The pipeline: a timer kicks off staggered crawl lanes across 24 sources, then dedup and classify. Per user, a keyword gate feeds AI job-fit scoring into Supabase, and out to the dashboard, the daily email, and resume tailoring. Running beside it, not after it, a Cloud Run worker takes what the app queues and writes back to the same database.</div>
+        <div class="cs-img-caption">The pipeline: a timer kicks off staggered crawl lanes across 24 sources, then dedup and classify. The crawl saves the listings and queues what changed; a Google Cloud Run worker picks it up, runs the per-user keyword gate and the OpenAI fit-scoring calls, and writes into Supabase, which feeds the full app, the daily email, and resume tailoring.</div>
       </figure>
     </div>
 
