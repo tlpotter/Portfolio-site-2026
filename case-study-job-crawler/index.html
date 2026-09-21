@@ -210,7 +210,7 @@
     .cs-article > .cs-art-img-4col + .cs-article-section,
     .cs-article > .cs-art-img-2col.cs-between + .cs-article-section { margin-top: 48px; }
     .cs-article > .cs-img-breakout + .cs-img-breakout { margin-top: 12px; }
-    .cs-article > .cs-art-img-4col + .cs-img-breakout { margin-top: 12px; }
+    .cs-article > .cs-img-breakout + .cs-art-img-4col { margin-top: 12px; }
     @media (max-width: 800px) {
       .cs-article > .cs-img-breakout:not(:first-child),
       .cs-article > .cs-art-img-4col,
@@ -219,7 +219,7 @@
       .cs-article > .cs-art-img-4col + .cs-article-section,
       .cs-article > .cs-art-img-2col.cs-between + .cs-article-section { margin-top: 32px; }
       .cs-article > .cs-img-breakout + .cs-img-breakout { margin-top: 12px; }
-      .cs-article > .cs-art-img-4col + .cs-img-breakout { margin-top: 12px; }
+      .cs-article > .cs-img-breakout + .cs-art-img-4col { margin-top: 12px; }
     }
 
     /* Three phone screenshots in one grid cell (IMAGE 4). The row takes the
@@ -335,9 +335,9 @@
          logs straight into a working read-only demo account. -->
     <div class="cs-proto-callout">
       <div class="cs-article-label" style="color:rgba(56,189,248,0.75)">Live Demo</div>
-      <h3>Open the <em>real</em> app</h3>
-      <p>Not a mockup. Launch the full, live app loaded with read-only demo data: real listings, real fit scores with their breakdowns, and the same interface the beta users open every morning.</p>
-      <a href="https://job-search-tool-rose.vercel.app/demo-login" target="_blank" rel="noopener noreferrer" class="cs-proto-cta">Launch the live demo (read-only) ↗</a>
+      <h3>Try the real thing</h3>
+      <p>Browse real listings and open any score to see the five factors behind it. Read-only, no sign-up.</p>
+      <a href="https://job-search-tool-rose.vercel.app/demo-login" target="_blank" rel="noopener noreferrer" class="cs-proto-cta">Open Match Moth ↗</a>
     </div>
 
     <!-- Product gallery. Layout: the feed spans the full row, then the
@@ -778,6 +778,19 @@
       </div>
     </div>
 
+    <!-- IMAGE 26: the marketing homepage hero, desktop. Leads the group,
+         directly above the four UI generations: the brand on the outside first. Frame takes the
+         screenshot's own ratio so the crescent and the product preview at
+         the bottom edge aren't cropped. Caption comes from data-title
+         (case-study.js). -->
+    <div class="cs-img-breakout">
+      <div class="cs-img-frame" style="aspect-ratio:1684/1012">
+        <a href="../images/Job Crawler/MM_homepage.png" class="glightbox" data-title="The same system on the outside as on the inside.">
+          <img src="../images/Job Crawler/MM_homepage-1200w.png" alt="The Match Moth marketing homepage: the moth mark in the nav, a crescent moon over a navy mountain night sky, the headline Find your strongest job matches, with the reasons why, a Claim a founding spot button, and the product preview beneath." loading="lazy" decoding="async" width="1200" height="722"/>
+        </a>
+      </div>
+    </div>
+
     <!-- IMAGE 24, before section 7: four generations of the interface.
          Generations 1-3 are the real screenshots already on this page
          (jobcrawler_design1/2/3.png); generation 4 (the current Match Moth
@@ -815,19 +828,6 @@
             <img src="../images/Job Crawler/jobcrawler4.png" alt="The current Match Moth feed: navy canvas, Discover, Shortlist, Applied and Hidden tabs, filter chips, and senior product designer listings with competition signals and an AI match summary." loading="lazy" decoding="async" width="600" height="957"/>
           </a>
         </div>
-      </div>
-    </div>
-
-    <!-- IMAGE 26: the marketing homepage hero, desktop. Moved directly under
-         the four UI generations: it is the fifth, the brand on the outside. Frame takes the
-         screenshot's own ratio so the crescent and the product preview at
-         the bottom edge aren't cropped. Caption comes from data-title
-         (case-study.js). -->
-    <div class="cs-img-breakout">
-      <div class="cs-img-frame" style="aspect-ratio:1684/1012">
-        <a href="../images/Job Crawler/MM_homepage.png" class="glightbox" data-title="The same system on the outside as on the inside.">
-          <img src="../images/Job Crawler/MM_homepage-1200w.png" alt="The Match Moth marketing homepage: the moth mark in the nav, a crescent moon over a navy mountain night sky, the headline Find your strongest job matches, with the reasons why, a Claim a founding spot button, and the product preview beneath." loading="lazy" decoding="async" width="1200" height="722"/>
-        </a>
       </div>
     </div>
 
