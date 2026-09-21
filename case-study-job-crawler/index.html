@@ -12,10 +12,10 @@
       y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "x7iukafy20");
   </script>
-  <title>Match Moth: designing an AI job-fit product people trust — Ted Potter</title>
+  <title>Match Moth: an AI job-fit score you can argue with — Ted Potter</title>
   <meta name="description" content="A live AI product, open beta since August 2026: transparent fit scoring against a real resume, resume-first onboarding, and the design decisions the data forced."/>
   <meta property="og:type" content="article"/>
-  <meta property="og:title" content="Match Moth: designing an AI job-fit product people trust"/>
+  <meta property="og:title" content="Match Moth: an AI job-fit score you can argue with"/>
   <meta property="og:description" content="A live AI product, open beta since August 2026: transparent fit scoring against a real resume, resume-first onboarding, and the design decisions the data forced."/>
   <link rel="icon" type="image/svg+xml" href="../favicon.svg"/>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fraunces:ital,wght@0,300;0,600;1,300;1,600&family=Spectral:wght@400;600&display=swap" rel="stylesheet"/>
@@ -266,7 +266,7 @@
       <span class="work-tag">Product Design</span>
       <span class="work-tag">Live Product</span>
     </div>
-    <h1 class="cs-title">The score has to <em>show its work</em></h1>
+    <h1 class="cs-title">A score you can <em>argue with</em></h1>
     <p class="cs-lead">Match Moth reads a job seeker's resume and scores every listing against it. It has been in open beta since August 2026, in one of the roughest tech markets in years. The design problem underneath is the one this page is about: making an AI judgment legible enough that a stranger acts on it.</p>
   </div>
 </section>
@@ -308,20 +308,37 @@
       <a href="https://job-search-tool-rose.vercel.app/demo-login" target="_blank" rel="noopener noreferrer" class="cs-proto-cta">Launch the live demo (read-only) ↗</a>
     </div>
 
-    <!-- Demo gallery: four shots from the demo account. All four still
-         pending capture -- see the per-image notes below. -->
+    <!-- Product gallery. Layout: the feed spans the full row, then the
+         listing detail page as a pair (top of page, then mid-page), then
+         tailoring and phone. 2A, 3 and 4 still pending capture. -->
     <div class="cs-art-img-2col">
-      <div>
-        <div class="cs-img-frame landscape">
-          <div class="cs-img-placeholder">IMAGE 1 · The feed, desktop: ranked cards with band badges, chips, and the filter rail</div>
+      <div style="grid-column:1/-1">
+        <!-- IMAGE 1. No manual .cs-img-caption: case-study.js builds the
+             caption from data-title. Frame takes the screenshot's own ratio
+             so the filter rail and score badges aren't cropped. -->
+        <div class="cs-img-frame" style="aspect-ratio:2000/1095">
+          <a href="../images/Job Crawler/matchmoth-feed-desktop.png" class="glightbox" data-title="The feed. Ranked by fit, filtered to what you'd actually apply to.">
+            <img src="../images/Job Crawler/matchmoth-feed-desktop-1200w.png" srcset="../images/Job%20Crawler/matchmoth-feed-desktop-1200w.png 1200w, ../images/Job%20Crawler/matchmoth-feed-desktop.png 2000w" sizes="(max-width: 800px) 100vw, 1200px" alt="Match Moth job feed on desktop: filter rail across the top, 1,574 listings sorted by AI fit, and two ranked cards scoring 95% and 90%, both badged Standout." decoding="async" width="1200" height="657"/>
+          </a>
         </div>
-        <div class="cs-img-caption">The feed. Ranked by fit, filtered to what you'd actually apply to.</div>
       </div>
       <div>
-        <div class="cs-img-frame landscape">
-          <div class="cs-img-placeholder">IMAGE 2 · A listing detail page: score breakdown expanded, verdict, highlights and skill gaps, company diligence below</div>
+        <!-- IMAGE 2A: top of the same HopSkipDrive listing as 2B, same
+             viewport, so the pair reads as one page scrolled. -->
+        <div class="cs-img-frame" style="aspect-ratio:2000/1099">
+          <a href="../images/Job Crawler/matchmoth-listing-detail-top.png" class="glightbox" data-title="The top of a listing: the score, the basics, and how crowded it already is.">
+            <img src="../images/Job Crawler/matchmoth-listing-detail-top-1200w.png" alt="Top of a Match Moth listing detail page: Sr. Product Designer at HopSkipDrive scored 87% Standout, with location, remote, seniority and salary in a row, a competition signal showing over 200 applicants on LinkedIn, then the role overview and company card." decoding="async" width="1200" height="659"/>
+          </a>
         </div>
-        <div class="cs-img-caption">One listing, decided: the evidence up top, the prep and diligence below.</div>
+      </div>
+      <div>
+        <!-- IMAGE 2B. Caption comes from data-title (see IMAGE 1). Mid-page:
+             requirement matching, company card, score breakdown. -->
+        <div class="cs-img-frame" style="aspect-ratio:2000/1097">
+          <a href="../images/Job Crawler/matchmoth-listing-detail-mid.png" class="glightbox" data-title="Every requirement checked against the resume, including the ones it can't find.">
+            <img src="../images/Job Crawler/matchmoth-listing-detail-mid-1200w.png" alt="Match Moth listing detail page: each job requirement matched to the resume with a percentage, a nice-to-have expanded to show No evidence beside the original requirement text, and a company card with the score breakdown chart on the right." decoding="async" width="1200" height="658"/>
+          </a>
+        </div>
       </div>
       <div>
         <div class="cs-img-frame landscape">
@@ -715,31 +732,35 @@
         <p><strong>The result, honestly.</strong> Nineteen sessions since the skip shipped. Resume-step completion moved, but three changes landed in one week and I can't claim causation for any one of them. Next is skip-reason capture and per-step events, then a real before and after.</p>
       </div>
 
-      <!-- Screenshot pending: the upload-or-browse fork, desktop, both
-           cards visible with their mirrored what-you-get / what-you-give-up
-           lines. -->
+      <!-- IMAGE 17: the upload-or-browse fork, desktop. Captured from the
+           seniordev test account on production, 2026-09-19. Caption comes
+           from data-title (case-study.js). -->
       <div class="cs-img-breakout">
-        <div class="cs-img-frame landscape">
-          <div class="cs-img-placeholder">IMAGE 17 · Upload-or-browse fork, desktop: both cards, mirrored what-you-get / what-you-give-up lines</div>
+        <div class="cs-img-frame" style="aspect-ratio:2000/1200">
+          <a href="../images/Job Crawler/matchmoth-onboarding-fork-desktop.png" class="glightbox" data-title="Both doors say what's behind them. The earlier version only said how to open each one.">
+            <img src="../images/Job Crawler/matchmoth-onboarding-fork-desktop.png" alt="Match Moth setup screen asking how you want to start: a recommended Start with your resume card listing what you get, beside a Browse without match scores card listing what you give up." loading="lazy" decoding="async" width="2000" height="1200"/>
+          </a>
         </div>
-        <div class="cs-img-caption">Both doors say what's behind them. The earlier version only said how to open each one.</div>
       </div>
 
-      <!-- Screenshot pending: the same fork on a phone, single grid. -->
-      <div class="cs-img-breakout">
-        <div class="cs-img-frame portrait-short">
-          <div class="cs-img-placeholder">IMAGE 18 · The same fork on a phone: single two-column grid, check/dash marks</div>
+      <!-- IMAGE 18: the same fork at phone width (390px), full page. Width
+           capped so a 1170x3168 portrait doesn't fill the breakout. -->
+      <div class="cs-img-breakout" style="max-width:380px;margin-left:auto;margin-right:auto">
+        <div class="cs-img-frame" style="aspect-ratio:1170/3168">
+          <a href="../images/Job Crawler/matchmoth-onboarding-fork-phone.png" class="glightbox" data-title="On a phone the two cards became one grid, because eight of nine skippers were on phones.">
+            <img src="../images/Job Crawler/matchmoth-onboarding-fork-phone.png" alt="The same setup choice on a phone: one comparison grid with a Resume column of check marks and a Just browse column of dashes, then the two buttons." loading="lazy" decoding="async" width="1170" height="3168"/>
+          </a>
         </div>
-        <div class="cs-img-caption">On a phone the two cards became one grid, because eight of nine skippers were on phones.</div>
       </div>
 
-      <!-- Screenshot pending: what a skipper sees -- unscored feed, one
-           scored example card, banner describing what setup unlocks. -->
+      <!-- IMAGE 19: what a skipper sees. The seniordev test account has no
+           resume on file, so its feed is exactly this state. -->
       <div class="cs-img-breakout">
-        <div class="cs-img-frame landscape">
-          <div class="cs-img-placeholder">IMAGE 19 · A skipper's feed: unscored, one scored example card, banner stating what finishing setup unlocks</div>
+        <div class="cs-img-frame" style="aspect-ratio:2000/1125">
+          <a href="../images/Job Crawler/matchmoth-onboarding-skipper-feed.png" class="glightbox" data-title="A skipper gets an unscored feed, one scored example, and a plain statement of the tradeoff.">
+            <img src="../images/Job Crawler/matchmoth-onboarding-skipper-feed.png" alt="Match Moth feed for a user who skipped setup: a banner listing what uploading a resume unlocks, then one example listing scored 91% Standout, labeled as a sample and not theirs." loading="lazy" decoding="async" width="2000" height="1125"/>
+          </a>
         </div>
-        <div class="cs-img-caption">A skipper gets an unscored feed, one scored example, and a plain statement of the tradeoff.</div>
       </div>
     </div>
 
