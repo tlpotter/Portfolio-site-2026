@@ -29,7 +29,14 @@
 
 (function() {
   // ── Build bottom nav ──
-  const sections = Array.from(document.querySelectorAll('.cs-article-section'));
+  // Each .cs-article-section becomes a nav entry labelled by its eyebrow.
+  // Two opt-in attributes let a page keep the shared nav vocabulary without
+  // changing its on-page headings; pages that use neither behave as before:
+  //   data-nav-label="…"  use this text in the nav instead of the eyebrow
+  //   data-nav="skip"     leave the section out; the entry before it stays
+  //                       highlighted while the reader is inside it
+  const sections = Array.from(document.querySelectorAll('.cs-article-section'))
+    .filter(sec => sec.dataset.nav !== 'skip');
   if (!sections.length) return;
 
   const bnav = document.createElement('div');
@@ -45,14 +52,14 @@
 
   sections.forEach((sec, i) => {
     const lbl = sec.querySelector('.cs-article-label');
-    if (!lbl) return;
+    if (!lbl && !sec.dataset.navLabel) return;
     const id = 'sec-' + i;
     sec.id = id;
     const a = document.createElement('a');
     a.href = '#' + id;
     a.className = 'cs-bnav-sec';
     // strip the leading "— " added by CSS ::before
-    a.textContent = lbl.textContent.replace(/^—\s*/, '').trim();
+    a.textContent = (sec.dataset.navLabel || lbl.textContent.replace(/^—\s*/, '')).trim();
     a.addEventListener('click', e => {
       e.preventDefault();
       sec.scrollIntoView({ behavior: 'smooth', block: 'start' });

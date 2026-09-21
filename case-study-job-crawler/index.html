@@ -18,7 +18,7 @@
   <meta property="og:title" content="Match Moth: an AI job-fit score you can argue with"/>
   <meta property="og:description" content="A live AI product, open beta since August 2026: transparent fit scoring against a real resume, resume-first onboarding, and the design decisions the data forced."/>
   <link rel="icon" type="image/svg+xml" href="../favicon.svg"/>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fraunces:ital,wght@0,300;0,600;1,300;1,600&family=Spectral:wght@400;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fraunces:ital,wght@0,300;0,600;1,300;1,600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.3.1/dist/css/glightbox.min.css" integrity="sha384-GPAzSuZc0kFvdIev6wm9zg8gnafE8tLso7rsAYQfc9hAdWCpOcpcNI5W9lWkYcsd" crossorigin="anonymous" referrerpolicy="no-referrer">
   <link rel="stylesheet" href="../css/styles.css"/>
   <link rel="stylesheet" href="../css/case-study.css"/>
@@ -189,27 +189,52 @@
       text-align: center; line-height: 1.5; font-size: 12px;
     }
 
-    /* Brand board. Colors are the live app's own CSS custom properties,
-       read from https://job-search-tool-rose.vercel.app on 2026-09-18 (see
-       build note above the markup) -- not eyeballed off a screenshot. The
-       mark + wordmark lockup itself is still a placeholder; I don't have
-       the real vector asset, only the palette it's drawn in. */
-    .cs-brand-board {
-      display: flex; flex-wrap: wrap; gap: 32px 40px;
-      align-items: center; justify-content: center;
-      padding: 12px 0 22px;
+    /* Images between sections belong to the section BELOW them (the brief
+       places each one "before section N"). Standard spacing so that reads:
+         above the image group: 150px, the same gap as section to section,
+                                so it clearly starts something new;
+         below it to its section: 48px, so it sits on its own heading.
+       Mobile keeps the same 3:1 feel at 100px / 32px. The top-of-page
+       gallery is excluded on purpose: it belongs to the demo callout above
+       it, not to the stats below. Consecutive breakouts keep the shared
+       12px grouping so a pair reads as one set. */
+    .cs-article > .cs-img-breakout:not(:first-child),
+    .cs-article > .cs-art-img-4col,
+    .cs-article > .cs-art-img-2col.cs-between { margin-top: 150px; }
+    /* Grids carry a 40px bottom margin of their own; zero it so the section
+       margin below is the only thing setting the gap (it would otherwise
+       win the collapse on mobile, 40 over 32). */
+    .cs-article > .cs-art-img-4col,
+    .cs-article > .cs-art-img-2col.cs-between { margin-bottom: 0; }
+    .cs-article > .cs-img-breakout:not(:first-child) + .cs-article-section,
+    .cs-article > .cs-art-img-4col + .cs-article-section,
+    .cs-article > .cs-art-img-2col.cs-between + .cs-article-section { margin-top: 48px; }
+    .cs-article > .cs-img-breakout + .cs-img-breakout { margin-top: 12px; }
+    .cs-article > .cs-art-img-4col + .cs-img-breakout { margin-top: 12px; }
+    @media (max-width: 800px) {
+      .cs-article > .cs-img-breakout:not(:first-child),
+      .cs-article > .cs-art-img-4col,
+      .cs-article > .cs-art-img-2col.cs-between { margin-top: 100px; }
+      .cs-article > .cs-img-breakout:not(:first-child) + .cs-article-section,
+      .cs-article > .cs-art-img-4col + .cs-article-section,
+      .cs-article > .cs-art-img-2col.cs-between + .cs-article-section { margin-top: 32px; }
+      .cs-article > .cs-img-breakout + .cs-img-breakout { margin-top: 12px; }
+      .cs-article > .cs-art-img-4col + .cs-img-breakout { margin-top: 12px; }
     }
-    .cs-brand-swatches { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
-    .cs-swatch { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 86px; }
-    .cs-swatch-chip { width: 56px; height: 56px; border-radius: 12px; border: 1px solid rgba(255,255,255,.14); }
-    .cs-swatch-name { font-size: 10.5px; color: rgba(255,255,255,.55); text-align: center; line-height: 1.4; }
-    .cs-swatch-hex { font-size: 10px; color: rgba(255,255,255,.35); font-family: ui-monospace, monospace; }
-    .cs-brand-type { display: flex; gap: 30px; align-items: flex-end; }
-    .cs-brand-type-sample { display: flex; flex-direction: column; gap: 8px; align-items: center; }
-    .cs-brand-type-glyph { font-size: 36px; color: #fff0d3; line-height: 1; }
-    .cs-brand-type-glyph.is-accent { font-family: 'Spectral', Georgia, serif; font-weight: 600; }
-    .cs-brand-type-glyph.is-ui { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; }
-    .cs-brand-type-lbl { font-size: 10.5px; color: rgba(255,255,255,.45); text-align: center; }
+
+    /* Three phone screenshots in one grid cell (IMAGE 4). The row takes the
+       aspect ratio of the landscape screenshot beside it, so both images
+       share a height; each phone frame is height:100% and gets its width
+       from its own aspect ratio. */
+    .cs-phone-row {
+      display: flex; justify-content: center; gap: 10px;
+      aspect-ratio: 1728 / 1024;
+      /* aspect-ratio's automatic minimum is content-based, so 2000px-tall
+         screenshots would otherwise push the row open to their own size. */
+      min-height: 0; overflow: hidden;
+    }
+    .cs-phone-row .cs-img-frame { height: 100%; flex: none; min-width: 0; }
+    .cs-phone-row .cs-img-frame img { width: 100%; height: 100%; }
 
     /* Fit band badges. Standout is the live app's own --gold / --gold-text
        tokens (verified). Off-target / Worth a look / Promising follow the
@@ -226,6 +251,13 @@
       border: 1px solid transparent;
     }
     .cs-band-dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+    /* Score range after the band name: same color as the label, lighter
+       weight and a hairline divider so it reads as a qualifier. */
+    .cs-band-range {
+      font-weight: 500; opacity: .7; font-variant-numeric: tabular-nums;
+      padding-left: 8px; margin-left: 2px;
+      border-left: 1px solid currentColor;
+    }
     .cs-band.is-off        { background: rgba(74,91,124,.18);   border-color: rgba(74,91,124,.5);   color: #9aa8c2; }
     .cs-band.is-off .cs-band-dot        { background: #4a5b7c; }
     .cs-band.is-worth      { background: rgba(114,139,184,.16); border-color: rgba(114,139,184,.5); color: #b7c6e6; }
@@ -310,7 +342,7 @@
 
     <!-- Product gallery. Layout: the feed spans the full row, then the
          listing detail page as a pair (top of page, then mid-page), then
-         tailoring and phone. 2A, 3 and 4 still pending capture. -->
+         tailoring and phone. Only 4 (the phone shot) still pending capture. -->
     <div class="cs-art-img-2col">
       <div style="grid-column:1/-1">
         <!-- IMAGE 1. No manual .cs-img-caption: case-study.js builds the
@@ -341,43 +373,73 @@
         </div>
       </div>
       <div>
-        <div class="cs-img-frame landscape">
-          <div class="cs-img-placeholder">IMAGE 3 · Resume tailoring review: before/after change with accept/reject, resume score before and after · not yet reachable on the read-only demo -- tailoring is in a private owner test ahead of its beta rollout (confirmed live 2026-09-18)</div>
+        <!-- IMAGE 3. Caption comes from data-title (see IMAGE 1). The
+             tailored-resume view, open to every beta user (the earlier note
+             here that tailoring sat in a private owner test is out of date).
+             Frame takes the screenshot's own ratio so the score panel on the
+             right isn't cropped. Resume content is sample data. -->
+        <div class="cs-img-frame" style="aspect-ratio:1728/1024">
+          <a href="../images/Job Crawler/matchmoth-resume-tailoring.png" class="glightbox" data-title="A resume tailored to one listing. The score goes from 6.7 to 8.2, and the panel says what the resume still can't cover.">
+            <img src="../images/Job Crawler/matchmoth-resume-tailoring-1200w.png" alt="Match Moth's tailored resume view: a resume rewritten for an AWS platform engineer role, its summary and experience sections marked Updated, beside a resume score panel moving from 6.7 to 8.2 with sub-scores for requirements covered, specifics, and craft, and a note naming the two requirements the resume has no evidence for." loading="lazy" decoding="async" width="1200" height="712"/>
+          </a>
         </div>
-        <div class="cs-img-caption">Every change shown before it's accepted. Facts locked, nothing invented.</div>
       </div>
-      <div>
-        <!-- landscape, not portrait-short: this sits beside IMAGE 3's
-             landscape frame in a 2-col grid, and mismatched aspect ratios
-             here left a large empty gap under the shorter row. The real
-             phone screenshot can go portrait inside a device frame when
-             it's captured; the placeholder just needs to hold the row. -->
-        <div class="cs-img-frame landscape">
-          <div class="cs-img-placeholder">IMAGE 4 · The feed on a phone, in a device frame: two cards with badges and chips visible</div>
+      <!-- IMAGE 4: three phone screens, in the order a user moves through
+           them (feed, open a listing, scroll to the requirements). The row
+           carries IMAGE 3's own aspect ratio, 1728/1024, so the phones stand
+           exactly as tall as the tailoring screenshot beside them; each
+           phone's width then follows from its own ratio. No data-title on
+           these links, so case-study.js leaves them alone and the one
+           caption below covers the set. -->
+      <figure class="cs-figure">
+        <div class="cs-phone-row">
+          <div class="cs-img-frame" style="aspect-ratio:1026/2000">
+            <a href="../images/Job Crawler/matchmoth-mobile-feed.webp" class="glightbox">
+              <img src="../images/Job Crawler/matchmoth-mobile-feed.webp" alt="Match Moth feed on a phone: two senior product designer listings, each scored 90% Standout, with remote, salary and seniority chips and an AI match summary." loading="lazy" decoding="async" width="1026" height="2000"/>
+            </a>
+          </div>
+          <div class="cs-img-frame" style="aspect-ratio:1080/1955">
+            <a href="../images/Job Crawler/matchmoth-mobile-listing-top.webp" class="glightbox">
+              <img src="../images/Job Crawler/matchmoth-mobile-listing-top.webp" alt="Top of a listing on a phone: Senior Product Designer at Fetch, 90% Standout, a competition signal showing 54 applicants clicked apply on LinkedIn, and a sticky Apply bar." loading="lazy" decoding="async" width="1080" height="1955"/>
+            </a>
+          </div>
+          <div class="cs-img-frame" style="aspect-ratio:1026/2000">
+            <a href="../images/Job Crawler/matchmoth-mobile-requirements.webp" class="glightbox">
+              <img src="../images/Job Crawler/matchmoth-mobile-requirements.webp" alt="Requirement matching on a phone: core requirements marked Match with percentages, and nice-to-haves split between Match and Adjacent." loading="lazy" decoding="async" width="1026" height="2000"/>
+            </a>
+          </div>
         </div>
-        <div class="cs-img-caption">Most of the beta arrives on a phone. The feed is built for it first.</div>
-      </div>
+        <div class="cs-img-caption">Around half of users arrive on a phone.</div>
+      </figure>
     </div>
 
     <!-- ── As of September 2026 ── -->
-    <div class="cs-article-section">
+    <div class="cs-article-section" data-nav-label="Impact">
       <div class="cs-article-label">As of September 2026</div>
       <div class="cs-impact-row cs-impact-2x2" style="margin-top:20px">
         <div class="cs-stat-card glass">
-          <div class="cs-stat-num">27%</div>
-          <div class="cs-stat-lbl">of scores stop short of a full judgment. The score says when it can't.</div>
+          <div class="cs-stat-num">53</div>
+          <div class="cs-stat-lbl">users signed up in open beta so far</div>
         </div>
         <div class="cs-stat-card glass">
           <div class="cs-stat-num">14×</div>
           <div class="cs-stat-lbl">the save-or-apply rate on Standout listings versus Promising</div>
         </div>
         <div class="cs-stat-card glass">
-          <div class="cs-stat-num">150,000+</div>
+          <div class="cs-stat-num">172k+</div>
           <div class="cs-stat-lbl">live listings from 50+ sources, 81% direct from ATS boards and careers sites</div>
         </div>
         <div class="cs-stat-card glass">
           <div class="cs-stat-num">$0.08</div>
           <div class="cs-stat-lbl">AI scoring cost per user per day, under hard spend caps</div>
+        </div>
+        <div class="cs-stat-card glass">
+          <div class="cs-stat-num">43</div>
+          <div class="cs-stat-lbl">apply clicks from real users since the beta opened</div>
+        </div>
+        <div class="cs-stat-card glass">
+          <div class="cs-stat-num">2,173</div>
+          <div class="cs-stat-lbl">commits pushed to GitHub</div>
         </div>
       </div>
     </div>
@@ -409,15 +471,6 @@
       </div>
     </div>
 
-    <!-- Screenshot pending: the feed at a glance, default sort, no filters
-         open, desktop, demo account, first 8-9 cards. -->
-    <div class="cs-img-breakout">
-      <div class="cs-img-frame landscape">
-        <div class="cs-img-placeholder">IMAGE 5 · The feed at a glance: default sort, no filters open, first 8–9 cards</div>
-      </div>
-      <div class="cs-img-caption">A real feed on an ordinary day. Most listings are mediocre fits, and the score says so.</div>
-    </div>
-
     <!-- ── 1. Search is an attention problem ── -->
     <div class="cs-article-section">
       <div class="cs-article-label">The Problem</div>
@@ -429,145 +482,32 @@
       </div>
     </div>
 
-    <!-- IMAGE 6, before section 2: architecture diagram, unchanged from the
-         current page (verified against lib/flotilla/crawl.ts and
-         worker/processor.ts, not architecture.md, which still describes the
-         legacy in-process path). -->
-    <div class="cs-img-breakout">
-      <figure class="cs-diagram-card" style="margin-top:0;margin-bottom:0">
-        <div class="cs-diagram-body">
-          <svg viewBox="0 0 1200 670" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architecture diagram. A cron-job.org timer triggers GitHub Actions, which runs the crawl in daily, fast, and paced lanes across 24 sources, then dedup and classify, and saves the listings. The crawl then queues what changed to a Google Cloud Run worker, where the per-user keyword gate and the AI job-fit scoring LLM run. Results go into Supabase, and out to the daily email digest and resume tailoring. Underneath, the Match Moth web app on Vercel reads that same database to serve the job feed, score breakdowns, tracker and resume workspace, and is what queues the on-demand rescores and tailoring back onto the worker.">
-            <defs>
-              <marker id="jc-arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="strokeWidth">
-                <path d="M 0 0 L 10 5 L 0 10 z" fill="rgba(255,255,255,0.3)"/>
-              </marker>
-            </defs>
-
-            <rect x="16" y="262" width="580" height="216" rx="16" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.22)" stroke-width="1.5" stroke-dasharray="6 5"/>
-
-            <rect x="30" y="70" width="250" height="104" rx="14" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"/>
-            <text x="155" y="54" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">TRIGGER</text>
-            <text x="155" y="125" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="24" font-weight="600">Timer</text>
-            <text x="155" y="151" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">cron-job.org · 8am daily</text>
-
-            <line x1="280" y1="122" x2="330" y2="122" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
-
-            <rect x="330" y="70" width="250" height="104" rx="14" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"/>
-            <text x="455" y="54" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">WORKFLOW</text>
-            <text x="455" y="125" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="24" font-weight="600">GitHub Actions</text>
-            <text x="455" y="151" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">daily, fast, and paced lanes</text>
-
-            <line x1="580" y1="122" x2="630" y2="122" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
-
-            <rect x="630" y="70" width="250" height="104" rx="14" fill="rgba(251,146,60,0.06)" stroke="rgba(251,146,60,0.5)" stroke-width="2"/>
-            <text x="755" y="54" text-anchor="middle" fill="rgba(251,146,60,0.85)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">24 SOURCES</text>
-            <text x="755" y="125" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="24" font-weight="600">Mixed Sources</text>
-            <text x="755" y="151" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">ATS · aggregators · boards</text>
-
-            <line x1="880" y1="122" x2="930" y2="122" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
-
-            <rect x="930" y="70" width="250" height="104" rx="14" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"/>
-            <text x="1055" y="54" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">GLOBAL JOB LIST</text>
-            <text x="1055" y="125" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="23" font-weight="600">Dedup + Classify</text>
-            <text x="1055" y="151" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">role, seniority, salary</text>
-
-            <path d="M 1055 174 C 1055 244 230 250 230 306" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
-            <text x="605" y="228" text-anchor="middle" fill="rgba(255,255,255,0.45)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.6">QUEUES WHAT CHANGED</text>
-
-            <rect x="30" y="306" width="250" height="104" rx="14" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"/>
-            <text x="155" y="290" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">PER USER</text>
-            <text x="155" y="361" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="24" font-weight="600">Keyword Gate</text>
-            <text x="155" y="387" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">recall-tuned first pass</text>
-
-            <line x1="280" y1="358" x2="330" y2="358" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
-
-            <rect x="330" y="306" width="250" height="104" rx="14" fill="rgba(56,189,248,0.07)" stroke="rgba(56,189,248,0.5)" stroke-width="2"/>
-            <text x="455" y="290" text-anchor="middle" fill="rgba(56,189,248,0.9)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">OPENAI</text>
-            <text x="455" y="361" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="24" font-weight="600">Job-Fit Scoring</text>
-            <text x="455" y="387" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">0–100 across 5 factors</text>
-
-            <text x="306" y="448" text-anchor="middle" fill="rgba(255,255,255,0.45)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">ON THE GOOGLE CLOUD RUN WORKER</text>
-
-            <line x1="596" y1="358" x2="630" y2="358" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
-
-            <rect x="630" y="306" width="250" height="104" rx="14" fill="rgba(167,139,250,0.07)" stroke="rgba(167,139,250,0.5)" stroke-width="2"/>
-            <text x="755" y="290" text-anchor="middle" fill="rgba(167,139,250,0.9)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">DATABASE</text>
-            <text x="755" y="361" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="24" font-weight="600">Supabase</text>
-            <text x="755" y="387" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">Postgres · row-level security</text>
-
-            <path d="M 880 350 C 905 344 905 334 928 334" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
-            <path d="M 880 366 C 905 372 905 382 928 382" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
-
-            <text x="1055" y="304" text-anchor="middle" fill="rgba(52,211,153,0.9)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">DELIVER</text>
-
-            <rect x="930" y="314" width="250" height="40" rx="11" fill="rgba(52,211,153,0.07)" stroke="rgba(52,211,153,0.5)" stroke-width="2"/>
-            <g transform="translate(948,326) scale(0.667)" fill="none" stroke="rgba(52,211,153,0.95)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="4.5" width="20" height="15" rx="2.5"/>
-              <path d="M2.8 6.2 12 13l9.2-6.8"/>
-            </g>
-            <text x="1072" y="340" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="17" font-weight="600">Daily email digest</text>
-
-            <rect x="930" y="362" width="250" height="40" rx="11" fill="rgba(52,211,153,0.07)" stroke="rgba(52,211,153,0.5)" stroke-width="2"/>
-            <g transform="translate(948,374) scale(0.667)" fill="none" stroke="rgba(52,211,153,0.95)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 3.5h9l5 5v12a1.5 1.5 0 0 1-1.5 1.5h-12A1.5 1.5 0 0 1 4 20.5v-15A1.5 1.5 0 0 1 5.5 3.5z"/>
-              <path d="M14 3.5v5.5h5"/>
-              <path d="M7.5 13h9M7.5 17h5.5"/>
-            </g>
-            <text x="1072" y="388" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="17" font-weight="600">Resume tailoring</text>
-
-            <path d="M 755 410 L 755 564" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
-            <text x="768" y="492" fill="rgba(255,255,255,0.45)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.4">READS</text>
-
-            <path d="M 306 564 L 306 482" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
-            <text x="322" y="528" fill="rgba(255,255,255,0.45)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.4">QUEUES RESCORES &amp; TAILORING</text>
-
-            <text x="36" y="556" fill="rgba(147,197,253,0.75)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">ON VERCEL</text>
-            <rect x="16" y="566" width="1164" height="84" rx="16" fill="#152443" stroke="rgba(96,165,250,0.42)" stroke-width="1.5"/>
-            <g id="jc-app-icon" transform="translate(473,586) scale(0.95)" fill="none" stroke="rgba(147,197,253,0.95)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="3.5" width="20" height="17" rx="2.5"/>
-              <path d="M2 9h20"/>
-              <circle cx="5.6" cy="6.3" r="0.85" fill="rgba(147,197,253,0.95)" stroke="none"/>
-              <circle cx="8.4" cy="6.3" r="0.85" fill="rgba(147,197,253,0.95)" stroke="none"/>
-            </g>
-            <text id="jc-app-title" x="614" y="604" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="21" font-weight="600">Match Moth Web App</text>
-            <text x="600" y="628" text-anchor="middle" fill="rgba(255,255,255,0.55)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">Next.js · job feed, score breakdowns, application tracker, resume workspace</text>
-          </svg>
-        </div>
-        <div class="cs-img-caption">The pipeline: a timer kicks off staggered crawl lanes across 24 sources, then dedup and classify. The crawl saves the listings and queues what changed; a Google Cloud Run worker picks it up, runs the per-user keyword gate and the OpenAI fit-scoring calls, and writes into Supabase. The Match Moth web app reads that database to serve the feed, and queues the on-demand work back to the worker.</div>
-      </figure>
-    </div>
 
     <!-- ── 2. It started as a tool for one ── -->
-    <div class="cs-article-section">
+    <div class="cs-article-section" data-nav-label="The Work">
       <div class="cs-article-label">Origin</div>
       <h2 class="cs-article-title">It started as a tool <em>for one</em></h2>
       <div class="cs-article-body">
         <p>The first version had my resume hardcoded, a nightly crawl of a few hundred companies, and a ranked email every morning. It worked. I reviewed a shortlist in minutes instead of scrolling for an hour, and the roles I actually wanted rose to the top on their own. Then I opened the door to other people, and nearly every decision below came from what happened when they walked through it.</p>
       </div>
-
-      <!-- Screenshot pending, owner-sourced: the earliest ranked email from
-           April 2026, if a screenshot survives. Optional -- only include if
-           the owner has it. -->
-      <div class="cs-img-breakout">
-        <div class="cs-img-frame landscape">
-          <div class="cs-img-placeholder">IMAGE 7 (optional, owner-sourced) · The earliest ranked digest email, April 2026: subject line, ranked list, scores — blur any company name you'd rather not show</div>
-        </div>
-        <div class="cs-img-caption">The first version's whole interface was this email.</div>
-      </div>
     </div>
 
-    <!-- IMAGE 8, before section 3: the listing detail page with the score
-         breakdown fully expanded. Desktop, demo account, a listing scoring
-         in the 80s so every factor is populated. -->
+    <!-- IMAGE 8, before section 3. Reuses the mid-page listing shot from the
+         top gallery (2B): it is the 87% HopSkipDrive listing, so it meets the
+         brief's "a listing scoring in the 80s" with the requirement matching
+         and score breakdown in frame. Caption comes from data-title, per
+         case-study.js. Swap in a dedicated fully-expanded-breakdown capture
+         if one gets shot later; no markup change needed beyond the paths. -->
     <div class="cs-img-breakout">
-      <div class="cs-img-frame landscape">
-        <div class="cs-img-placeholder">IMAGE 8 · Listing detail, score breakdown fully expanded: five factors + weights, sub-scores, verdict, highlights and skill gaps — a listing scoring in the 80s so every factor is populated</div>
+      <div class="cs-img-frame" style="aspect-ratio:2000/1097">
+        <a href="../images/Job Crawler/matchmoth-listing-detail-mid.png" class="glightbox" data-title="Every number on the page can be argued with. That's the point.">
+          <img src="../images/Job Crawler/matchmoth-listing-detail-mid-1200w.png" alt="Match Moth listing detail page: each job requirement matched to the resume with a percentage, one expanded to show No evidence beside the original requirement text, and the score breakdown chart on the right." loading="lazy" decoding="async" width="1200" height="658"/>
+        </a>
       </div>
-      <div class="cs-img-caption">Every number on the page can be argued with. That's the point.</div>
     </div>
 
     <!-- ── 3. Opening the black box ── -->
-    <div class="cs-article-section">
+    <div class="cs-article-section" data-nav="skip">
       <div class="cs-article-label">AI Job-Fit</div>
       <h2 class="cs-article-title">Opening the <em>black box</em></h2>
       <div class="cs-article-body">
@@ -575,133 +515,192 @@
         <h3 class="cs-subhead">What a number means</h3>
         <p>A single 0 to 100 is a verdict, and a verdict invites exactly one question: why? So the score is five factors, with the weights shown on every breakdown: skills 35, seniority 20, compensation 20, industry 15, location 10. Two come from the model, skills and industry, because they need a reading of the posting against the resume. Three are deterministic: the distance between the listing's seniority band and the user's target, the salary against the user's floor, and the work mode and metro against the user's preferences. The weights haven't changed since June 2026. What changed since is how they're explained.</p>
 
-        <h3 class="cs-subhead">Renormalize, don't penalize</h3>
-        <p>Postings withhold things. About four in ten listings carry no salary. Many never say where the job is, or whether remote means remote. The first instinct is to score the missing factor at zero, which quietly punishes the listing for the employer's silence. Instead, a factor without signal drops out of the denominator and the remaining factors carry the weight. Location is renormalized out of 20% of real users' scores. A missing salary doesn't tank a role that fits. The breakdown records which factors counted, with a line noting it was scored across 4 of 5 factors, so the number is never more confident than its evidence.</p>
-
-        <!-- Screenshot pending: a breakdown where one factor is greyed out
-             and the "scored across 4 of 5" line is visible. Location is the
-             easiest to find (renormalized out of a fifth of real users'
-             scores). Crop to the breakdown only. -->
-        <div class="cs-img-breakout">
-          <div class="cs-img-frame landscape">
-            <div class="cs-img-placeholder">IMAGE 9 · A breakdown with location greyed out and "scored across 4 of 5 factors" visible</div>
-          </div>
-          <div class="cs-img-caption">Missing signal drops out of the math instead of scoring zero.</div>
-        </div>
-
         <h3 class="cs-subhead">Honest absence</h3>
         <p>Renormalizing has a limit. When enough is missing, the number stops meaning much, and the product has to say so instead of rounding up. Every score carries a confidence tier: full, partial, or low. Partial means less than half the weight was grounded. Low means the skills factor itself couldn't be evaluated, and a low-confidence score is capped at 65 and excluded from the top bands entirely. As of September, 27% of all scores land below full confidence: 22% partial, 5% low.</p>
         <p>That's the decision I'd defend hardest. A competitor's "98% match" that I once traced in a network tab was a display number sitting on an internal score of about 0.5. A gap on a screen looks worse than a fake number. I think the gap is the product. A seeker who sees "couldn't evaluate" learns something true about the posting, and that the score won't flatter them.</p>
 
-        <!-- Screenshot pending: a low-confidence card, score capped,
-             confidence tier shown, skills factor reading "couldn't
-             evaluate." Pick a listing with a thin description so the state
-             is genuine. -->
-        <div class="cs-img-breakout">
-          <div class="cs-img-frame landscape">
-            <div class="cs-img-placeholder">IMAGE 10 · A low-confidence card: score capped, confidence tier shown, skills factor reading "couldn't evaluate"</div>
-          </div>
-          <div class="cs-img-caption">27% of scores stop short of a full judgment. This is what that looks like.</div>
-        </div>
-
         <h3 class="cs-subhead">Verdict and gates</h3>
         <p>Under every number sits a one-line verdict in plain language, and above it three chips: remote, compensation, and IC versus management, each pass or warn. Chips beat prose on a card because they answer the three questions a seeker asks before reading anything: whether it's remote, whether it pays enough, and whether it's their kind of role. If a chip warns, the reader knows before the score does.</p>
 
-        <!-- Screenshot pending: a feed card cropped to the verdict line and
-             three chips, one chip in the warn state (compensation below
-             floor works best). -->
-        <div class="cs-img-breakout">
-          <div class="cs-img-frame landscape">
-            <div class="cs-img-placeholder">IMAGE 11 · Verdict line + three chips (remote / compensation / IC vs. management), compensation chip warning</div>
-          </div>
-          <div class="cs-img-caption">Three questions answered before the score is read.</div>
-        </div>
-
-        <h3 class="cs-subhead">Bands</h3>
-        <p>Scores band into Off-target below 50, Worth a look from 50, Promising from 70, and Standout from 85. The first feed a new user sees targets Promising and above.</p>
-        <p>Most listings are mediocre fits, and the score says so. The median real user's median score is 55, below the feed floor. The bands appear to mean something to people: real users save or apply to Standout listings at 2.0%, against 0.14% for Promising, about 14 times the rate. It's also only two and a half weeks of open beta, there's no impression log yet, and the denominator is every scored row rather than every row seen.</p>
-
-        <!-- IMAGE 12 in the brief. Hand-built from verified live tokens,
-             not a screenshot -- see the build note in the <style> block
-             above. Standout's colors are confirmed (--gold / --gold-text);
-             the other three follow the same palette logic but weren't
-             observed live. -->
+        <!-- IMAGE 12 in the brief, placed above the Bands subhead so it leads
+             into the section rather than trailing it. Hand-built from
+             verified live tokens, not a screenshot -- see the build note in
+             the <style> block above. Standout's colors are confirmed
+             (--gold / --gold-text); the other three follow the same palette
+             logic but weren't observed live. -->
         <div class="cs-img-breakout">
           <figure class="cs-diagram-card" style="margin-top:0;margin-bottom:0">
             <div class="cs-diagram-body">
               <div class="cs-band-row">
-                <span class="cs-band is-off"><span class="cs-band-dot"></span>Off-target</span>
-                <span class="cs-band is-worth"><span class="cs-band-dot"></span>Worth a look</span>
-                <span class="cs-band is-promising"><span class="cs-band-dot"></span>Promising</span>
-                <span class="cs-band is-standout"><span class="cs-band-dot"></span>Standout</span>
+                <!-- Ranges are the cutoffs the Bands paragraph states: below
+                     50, from 50, from 70, from 85. -->
+                <span class="cs-band is-off"><span class="cs-band-dot"></span>Off-target<span class="cs-band-range">0–49</span></span>
+                <span class="cs-band is-worth"><span class="cs-band-dot"></span>Worth a look<span class="cs-band-range">50–69</span></span>
+                <span class="cs-band is-promising"><span class="cs-band-dot"></span>Promising<span class="cs-band-range">70–84</span></span>
+                <span class="cs-band is-standout"><span class="cs-band-dot"></span>Standout<span class="cs-band-range">85–100</span></span>
               </div>
             </div>
             <div class="cs-img-caption">Bands on the adjusted score. A 60-day-old listing at raw 80 reads as Worth a look, not Promising.</div>
           </figure>
         </div>
 
-        <h3 class="cs-subhead">The loop</h3>
-        <p>A "was this score right?" prompt sits on every card. No real user has answered it yet.</p>
+        <h3 class="cs-subhead">Bands</h3>
+        <p>Scores band into Off-target below 50, Worth a look from 50, Promising from 70, and Standout from 85. The first feed a new user sees targets Promising and above.</p>
+        <p>Most listings are mediocre fits, and the score says so. The median real user's median score is 55, below the feed floor. The bands appear to mean something to people: real users save or apply to Standout listings at 2.0%, against 0.14% for Promising, about 14 times the rate. It's also only two and a half weeks of open beta, there's no impression log yet, and the denominator is every scored row rather than every row seen.</p>
       </div>
     </div>
 
-    <!-- IMAGE 13, before section 4: source overview, the same treatment as
-         before. Roster taken from `sources` + `fastAtsSources` in
-         lib/crawler/index.ts plus Workday and Eightfold on their own
-         workflows. -->
-    <div class="cs-img-breakout">
-      <figure class="cs-diagram-card" style="margin-top:0;margin-bottom:0">
-        <div class="cs-diagram-body">
-          <div class="cs-source-grid">
-            <div class="cs-source-card is-primary">
-              <div class="cs-source-eyebrow">Post directly · canonical</div>
-              <div class="cs-source-title">ATS boards</div>
-              <div class="cs-source-chips"><span>Greenhouse</span><span>Lever</span><span>Ashby</span><span>Workday</span><span>SmartRecruiters</span><span>Recruitee</span><span>Breezy</span><span>BambooHR</span><span>Workable</span><span>iCIMS</span><span>Oracle Cloud</span><span>Eightfold</span><span>Rippling</span><span>Dayforce</span><span>SuccessFactors</span><span>Pinpoint</span></div>
-            </div>
-            <div class="cs-source-card">
-              <div class="cs-source-eyebrow">Straight from the company</div>
-              <div class="cs-source-title">Employer careers sites</div>
-              <div class="cs-source-chips"><span>Amazon</span><span>Apple</span><span>Google</span><span>Bank of America</span><span>38 Fortune 500 RSS feeds</span></div>
-            </div>
-            <div class="cs-source-card">
-              <div class="cs-source-eyebrow">Broad coverage</div>
-              <div class="cs-source-title">Aggregators &amp; remote boards</div>
-              <div class="cs-source-chips"><span>Adzuna</span><span>JSearch</span><span>RemoteOK</span><span>We Work Remotely</span><span>Jobicy</span><span>Himalayas</span><span>Remotive</span><span>Working Nomads</span></div>
-            </div>
-          </div>
-        </div>
-        <div class="cs-img-caption">50+ sources, 26,685 companies. 81% of live listings come straight from the company.</div>
-      </figure>
-    </div>
-
     <!-- ── 4. What changed when strangers showed up ── -->
-    <div class="cs-article-section">
+    <div class="cs-article-section" data-nav="skip">
       <div class="cs-article-label">At Scale</div>
       <h2 class="cs-article-title">What changed when <em>strangers</em> showed up</h2>
       <div class="cs-article-body">
         <p><strong>Per-user scoring means per-user cost.</strong> One person's score is worth nothing to anyone else, so every listing is judged against every resume. A recall-tuned keyword gate runs first, so only directionally fit job listings reach the model, and hard per-user and global spend stops sit underneath it. That works out to about $0.08 in AI cost per user per day.</p>
+      </div>
+
+      <!-- IMAGE 6: architecture diagram, moved into section 4 after the
+           per-user cost paragraph, whose claim its middle row draws. It sat
+           before "a tool for one", showing the finished multi-user system
+           before the story reached it. Source count updated 24 -> 50+ to
+           match the page. Pipeline itself (verified against lib/flotilla/crawl.ts and
+           worker/processor.ts, not architecture.md, which still describes the
+           legacy in-process path). -->
+      <div class="cs-img-breakout">
+        <figure class="cs-diagram-card" style="margin-top:0;margin-bottom:0">
+          <div class="cs-diagram-body">
+            <svg viewBox="0 0 1200 670" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architecture diagram. A cron-job.org timer triggers GitHub Actions, which runs the crawl in daily, fast, and paced lanes across 50+ sources, then dedup and classify, and saves the listings. The crawl then queues what changed to a Google Cloud Run worker, where the per-user keyword gate and the AI job-fit scoring LLM run. Results go into Supabase, and out to the daily email digest and resume tailoring. Underneath, the Match Moth web app on Vercel reads that same database to serve the job feed, score breakdowns, tracker and resume workspace, and is what queues the on-demand rescores and tailoring back onto the worker.">
+              <defs>
+                <marker id="jc-arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="strokeWidth">
+                  <path d="M 0 0 L 10 5 L 0 10 z" fill="rgba(255,255,255,0.3)"/>
+                </marker>
+              </defs>
+  
+              <rect x="16" y="262" width="580" height="216" rx="16" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.22)" stroke-width="1.5" stroke-dasharray="6 5"/>
+  
+              <rect x="30" y="70" width="250" height="104" rx="14" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"/>
+              <text x="155" y="54" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">TRIGGER</text>
+              <text x="155" y="125" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="24" font-weight="600">Timer</text>
+              <text x="155" y="151" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">cron-job.org · 8am daily</text>
+  
+              <line x1="280" y1="122" x2="330" y2="122" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
+  
+              <rect x="330" y="70" width="250" height="104" rx="14" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"/>
+              <text x="455" y="54" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">WORKFLOW</text>
+              <text x="455" y="125" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="24" font-weight="600">GitHub Actions</text>
+              <text x="455" y="151" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">daily, fast, and paced lanes</text>
+  
+              <line x1="580" y1="122" x2="630" y2="122" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
+  
+              <rect x="630" y="70" width="250" height="104" rx="14" fill="rgba(251,146,60,0.06)" stroke="rgba(251,146,60,0.5)" stroke-width="2"/>
+              <text x="755" y="54" text-anchor="middle" fill="rgba(251,146,60,0.85)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">50+ SOURCES</text>
+              <text x="755" y="125" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="24" font-weight="600">Mixed Sources</text>
+              <text x="755" y="151" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">ATS · aggregators · boards</text>
+  
+              <line x1="880" y1="122" x2="930" y2="122" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
+  
+              <rect x="930" y="70" width="250" height="104" rx="14" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"/>
+              <text x="1055" y="54" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">GLOBAL JOB LIST</text>
+              <text x="1055" y="125" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="23" font-weight="600">Dedup + Classify</text>
+              <text x="1055" y="151" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">role, seniority, salary</text>
+  
+              <path d="M 1055 174 C 1055 244 230 250 230 306" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
+              <text x="605" y="228" text-anchor="middle" fill="rgba(255,255,255,0.45)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.6">QUEUES WHAT CHANGED</text>
+  
+              <rect x="30" y="306" width="250" height="104" rx="14" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"/>
+              <text x="155" y="290" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">PER USER</text>
+              <text x="155" y="361" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="24" font-weight="600">Keyword Gate</text>
+              <text x="155" y="387" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">recall-tuned first pass</text>
+  
+              <line x1="280" y1="358" x2="330" y2="358" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
+  
+              <rect x="330" y="306" width="250" height="104" rx="14" fill="rgba(56,189,248,0.07)" stroke="rgba(56,189,248,0.5)" stroke-width="2"/>
+              <text x="455" y="290" text-anchor="middle" fill="rgba(56,189,248,0.9)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">OPENAI</text>
+              <text x="455" y="361" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="24" font-weight="600">Job-Fit Scoring</text>
+              <text x="455" y="387" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">0–100 across 5 factors</text>
+  
+              <text x="306" y="448" text-anchor="middle" fill="rgba(255,255,255,0.45)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">ON THE GOOGLE CLOUD RUN WORKER</text>
+  
+              <line x1="596" y1="358" x2="630" y2="358" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
+  
+              <rect x="630" y="306" width="250" height="104" rx="14" fill="rgba(167,139,250,0.07)" stroke="rgba(167,139,250,0.5)" stroke-width="2"/>
+              <text x="755" y="290" text-anchor="middle" fill="rgba(167,139,250,0.9)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">DATABASE</text>
+              <text x="755" y="361" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="24" font-weight="600">Supabase</text>
+              <text x="755" y="387" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">Postgres · row-level security</text>
+  
+              <path d="M 880 350 C 905 344 905 334 928 334" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
+              <path d="M 880 366 C 905 372 905 382 928 382" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
+  
+              <text x="1055" y="304" text-anchor="middle" fill="rgba(52,211,153,0.9)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">DELIVER</text>
+  
+              <rect x="930" y="314" width="250" height="40" rx="11" fill="rgba(52,211,153,0.07)" stroke="rgba(52,211,153,0.5)" stroke-width="2"/>
+              <g transform="translate(948,326) scale(0.667)" fill="none" stroke="rgba(52,211,153,0.95)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="4.5" width="20" height="15" rx="2.5"/>
+                <path d="M2.8 6.2 12 13l9.2-6.8"/>
+              </g>
+              <text x="1072" y="340" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="17" font-weight="600">Daily email digest</text>
+  
+              <rect x="930" y="362" width="250" height="40" rx="11" fill="rgba(52,211,153,0.07)" stroke="rgba(52,211,153,0.5)" stroke-width="2"/>
+              <g transform="translate(948,374) scale(0.667)" fill="none" stroke="rgba(52,211,153,0.95)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 3.5h9l5 5v12a1.5 1.5 0 0 1-1.5 1.5h-12A1.5 1.5 0 0 1 4 20.5v-15A1.5 1.5 0 0 1 5.5 3.5z"/>
+                <path d="M14 3.5v5.5h5"/>
+                <path d="M7.5 13h9M7.5 17h5.5"/>
+              </g>
+              <text x="1072" y="388" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="17" font-weight="600">Resume tailoring</text>
+  
+              <path d="M 755 410 L 755 564" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
+              <text x="768" y="492" fill="rgba(255,255,255,0.45)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.4">READS</text>
+  
+              <path d="M 306 564 L 306 482" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#jc-arrow)"/>
+              <text x="322" y="528" fill="rgba(255,255,255,0.45)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.4">QUEUES RESCORES &amp; TAILORING</text>
+  
+              <text x="36" y="556" fill="rgba(147,197,253,0.75)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">ON VERCEL</text>
+              <rect x="16" y="566" width="1164" height="84" rx="16" fill="#152443" stroke="rgba(96,165,250,0.42)" stroke-width="1.5"/>
+              <g id="jc-app-icon" transform="translate(473,586) scale(0.95)" fill="none" stroke="rgba(147,197,253,0.95)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3.5" width="20" height="17" rx="2.5"/>
+                <path d="M2 9h20"/>
+                <circle cx="5.6" cy="6.3" r="0.85" fill="rgba(147,197,253,0.95)" stroke="none"/>
+                <circle cx="8.4" cy="6.3" r="0.85" fill="rgba(147,197,253,0.95)" stroke="none"/>
+              </g>
+              <text id="jc-app-title" x="614" y="604" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="21" font-weight="600">Match Moth Web App</text>
+              <text x="600" y="628" text-anchor="middle" fill="rgba(255,255,255,0.55)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">Next.js · job feed, score breakdowns, application tracker, resume workspace</text>
+            </svg>
+          </div>
+          <div class="cs-img-caption">The pipeline: a timer kicks off staggered crawl lanes across 50+ sources, then dedup and classify. The crawl saves the listings and queues what changed; a Google Cloud Run worker picks it up, runs the per-user keyword gate and the OpenAI fit-scoring calls, and writes into Supabase. The Match Moth web app reads that database to serve the feed, and queues the on-demand work back to the worker.</div>
+        </figure>
+      </div>
+
+      <div class="cs-article-body">
         <p><strong>Data quality is a UX feature.</strong> The feed is only as good as what feeds it. Today that is 50+ sources of three kinds across 26,685 companies: ATS boards, employer careers sites, and aggregators and remote boards. 81% of live listings come directly from ATS boards and careers sites, the canonical copy before a role syndicates out and goes stale. 61.6% carry a salary. Dead listings are closed nightly: 30,555 in the last 30 days, 12% of the corpus.</p>
         <p><strong>The Workday story.</strong> Workday returns HTTP 200 after a job is gone, so the URL validator never closed one. I browser-verified all 17,166 live Workday rows, closed 469, then made the nightly reaper check each Workday listing the way a browser would. "Know someone there" shipped in the same stretch: import a LinkedIn connections file and each listing shows who you already know at that company, parsed in the browser, with no email addresses uploaded.</p>
       </div>
 
-      <!-- Screenshot pending: the "Know someone there" panel on a listing
-           page, two or three connections at the company, names blurred.
-           Note: the filter chip for this feature ("I know someone here")
-           is confirmed live on the demo feed as of 2026-09-18. -->
+      <!-- IMAGE 13, moved inside section 4 to sit directly above the three
+           source lists it illustrates. Same treatment as before. Roster taken from `sources` + `fastAtsSources` in
+           lib/crawler/index.ts plus Workday and Eightfold on their own
+           workflows. -->
       <div class="cs-img-breakout">
-        <div class="cs-img-frame landscape">
-          <div class="cs-img-placeholder">IMAGE 14 · "Know someone there" panel: 2–3 connections at the company, names blurred</div>
-        </div>
-        <div class="cs-img-caption">Connections are parsed in the browser. No email addresses leave the device.</div>
-      </div>
-
-      <!-- Screenshot pending: a closed Workday job page beside the
-           network panel showing the same URL returning 200. -->
-      <div class="cs-img-breakout">
-        <div class="cs-img-frame landscape">
-          <div class="cs-img-placeholder">IMAGE 15 · Side by side: a Workday page reading "no longer available" + network panel showing HTTP 200 on the same URL</div>
-        </div>
-        <div class="cs-img-caption">Alive to the validator, gone to the applicant. 469 of these were in the feed.</div>
+        <figure class="cs-diagram-card" style="margin-top:0;margin-bottom:0">
+          <div class="cs-diagram-body">
+            <div class="cs-source-grid">
+              <div class="cs-source-card is-primary">
+                <div class="cs-source-eyebrow">Post directly · canonical</div>
+                <div class="cs-source-title">ATS boards</div>
+                <div class="cs-source-chips"><span>Greenhouse</span><span>Lever</span><span>Ashby</span><span>Workday</span><span>SmartRecruiters</span><span>Recruitee</span><span>Breezy</span><span>BambooHR</span><span>Workable</span><span>iCIMS</span><span>Oracle Cloud</span><span>Eightfold</span><span>Rippling</span><span>Dayforce</span><span>SuccessFactors</span><span>Pinpoint</span></div>
+              </div>
+              <div class="cs-source-card">
+                <div class="cs-source-eyebrow">Straight from the company</div>
+                <div class="cs-source-title">Employer careers sites</div>
+                <div class="cs-source-chips"><span>Amazon</span><span>Apple</span><span>Google</span><span>Bank of America</span><span>38 Fortune 500 RSS feeds</span></div>
+              </div>
+              <div class="cs-source-card">
+                <div class="cs-source-eyebrow">Broad coverage</div>
+                <div class="cs-source-title">Aggregators &amp; remote boards</div>
+                <div class="cs-source-chips"><span>Adzuna</span><span>JSearch</span><span>RemoteOK</span><span>We Work Remotely</span><span>Jobicy</span><span>Himalayas</span><span>Remotive</span><span>Working Nomads</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="cs-img-caption">50+ sources, 26,685 companies. 81% of live listings come straight from the company.</div>
+        </figure>
       </div>
 
       <div class="cs-article-body" style="margin-top:40px">
@@ -711,97 +710,70 @@
       </div>
     </div>
 
-    <!-- IMAGE 16, before section 5: resume upload step on a phone, in a
-         device frame. -->
+    <!-- IMAGES 17 + 19, moved above section 5 so the reader sees the
+         fork and the skipper's feed before the story of why they exist.
+         Adjacent breakouts, so the shared rule groups them 12px apart. -->
+    <!-- IMAGE 17: the upload-or-browse fork, desktop. Captured from the
+         seniordev test account on production, 2026-09-19. Caption comes
+         from data-title (case-study.js). -->
     <div class="cs-img-breakout">
-      <div class="cs-img-frame portrait-short">
-        <div class="cs-img-placeholder">IMAGE 16 · Resume step of onboarding, phone, device frame: LinkedIn URL field first, upload and paste below</div>
+      <div class="cs-img-frame" style="aspect-ratio:2000/1200">
+        <a href="../images/Job Crawler/matchmoth-onboarding-fork-desktop.png" class="glightbox" data-title="Both doors say what's behind them. The earlier version only said how to open each one.">
+          <img src="../images/Job Crawler/matchmoth-onboarding-fork-desktop.png" alt="Match Moth setup screen asking how you want to start: a recommended Start with your resume card listing what you get, beside a Browse without match scores card listing what you give up." loading="lazy" decoding="async" width="2000" height="1200"/>
+        </a>
       </div>
-      <div class="cs-img-caption">The wall. Ten of twelve deferrals happened on this screen, on a phone.</div>
+    </div>
+
+    <!-- IMAGE 19: what a skipper sees. The seniordev test account has no
+         resume on file, so its feed is exactly this state. -->
+    <div class="cs-img-breakout">
+      <div class="cs-img-frame" style="aspect-ratio:2000/1125">
+        <a href="../images/Job Crawler/matchmoth-onboarding-skipper-feed.png" class="glightbox" data-title="A skipper gets an unscored feed, one scored example, and a plain statement of the tradeoff.">
+          <img src="../images/Job Crawler/matchmoth-onboarding-skipper-feed.png" alt="Match Moth feed for a user who skipped setup: a banner listing what uploading a resume unlocks, then one example listing scored 91% Standout, labeled as a sample and not theirs." loading="lazy" decoding="async" width="2000" height="1125"/>
+        </a>
+      </div>
     </div>
 
     <!-- ── 5. The onboarding bet I got wrong ── -->
-    <div class="cs-article-section">
+    <div class="cs-article-section" data-nav="skip">
       <div class="cs-article-label">Onboarding</div>
       <h2 class="cs-article-title">The onboarding bet I got <em>wrong</em></h2>
       <div class="cs-article-body">
-        <p><strong>How people arrived.</strong> There was no launch. I posted my own story on LinkedIn and Reddit, and replied as a person in threads where people were describing the same job-search pain, with no pitch unless someone asked. One Reddit post reached about 5,000 views, sat briefly at the top of its subreddit, and brought 15 signups in 24 hours. Most of them arrived on a phone, from inside a social app, which is the context for everything below.</p>
+        <p><strong>How people arrived.</strong> I posted my own story on LinkedIn and Reddit, and replied as a person in threads where people were describing the same job-search pain, with no pitch unless someone asked. One Reddit post reached about 5,000 views, sat briefly at the top of its subreddit, and brought 15 signups in 24 hours. Most of them arrived on a phone, from inside a social app, which is the context for everything below.</p>
         <p><strong>The bet.</strong> Resume-first and mandatory. The resume is the primary scoring evidence, so the product asked for it before showing anything, and pre-filled preferences from it so setup took two minutes. I bet the value was obvious enough to earn the upload up front.</p>
         <p><strong>What users did.</strong> 38% of real signups uploaded a resume. Until the skip shipped, that meant 62% of signups never saw a feed. Every deferral happened at the resume step, and 10 of 12 were on a phone. Every resume that was uploaded parsed cleanly, whether PDF, DOCX, or a LinkedIn import. The parser was fine. Finding and uploading a file on a phone before seeing a single job was the wall.</p>
         <p><strong>The decision.</strong> Three changes in one week: browse before setup, then an upload-or-browse fork with both cards listing what you get and what you give up, then "Skip to jobs" on step one. The tradeoff is stated to the user in plain terms. A skipper gets an unscored feed, and the product says so.</p>
         <p><strong>The result, honestly.</strong> Nineteen sessions since the skip shipped. Resume-step completion moved, but three changes landed in one week and I can't claim causation for any one of them. Next is skip-reason capture and per-step events, then a real before and after.</p>
       </div>
-
-      <!-- IMAGE 17: the upload-or-browse fork, desktop. Captured from the
-           seniordev test account on production, 2026-09-19. Caption comes
-           from data-title (case-study.js). -->
-      <div class="cs-img-breakout">
-        <div class="cs-img-frame" style="aspect-ratio:2000/1200">
-          <a href="../images/Job Crawler/matchmoth-onboarding-fork-desktop.png" class="glightbox" data-title="Both doors say what's behind them. The earlier version only said how to open each one.">
-            <img src="../images/Job Crawler/matchmoth-onboarding-fork-desktop.png" alt="Match Moth setup screen asking how you want to start: a recommended Start with your resume card listing what you get, beside a Browse without match scores card listing what you give up." loading="lazy" decoding="async" width="2000" height="1200"/>
-          </a>
-        </div>
-      </div>
-
-      <!-- IMAGE 18: the same fork at phone width (390px), full page. Width
-           capped so a 1170x3168 portrait doesn't fill the breakout. -->
-      <div class="cs-img-breakout" style="max-width:380px;margin-left:auto;margin-right:auto">
-        <div class="cs-img-frame" style="aspect-ratio:1170/3168">
-          <a href="../images/Job Crawler/matchmoth-onboarding-fork-phone.png" class="glightbox" data-title="On a phone the two cards became one grid, because eight of nine skippers were on phones.">
-            <img src="../images/Job Crawler/matchmoth-onboarding-fork-phone.png" alt="The same setup choice on a phone: one comparison grid with a Resume column of check marks and a Just browse column of dashes, then the two buttons." loading="lazy" decoding="async" width="1170" height="3168"/>
-          </a>
-        </div>
-      </div>
-
-      <!-- IMAGE 19: what a skipper sees. The seniordev test account has no
-           resume on file, so its feed is exactly this state. -->
-      <div class="cs-img-breakout">
-        <div class="cs-img-frame" style="aspect-ratio:2000/1125">
-          <a href="../images/Job Crawler/matchmoth-onboarding-skipper-feed.png" class="glightbox" data-title="A skipper gets an unscored feed, one scored example, and a plain statement of the tradeoff.">
-            <img src="../images/Job Crawler/matchmoth-onboarding-skipper-feed.png" alt="Match Moth feed for a user who skipped setup: a banner listing what uploading a resume unlocks, then one example listing scored 91% Standout, labeled as a sample and not theirs." loading="lazy" decoding="async" width="2000" height="1125"/>
-          </a>
-        </div>
-      </div>
     </div>
 
-    <!-- IMAGE 20, before section 6: admin status page. Not reachable via
-         the read-only demo account (owner/admin auth required) -- confirmed
-         2026-09-18. -->
-    <div class="cs-img-breakout">
-      <div class="cs-img-frame landscape">
-        <div class="cs-img-placeholder">IMAGE 20 · Admin status page: queue depth, AI spend vs. caps, captured exceptions, email delivery health — owner auth only, blur any user email</div>
+    <!-- IMAGE 20, before section 6: two real admin screens side by side,
+         captured from the owner account 2026-09-21. The page is not reachable
+         from the demo login. No user emails are in frame. Captions come
+         from data-title (case-study.js). -->
+    <div class="cs-art-img-2col cs-between">
+      <div>
+        <div class="cs-img-frame" style="aspect-ratio:1728/1024">
+          <a href="../images/Job Crawler/matchmoth-admin-user-activity.png" class="glightbox" data-title="Who is actually using it: real beta participants only, with internal accounts excluded from every count.">
+            <img src="../images/Job Crawler/matchmoth-admin-user-activity-1200w.png" alt="Match Moth admin User activity page: 20 onboarded users, 53 with invites, 14 internal accounts excluded, 53 of 150 beta seats taken, then an admission funnel and getting-in signals." loading="lazy" decoding="async" width="1200" height="711"/>
+          </a>
+        </div>
       </div>
-      <div class="cs-img-caption">The operator's morning: is anything wrong, and where.</div>
+      <div>
+        <div class="cs-img-frame" style="aspect-ratio:1728/1024">
+          <a href="../images/Job Crawler/matchmoth-admin-ai-spend.png" class="glightbox" data-title="AI spend against its daily cap, and which kind of job spent it.">
+            <img src="../images/Job Crawler/matchmoth-admin-ai-spend-1200w.png" alt="Match Moth admin spend view: AI cost by the job that triggered it, a 30-day daily spend chart totalling $68.02, and the Flotilla queue running at $2.10 of a $50 daily cap." loading="lazy" decoding="async" width="1200" height="711"/>
+          </a>
+        </div>
+      </div>
     </div>
 
     <!-- ── 6. Designing for the operator too ── -->
-    <div class="cs-article-section">
+    <div class="cs-article-section" data-nav="skip">
       <div class="cs-article-label">Operations</div>
       <h2 class="cs-article-title">Designing for the <em>operator</em> too</h2>
       <div class="cs-article-body">
         <p>A live product has a second user, the person who runs it. An admin status page shows queue depth, AI spend against its caps, captured exceptions, and email delivery health, so a bad morning is diagnosable before a user reports it. A dev-only design route renders real components on the real app canvas, one section per state, so visual decisions are judged against the actual background rather than a mockup.</p>
-      </div>
-
-      <!-- Screenshot pending: the dev-only design route, one component in
-           several states on the real app canvas. Dev-only -- not reachable
-           on production. -->
-      <div class="cs-img-breakout">
-        <div class="cs-img-frame landscape">
-          <div class="cs-img-placeholder">IMAGE 21 · Dev-only design route: one component (fit band badge or score breakdown) in every state, on the real app canvas — not reachable on production</div>
-        </div>
-        <div class="cs-img-caption">Real components, real canvas, one section per state. No mockups.</div>
-      </div>
-
-      <!-- Screenshot pending, owner-sourced: a daily digest email as
-           delivered. Needs real inbox access. -->
-      <div class="cs-img-breakout">
-        <div class="cs-img-frame portrait-short">
-          <div class="cs-img-placeholder">IMAGE 22 (owner-sourced, needs inbox access) · A daily digest email as delivered: up to five new roles, one reminder, scores on each — blur the recipient</div>
-        </div>
-        <div class="cs-img-caption">Up to five new roles, up to three reminders, any listing at most three times ever.</div>
-      </div>
-
-      <div class="cs-article-body">
         <p>The daily digest is a bounded contract: up to five new roles, up to three reminders, and any listing shown at most three times ever. That hasn't changed since June. Three beta reports since September 1, on profile fields, the resume editor, and a dead Workday link, each shipped the same day or within days.</p>
       </div>
     </div>
@@ -836,15 +808,31 @@
         </div>
       </div>
       <div>
+        <!-- Caption comes from data-title, like the three beside it; a
+             manual .cs-img-caption here would print twice. -->
         <div class="cs-img-frame" style="aspect-ratio:60/95">
-          <div class="cs-img-placeholder">IMAGE 24.4 · Current Match Moth feed, demo account, navy canvas, moth mark, band badges in teal/gold, Spectral titles</div>
+          <a href="../images/Job Crawler/jobcrawler4.png" class="glightbox" data-title="Match Moth: the brand system, September 2026.">
+            <img src="../images/Job Crawler/jobcrawler4.png" alt="The current Match Moth feed: navy canvas, Discover, Shortlist, Applied and Hidden tabs, filter chips, and senior product designer listings with competition signals and an AI match summary." loading="lazy" decoding="async" width="600" height="957"/>
+          </a>
         </div>
-        <div class="cs-img-caption">Match Moth: the brand system, September 2026.</div>
+      </div>
+    </div>
+
+    <!-- IMAGE 26: the marketing homepage hero, desktop. Moved directly under
+         the four UI generations: it is the fifth, the brand on the outside. Frame takes the
+         screenshot's own ratio so the crescent and the product preview at
+         the bottom edge aren't cropped. Caption comes from data-title
+         (case-study.js). -->
+    <div class="cs-img-breakout">
+      <div class="cs-img-frame" style="aspect-ratio:1684/1012">
+        <a href="../images/Job Crawler/MM_homepage.png" class="glightbox" data-title="The same system on the outside as on the inside.">
+          <img src="../images/Job Crawler/MM_homepage-1200w.png" alt="The Match Moth marketing homepage: the moth mark in the nav, a crescent moon over a navy mountain night sky, the headline Find your strongest job matches, with the reasons why, a Claim a founding spot button, and the product preview beneath." loading="lazy" decoding="async" width="1200" height="722"/>
+        </a>
       </div>
     </div>
 
     <!-- ── 7. From a tool to a brand ── -->
-    <div class="cs-article-section">
+    <div class="cs-article-section" data-nav="skip">
       <div class="cs-article-label">The Craft</div>
       <h2 class="cs-article-title">From a tool to a <em>brand</em></h2>
       <div class="cs-article-body">
@@ -854,60 +842,108 @@
         <p>Accessibility got the same treatment as the score: measured, then reported honestly. An August audit ran keyboard and contrast checks against production at desktop and phone sizes. It passed on focus, with no traps and a visible focus state on every control. It failed on six components under the contrast floor, the worst being the score badge itself at 2.46:1, and on form errors that were announced to nobody on seven of nine surfaces. Names, landmarks and error announcements were fixed the same day. Contrast now gates the build, after 107 violations across 34 files were cleared. A match is never graded by color alone, and a screen-reader pass is still to do.</p>
       </div>
 
-      <!-- IMAGE 25 in the brief. Brand board: real palette (verified
-           2026-09-18 against the live app's CSS custom properties), real
-           type pairing. Mark/wordmark lockup itself still needs the real
-           vector asset -- see build note in <style>. -->
-      <div class="cs-img-breakout">
-        <figure class="cs-diagram-card" style="margin-top:0;margin-bottom:0">
-          <div class="cs-diagram-body">
-            <div class="cs-brand-board">
-              <div class="cs-brand-swatches">
-                <div class="cs-swatch"><div class="cs-swatch-chip" style="background:#040b1c"></div><div class="cs-swatch-name">Night Ink</div><div class="cs-swatch-hex">#040B1C</div></div>
-                <div class="cs-swatch"><div class="cs-swatch-chip" style="background:#0b162b"></div><div class="cs-swatch-name">Deep Navy</div><div class="cs-swatch-hex">#0B162B</div></div>
-                <div class="cs-swatch"><div class="cs-swatch-chip" style="background:#192b4c"></div><div class="cs-swatch-name">Elevated Navy</div><div class="cs-swatch-hex">#192B4C</div></div>
-                <div class="cs-swatch"><div class="cs-swatch-chip" style="background:#fff0d3"></div><div class="cs-swatch-name">Cream</div><div class="cs-swatch-hex">#FFF0D3</div></div>
-                <div class="cs-swatch"><div class="cs-swatch-chip" style="background:#32c9b2"></div><div class="cs-swatch-name">Luminous Teal</div><div class="cs-swatch-hex">#32C9B2</div></div>
-                <div class="cs-swatch"><div class="cs-swatch-chip" style="background:#e4b954"></div><div class="cs-swatch-name">Soft Gold</div><div class="cs-swatch-hex">#E4B954</div></div>
-                <div class="cs-swatch"><div class="cs-swatch-chip" style="background:#f1cd72"></div><div class="cs-swatch-name">Luminous Gold</div><div class="cs-swatch-hex">#F1CD72</div></div>
-              </div>
-              <div class="cs-brand-type">
-                <div class="cs-brand-type-sample">
-                  <div class="cs-brand-type-glyph is-accent">94</div>
-                  <div class="cs-brand-type-lbl">Spectral<br>scores &amp; listings</div>
-                </div>
-                <div class="cs-brand-type-sample">
-                  <div class="cs-brand-type-glyph is-ui">Aa</div>
-                  <div class="cs-brand-type-lbl">Plus Jakarta Sans<br>app chrome</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="cs-img-caption">Teal for action and evidence, gold for Standout only, Spectral for anything that is a score.</div>
-        </figure>
-      </div>
-
-      <!-- Screenshot pending: marketing homepage hero, desktop. -->
-      <div class="cs-img-breakout">
-        <div class="cs-img-frame landscape">
-          <div class="cs-img-placeholder">IMAGE 26 · Marketing homepage hero: mark, crescent, promise line, desktop</div>
-        </div>
-        <div class="cs-img-caption">The same system on the outside as on the inside.</div>
-      </div>
     </div>
 
-    <!-- IMAGE 23, before section 8: a spec's decisions log table, or the
-         Playwright golden-path run passing in a terminal. Internal dev
-         artifact, not part of the live app -- pending owner capture. -->
+    <!-- IMAGE 23, before section 8: the spec-driven loop as a diagram, in the
+         same visual language as the pipeline diagram in section 4. Colour
+         says who does each step (key bottom-left). Row 1 runs left to right
+         and row 2 snakes back right to left, so "write the code" sits directly
+         above automated QA and the fix-bugs loop is a short hop, not a trip
+         across the page. -->
     <div class="cs-img-breakout">
-      <div class="cs-img-frame landscape">
-        <div class="cs-img-placeholder">IMAGE 23 · A spec's decisions log table, or a passing Playwright golden-path run in a terminal — no phase codenames in the crop</div>
-      </div>
-      <div class="cs-img-caption">Spec as contract. Decisions get written down so they aren't re-argued.</div>
+      <figure class="cs-diagram-card" style="margin-top:0;margin-bottom:0">
+        <div class="cs-diagram-body">
+          <svg viewBox="0 0 1200 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Spec-driven development loop. A human and AI brainstorm the feature, documenting the problems, goals and relevant research. AI writes the spec. A human reviews it, requests changes and makes the decisions, looping back to the spec until it is right. AI writes the code. Playwright runs automated QA, and any bugs loop back to the code. A human then tests it by hand, and the feature launches.">
+            <defs>
+              <marker id="sd-arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="strokeWidth">
+                <path d="M 0 0 L 10 5 L 0 10 z" fill="rgba(255,255,255,0.3)"/>
+              </marker>
+            </defs>
+
+            <!-- ── ROW 1: define it (left to right) ── -->
+
+            <!-- 1. Brainstorm: human + AI together (purple) -->
+            <rect x="30" y="70" width="250" height="104" rx="14" fill="rgba(167,139,250,0.07)" stroke="rgba(167,139,250,0.5)" stroke-width="2"/>
+            <text x="155" y="54" text-anchor="middle" fill="rgba(167,139,250,0.9)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">HUMAN + AI</text>
+            <text x="155" y="125" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="24" font-weight="600">Brainstorm</text>
+            <text x="155" y="151" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">problems, goals, research</text>
+
+            <line x1="280" y1="122" x2="330" y2="122" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#sd-arrow)"/>
+
+            <!-- 2. AI writes the spec (blue) -->
+            <rect x="330" y="70" width="250" height="104" rx="14" fill="rgba(56,189,248,0.07)" stroke="rgba(56,189,248,0.5)" stroke-width="2"/>
+            <text x="455" y="54" text-anchor="middle" fill="rgba(56,189,248,0.9)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">AI</text>
+            <text x="455" y="125" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="24" font-weight="600">Write the spec</text>
+            <text x="455" y="151" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">plan and decisions log</text>
+
+            <line x1="580" y1="122" x2="630" y2="122" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#sd-arrow)"/>
+
+            <!-- 3. Human reviews (orange) -->
+            <rect x="630" y="70" width="250" height="104" rx="14" fill="rgba(251,146,60,0.06)" stroke="rgba(251,146,60,0.5)" stroke-width="2"/>
+            <text x="755" y="54" text-anchor="middle" fill="rgba(251,146,60,0.85)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">HUMAN</text>
+            <text x="755" y="125" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="24" font-weight="600">Review the spec</text>
+            <text x="755" y="151" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">request changes, decide</text>
+
+            <!-- Review loops back to the spec until it's right -->
+            <path d="M 735 174 C 735 222 475 222 475 176" fill="none" stroke="rgba(251,146,60,0.55)" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#sd-arrow)"/>
+            <text x="605" y="240" text-anchor="middle" fill="rgba(251,146,60,0.8)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.6">REQUESTS CHANGES</text>
+
+            <line x1="880" y1="122" x2="930" y2="122" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#sd-arrow)"/>
+
+            <!-- 4. AI writes the code (blue) -->
+            <rect x="930" y="70" width="250" height="104" rx="14" fill="rgba(56,189,248,0.07)" stroke="rgba(56,189,248,0.5)" stroke-width="2"/>
+            <text x="1055" y="54" text-anchor="middle" fill="rgba(56,189,248,0.9)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">AI</text>
+            <text x="1055" y="125" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="24" font-weight="600">Write the code</text>
+            <text x="1055" y="151" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">on a branch, to the spec</text>
+
+            <!-- Code down into QA, and bugs back up to code. Both run either side of the
+                 AUTOMATED label (x 1011-1097) rather than through it. -->
+            <line x1="975" y1="174" x2="975" y2="304" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#sd-arrow)"/>
+            <path d="M 1120 306 L 1120 176" fill="none" stroke="rgba(56,189,248,0.55)" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#sd-arrow)"/>
+            <text x="1132" y="244" fill="rgba(56,189,248,0.85)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.6">FIX BUGS</text>
+
+            <!-- ── ROW 2: prove it (right to left) ── -->
+
+            <!-- 5. Automated QA (neutral: a machine, not a model) -->
+            <rect x="930" y="306" width="250" height="104" rx="14" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"/>
+            <text x="1055" y="290" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">AUTOMATED</text>
+            <text x="1055" y="361" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="24" font-weight="600">Automated QA</text>
+            <text x="1055" y="387" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">Playwright, golden path</text>
+
+            <line x1="930" y1="358" x2="880" y2="358" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#sd-arrow)"/>
+
+            <!-- 6. Human QA (orange) -->
+            <rect x="630" y="306" width="250" height="104" rx="14" fill="rgba(251,146,60,0.06)" stroke="rgba(251,146,60,0.5)" stroke-width="2"/>
+            <text x="755" y="290" text-anchor="middle" fill="rgba(251,146,60,0.85)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">HUMAN</text>
+            <text x="755" y="361" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="24" font-weight="600">Human QA</text>
+            <text x="755" y="387" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">hands-on testing</text>
+
+            <line x1="630" y1="358" x2="580" y2="358" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#sd-arrow)"/>
+
+            <!-- 7. Launch (green) -->
+            <rect x="330" y="306" width="250" height="104" rx="14" fill="rgba(52,211,153,0.07)" stroke="rgba(52,211,153,0.5)" stroke-width="2"/>
+            <text x="455" y="290" text-anchor="middle" fill="rgba(52,211,153,0.9)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">SHIP</text>
+            <text x="455" y="361" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="24" font-weight="600">Launch</text>
+            <text x="455" y="387" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">the feature goes live</text>
+
+            <!-- Key, in the open slot at the start of row 2 -->
+            <text x="60" y="290" fill="rgba(255,255,255,0.45)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">WHO DOES IT</text>
+            <rect x="60" y="316" width="14" height="14" rx="4" fill="rgba(167,139,250,0.2)" stroke="rgba(167,139,250,0.7)" stroke-width="1.5"/>
+            <text x="86" y="328" fill="rgba(255,255,255,0.65)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">Human + AI together</text>
+            <rect x="60" y="340" width="14" height="14" rx="4" fill="rgba(56,189,248,0.2)" stroke="rgba(56,189,248,0.7)" stroke-width="1.5"/>
+            <text x="86" y="352" fill="rgba(255,255,255,0.65)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">AI</text>
+            <rect x="60" y="364" width="14" height="14" rx="4" fill="rgba(251,146,60,0.2)" stroke="rgba(251,146,60,0.7)" stroke-width="1.5"/>
+            <text x="86" y="376" fill="rgba(255,255,255,0.65)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">Human</text>
+            <rect x="60" y="388" width="14" height="14" rx="4" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+            <text x="86" y="400" fill="rgba(255,255,255,0.65)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">Automated</text>
+          </svg>
+        </div>
+        <div class="cs-img-caption">Spec as contract. Decisions get written down so they aren't re-argued.</div>
+      </figure>
     </div>
 
     <!-- ── 8. Spec-driven development with AI ── -->
-    <div class="cs-article-section">
+    <div class="cs-article-section" data-nav="skip">
       <div class="cs-article-label">Process</div>
       <h2 class="cs-article-title">Spec-driven development with <em>AI</em></h2>
       <div class="cs-article-body">
@@ -924,14 +960,14 @@
     </div>
 
     <!-- ── 9. One month of open beta ── -->
-    <div class="cs-article-section">
+    <div class="cs-article-section" data-nav-label="Outcomes">
       <div class="cs-article-label">Outcome</div>
       <h2 class="cs-article-title">One month of open <em>beta</em></h2>
       <div class="cs-article-body">
-        <p>As of September 17: 52 real signups, 20 onboarded, and 42 apply clicks.</p>
+        <p>As of September 21: 53 real signups, 20 onboarded, and 43 apply clicks.</p>
         <p>Retention isn't measurable yet. The first four-week cohort lands in late September, and this page gets a revision in mid-October with that data, an impression log, and skip reasons.</p>
         <p>What the product can't fix: employer silence and the market's odds. No seeker-side tool makes a recruiter reply.</p>
-        <p>The question this first month answers is the one the page started with. Can I design and ship an AI product that strangers trust enough to act on? Real users have clicked through to apply 42 times. The evidence is above.</p>
+        <p>The question this first month answers is the one the page started with. Can I design and ship an AI product that strangers trust enough to act on? Real users have clicked through to apply 43 times. The evidence is above.</p>
       </div>
     </div>
 
