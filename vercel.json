@@ -1,0 +1,6 @@
+{
+  "redirects": [
+    { "source": "/case-study-job-crawler", "destination": "/case-study-match-moth/", "permanent": true },
+    { "source": "/case-study-job-crawler/:path*", "destination": "/case-study-match-moth/:path*", "permanent": true }
+  ]
+}

@@ -292,7 +292,7 @@
 <section id="cs-hero">
   <div class="cs-hero-inner">
     <a href="../#work" class="nav-back" style="display:inline-flex;align-items:center;margin-bottom:24px"><span class="nav-back-arrow" style="line-height:1;margin-top:-1px">←</span> All work</a>
-    <div class="cs-num">Case Study · Match Moth · 11 min read</div>
+    <div class="cs-num">Case Study · Match Moth · 14 min read</div>
     <div class="work-tags" style="margin-bottom:12px;margin-top:-8px">
       <span class="work-tag">AI Product</span>
       <span class="work-tag">Product Design</span>
@@ -342,14 +342,15 @@
 
     <!-- Product gallery. Layout: the feed spans the full row, then the
          listing detail page as a pair (top of page, then mid-page), then
-         tailoring and phone. Only 4 (the phone shot) still pending capture. -->
+         tailoring across the full row. The three phone screens live in the
+         Onboarding section now. -->
     <div class="cs-art-img-2col">
       <div style="grid-column:1/-1">
         <!-- IMAGE 1. No manual .cs-img-caption: case-study.js builds the
              caption from data-title. Frame takes the screenshot's own ratio
              so the filter rail and score badges aren't cropped. -->
         <div class="cs-img-frame" style="aspect-ratio:2000/1095">
-          <a href="../images/Job Crawler/matchmoth-feed-desktop.png" class="glightbox" data-title="The feed. Ranked by fit, filtered to what you'd actually apply to.">
+          <a href="../images/Job Crawler/matchmoth-feed-desktop.png" class="glightbox" data-title="The desktop feed. Half of real users see this on a phone instead, which is where the onboarding story below happens.">
             <img src="../images/Job Crawler/matchmoth-feed-desktop-1200w.png" srcset="../images/Job%20Crawler/matchmoth-feed-desktop-1200w.png 1200w, ../images/Job%20Crawler/matchmoth-feed-desktop.png 2000w" sizes="(max-width: 800px) 100vw, 1200px" alt="Match Moth job feed on desktop: filter rail across the top, 1,574 listings sorted by AI fit, and two ranked cards scoring 95% and 90%, both badged Standout." decoding="async" width="1200" height="657"/>
           </a>
         </div>
@@ -372,7 +373,7 @@
           </a>
         </div>
       </div>
-      <div>
+      <div style="grid-column:1/-1">
         <!-- IMAGE 3. Caption comes from data-title (see IMAGE 1). The
              tailored-resume view, open to every beta user (the earlier note
              here that tailoring sat in a private owner test is out of date).
@@ -384,46 +385,19 @@
           </a>
         </div>
       </div>
-      <!-- IMAGE 4: three phone screens, in the order a user moves through
-           them (feed, open a listing, scroll to the requirements). The row
-           carries IMAGE 3's own aspect ratio, 1728/1024, so the phones stand
-           exactly as tall as the tailoring screenshot beside them; each
-           phone's width then follows from its own ratio. No data-title on
-           these links, so case-study.js leaves them alone and the one
-           caption below covers the set. -->
-      <figure class="cs-figure">
-        <div class="cs-phone-row">
-          <div class="cs-img-frame" style="aspect-ratio:1026/2000">
-            <a href="../images/Job Crawler/matchmoth-mobile-feed.webp" class="glightbox">
-              <img src="../images/Job Crawler/matchmoth-mobile-feed.webp" alt="Match Moth feed on a phone: two senior product designer listings, each scored 90% Standout, with remote, salary and seniority chips and an AI match summary." loading="lazy" decoding="async" width="1026" height="2000"/>
-            </a>
-          </div>
-          <div class="cs-img-frame" style="aspect-ratio:1080/1955">
-            <a href="../images/Job Crawler/matchmoth-mobile-listing-top.webp" class="glightbox">
-              <img src="../images/Job Crawler/matchmoth-mobile-listing-top.webp" alt="Top of a listing on a phone: Senior Product Designer at Fetch, 90% Standout, a competition signal showing 54 applicants clicked apply on LinkedIn, and a sticky Apply bar." loading="lazy" decoding="async" width="1080" height="1955"/>
-            </a>
-          </div>
-          <div class="cs-img-frame" style="aspect-ratio:1026/2000">
-            <a href="../images/Job Crawler/matchmoth-mobile-requirements.webp" class="glightbox">
-              <img src="../images/Job Crawler/matchmoth-mobile-requirements.webp" alt="Requirement matching on a phone: core requirements marked Match with percentages, and nice-to-haves split between Match and Adjacent." loading="lazy" decoding="async" width="1026" height="2000"/>
-            </a>
-          </div>
-        </div>
-        <div class="cs-img-caption">Around half of users arrive on a phone.</div>
-      </figure>
     </div>
 
     <!-- ── As of September 2026 ── -->
     <div class="cs-article-section" data-nav-label="Impact">
-      <div class="cs-article-label">As of September 21, 2026</div>
+      <div class="cs-article-label">As of September 22, 2026</div>
       <div class="cs-impact-row cs-impact-2x2" style="margin-top:20px">
+        <div class="cs-stat-card glass">
+          <div class="cs-stat-num">16×</div>
+          <div class="cs-stat-lbl">more likely to be saved or applied to when the score calls a job a top match</div>
+        </div>
         <div class="cs-stat-card glass">
           <div class="cs-stat-num">48,000</div>
           <div class="cs-stat-lbl">dead listings caught and pulled from the feed in the last 30 days</div>
-        </div>
-        <div class="cs-stat-card glass">
-          <div class="cs-stat-num">16×</div>
-          <div class="cs-stat-lbl">the save-or-apply rate on Standout listings versus Promising</div>
         </div>
         <div class="cs-stat-card glass">
           <div class="cs-stat-num">170,000+</div>
@@ -434,12 +408,8 @@
           <div class="cs-stat-lbl">AI scoring cost per user per day, under hard spend caps</div>
         </div>
         <div class="cs-stat-card glass">
-          <div class="cs-stat-num">43</div>
-          <div class="cs-stat-lbl">apply clicks from real users since the beta opened</div>
-        </div>
-        <div class="cs-stat-card glass">
-          <div class="cs-stat-num">2,173</div>
-          <div class="cs-stat-lbl">commits pushed to GitHub</div>
+          <div class="cs-stat-num">168</div>
+          <div class="cs-stat-lbl">components on one token file, shared by the app, the site, and the emails</div>
         </div>
       </div>
     </div>
@@ -468,6 +438,10 @@
           <span class="cs-meta-lbl">Built with</span>
           <span class="cs-meta-val">Claude Code and Codex; OpenAI (gpt-5.6-luna) for scoring and resume work</span>
         </div>
+        <div class="cs-meta-item cs-meta-full">
+          <span class="cs-meta-lbl">Scope</span>
+          <span class="cs-meta-val">I designed and shipped the full front end, the design system, the email templates, and the accessibility gates in the build. Agents wrote most of the code to my specs; the pipeline and scoring worker run on Google Cloud Run.</span>
+        </div>
       </div>
     </div>
 
@@ -487,7 +461,7 @@
       <div class="cs-article-label">Origin</div>
       <h2 class="cs-article-title">It started as a tool <em>for one</em></h2>
       <div class="cs-article-body">
-        <p>It started as a proof of concept: my resume hardcoded, a nightly crawl of a few thousand companies, and a ranked email every morning. It worked. I reviewed a shortlist in minutes instead of scrolling for an hour, and the roles I wanted rose to the top on their own. Then I opened it to other job seekers in other roles, and nearly every decision below came from what happened when they walked through the door.</p>
+        <p>It started as a proof of concept: my resume hardcoded, a nightly crawl of a few thousand companies, and a ranked email every morning. It worked. I reviewed a shortlist in minutes instead of scrolling for an hour, and the roles I wanted rose to the top on their own. It worked because I already trusted the judge: I'd written the scoring rules and could see why every role landed where it did. Then I opened it to other job seekers in other roles, and nearly every decision below came from what happened when they walked through the door. They hadn't written the rules. The score had to earn the trust I'd given it for free.</p>
       </div>
     </div>
 
@@ -527,6 +501,7 @@
 
         <h3 class="cs-subhead">Bands</h3>
         <p>Your first feed targets Promising and above. Most listings are mediocre fits, and the score says so: the median real user's median score is 55, below that floor. The bands appear to mean something to people. Real users save or apply to Standout listings at 1.3%, against 0.08% for Promising, about 16 times the rate. Of the 43 times a real user has clicked through to apply, 40 were on a Standout or Promising listing and none were on an Off-target one. The caveats: it's only a month of open beta, there's no impression log yet, and the denominator is every scored row rather than every row seen.</p>
+        <p>One thing the numbers don't say yet is whether people read the breakdown or just the number. The 16× gap shows the bands sort well. It doesn't show that the five factors are what earned the click. <!-- [OPTIONAL: X% of apply clicks came from listings where the breakdown had been opened.] --> <!-- [OPTIONAL: "..." (beta user, September 2026).] --> The breakdown-open event ships in the next spec, and the October revision of this page will say whether transparency is doing the work or the number is doing it alone.</p>
       </div>
     </div>
 
@@ -535,7 +510,9 @@
       <div class="cs-article-label">At Scale</div>
       <h2 class="cs-article-title">What changed when <em>strangers</em> showed up</h2>
       <div class="cs-article-body">
-        <p><strong>Per-user scoring means per-user cost.</strong> One person's score is worth nothing to anyone else, so every listing is judged against every resume. A recall-tuned keyword gate runs first, so only directionally fit job listings reach the model, and hard per-user and global spend stops sit underneath it. That works out to about $0.08 in AI cost per user per day.</p>
+        <p><strong>Data quality is a UX feature.</strong> A score is only as trustworthy as the listing under it. If the feed shows a job that closed a month ago, the user doesn't blame the crawler, they stop trusting the score. So the quality work below is design work that happened to ship as pipeline code. Every rule here answers the same question: what would make a stranger stop believing the number?</p>
+        <p><strong>One job is one listing.</strong> A staffing network publishes a single requisition to a separate page for each city, and aggregators ingest every page. Two pages for the same job, one in Annapolis and one in Montgomery, matched down to the reference ID. Fixing that took one firm from 660 listings to 87, and onsite jobs now show the city the employer named, not the one an aggregator guessed. Dead listings are closed nightly: 48,000 in the last 30 days.</p>
+        <p><strong>Per-user scoring means per-user cost.</strong> One person's score is worth nothing to anyone else, so every listing is judged against every resume. A recall-tuned keyword gate runs first, so only directionally fit listings reach the model, and hard per-user and global spend stops sit underneath it. That works out to about $0.08 in AI cost per user per day. The cap is a product decision as much as a budget one: a score that costs too much to run is a score nobody gets.</p>
       </div>
 
       <!-- IMAGE 6: architecture diagram, moved into section 4 after the
@@ -650,38 +627,8 @@
       </div>
 
       <div class="cs-article-body">
-        <p><strong>Data quality is a UX feature.</strong> The feed is only as good as what feeds it. Today that is 50+ sources of three kinds across 29,000 companies: ATS boards, employer careers sites, and aggregators and remote boards. 81% of live listings come directly from ATS boards and careers sites, the canonical copy before a role syndicates out and goes stale. 63% carry a salary. Dead listings are closed nightly: 48,000 in the last 30 days.</p>
-        <p><strong>One job is one listing.</strong> A staffing network publishes a single requisition to a separate page for each city, and aggregators ingest every page. Two pages for the same job, one in Annapolis and one in Montgomery, matched down to the reference ID. Fixing that archived 4,815 duplicate rows across 298 jobs, and one firm went from 660 listings to 87. Onsite jobs now show the city the employer named, not the one an aggregator guessed.</p>
-        <p><strong>Competition, with the evidence shown.</strong> Each listing now says whether the same job was found on LinkedIn and Indeed, one line per site, with LinkedIn's applicant count when it publishes one. The icons are deliberately not green and red, because being found on a site means more competition, not less. If a search doesn't finish, the result is treated as unknown rather than "not found," and the check runs again later.</p>
-      </div>
-
-      <!-- IMAGE 13, moved inside section 4 to sit directly above the three
-           source lists it illustrates. Same treatment as before. Roster taken from `sources` + `fastAtsSources` in
-           lib/crawler/index.ts plus Workday and Eightfold on their own
-           workflows. -->
-      <div class="cs-img-breakout">
-        <figure class="cs-diagram-card" style="margin-top:0;margin-bottom:0">
-          <div class="cs-diagram-body">
-            <div class="cs-source-grid">
-              <div class="cs-source-card is-primary">
-                <div class="cs-source-eyebrow">Post directly · canonical</div>
-                <div class="cs-source-title">ATS boards</div>
-                <div class="cs-source-chips"><span>Greenhouse</span><span>Lever</span><span>Ashby</span><span>Workday</span><span>SmartRecruiters</span><span>Recruitee</span><span>Breezy</span><span>BambooHR</span><span>Workable</span><span>iCIMS</span><span>Oracle Cloud</span><span>Eightfold</span><span>Rippling</span><span>Dayforce</span><span>SuccessFactors</span><span>Pinpoint</span></div>
-              </div>
-              <div class="cs-source-card">
-                <div class="cs-source-eyebrow">Straight from the company</div>
-                <div class="cs-source-title">Employer careers sites</div>
-                <div class="cs-source-chips"><span>Amazon</span><span>Apple</span><span>Google</span><span>Bank of America</span><span>38 Fortune 500 RSS feeds</span></div>
-              </div>
-              <div class="cs-source-card">
-                <div class="cs-source-eyebrow">Broad coverage</div>
-                <div class="cs-source-title">Aggregators &amp; remote boards</div>
-                <div class="cs-source-chips"><span>Adzuna</span><span>JSearch</span><span>We Work Remotely</span><span>Jobicy</span><span>Himalayas</span></div>
-              </div>
-            </div>
-          </div>
-          <div class="cs-img-caption">50+ sources across 29,000 companies.</div>
-        </figure>
+        <p>50+ sources across 29,000 companies: ATS boards, employer careers sites, and aggregators. 81% of live listings come straight from the employer's own board, the canonical copy before a role syndicates out and goes stale. 63% carry a salary.</p>
+        <p><strong>Competition, with the evidence shown.</strong> Each listing says whether the same job was found on LinkedIn and Indeed, one line per site, with LinkedIn's applicant count when it publishes one. The icons are deliberately not green and red, because being found on a site means more competition, not less. If a search doesn't finish, the result is treated as unknown rather than "not found," and the check runs again later. Unknown and absent are different states, and the UI says which one it is.</p>
       </div>
 
     </div>
@@ -718,6 +665,31 @@
         <p><strong>How people arrived.</strong> I posted my own story on LinkedIn and Reddit, and replied as a person in threads where people were describing the same job-search pain, with no pitch unless someone asked. One Reddit post reached about 5,000 views, sat briefly at the top of its subreddit, and brought 15 signups in 24 hours. Most of them arrived on a phone, from inside a social app, which is the context for everything below.</p>
         <p><strong>The bet.</strong> Resume-first and mandatory. The resume is the primary scoring evidence, so the product asked for it before showing anything, and pre-filled preferences from it so setup took two minutes. I bet the value was obvious enough to earn the upload up front.</p>
         <p><strong>What users did.</strong> 38% of real signups uploaded a resume. Until the skip shipped, that meant 62% of signups never saw a feed. Every deferral happened at the resume step, and 10 of 12 were on a phone. Every resume that was uploaded parsed cleanly, whether PDF, DOCX, or a LinkedIn import. The parser was fine. Finding and uploading a file on a phone before seeing a single job was the wall.</p>
+        <!-- The three phone screens, moved here from the top gallery: the
+             product as the people who left saw it. Same markup as before.
+             No data-title on these links, so case-study.js leaves them alone
+             and the one caption below covers the set. Inline margin because
+             .cs-figure is margin 0 and this one sits between paragraphs. -->
+        <figure class="cs-figure" style="margin:32px 0">
+          <div class="cs-phone-row">
+            <div class="cs-img-frame" style="aspect-ratio:1026/2000">
+              <a href="../images/Job Crawler/matchmoth-mobile-feed.webp" class="glightbox">
+                <img src="../images/Job Crawler/matchmoth-mobile-feed.webp" alt="Match Moth feed on a phone: two senior product designer listings, each scored 90% Standout, with remote, salary and seniority chips and an AI match summary." loading="lazy" decoding="async" width="1026" height="2000"/>
+              </a>
+            </div>
+            <div class="cs-img-frame" style="aspect-ratio:1080/1955">
+              <a href="../images/Job Crawler/matchmoth-mobile-listing-top.webp" class="glightbox">
+                <img src="../images/Job Crawler/matchmoth-mobile-listing-top.webp" alt="Top of a listing on a phone: Senior Product Designer at Fetch, 90% Standout, a competition signal showing 54 applicants clicked apply on LinkedIn, and a sticky Apply bar." loading="lazy" decoding="async" width="1080" height="1955"/>
+              </a>
+            </div>
+            <div class="cs-img-frame" style="aspect-ratio:1026/2000">
+              <a href="../images/Job Crawler/matchmoth-mobile-requirements.webp" class="glightbox">
+                <img src="../images/Job Crawler/matchmoth-mobile-requirements.webp" alt="Requirement matching on a phone: core requirements marked Match with percentages, and nice-to-haves split between Match and Adjacent." loading="lazy" decoding="async" width="1026" height="2000"/>
+              </a>
+            </div>
+          </div>
+          <div class="cs-img-caption">Every deferral happened at the resume step, and 10 of 12 were on a phone. This is what the product looked like to the people who left.</div>
+        </figure>
         <p><strong>What you'd see now.</strong> If you sign up today, the first screen tells you what each door opens: add your resume and every job gets scored against it, or browse without scores. Both cards say what you get and what you give up. If you skip, the feed says so plainly, shows one scored example, and keeps a way back to setup in view. Nineteen people have come through since that changed. More of them finished the resume step than before, but three changes landed in the same week, so I can't tell you which one did it. The next step is asking skippers why they skipped, so the answer comes from them and not from my guess.</p>
       </div>
     </div>
@@ -799,7 +771,7 @@
              manual .cs-img-caption here would print twice. -->
         <div class="cs-img-frame" style="aspect-ratio:60/95">
           <a href="../images/Job Crawler/jobcrawler4.png" class="glightbox" data-title="Match Moth: the finished brand, September 2026.">
-            <img src="../images/Job Crawler/jobcrawler4.png" alt="The current Match Moth feed: navy canvas, Discover, Shortlist, Applied and Hidden tabs, filter chips, and senior product designer listings with competition signals and an AI match summary." loading="lazy" decoding="async" width="600" height="957"/>
+            <img src="../images/Job Crawler/jobcrawler4.png" alt="Fourth generation: the Match Moth brand applied to the feed, with the moth mark, gold accents, and the score badge redesigned to pass contrast." loading="lazy" decoding="async" width="600" height="957"/>
           </a>
         </div>
       </div>
@@ -811,8 +783,7 @@
       <h2 class="cs-article-title">From a tool to a <em>brand</em></h2>
       <div class="cs-article-body">
         <p>The first UI was a component-library default and looked like one. For a tool I'd open every morning that wasn't good enough, so it went through three generations in two months: an unstyled proof of concept, a DaisyUI pass that made it usable, and a dark rebuild in the style of my portfolio, with the interaction details that make something feel considered.</p>
-        <p>The fourth generation came with strangers. A tool for one can borrow its owner's taste, but once strangers were using it, it needed a brand that says what the score says. Match Moth is a moth steering by a truer light through a noisy night, discernment rather than attraction to the brightest thing, and the promise underneath is four words: match better, apply less.</p>
-        <p>Accessibility got the same treatment as the score: measured, then reported honestly. An August audit passed on keyboard focus and failed on contrast, worst of all on the score badge itself at 2.46:1, and on form errors announced to nobody on seven of nine surfaces. Error announcements were fixed the same day, contrast failures now break the build, and no match is graded by color alone. A screen-reader pass is still to do.</p>
+        <p>The fourth generation came with strangers. A tool for one can borrow its owner's taste, but once strangers were using it, it needed a brand that says what the score says. Match Moth is a moth steering by a truer light through a noisy night, discernment rather than attraction to the brightest thing, and the promise underneath is four words: match better, apply less. The moth mark shipped on September 7.</p>
       </div>
 
     </div>
@@ -843,8 +814,9 @@
       <div class="cs-article-label">Design System</div>
       <h2 class="cs-article-title">One decision, made <em>once</em></h2>
       <div class="cs-article-body">
-        <p>A product that scores honestly needs a surface that behaves the same everywhere, so the brand and the design system were built together, with agents doing the assembly. Every color and type decision lives in one token file that the marketing site, the app and the emails all read from. Change a token once and it shows up the same way in all 168 components, without me touching each one. I could describe a rule in a sentence, like what gold is allowed to mean, and have it applied across the product overnight.</p>
-        <p>The design route is where I judged the result: all 168 components in 361 states on the real canvas. In late August an agent audited the system against its own rules and scored it 65 out of 100. By that evening it was 82, mostly from 107 contrast fixes across 37 files. The biggest finding needed no code at all. The rule was wrong, not the product, so the docs were rewritten to match the design that had already won. The moth mark shipped on September 7.</p>
+        <p>A product that scores honestly needs a surface that behaves the same everywhere, so the brand and the design system were built together, and I built them in code. Every color and type decision lives in one token file that the marketing site, the app, and the emails all read from. Change a token once and it shows up the same way in all 168 components, 361 states, without me touching each one. I could describe a rule in a sentence, like what gold is allowed to mean, and have agents apply it across the product overnight, then judge the result myself the next morning on the real canvas.</p>
+        <p>The design route is where that judging happens: every component, every state, at 375, 768, and 1280. It's a Figma file that can't drift from production because it is production. In late August an agent audited the system against its own rules and scored it 65 out of 100. By that evening it was 82, mostly from 107 contrast fixes across 37 files. The biggest finding needed no code at all. The rule was wrong, not the product, so the docs were rewritten to match the design that had already won.</p>
+        <p>Accessibility got the same treatment as the score: measured, then reported honestly. The August audit passed on keyboard focus and failed on contrast, worst of all on the score badge itself at 2.46:1, and on form errors announced to nobody on seven of nine surfaces. Error announcements were fixed the same day. Contrast failures now break the build, so a regression can't ship without someone deciding to ship it. No match is graded by color alone. A screen-reader pass is still to do, and this page will say so until it's done.</p>
       </div>
     </div>
 
@@ -950,18 +922,23 @@
       <h2 class="cs-article-title">Spec-driven development with <em>AI</em></h2>
       <div class="cs-article-body">
         <p>AI writes most of the code, so the documentation is the project's memory. Every phase starts as a spec: the problem, the measurements behind it, the plan, and a decisions log where each ruling gets a dated row so no later session re-argues it. 78 specs have shipped and 27 are waiting, which is the backlog. Every ship adds a changelog entry with the reason and the before-and-after numbers, over 1,000 entries in five months, alongside 58 research documents and 144 QA reports. Agents build overnight on a branch against the spec, a Playwright run checks the golden path, and every morning starts with my eyes on what landed. AI doesn't flag its own bad decisions. You find them by paying attention.</p>
+        <p>None of this is new to me; it's the operating model I'd run with a team of people. The spec is the contract, the decisions log is why the same argument doesn't happen twice, and the review gate before ship is the UX Review checkpoint I stood up at Invoca, where design saw engineering work before QA did. The agents just made it cheap enough to do all of it, every time, on a project of one.</p>
       </div>
     </div>
 
-    <!-- ── 9. One month of open beta ── -->
+    <!-- ── 9. What the first month changed ── -->
     <div class="cs-article-section">
       <div class="cs-article-label">Outcome</div>
-      <h2 class="cs-article-title">One month of open <em>beta</em></h2>
+      <h2 class="cs-article-title">What the first month <em>changed</em></h2>
       <div class="cs-article-body">
         <p>As of September 22: 53 real signups, 20 onboarded, and 43 apply clicks.</p>
-        <p>Retention isn't measurable yet. The first four-week cohort lands in late September, and this page gets a revision in mid-October with that data, an impression log, and skip reasons.</p>
+        <p>Retention isn't measurable yet. The first four-week cohort lands in late September, and this page gets a revision in mid-October with that data, an impression log, breakdown-open rates, and skip reasons from the people who skipped.</p>
+        <p>What a month of strangers changed, in order of how much it hurt:</p>
+        <p><strong>The resume wall came down.</strong> I bet the value was obvious enough to earn an upload up front. 62% of signups said otherwise, and most of them said it from a phone. The product now shows what each door opens and lets people choose.</p>
+        <p><strong>The score got a conscience.</strong> The number measures fit with what you've done. It can't know what you'd turn down, so the dealbreaker labels now sit beside it and can't be hidden by a high score.</p>
+        <p><strong>Unknown stopped meaning no.</strong> A competition check that didn't finish used to read as "not found." Now it reads as unknown and runs again. Small, but it's the difference between an honest signal and a confident wrong one.</p>
         <p>What the product can't fix: employer silence and the market's odds. No seeker-side tool makes a recruiter reply.</p>
-        <p>The question this first month answers is the one the page started with: can I design and ship an AI product that strangers trust enough to act on? The evidence so far is above.</p>
+        <p>The page opened with one question: can a stranger trust an AI judgment enough to act on it? A month in, the bands sort, the dealbreakers hold, and 40 of 43 apply clicks went where the score said they should. Whether people trust the <em>why</em> and not just the number is what October has to answer.</p>
       </div>
     </div>
 
