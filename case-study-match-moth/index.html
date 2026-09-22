@@ -222,19 +222,17 @@
       .cs-article > .cs-img-breakout + .cs-art-img-4col { margin-top: 12px; }
     }
 
-    /* Three phone screenshots in one grid cell (IMAGE 4). The row takes the
-       aspect ratio of the landscape screenshot beside it, so both images
-       share a height; each phone frame is height:100% and gets its width
-       from its own aspect ratio. */
-    .cs-phone-row {
-      display: flex; justify-content: center; gap: 10px;
-      aspect-ratio: 1728 / 1024;
-      /* aspect-ratio's automatic minimum is content-based, so 2000px-tall
-         screenshots would otherwise push the row open to their own size. */
-      min-height: 0; overflow: hidden;
+    /* Top gallery: six columns, so the full-width shots span all six and
+       each phone screen takes two. The three phone frames share one ratio
+       so their captions line up; the listing shot is slightly wider than
+       the other two, so object-fit trims a sliver from its sides. One
+       column on mobile, like every other gallery on the site. */
+    .cs-art-img-2col.cs-gallery-6 { grid-template-columns: repeat(6, 1fr); }
+    .cs-gallery-6 > .cs-span-2 { grid-column: span 2; }
+    @media (max-width: 800px) {
+      .cs-art-img-2col.cs-gallery-6 { grid-template-columns: 1fr; }
+      .cs-gallery-6 > .cs-span-2 { grid-column: auto; }
     }
-    .cs-phone-row .cs-img-frame { height: 100%; flex: none; min-width: 0; }
-    .cs-phone-row .cs-img-frame img { width: 100%; height: 100%; }
 
     /* Fit band badges. Standout is the live app's own --gold / --gold-text
        tokens (verified). Off-target / Worth a look / Promising follow the
@@ -339,11 +337,11 @@
       <a href="https://job-search-tool-rose.vercel.app/demo-login" target="_blank" rel="noopener noreferrer" class="cs-proto-cta">Open Match Moth ↗</a>
     </div>
 
-    <!-- Product gallery. Layout: the feed spans the full row, then the
-         listing detail page as a pair (top of page, then mid-page), then
-         tailoring across the full row. The three phone screens live in the
-         Onboarding section now. -->
-    <div class="cs-art-img-2col">
+    <!-- Product gallery. Layout: the desktop feed spans the full row, then
+         the three phone screens side by side (feed, open a listing, scroll
+         to the requirements), each with its own caption, then tailoring
+         across the full row. -->
+    <div class="cs-art-img-2col cs-gallery-6">
       <div style="grid-column:1/-1">
         <!-- IMAGE 1. No manual .cs-img-caption: case-study.js builds the
              caption from data-title. Frame takes the screenshot's own ratio
@@ -354,21 +352,24 @@
           </a>
         </div>
       </div>
-      <div>
-        <!-- IMAGE 2A: top of the same HopSkipDrive listing as 2B, same
-             viewport, so the pair reads as one page scrolled. -->
-        <div class="cs-img-frame" style="aspect-ratio:2000/1099">
-          <a href="../images/Job Crawler/matchmoth-listing-detail-top.png" class="glightbox" data-title="The top of a listing: the score, the basics, and how crowded it already is.">
-            <img src="../images/Job Crawler/matchmoth-listing-detail-top-1200w.png" alt="Top of a Match Moth listing detail page: Sr. Product Designer at HopSkipDrive scored 87% Standout, with location, remote, seniority and salary in a row, a competition signal showing over 200 applicants on LinkedIn, then the role overview and company card." decoding="async" width="1200" height="659"/>
+<div class="cs-span-2">
+        <div class="cs-img-frame" style="aspect-ratio:1026/2000">
+          <a href="../images/Job Crawler/matchmoth-mobile-feed.webp" class="glightbox" data-title="The same feed on a phone. Every card leads with its score and band.">
+            <img src="../images/Job Crawler/matchmoth-mobile-feed.webp" alt="Match Moth feed on a phone: two senior product designer listings, each scored 90% Standout, with remote, salary and seniority chips and an AI match summary." loading="lazy" decoding="async" width="1026" height="2000"/>
           </a>
         </div>
       </div>
-      <div>
-        <!-- IMAGE 2B. Caption comes from data-title (see IMAGE 1). Mid-page:
-             requirement matching, company card, score breakdown. -->
-        <div class="cs-img-frame" style="aspect-ratio:2000/1097">
-          <a href="../images/Job Crawler/matchmoth-listing-detail-mid.png" class="glightbox" data-title="Every requirement checked against the resume, including the ones it can't find.">
-            <img src="../images/Job Crawler/matchmoth-listing-detail-mid-1200w.png" alt="Match Moth listing detail page: each job requirement matched to the resume with a percentage, a nice-to-have expanded to show No evidence beside the original requirement text, and a company card with the score breakdown chart on the right." decoding="async" width="1200" height="658"/>
+      <div class="cs-span-2">
+        <div class="cs-img-frame" style="aspect-ratio:1026/2000">
+          <a href="../images/Job Crawler/matchmoth-mobile-listing-top.webp" class="glightbox" data-title="The top of a listing: the score, the basics, and how crowded it already is.">
+            <img src="../images/Job Crawler/matchmoth-mobile-listing-top.webp" alt="Top of a listing on a phone: Senior Product Designer at Fetch, 90% Standout, a competition signal showing 54 applicants clicked apply on LinkedIn, and a sticky Apply bar." loading="lazy" decoding="async" width="1080" height="1955"/>
+          </a>
+        </div>
+      </div>
+      <div class="cs-span-2">
+        <div class="cs-img-frame" style="aspect-ratio:1026/2000">
+          <a href="../images/Job Crawler/matchmoth-mobile-requirements.webp" class="glightbox" data-title="Every requirement checked against the resume, marked Match or Adjacent.">
+            <img src="../images/Job Crawler/matchmoth-mobile-requirements.webp" alt="Requirement matching on a phone: core requirements marked Match with percentages, and nice-to-haves split between Match and Adjacent." loading="lazy" decoding="async" width="1026" height="2000"/>
           </a>
         </div>
       </div>
@@ -664,31 +665,6 @@
         <p><strong>How people arrived.</strong> I posted my own story on LinkedIn and Reddit, and replied as a person in threads where people were describing the same job-search pain, with no pitch unless someone asked. One Reddit post reached about 5,000 views, sat briefly at the top of its subreddit, and brought 15 signups in 24 hours. Most of them arrived on a phone, from inside a social app, which is the context for everything below.</p>
         <p><strong>The bet.</strong> Resume-first and mandatory. The resume is the primary scoring evidence, so the product asked for it before showing anything, and pre-filled preferences from it so setup took two minutes. I bet the value was obvious enough to earn the upload up front.</p>
         <p><strong>What users did.</strong> 38% of real signups uploaded a resume. Until the skip shipped, that meant 62% of signups never saw a feed. Every deferral happened at the resume step, and 10 of 12 were on a phone. Every resume that was uploaded parsed cleanly, whether PDF, DOCX, or a LinkedIn import. The parser was fine. Finding and uploading a file on a phone before seeing a single job was the wall.</p>
-        <!-- The three phone screens, moved here from the top gallery: the
-             product as the people who left saw it. Same markup as before.
-             No data-title on these links, so case-study.js leaves them alone
-             and the one caption below covers the set. Inline margin because
-             .cs-figure is margin 0 and this one sits between paragraphs. -->
-        <figure class="cs-figure" style="margin:32px 0">
-          <div class="cs-phone-row">
-            <div class="cs-img-frame" style="aspect-ratio:1026/2000">
-              <a href="../images/Job Crawler/matchmoth-mobile-feed.webp" class="glightbox">
-                <img src="../images/Job Crawler/matchmoth-mobile-feed.webp" alt="Match Moth feed on a phone: two senior product designer listings, each scored 90% Standout, with remote, salary and seniority chips and an AI match summary." loading="lazy" decoding="async" width="1026" height="2000"/>
-              </a>
-            </div>
-            <div class="cs-img-frame" style="aspect-ratio:1080/1955">
-              <a href="../images/Job Crawler/matchmoth-mobile-listing-top.webp" class="glightbox">
-                <img src="../images/Job Crawler/matchmoth-mobile-listing-top.webp" alt="Top of a listing on a phone: Senior Product Designer at Fetch, 90% Standout, a competition signal showing 54 applicants clicked apply on LinkedIn, and a sticky Apply bar." loading="lazy" decoding="async" width="1080" height="1955"/>
-              </a>
-            </div>
-            <div class="cs-img-frame" style="aspect-ratio:1026/2000">
-              <a href="../images/Job Crawler/matchmoth-mobile-requirements.webp" class="glightbox">
-                <img src="../images/Job Crawler/matchmoth-mobile-requirements.webp" alt="Requirement matching on a phone: core requirements marked Match with percentages, and nice-to-haves split between Match and Adjacent." loading="lazy" decoding="async" width="1026" height="2000"/>
-              </a>
-            </div>
-          </div>
-          <div class="cs-img-caption">Every deferral happened at the resume step, and 10 of 12 were on a phone. This is what the product looked like to the people who left.</div>
-        </figure>
         <p><strong>What you'd see now.</strong> If you sign up today, the first screen tells you what each door opens: add your resume and every job gets scored against it, or browse without scores. Both cards say what you get and what you give up. If you skip, the feed says so plainly, shows one scored example, and keeps a way back to setup in view. Nineteen people have come through since that changed. More of them finished the resume step than before, but three changes landed in the same week, so I can't tell you which one did it. The next step is asking skippers why they skipped, so the answer comes from them and not from my guess.</p>
       </div>
     </div>
