@@ -292,7 +292,7 @@
 <section id="cs-hero">
   <div class="cs-hero-inner">
     <a href="../#work" class="nav-back" style="display:inline-flex;align-items:center;margin-bottom:24px"><span class="nav-back-arrow" style="line-height:1;margin-top:-1px">←</span> All work</a>
-    <div class="cs-num">Case Study · Match Moth · 9 min read</div>
+    <div class="cs-num">Case Study · Match Moth · 11 min read</div>
     <div class="work-tags" style="margin-bottom:12px;margin-top:-8px">
       <span class="work-tag">AI Product</span>
       <span class="work-tag">Product Design</span>
@@ -477,8 +477,7 @@
       <h2 class="cs-article-title">Search is an <em>attention</em> problem</h2>
       <div class="cs-article-body">
         <p>Job seekers spend about six hours a week on the search, and most of it goes to filtering, not pursuing. In 2026 polling, 46% named "finding opportunities that match my qualifications" as their top challenge, ahead of pay or interviews (Express Employment Professionals / Harris Poll). The right roles exist. Finding yours in the noise is the work, and mainstream tools push that work onto the person with the least time to spare.</p>
-        <p>The market's answer is volume. Mass-apply tools promise fifty applications a night, and they sell because the pain is real. The results are not. Apply-to-interview rates have collapsed as the flood rose, and every automated application makes the next one worth less. Match Moth is the opposite bet: fewer, better-aimed applications, chosen with a score you can argue with.</p>
-        <p>That framing is why I wanted to build it. It's LLM-as-judge with a human making the final call, the same evaluation-interface problem I design for professionally. The criticism here is aimed at the tools. A seeker who sent 300 applications did the rational thing with the lever they had.</p>
+        <p>The market's answer is volume. Mass-apply tools promise fifty applications a night, and they sell because the pain is real. The results are not. Apply-to-interview rates have collapsed as the flood rose, and every automated application makes the next one worth less. Match Moth is the opposite bet: fewer, better-aimed applications, chosen with a score you can argue with. It's LLM-as-judge with a person making the final call, the same evaluation problem I design for professionally.</p>
       </div>
     </div>
 
@@ -488,7 +487,7 @@
       <div class="cs-article-label">Origin</div>
       <h2 class="cs-article-title">It started as a tool <em>for one</em></h2>
       <div class="cs-article-body">
-        <p>The first version had my resume hardcoded, a nightly crawl of a few thousand companies, and a ranked email every morning. It worked. At first I just wanted to see if I could make it work with an initial proof of concept. I reviewed a shortlist in minutes instead of scrolling for an hour, and the roles I actually wanted rose to the top on their own. Then I opened the door to other people, and nearly every decision below came from what happened when they walked through it. I expanded the groundwork I had created for a scoring system to apply to other job seekers, and various other roles.</p>
+        <p>It started as a proof of concept: my resume hardcoded, a nightly crawl of a few thousand companies, and a ranked email every morning. It worked. I reviewed a shortlist in minutes instead of scrolling for an hour, and the roles I wanted rose to the top on their own. Then I opened it to other job seekers in other roles, and nearly every decision below came from what happened when they walked through the door.</p>
       </div>
     </div>
 
@@ -499,10 +498,10 @@
       <div class="cs-article-body">
 
         <h3 class="cs-subhead">What a number means</h3>
-        <p>A single 0 to 100 is a verdict, and a verdict invites exactly one question: why? So the score is five factors, with the weights shown on every breakdown: skills 35, seniority 20, compensation 20, industry 15, location 10. Two come from the model, skills and industry, because they need a reading of the posting against the resume. Three are deterministic: the distance between the listing's seniority band and the user's target, the salary against the user's floor, and the work mode and job location against the user's preferences. It's a mix of evidence from the resume with past experience, and preferences for their job search. If a user can't move to another state, the in office and hybrid jobs don't need to appear in their job feed.</p>
+        <p>A single 0 to 100 is a verdict, and a verdict invites exactly one question: why? So the score is five factors, with the weights shown on every breakdown: skills 35, seniority 20, compensation 20, industry 15, location 10. Two come from the model, skills and industry, because they need a reading of the posting against your resume. Three are deterministic checks against your own preferences: seniority against your target, salary against your floor, and work mode and location against where you'll actually work. If you can't relocate, onsite and hybrid jobs in another state don't need to show up in your feed.</p>
 
         <h3 class="cs-subhead">Your dealbreakers, checked first</h3>
-        <p>When you set up Match Moth, you tell it three things it can't learn from your resume: where you'll work and whether you'll go onsite, the least you'll accept, and whether you want to build or to manage. Then the score does its job, which is to measure how well each role fits what you've done. It can't know what you'd turn down. So beside every score sit three small labels checking the job against those three answers, each one passing or warning, plus a one-line verdict in plain English. You see the number and the labels in the same glance. A role can score high on your skills while the label says it's onsite in a city you ruled out, and you'll know that before you've read the score. The number never gets to flatter you.</p>
+        <p>At setup you tell Match Moth three things your resume can't: where you'll work, the least you'll accept, and whether you want to build or manage. The score measures fit with what you've done, but it can't know what you'd turn down. So beside every score sit three labels checking the job against those answers, each passing or warning, plus a one-line verdict. A role can score high on skills while its label says it's onsite in a city you ruled out. You see both at once, so a high number can't hide a dealbreaker.</p>
 
         <!-- IMAGE 12 in the brief, placed above the Bands subhead so it leads
              into the section rather than trailing it. Hand-built from
@@ -527,8 +526,7 @@
         </div>
 
         <h3 class="cs-subhead">Bands</h3>
-        <p>Scores band into Off-target below 50, Worth a look from 50, Promising from 70, and Standout from 85. The first feed a new user sees targets Promising and above.</p>
-        <p>Most listings are mediocre fits, and the score says so. The median real user's median score is 55, below the feed floor. The bands appear to mean something to people: real users save or apply to Standout listings at 1.3%, against 0.08% for Promising, about 16 times the rate. It's also only a month of open beta, there's no impression log yet, and the denominator is every scored row rather than every row seen.</p>
+        <p>Your first feed targets Promising and above. Most listings are mediocre fits, and the score says so: the median real user's median score is 55, below that floor. The bands appear to mean something to people. Real users save or apply to Standout listings at 1.3%, against 0.08% for Promising, about 16 times the rate. Of the 43 times a real user has clicked through to apply, 40 were on a Standout or Promising listing and none were on an Off-target one. The caveats: it's only a month of open beta, there's no impression log yet, and the denominator is every scored row rather than every row seen.</p>
       </div>
     </div>
 
@@ -647,13 +645,14 @@
               <text x="600" y="628" text-anchor="middle" fill="rgba(255,255,255,0.55)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">Next.js · job feed, score breakdowns, application tracker, resume workspace</text>
             </svg>
           </div>
-          <div class="cs-img-caption">The pipeline: a timer kicks off staggered crawl lanes across 50+ sources, then dedup and classify. The crawl saves the listings and queues what changed; a Google Cloud Run worker picks it up, runs the per-user keyword gate and the OpenAI fit-scoring calls, and writes into Supabase. The Match Moth web app reads that database to serve the feed, and queues the on-demand work back to the worker.</div>
+          <div class="cs-img-caption">The pipeline: crawl, dedup, per-user scoring on a Cloud Run worker, then the feed and the morning email.</div>
         </figure>
       </div>
 
       <div class="cs-article-body">
         <p><strong>Data quality is a UX feature.</strong> The feed is only as good as what feeds it. Today that is 50+ sources of three kinds across 29,000 companies: ATS boards, employer careers sites, and aggregators and remote boards. 81% of live listings come directly from ATS boards and careers sites, the canonical copy before a role syndicates out and goes stale. 63% carry a salary. Dead listings are closed nightly: 48,000 in the last 30 days.</p>
-        <p><strong>The Workday story.</strong> Workday returns HTTP 200 after a job is gone, so the URL validator never closed one. I browser-verified all 17,166 live Workday rows, closed 469, then made the nightly reaper check each Workday listing the way a browser would. "Know someone there" shipped in the same stretch: import a LinkedIn connections file and each listing shows who you already know at that company, parsed in the browser, with no email addresses uploaded.</p>
+        <p><strong>One job is one listing.</strong> A staffing network publishes a single requisition to a separate page for each city, and aggregators ingest every page. Two pages for the same job, one in Annapolis and one in Montgomery, matched down to the reference ID. Fixing that archived 4,815 duplicate rows across 298 jobs, and one firm went from 660 listings to 87. Onsite jobs now show the city the employer named, not the one an aggregator guessed.</p>
+        <p><strong>Competition, with the evidence shown.</strong> Each listing now says whether the same job was found on LinkedIn and Indeed, one line per site, with LinkedIn's applicant count when it publishes one. The icons are deliberately not green and red, because being found on a site means more competition, not less. If a search doesn't finish, the result is treated as unknown rather than "not found," and the check runs again later.</p>
       </div>
 
       <!-- IMAGE 13, moved inside section 4 to sit directly above the three
@@ -677,19 +676,14 @@
               <div class="cs-source-card">
                 <div class="cs-source-eyebrow">Broad coverage</div>
                 <div class="cs-source-title">Aggregators &amp; remote boards</div>
-                <div class="cs-source-chips"><span>Adzuna</span><span>JSearch</span><span>RemoteOK</span><span>We Work Remotely</span><span>Jobicy</span><span>Himalayas</span><span>Remotive</span><span>Working Nomads</span></div>
+                <div class="cs-source-chips"><span>Adzuna</span><span>JSearch</span><span>We Work Remotely</span><span>Jobicy</span><span>Himalayas</span></div>
               </div>
             </div>
           </div>
-          <div class="cs-img-caption">50+ sources, 26,685 companies. 81% of live listings come straight from the company.</div>
+          <div class="cs-img-caption">50+ sources across 29,000 companies.</div>
         </figure>
       </div>
 
-      <div class="cs-article-body" style="margin-top:40px">
-        <p><strong>ATS boards:</strong> Greenhouse · Lever · Ashby · Workday · SmartRecruiters · Recruitee · Breezy · BambooHR · Workable · iCIMS · Oracle Cloud · Eightfold · Rippling · Dayforce · SuccessFactors · Pinpoint</p>
-        <p><strong>Employer careers sites:</strong> Amazon · Apple · Google · Bank of America · 38 Fortune 500 RSS feeds</p>
-        <p><strong>Aggregators and remote boards:</strong> Adzuna · JSearch · RemoteOK · We Work Remotely · Jobicy · Himalayas · Remotive · Working Nomads</p>
-      </div>
     </div>
 
     <!-- IMAGES 17 + 19, moved above section 5 so the reader sees the
@@ -710,7 +704,7 @@
          resume on file, so its feed is exactly this state. -->
     <div class="cs-img-breakout">
       <div class="cs-img-frame" style="aspect-ratio:2000/1125">
-        <a href="../images/Job Crawler/matchmoth-onboarding-skipper-feed.png" class="glightbox" data-title="A skipper gets an unscored feed, one scored example, and a plain statement of the tradeoff.">
+        <a href="../images/Job Crawler/matchmoth-onboarding-skipper-feed.png" class="glightbox" data-title="Skip setup and you get an unscored feed, one scored example, and a plain statement of the tradeoff.">
           <img src="../images/Job Crawler/matchmoth-onboarding-skipper-feed.png" alt="Match Moth feed for a user who skipped setup: a banner listing what uploading a resume unlocks, then one example listing scored 91% Standout, labeled as a sample and not theirs." loading="lazy" decoding="async" width="2000" height="1125"/>
         </a>
       </div>
@@ -724,8 +718,7 @@
         <p><strong>How people arrived.</strong> I posted my own story on LinkedIn and Reddit, and replied as a person in threads where people were describing the same job-search pain, with no pitch unless someone asked. One Reddit post reached about 5,000 views, sat briefly at the top of its subreddit, and brought 15 signups in 24 hours. Most of them arrived on a phone, from inside a social app, which is the context for everything below.</p>
         <p><strong>The bet.</strong> Resume-first and mandatory. The resume is the primary scoring evidence, so the product asked for it before showing anything, and pre-filled preferences from it so setup took two minutes. I bet the value was obvious enough to earn the upload up front.</p>
         <p><strong>What users did.</strong> 38% of real signups uploaded a resume. Until the skip shipped, that meant 62% of signups never saw a feed. Every deferral happened at the resume step, and 10 of 12 were on a phone. Every resume that was uploaded parsed cleanly, whether PDF, DOCX, or a LinkedIn import. The parser was fine. Finding and uploading a file on a phone before seeing a single job was the wall.</p>
-        <p><strong>The decision.</strong> Three changes in one week: browse before setup, then an upload-or-browse fork with both cards listing what you get and what you give up, then "Skip to jobs" on step one. The tradeoff is stated to the user in plain terms. A skipper gets an unscored feed, and the product says so.</p>
-        <p><strong>The result, honestly.</strong> Nineteen sessions since the skip shipped. Resume-step completion moved, but three changes landed in one week and I can't claim causation for any one of them. Next is skip-reason capture and per-step events, then a real before and after.</p>
+        <p><strong>What you'd see now.</strong> If you sign up today, the first screen tells you what each door opens: add your resume and every job gets scored against it, or browse without scores. Both cards say what you get and what you give up. If you skip, the feed says so plainly, shows one scored example, and keeps a way back to setup in view. Nineteen people have come through since that changed. More of them finished the resume step than before, but three changes landed in the same week, so I can't tell you which one did it. The next step is asking skippers why they skipped, so the answer comes from them and not from my guess.</p>
       </div>
     </div>
 
@@ -755,8 +748,7 @@
       <div class="cs-article-label">Operations</div>
       <h2 class="cs-article-title">Designing for the <em>operator</em> too</h2>
       <div class="cs-article-body">
-        <p>A live product has a second user, the person who runs it. An admin status page shows queue depth, AI spend against its caps, captured exceptions, and email delivery health, so a bad morning is diagnosable before a user reports it.</p>
-        <p>The daily digest is a bounded contract: up to five new roles, up to three reminders, and any listing shown at most three times ever. That hasn't changed since June. Three beta reports since September 1, on profile fields, the resume editor, and a dead Workday link, each shipped the same day or within days.</p>
+        <p>A live product has a second user, the person who runs it. An admin status page shows queue depth, AI spend against its caps, captured exceptions, and email delivery health, so a bad morning is diagnosable before a user reports it. Three beta bug reports since September 1, on profile fields, the resume editor, and a dead Workday link, each got a fix the same day or within days.</p>
       </div>
     </div>
 
@@ -820,7 +812,7 @@
       <div class="cs-article-body">
         <p>The first UI was a component-library default and looked like one. For a tool I'd open every morning that wasn't good enough, so it went through three generations in two months: an unstyled proof of concept, a DaisyUI pass that made it usable, and a dark rebuild in the style of my portfolio, with the interaction details that make something feel considered.</p>
         <p>The fourth generation came with strangers. A tool for one can borrow its owner's taste, but once strangers were using it, it needed a brand that says what the score says. Match Moth is a moth steering by a truer light through a noisy night, discernment rather than attraction to the brightest thing, and the promise underneath is four words: match better, apply less.</p>
-        <p>Accessibility got the same treatment as the score: measured, then reported honestly. An August audit ran keyboard and contrast checks against production at desktop and phone sizes. It passed on focus, with no traps and a visible focus state on every control. It failed on six components under the contrast floor, the worst being the score badge itself at 2.46:1, and on form errors that were announced to nobody on seven of nine surfaces. Names, landmarks and error announcements were fixed the same day. Contrast now gates the build, after 107 violations across 37 files were cleared. A match is never graded by color alone, and a screen-reader pass is still to do.</p>
+        <p>Accessibility got the same treatment as the score: measured, then reported honestly. An August audit passed on keyboard focus and failed on contrast, worst of all on the score badge itself at 2.46:1, and on form errors announced to nobody on seven of nine surfaces. Error announcements were fixed the same day, contrast failures now break the build, and no match is graded by color alone. A screen-reader pass is still to do.</p>
       </div>
 
     </div>
@@ -851,8 +843,8 @@
       <div class="cs-article-label">Design System</div>
       <h2 class="cs-article-title">One decision, made <em>once</em></h2>
       <div class="cs-article-body">
-        <p>A product that scores honestly needs a surface that behaves the same way everywhere, so the brand and the design system were built together, with the agents doing the assembly. The restyle landed on July 19 and the design route four days later. Every color and type decision lives in one token file that the whole product reads from, marketing site to app to email, so the promise on the homepage and the score on a job card come from the same source. That was the reason to build a system instead of restyling screens: one decision, made once, showing up the same way in 168 components without my hand on each of them. The agents made the speed possible. I could describe a rule in a sentence, the line between display type and app chrome, or what gold is allowed to mean, and have it applied across the product overnight.</p>
-        <p>The design route is where I judged the result. It renders all 168 components in 361 states on the real canvas, in 14 groups that read bottom-up: the tokens everything is built from, then the primitives that spend them, then the shell, then whole product surfaces, which is the order a change propagates in. Consistency came from that loop, not from a style guide. In late August an agent audited the entire system against its own rules in a day and scored it 65 out of 100. By that evening, re-scored on the same rubric, it was 82. Most of the gain was code, 107 contrast fixes across 37 files. The biggest single finding cleared without touching a line, because the rule was wrong, not the product, and the docs were rewritten to match the design that had already won. The moth mark shipped on September 7.</p>
+        <p>A product that scores honestly needs a surface that behaves the same everywhere, so the brand and the design system were built together, with agents doing the assembly. Every color and type decision lives in one token file that the marketing site, the app and the emails all read from. Change a token once and it shows up the same way in all 168 components, without me touching each one. I could describe a rule in a sentence, like what gold is allowed to mean, and have it applied across the product overnight.</p>
+        <p>The design route is where I judged the result: all 168 components in 361 states on the real canvas. In late August an agent audited the system against its own rules and scored it 65 out of 100. By that evening it was 82, mostly from 107 contrast fixes across 37 files. The biggest finding needed no code at all. The rule was wrong, not the product, so the docs were rewritten to match the design that had already won. The moth mark shipped on September 7.</p>
       </div>
     </div>
 
@@ -966,10 +958,10 @@
       <div class="cs-article-label">Outcome</div>
       <h2 class="cs-article-title">One month of open <em>beta</em></h2>
       <div class="cs-article-body">
-        <p>As of September 21: 53 real signups, 20 onboarded, and 43 apply clicks.</p>
+        <p>As of September 22: 53 real signups, 20 onboarded, and 43 apply clicks.</p>
         <p>Retention isn't measurable yet. The first four-week cohort lands in late September, and this page gets a revision in mid-October with that data, an impression log, and skip reasons.</p>
         <p>What the product can't fix: employer silence and the market's odds. No seeker-side tool makes a recruiter reply.</p>
-        <p>The question this first month answers is the one the page started with. Can I design and ship an AI product that strangers trust enough to act on? Real users have clicked through to apply 43 times. The evidence is above.</p>
+        <p>The question this first month answers is the one the page started with: can I design and ship an AI product that strangers trust enough to act on? The evidence so far is above.</p>
       </div>
     </div>
 
