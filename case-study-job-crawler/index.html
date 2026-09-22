@@ -415,18 +415,18 @@
 
     <!-- ── As of September 2026 ── -->
     <div class="cs-article-section" data-nav-label="Impact">
-      <div class="cs-article-label">As of September 2026</div>
+      <div class="cs-article-label">As of September 21, 2026</div>
       <div class="cs-impact-row cs-impact-2x2" style="margin-top:20px">
         <div class="cs-stat-card glass">
-          <div class="cs-stat-num">53</div>
-          <div class="cs-stat-lbl">users signed up in open beta so far</div>
+          <div class="cs-stat-num">48,000</div>
+          <div class="cs-stat-lbl">dead listings caught and pulled from the feed in the last 30 days</div>
         </div>
         <div class="cs-stat-card glass">
-          <div class="cs-stat-num">14×</div>
+          <div class="cs-stat-num">16×</div>
           <div class="cs-stat-lbl">the save-or-apply rate on Standout listings versus Promising</div>
         </div>
         <div class="cs-stat-card glass">
-          <div class="cs-stat-num">172k+</div>
+          <div class="cs-stat-num">170,000+</div>
           <div class="cs-stat-lbl">live listings from 50+ sources, 81% direct from ATS boards and careers sites</div>
         </div>
         <div class="cs-stat-card glass">
@@ -488,25 +488,21 @@
       <div class="cs-article-label">Origin</div>
       <h2 class="cs-article-title">It started as a tool <em>for one</em></h2>
       <div class="cs-article-body">
-        <p>The first version had my resume hardcoded, a nightly crawl of a few hundred companies, and a ranked email every morning. It worked. I reviewed a shortlist in minutes instead of scrolling for an hour, and the roles I actually wanted rose to the top on their own. Then I opened the door to other people, and nearly every decision below came from what happened when they walked through it.</p>
+        <p>The first version had my resume hardcoded, a nightly crawl of a few thousand companies, and a ranked email every morning. It worked. At first I just wanted to see if I could make it work with an initial proof of concept. I reviewed a shortlist in minutes instead of scrolling for an hour, and the roles I actually wanted rose to the top on their own. Then I opened the door to other people, and nearly every decision below came from what happened when they walked through it. I expanded the groundwork I had created for a scoring system to apply to other job seekers, and various other roles.</p>
       </div>
     </div>
 
     <!-- ── 3. Opening the black box ── -->
     <div class="cs-article-section">
       <div class="cs-article-label">AI Job-Fit</div>
-      <h2 class="cs-article-title">Opening the <em>black box</em></h2>
+      <h2 class="cs-article-title">A score that <em>shows its work</em></h2>
       <div class="cs-article-body">
 
         <h3 class="cs-subhead">What a number means</h3>
-        <p>A single 0 to 100 is a verdict, and a verdict invites exactly one question: why? So the score is five factors, with the weights shown on every breakdown: skills 35, seniority 20, compensation 20, industry 15, location 10. Two come from the model, skills and industry, because they need a reading of the posting against the resume. Three are deterministic: the distance between the listing's seniority band and the user's target, the salary against the user's floor, and the work mode and metro against the user's preferences. The weights haven't changed since June 2026. What changed since is how they're explained.</p>
+        <p>A single 0 to 100 is a verdict, and a verdict invites exactly one question: why? So the score is five factors, with the weights shown on every breakdown: skills 35, seniority 20, compensation 20, industry 15, location 10. Two come from the model, skills and industry, because they need a reading of the posting against the resume. Three are deterministic: the distance between the listing's seniority band and the user's target, the salary against the user's floor, and the work mode and job location against the user's preferences. It's a mix of evidence from the resume with past experience, and preferences for their job search. If a user can't move to another state, the in office and hybrid jobs don't need to appear in their job feed.</p>
 
-        <h3 class="cs-subhead">Honest absence</h3>
-        <p>Renormalizing has a limit. When enough is missing, the number stops meaning much, and the product has to say so instead of rounding up. Every score carries a confidence tier: full, partial, or low. Partial means less than half the weight was grounded. Low means the skills factor itself couldn't be evaluated, and a low-confidence score is capped at 65 and excluded from the top bands entirely. As of September, 27% of all scores land below full confidence: 22% partial, 5% low.</p>
-        <p>That's the decision I'd defend hardest. A competitor's "98% match" that I once traced in a network tab was a display number sitting on an internal score of about 0.5. A gap on a screen looks worse than a fake number. I think the gap is the product. A seeker who sees "couldn't evaluate" learns something true about the posting, and that the score won't flatter them.</p>
-
-        <h3 class="cs-subhead">Verdict and gates</h3>
-        <p>Under every number sits a one-line verdict in plain language, and above it three chips: remote, compensation, and IC versus management, each pass or warn. Chips beat prose on a card because they answer the three questions a seeker asks before reading anything: whether it's remote, whether it pays enough, and whether it's their kind of role. If a chip warns, the reader knows before the score does.</p>
+        <h3 class="cs-subhead">Your dealbreakers, checked first</h3>
+        <p>When you set up Match Moth, you tell it three things it can't learn from your resume: where you'll work and whether you'll go onsite, the least you'll accept, and whether you want to build or to manage. Then the score does its job, which is to measure how well each role fits what you've done. It can't know what you'd turn down. So beside every score sit three small labels checking the job against those three answers, each one passing or warning, plus a one-line verdict in plain English. You see the number and the labels in the same glance. A role can score high on your skills while the label says it's onsite in a city you ruled out, and you'll know that before you've read the score. The number never gets to flatter you.</p>
 
         <!-- IMAGE 12 in the brief, placed above the Bands subhead so it leads
              into the section rather than trailing it. Hand-built from
@@ -532,7 +528,7 @@
 
         <h3 class="cs-subhead">Bands</h3>
         <p>Scores band into Off-target below 50, Worth a look from 50, Promising from 70, and Standout from 85. The first feed a new user sees targets Promising and above.</p>
-        <p>Most listings are mediocre fits, and the score says so. The median real user's median score is 55, below the feed floor. The bands appear to mean something to people: real users save or apply to Standout listings at 2.0%, against 0.14% for Promising, about 14 times the rate. It's also only two and a half weeks of open beta, there's no impression log yet, and the denominator is every scored row rather than every row seen.</p>
+        <p>Most listings are mediocre fits, and the score says so. The median real user's median score is 55, below the feed floor. The bands appear to mean something to people: real users save or apply to Standout listings at 1.3%, against 0.08% for Promising, about 16 times the rate. It's also only a month of open beta, there's no impression log yet, and the denominator is every scored row rather than every row seen.</p>
       </div>
     </div>
 
@@ -656,7 +652,7 @@
       </div>
 
       <div class="cs-article-body">
-        <p><strong>Data quality is a UX feature.</strong> The feed is only as good as what feeds it. Today that is 50+ sources of three kinds across 26,685 companies: ATS boards, employer careers sites, and aggregators and remote boards. 81% of live listings come directly from ATS boards and careers sites, the canonical copy before a role syndicates out and goes stale. 61.6% carry a salary. Dead listings are closed nightly: 30,555 in the last 30 days, 12% of the corpus.</p>
+        <p><strong>Data quality is a UX feature.</strong> The feed is only as good as what feeds it. Today that is 50+ sources of three kinds across 29,000 companies: ATS boards, employer careers sites, and aggregators and remote boards. 81% of live listings come directly from ATS boards and careers sites, the canonical copy before a role syndicates out and goes stale. 63% carry a salary. Dead listings are closed nightly: 48,000 in the last 30 days.</p>
         <p><strong>The Workday story.</strong> Workday returns HTTP 200 after a job is gone, so the URL validator never closed one. I browser-verified all 17,166 live Workday rows, closed 469, then made the nightly reaper check each Workday listing the way a browser would. "Know someone there" shipped in the same stretch: import a LinkedIn connections file and each listing shows who you already know at that company, parsed in the browser, with no email addresses uploaded.</p>
       </div>
 
