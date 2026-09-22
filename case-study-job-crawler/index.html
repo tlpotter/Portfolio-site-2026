@@ -484,7 +484,7 @@
 
 
     <!-- ── 2. It started as a tool for one ── -->
-    <div class="cs-article-section" data-nav-label="The Work">
+    <div class="cs-article-section">
       <div class="cs-article-label">Origin</div>
       <h2 class="cs-article-title">It started as a tool <em>for one</em></h2>
       <div class="cs-article-body">
@@ -492,22 +492,8 @@
       </div>
     </div>
 
-    <!-- IMAGE 8, before section 3. Reuses the mid-page listing shot from the
-         top gallery (2B): it is the 87% HopSkipDrive listing, so it meets the
-         brief's "a listing scoring in the 80s" with the requirement matching
-         and score breakdown in frame. Caption comes from data-title, per
-         case-study.js. Swap in a dedicated fully-expanded-breakdown capture
-         if one gets shot later; no markup change needed beyond the paths. -->
-    <div class="cs-img-breakout">
-      <div class="cs-img-frame" style="aspect-ratio:2000/1097">
-        <a href="../images/Job Crawler/matchmoth-listing-detail-mid.png" class="glightbox" data-title="Every number on the page can be argued with. That's the point.">
-          <img src="../images/Job Crawler/matchmoth-listing-detail-mid-1200w.png" alt="Match Moth listing detail page: each job requirement matched to the resume with a percentage, one expanded to show No evidence beside the original requirement text, and the score breakdown chart on the right." loading="lazy" decoding="async" width="1200" height="658"/>
-        </a>
-      </div>
-    </div>
-
     <!-- ── 3. Opening the black box ── -->
-    <div class="cs-article-section" data-nav="skip">
+    <div class="cs-article-section">
       <div class="cs-article-label">AI Job-Fit</div>
       <h2 class="cs-article-title">Opening the <em>black box</em></h2>
       <div class="cs-article-body">
@@ -551,7 +537,7 @@
     </div>
 
     <!-- ── 4. What changed when strangers showed up ── -->
-    <div class="cs-article-section" data-nav="skip">
+    <div class="cs-article-section">
       <div class="cs-article-label">At Scale</div>
       <h2 class="cs-article-title">What changed when <em>strangers</em> showed up</h2>
       <div class="cs-article-body">
@@ -735,7 +721,7 @@
     </div>
 
     <!-- ── 5. The onboarding bet I got wrong ── -->
-    <div class="cs-article-section" data-nav="skip">
+    <div class="cs-article-section">
       <div class="cs-article-label">Onboarding</div>
       <h2 class="cs-article-title">The onboarding bet I got <em>wrong</em></h2>
       <div class="cs-article-body">
@@ -769,11 +755,11 @@
     </div>
 
     <!-- ── 6. Designing for the operator too ── -->
-    <div class="cs-article-section" data-nav="skip">
+    <div class="cs-article-section">
       <div class="cs-article-label">Operations</div>
       <h2 class="cs-article-title">Designing for the <em>operator</em> too</h2>
       <div class="cs-article-body">
-        <p>A live product has a second user, the person who runs it. An admin status page shows queue depth, AI spend against its caps, captured exceptions, and email delivery health, so a bad morning is diagnosable before a user reports it. A dev-only design route renders real components on the real app canvas, one section per state, so visual decisions are judged against the actual background rather than a mockup.</p>
+        <p>A live product has a second user, the person who runs it. An admin status page shows queue depth, AI spend against its caps, captured exceptions, and email delivery health, so a bad morning is diagnosable before a user reports it.</p>
         <p>The daily digest is a bounded contract: up to five new roles, up to three reminders, and any listing shown at most three times ever. That hasn't changed since June. Three beta reports since September 1, on profile fields, the resume editor, and a dead Workday link, each shipped the same day or within days.</p>
       </div>
     </div>
@@ -832,16 +818,46 @@
     </div>
 
     <!-- ── 7. From a tool to a brand ── -->
-    <div class="cs-article-section" data-nav="skip">
+    <div class="cs-article-section">
       <div class="cs-article-label">The Craft</div>
       <h2 class="cs-article-title">From a tool to a <em>brand</em></h2>
       <div class="cs-article-body">
         <p>The first UI was a component-library default and looked like one. For a tool I'd open every morning that wasn't good enough, so it went through three generations in two months: an unstyled proof of concept, a DaisyUI pass that made it usable, and a dark rebuild in the style of my portfolio, with the interaction details that make something feel considered.</p>
         <p>The fourth generation came with strangers. A tool for one can borrow its owner's taste, but once strangers were using it, it needed a brand that says what the score says. Match Moth is a moth steering by a truer light through a noisy night, discernment rather than attraction to the brightest thing, and the promise underneath is four words: match better, apply less.</p>
-        <p>The system that came out of it is small and strict. Deep navy is the canvas, never pure black, because aqua, cream and gold only look saturated against it. Teal means action or positive evidence. Gold is reserved for Standout and warm brand light, and a match is never graded red, yellow, green. Spectral speaks for anything that is a job, a listing or a score. The app's own chrome speaks in Plus Jakarta. Every color and type rule lives in one token file and renders on the design route, so a component that drifts is visible before it ships. The moth mark shipped on September 7.</p>
         <p>Accessibility got the same treatment as the score: measured, then reported honestly. An August audit ran keyboard and contrast checks against production at desktop and phone sizes. It passed on focus, with no traps and a visible focus state on every control. It failed on six components under the contrast floor, the worst being the score badge itself at 2.46:1, and on form errors that were announced to nobody on seven of nine surfaces. Names, landmarks and error announcements were fixed the same day. Contrast now gates the build, after 107 violations across 34 files were cleared. A match is never graded by color alone, and a screen-reader pass is still to do.</p>
       </div>
 
+    </div>
+
+    <!-- Design system images, above the design system section. Both frames
+         share the overview's ratio so the pair lines up; the buttons shot is
+         wider, and its right side is empty canvas, so it crops from the left
+         edge rather than the centre. Captions come from data-title. -->
+    <div class="cs-art-img-2col cs-between">
+      <div>
+        <div class="cs-img-frame" style="aspect-ratio:1262/1004">
+          <a href="../images/Job Crawler/matchmoth-design-system-overview.png" class="glightbox" data-title="The design route: 168 components in 361 states, in 14 groups that read bottom-up.">
+            <img src="../images/Job Crawler/matchmoth-design-system-overview.png" alt="Match Moth design system overview: counts of 168 components, 361 states, 84 with fixtures and 14 groups, a sidebar of groups from Foundations to Other, and a table of what each group contains." loading="lazy" decoding="async" width="1262" height="1004"/>
+          </a>
+        </div>
+      </div>
+      <div>
+        <div class="cs-img-frame" style="aspect-ratio:1262/1004">
+          <a href="../images/Job Crawler/matchmoth-design-system-buttons.png" class="glightbox" data-title="One component, every variant, at three sizes side by side so drift is visible.">
+            <img src="../images/Job Crawler/matchmoth-design-system-buttons-1200w.png" alt="The Buttons page of the design route: primary, ghost, ghost-bordered, danger and warning variants, each shown text-only and with a leading icon at three sizes, with a width switcher for 375, 768 and 1280." loading="lazy" decoding="async" width="1200" height="770" style="object-position:left top"/>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 7b. The design system ── -->
+    <div class="cs-article-section">
+      <div class="cs-article-label">Design System</div>
+      <h2 class="cs-article-title">One decision, made <em>once</em></h2>
+      <div class="cs-article-body">
+        <p>A product that scores honestly needs a surface that behaves the same way everywhere, so the brand and the design system were built together, with the agents doing the assembly. The restyle landed on July 19 and the design route four days later. Every color and type decision lives in one token file that the whole product reads from, marketing site to app to email, so the promise on the homepage and the score on a job card come from the same source. That was the reason to build a system instead of restyling screens: one decision, made once, showing up the same way in 168 components without my hand on each of them. The agents made the speed possible. I could describe a rule in a sentence, the line between display type and app chrome, or what gold is allowed to mean, and have it applied across the product overnight.</p>
+        <p>The design route is where I judged the result. It renders all 168 components in 361 states on the real canvas, in 14 groups that read bottom-up: the tokens everything is built from, then the primitives that spend them, then the shell, then whole product surfaces, which is the order a change propagates in. Consistency came from that loop, not from a style guide. In late August an agent audited the entire system against its own rules in a day and scored it 65 out of 100. By that evening, re-scored on the same rubric, it was 82. Most of the gain was code, 107 contrast fixes across 37 files. The biggest single finding cleared without touching a line, because the rule was wrong, not the product, and the docs were rewritten to match the design that had already won. The moth mark shipped on September 7.</p>
+      </div>
     </div>
 
     <!-- IMAGE 23, before section 8: the spec-driven loop as a diagram, in the
@@ -853,7 +869,7 @@
     <div class="cs-img-breakout">
       <figure class="cs-diagram-card" style="margin-top:0;margin-bottom:0">
         <div class="cs-diagram-body">
-          <svg viewBox="0 0 1200 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Spec-driven development loop. A human and AI brainstorm the feature, documenting the problems, goals and relevant research. AI writes the spec. A human reviews it, requests changes and makes the decisions, looping back to the spec until it is right. AI writes the code. Playwright runs automated QA, and any bugs loop back to the code. A human then tests it by hand, and the feature launches.">
+          <svg viewBox="0 0 1200 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Spec-driven development loop. A human and AI brainstorm the feature, documenting the problems, goals and relevant research. AI writes the spec. A human reviews it, requests changes and makes the decisions, looping back to the spec until it is right. AI writes the code. AI drives automated QA in Playwright, and any bugs loop back to the code. A human then tests it by hand, and the feature launches.">
             <defs>
               <marker id="sd-arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="strokeWidth">
                 <path d="M 0 0 L 10 5 L 0 10 z" fill="rgba(255,255,255,0.3)"/>
@@ -904,9 +920,9 @@
 
             <!-- ── ROW 2: prove it (right to left) ── -->
 
-            <!-- 5. Automated QA (neutral: a machine, not a model) -->
-            <rect x="930" y="306" width="250" height="104" rx="14" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"/>
-            <text x="1055" y="290" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">AUTOMATED</text>
+            <!-- 5. Automated QA: AI drives it (blue) -->
+            <rect x="930" y="306" width="250" height="104" rx="14" fill="rgba(56,189,248,0.07)" stroke="rgba(56,189,248,0.5)" stroke-width="2"/>
+            <text x="1055" y="290" text-anchor="middle" fill="rgba(56,189,248,0.9)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">AI</text>
             <text x="1055" y="361" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="24" font-weight="600">Automated QA</text>
             <text x="1055" y="387" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">Playwright, golden path</text>
 
@@ -915,8 +931,8 @@
             <!-- 6. Human QA (orange) -->
             <rect x="630" y="306" width="250" height="104" rx="14" fill="rgba(251,146,60,0.06)" stroke="rgba(251,146,60,0.5)" stroke-width="2"/>
             <text x="755" y="290" text-anchor="middle" fill="rgba(251,146,60,0.85)" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" letter-spacing="1.8">HUMAN</text>
-            <text x="755" y="361" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="24" font-weight="600">Human QA</text>
-            <text x="755" y="387" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">hands-on testing</text>
+            <text x="755" y="361" text-anchor="middle" fill="#fff" font-family="Fraunces, serif" font-size="21" font-weight="600">Human Review &amp; QA</text>
+            <text x="755" y="387" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">Review QA Report and hands on testing</text>
 
             <line x1="630" y1="358" x2="580" y2="358" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#sd-arrow)"/>
 
@@ -934,8 +950,6 @@
             <text x="86" y="352" fill="rgba(255,255,255,0.65)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">AI</text>
             <rect x="60" y="364" width="14" height="14" rx="4" fill="rgba(251,146,60,0.2)" stroke="rgba(251,146,60,0.7)" stroke-width="1.5"/>
             <text x="86" y="376" fill="rgba(255,255,255,0.65)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">Human</text>
-            <rect x="60" y="388" width="14" height="14" rx="4" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
-            <text x="86" y="400" fill="rgba(255,255,255,0.65)" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5">Automated</text>
           </svg>
         </div>
         <div class="cs-img-caption">Spec as contract. Decisions get written down so they aren't re-argued.</div>
@@ -943,7 +957,7 @@
     </div>
 
     <!-- ── 8. Spec-driven development with AI ── -->
-    <div class="cs-article-section" data-nav="skip">
+    <div class="cs-article-section">
       <div class="cs-article-label">Process</div>
       <h2 class="cs-article-title">Spec-driven development with <em>AI</em></h2>
       <div class="cs-article-body">
@@ -952,7 +966,7 @@
     </div>
 
     <!-- ── 9. One month of open beta ── -->
-    <div class="cs-article-section" data-nav-label="Outcomes">
+    <div class="cs-article-section">
       <div class="cs-article-label">Outcome</div>
       <h2 class="cs-article-title">One month of open <em>beta</em></h2>
       <div class="cs-article-body">
