@@ -1,0 +1,69 @@
+/* Portfolio colors and type, scoped to the deck collection and its viewers. */
+.decks-home, .deck-viewer { cursor: auto; }
+.collection-nav { position: relative; padding: 25px max(24px, calc((100vw - 1280px) / 2)); background: transparent; gap: 24px; }
+.collection-nav .nav-logo { animation: none; opacity: 1; }
+.portfolio-link { color: #b5bdce; font-size: 14px; text-decoration: none; }
+.portfolio-link:hover { color: #fb923c; }
+.collection-main { max-width: 1280px; margin: auto; padding: 0 0 36px; }
+.collection-intro { padding: 80px 0 64px; max-width: 820px; }
+.collection-intro .sec-label, .collection-intro .sec-title { opacity: 1; transform: none; }
+.collection-intro .sec-label { color: #fb923c; }
+.collection-intro .sec-title { font-size: clamp(48px, 6vw, 78px); margin: 22px 0 24px; }
+.collection-lede { color: #b7bfce; max-width: 680px; font-size: 18px; line-height: 1.8; }
+.deck-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; align-items: stretch; }
+.deck-card { display: flex; flex-direction: column; border: 1px solid rgba(255,255,255,.1); border-radius: 20px; overflow: hidden; background: rgba(255,255,255,.035); }
+.deck-art { min-width: 0; position: relative; display: flex; align-items: center; aspect-ratio: 3 / 2; background: #060c12; overflow: hidden; }
+.deck-art img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .35s; }
+.deck-art:hover img { transform: scale(1.025); }
+.deck-copy { padding: 28px; display: flex; flex-direction: column; flex: 1; }
+.deck-meta { color: #fb923c; font-size: 12px; font-weight: 600; display: flex; flex-wrap: wrap; gap: 5px 12px; margin-bottom: 14px; }
+.deck-meta span { color: #abb6c7; font-weight: 400; }
+.deck-copy h2 { font-family: var(--serif); font-size: clamp(27px, 2.3vw, 32px); line-height: 1.18; letter-spacing: -.02em; margin-bottom: 17px; }
+.deck-copy h2 a { color: #eef2ff; text-decoration: none; }
+.deck-summary { color: #b7bfce; font-size: 15px; line-height: 1.8; }
+.deck-copy h3 { color: #e4e9f3; font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; margin: 27px 0 14px; }
+.deck-strengths { padding-left: 19px; display: grid; gap: 12px; }
+.deck-strengths li { font-size: 14px; line-height: 1.7; color: #afb9c9; padding-left: 3px; }
+.deck-strengths li::marker { color: #38bdf8; }
+.deck-strengths strong { font-weight: 600; color: #7dd3fc; }
+.deck-cta { display: inline-flex; gap: 13px; align-items: center; color: #fb923c; font-size: 13px; font-weight: 600; text-decoration: none; margin-top: auto; padding: 30px 0 5px; }
+.deck-cta:hover { color: #7dd3fc; }
+.scope-note { margin-top: 19px; padding-left: 12px; border-left: 2px solid #637286; font-size: 12px; color: #aab5c5; line-height: 1.65; }
+.collection-footer { display: flex; justify-content: space-between; gap: 24px; padding: 40px 0 0; margin: 0; border: 0; font-size: 13px; color: #aab5c5; }
+.collection-footer a { color: #fb923c; text-decoration: none; }
+.skip-link { position: fixed; z-index: 1000; top: 8px; left: 16px; padding: 10px 16px; background: #eef2ff; color: #020608; border-radius: 5px; transform: translateY(-160%); }
+.skip-link:focus { transform: translateY(0); }
+.decks-home a:focus-visible, .deck-viewer a:focus-visible, .deck-viewer button:focus-visible { outline: 2px solid #7dd3fc; outline-offset: 5px; }
+.deck-viewer { margin: 0; height: 100vh; height: 100dvh; overflow: hidden; background: #020608; color: #eef2ff; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; display: flex; flex-direction: column; }
+.viewer-nav { flex: 0 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 24px; background: #080e15; border-bottom: 1px solid #24303d; }
+.viewer-nav a { color: #adb9cb; text-decoration: none; font-size: 13px; padding: 10px 12px; border-radius: 7px; white-space: nowrap; }
+.viewer-nav .all-decks { color: #eef2ff; font-weight: 600; }
+.viewer-links { display: flex; align-items: center; gap: 5px; }
+.viewer-links a[aria-current="page"] { background: #192633; color: #7dd3fc; }
+.viewer-nav a:hover { background: #18212c; color: #eef2ff; }
+.viewer-main { flex: 1; min-height: 0; position: relative; }
+.viewer-main iframe { display: block; width: 100%; height: 100%; border: 0; background: #020608; }
+.viewer-footer { flex: 0 0 auto; display: flex; gap: 16px; align-items: center; justify-content: space-between; padding: 8px 24px max(8px, env(safe-area-inset-bottom)); border-top: 1px solid #24303d; font-size: 11px; color: #b5bdce; }
+.viewer-footer p { margin: 0; }
+.viewer-footer a { color: #a9dff6; text-decoration: none; }
+@media (max-width: 1350px) { .collection-main { margin: 0 40px; } }
+@media (max-width: 1000px) { .deck-list { grid-template-columns: 1fr; max-width: 640px; margin: 0 auto; } .deck-copy { padding: 32px; } }
+@media (max-width: 700px) {
+  .collection-main { margin: 0 24px; }
+  .collection-nav { padding: 22px 24px; }
+  .collection-intro { padding: 48px 0 40px; }
+  .collection-intro .sec-label { font-size: 10px; letter-spacing: .1em; }
+  .collection-lede { font-size: 16px; }
+  .deck-list { gap: 28px; }
+  .deck-card { grid-template-columns: 1fr; }
+  .deck-art { aspect-ratio: 3 / 2; }
+  .deck-art img { height: 100%; object-fit: cover; }
+  .deck-copy { padding: 27px 24px; }
+  .collection-footer { align-items: flex-start; font-size: 11px; }
+  .viewer-nav { flex-direction: column; align-items: stretch; gap: 2px; padding: 7px 10px; }
+  .viewer-nav .all-decks { align-self: flex-start; padding: 6px 9px; font-size: 12px; }
+  .viewer-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
+  .viewer-links a { text-align: center; font-size: 12px; padding: 9px 6px; }
+  .viewer-footer { padding-left: 14px; padding-right: 14px; font-size: 10px; }
+}
+@media (prefers-reduced-motion: reduce) { .decks-home *, .deck-viewer * { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
