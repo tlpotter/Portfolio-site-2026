@@ -12,13 +12,26 @@
      mobile @media rule across styles.css and case-study.css so paddings
      stay symmetric and consistent regardless of which page you're on. */
   --mobile-padding:24px;
+  /* Motion tokens: under 300ms, ease-out for anything entering. */
+  --t-press:120ms;
+  --t-hover:180ms;
+  --t-move:260ms;
+  --ease-out:cubic-bezier(.23,1,.32,1);
+  --ease-io:cubic-bezier(.77,0,.175,1);
 }
 html{scroll-behavior:smooth;overflow-x:hidden}
 body{background:#020608;color:#eef2ff;font-family:var(--sans);font-size:18px;line-height:1.6;overflow-x:hidden;cursor:none;position:relative}
 
 /* ── CURSOR ── */
-#cur{position:fixed;z-index:9999;pointer-events:none;transform:translate(-50%,-50%);width:10px;height:10px;background:#ff6200;border-radius:50%;box-shadow:0 0 20px #ff6200,0 0 40px rgba(255,98,0,.6)}
-#curRing{position:fixed;z-index:9998;pointer-events:none;transform:translate(-50%,-50%);width:36px;height:36px;border:1px solid rgba(0,212,255,.6);border-radius:50%;box-shadow:0 0 12px rgba(0,212,255,.3)}
+#cur{position:fixed;z-index:9999;pointer-events:none;transform:translate(-50%,-50%);width:10px;height:10px;background:#ff6200;border-radius:50%;box-shadow:0 0 20px #ff6200,0 0 40px rgba(255,98,0,.6);transition:transform var(--t-press) var(--ease-out),opacity var(--t-hover) ease}
+#curRing{position:fixed;z-index:9998;pointer-events:none;transform:translate(-50%,-50%);width:36px;height:36px;border:1px solid rgba(0,212,255,.6);border-radius:50%;box-shadow:0 0 12px rgba(0,212,255,.3);transition:width var(--t-hover) var(--ease-out),height var(--t-hover) var(--ease-out),background var(--t-hover) ease,border-color var(--t-hover) ease,opacity var(--t-hover) ease}
+/* Cursor states (set by main.js): grows over links, tightens on press, hides over text fields. */
+#curRing.is-link{width:56px;height:56px;background:rgba(56,189,248,.08);border-color:rgba(56,189,248,.9)}
+#cur.is-link{transform:translate(-50%,-50%) scale(.6)}
+#curRing.is-down{width:28px;height:28px}
+#curRing.is-text,#cur.is-text{opacity:0}
+#curLabel{position:fixed;z-index:9999;pointer-events:none;transform:translate(-50%,-50%) translateY(38px) scale(.9);opacity:0;font:700 10px var(--sans);letter-spacing:.16em;text-transform:uppercase;color:#fff;background:rgba(251,146,60,.95);padding:5px 10px;border-radius:999px;transition:opacity var(--t-hover) ease,transform var(--t-hover) var(--ease-out)}
+#curLabel.on{opacity:1;transform:translate(-50%,-50%) translateY(38px) scale(1)}
 
 /* ── NAV ── */
 nav{
@@ -146,11 +159,23 @@ nav.scrolled:hover{opacity:1}
 }
 
 .hero-ctas{display:flex;gap:20px;opacity:0;animation:up .9s ease .65s forwards}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:10px;font-size:16px;font-weight:600;text-decoration:none;transition:all .3s;letter-spacing:.02em;backdrop-filter:blur(12px)}
+/* Buttons: hover lifts in 180ms, press shrinks to 97% in 120ms, and main.js
+   adds a small magnetic pull (--mx/--my) on fine pointers. All three live in
+   one transform so they never fight. */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:10px;font-size:16px;font-weight:600;text-decoration:none;letter-spacing:.02em;backdrop-filter:blur(12px);position:relative;overflow:hidden;
+  transform:translate(var(--mx,0),var(--my,0)) translateY(var(--lift,0)) scale(var(--press,1));
+  transition:transform var(--t-hover) var(--ease-out),box-shadow var(--t-hover) ease,background var(--t-hover) ease,color var(--t-hover) ease,border-color var(--t-hover) ease}
+.btn:hover{--lift:-2px}
+.btn:active{--press:.97;transition-duration:var(--t-press)}
+.btn .arr{display:inline-block;transition:transform var(--t-hover) var(--ease-out)}
+.btn:hover .arr{transform:translateX(3px)}
 .btn-primary{background:linear-gradient(135deg,rgba(251,146,60,.4),rgba(249,115,22,.4));border:1px solid rgba(251,146,60,.5);color:#fff;box-shadow:0 4px 20px rgba(251,146,60,.2)}
-.btn-primary:hover{background:linear-gradient(135deg,rgba(251,146,60,.6),rgba(249,115,22,.6));transform:translateY(-2px);box-shadow:0 8px 32px rgba(251,146,60,.35)}
+.btn-primary:hover{background:linear-gradient(135deg,rgba(251,146,60,.6),rgba(249,115,22,.6));box-shadow:0 8px 32px rgba(251,146,60,.35)}
+/* one shine sweep across the primary on hover */
+.btn-primary::after{content:'';position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.22) 50%,transparent 65%);transform:translateX(-120%);pointer-events:none}
+.btn-primary:hover::after{transform:translateX(120%);transition:transform .55s var(--ease-io)}
 .btn-ghost{background:rgba(56,189,248,.06);border:1px solid rgba(56,189,248,.2);color:rgba(255,255,255,.85)}
-.btn-ghost:hover{background:rgba(56,189,248,.12);color:#fff;transform:translateY(-2px)}
+.btn-ghost:hover{background:rgba(56,189,248,.12);color:#fff}
 
 @keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
@@ -164,8 +189,19 @@ section:not(#hero){padding:88px max(60px, calc((100vw - 1280px) / 2));position:r
 .sec-title.in-view{transition-delay:.12s}
 .sec-title em{font-style:italic;font-weight:300;background:linear-gradient(135deg,#fb923c,#38bdf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 
-.glass{background:rgba(255,255,255,.05);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.08);box-shadow:0 8px 32px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.06)}
-.glass:hover{background:rgba(255,255,255,.08);border-color:rgba(56,189,248,.2);box-shadow:0 16px 48px rgba(56,189,248,.08),inset 0 1px 0 rgba(255,255,255,.08);transform:translateY(-4px);transition:all .35s}
+/* Glass: lit from above (gradient + brighter top hairline) with a faint film
+   grain from an SVG noise filter. The grain's opacity is baked into the SVG
+   so it can ride along as a background layer, leaving ::before/::after free. */
+:root{--grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.09'/%3E%3C/svg%3E")}
+.glass{background:var(--grain),linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.03));backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.11);box-shadow:0 8px 32px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.2)}
+.glass:hover{background:var(--grain),linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.06));border-color:rgba(56,189,248,.25);box-shadow:0 20px 50px rgba(0,0,0,.5),0 0 0 1px rgba(56,189,248,.08),inset 0 1px 0 rgba(255,255,255,.24);transform:translateY(-4px);transition:transform var(--t-move) var(--ease-out),border-color var(--t-hover) ease,box-shadow var(--t-move) ease,background var(--t-hover) ease}
+
+/* ── REVEAL ON SCROLL ── (06)
+   Cards rise 18px and fade in once, 60ms apart within a group. Only hidden
+   when the html.js flag is set, so no-JS visitors see everything at once. */
+html.js .rv{opacity:0;transform:translateY(18px) scale(.985);transition:opacity .5s ease,transform .6s var(--ease-out);transition-delay:calc(var(--i,0) * 60ms)}
+html.js .rv.in{opacity:1;transform:none}
+/* main.js drops the .rv class after the entrance so hover lifts work again. */
 
 /* ── WORK ── (first section after hero — sphere straddles this boundary) */
 #work{border-top:none;padding-top:calc(12vw + 48px)}
@@ -177,12 +213,18 @@ section:not(#hero){padding:88px max(60px, calc((100vw - 1280px) / 2));position:r
 .about-card-label{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(251,146,60,.6);margin-bottom:16px}
 .about-card p{font-size:17px;line-height:1.95;color:rgba(232,228,240,.75);margin-bottom:14px}
 .about-card p strong{color:rgba(232,228,240,.95);font-weight:600}
-.tl{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.tl{display:flex;gap:16px;padding:16px 0 16px 14px;border-bottom:1px solid rgba(255,255,255,.05);position:relative}
 .tl:first-child{border-top:1px solid rgba(255,255,255,.05)}
-.tl-yr{font-size:12px;font-weight:600;color:rgba(251,146,60,.8);min-width:70px;padding-top:2px;letter-spacing:.04em}
-.tl-co{font-size:16px;font-weight:600;color:rgba(255,255,255,.9)}
+/* Hover: an orange bar draws down the left edge and the row lights up. */
+.tl::before{content:'';position:absolute;left:0;top:16px;bottom:16px;width:2px;border-radius:2px;background:rgba(251,146,60,.9);transform:scaleY(0);transform-origin:top;transition:transform var(--t-move) var(--ease-out)}
+.tl:hover::before{transform:scaleY(1)}
+.tl-yr{font-size:12px;font-weight:600;color:rgba(251,146,60,.8);min-width:70px;padding-top:2px;letter-spacing:.04em;transition:color var(--t-hover) ease}
+.tl-co{font-size:16px;font-weight:600;color:rgba(255,255,255,.9);transition:color var(--t-hover) ease}
 .tl-ro{font-size:14px;color:rgba(255,255,255,.55);margin-top:2px}
-.tl-desc{font-size:13px;color:rgba(255,255,255,.38);line-height:1.6;margin-top:6px}
+.tl-desc{font-size:13px;color:rgba(255,255,255,.38);line-height:1.6;margin-top:6px;transition:color var(--t-hover) ease}
+.tl:hover .tl-yr{color:#fb923c}
+.tl:hover .tl-co{color:#fff}
+.tl:hover .tl-desc{color:rgba(255,255,255,.6)}
 .tl-linkedin{display:block;margin-top:auto;padding-top:24px;font-size:13px;font-weight:600;color:rgba(56,189,248,.7);text-decoration:none;letter-spacing:.04em;transition:color .2s}
 .tl-linkedin:hover{color:rgba(56,189,248,1)}
 
@@ -204,9 +246,18 @@ section:not(#hero){padding:88px max(60px, calc((100vw - 1280px) / 2));position:r
     "i i i v v v";
   gap:14px;
 }
-.work-card{display:block;text-decoration:none;color:inherit;padding:17px;border-radius:18px;transition:all .35s;cursor:pointer;position:relative;overflow:hidden}
-.work-card::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(251,146,60,.06),transparent 60%);opacity:0;transition:opacity .35s;pointer-events:none}
-.work-card:hover::after{opacity:1}
+.work-card{display:block;text-decoration:none;color:inherit;padding:17px;border-radius:18px;cursor:pointer;position:relative;overflow:hidden;--mx:50%;--my:50%;
+  transition:transform var(--t-move) var(--ease-out),background var(--t-hover) ease,border-color var(--t-hover) ease,box-shadow var(--t-move) ease}
+/* .glass:hover would otherwise reset the timing to "all .35s" while hovered. */
+.work-card.glass:hover{transition:transform var(--t-move) var(--ease-out),background var(--t-hover) ease,border-color var(--t-hover) ease,box-shadow var(--t-move) ease;box-shadow:0 20px 50px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.12)}
+.work-card:active{transform:translateY(-2px) scale(.995);transition-duration:var(--t-press)}
+/* Spotlight that follows the pointer (main.js sets --mx/--my), and a thin
+   orange border light near it. */
+.work-card::before{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(420px circle at var(--mx) var(--my),rgba(56,189,248,.14),transparent 40%);opacity:0;transition:opacity var(--t-move) ease}
+.work-card::after{content:'';position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;background:radial-gradient(300px circle at var(--mx) var(--my),rgba(251,146,60,.8),transparent 45%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity var(--t-move) ease}
+.work-card:hover::before,.work-card:hover::after{opacity:1}
+.work-card .work-vis img{transition:transform .5s var(--ease-out),filter .5s ease;transform-origin:50% 30%}
+.work-card:hover .work-vis img{transform:scale(1.035);filter:brightness(1.06)}
 .work-card:focus-visible{outline:2px solid rgba(56,189,248,.7);outline-offset:3px}
 /* Featured card: same image-top stack as the other case study cards, just
    wider (spans 4 of 6 bento columns) and taller (image 520px = +30%). */
@@ -253,13 +304,19 @@ section:not(#hero){padding:88px max(60px, calc((100vw - 1280px) / 2));position:r
 .sg{padding:26px 22px;border-radius:16px;transition:all .35s;cursor:default}
 .sg-head{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(56,189,248,.85);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,.05)}
 .sg-items{display:flex;flex-direction:column;gap:6px}
-.sg-item{font-size:14px;color:rgba(232,228,240,.65);padding:3px 0;border-bottom:1px solid rgba(255,255,255,.03);transition:color .25s}
-.sg:hover .sg-item{color:rgba(232,228,240,.95)}
+/* Skills (07): only the line under the pointer lights up, shifts right and
+   gets a short orange dash. The others dim a little. */
+.sg-item{font-size:14px;color:rgba(232,228,240,.65);padding:3px 0;border-bottom:1px solid rgba(255,255,255,.03);position:relative;transition:color var(--t-hover) ease,padding-left var(--t-move) var(--ease-out)}
+.sg-item::before{content:'';position:absolute;left:0;top:50%;width:10px;height:1px;background:rgba(251,146,60,.9);transform:scaleX(0);transform-origin:left;transition:transform var(--t-move) var(--ease-out)}
+.sg:hover .sg-item{color:rgba(232,228,240,.55)}
+.sg .sg-item:hover{color:#fff;padding-left:18px}
+.sg .sg-item:hover::before{transform:scaleX(1)}
 .tools-row{margin-top:12px;padding:20px 24px;border-radius:12px;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
 .tools-lbl{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(251,146,60,.7);white-space:nowrap}
 .tools-items{display:flex;flex-wrap:wrap;gap:6px}
-.tool{font-size:13px;color:rgba(232,228,240,.6);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);padding:4px 12px;border-radius:6px;transition:all .25s}
-.tool:hover{color:#fff;border-color:rgba(56,189,248,.35);background:rgba(56,189,248,.1)}
+.tool{font-size:13px;color:rgba(232,228,240,.6);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);padding:4px 12px;border-radius:6px;cursor:default;transition:transform var(--t-hover) var(--ease-out),color var(--t-hover) ease,border-color var(--t-hover) ease,background var(--t-hover) ease,box-shadow var(--t-hover) ease}
+.tool:hover{color:#fff;border-color:rgba(56,189,248,.35);background:rgba(56,189,248,.1);transform:translateY(-2px);box-shadow:0 6px 18px rgba(56,189,248,.15)}
+.tool:active{transform:translateY(0) scale(.96);transition-duration:var(--t-press)}
 
 /* ── CRAFT PREVIEW (homepage) ── */
 .craft-preview-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:32px}
@@ -277,12 +334,29 @@ section:not(#hero){padding:88px max(60px, calc((100vw - 1280px) / 2));position:r
 .contact-head em{font-style:italic;font-weight:300;background:linear-gradient(135deg,#fb923c,#38bdf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .contact-sub{font-size:17px;line-height:1.85;color:rgba(232,228,240,.7)}
 .contact-links{display:flex;flex-direction:column;gap:10px;position:relative;z-index:1}
-.c-item{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-radius:12px;text-decoration:none;transition:all .3s}
+/* Contact rows (08): an orange wash sweeps in, a short highlight runs around
+   the border while hovered, the arrow pops, and the email row copies the
+   address (main.js) with a tick and a toast. */
+@property --beam{syntax:'<angle>';inherits:false;initial-value:0deg}
+.c-item{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-radius:12px;text-decoration:none;position:relative;overflow:hidden;transition:transform var(--t-move) var(--ease-out),background var(--t-hover) ease,border-color var(--t-hover) ease}
+.c-item::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(251,146,60,.14),transparent 60%);transform:translateX(-100%);transition:transform var(--t-move) var(--ease-out);pointer-events:none}
+.c-item::after{content:'';position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;background:conic-gradient(from var(--beam),transparent 0 72%,rgba(251,146,60,.95) 88%,rgba(255,255,255,.9) 92%,transparent 100%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity var(--t-hover) ease}
 .c-item:hover{background:rgba(251,146,60,.1);border-color:rgba(251,146,60,.3) !important;transform:translateX(4px)}
+.c-item:hover::before{transform:translateX(0)}
+.c-item:hover::after{opacity:1;animation:c-beam 1.8s linear infinite}
+.c-item:active{transform:translateX(4px) scale(.99);transition-duration:var(--t-press)}
+@keyframes c-beam{to{--beam:360deg}}
+.c-item > div,.c-item .c-arr{position:relative}
 .c-lbl{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:3px}
 .c-val{font-size:16px;color:rgba(255,255,255,.85)}
-.c-arr{font-size:18px;color:rgba(255,255,255,.45);transition:all .3s}
-.c-item:hover .c-arr{color:rgba(251,180,100,.8);transform:translate(3px,-3px)}
+.c-arr{font-size:18px;color:rgba(255,255,255,.45);transition:transform var(--t-move) cubic-bezier(.34,1.56,.64,1),color var(--t-hover) ease}
+.c-item:hover .c-arr{color:rgba(251,180,100,.9);transform:translate(4px,-4px)}
+.c-copied{position:absolute;right:52px;top:50%;transform:translateY(-50%) translateX(6px);opacity:0;font-size:12px;font-weight:600;color:#34d399;letter-spacing:.06em;transition:opacity var(--t-hover) ease,transform var(--t-hover) var(--ease-out);pointer-events:none}
+.c-copied.on{opacity:1;transform:translateY(-50%)}
+.site-toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(16px) scale(.96);opacity:0;z-index:300;background:#0f1620;border:1px solid rgba(52,211,153,.4);color:#fff;font-size:13px;padding:10px 16px;border-radius:999px;box-shadow:0 10px 30px rgba(0,0,0,.5);transition:opacity var(--t-hover) ease,transform var(--t-move) var(--ease-out);pointer-events:none;display:flex;gap:8px;align-items:center}
+.site-toast.on{opacity:1;transform:translateX(-50%)}
+.site-toast svg{width:14px;height:14px;stroke:#34d399;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:22;stroke-dashoffset:22;transition:stroke-dashoffset .3s var(--ease-out) .1s}
+.site-toast.on svg{stroke-dashoffset:0}
 
 /* ── FOOTER ── */
 footer{border-top:1px solid rgba(255,255,255,.04);padding:18px max(60px, calc((100vw - 1280px) / 2));display:flex;justify-content:space-between;align-items:center;background:transparent}
@@ -301,9 +375,26 @@ footer p{font-size:12px;color:rgba(255,255,255,.4);letter-spacing:.06em}
   }
 }
 
+/* ── PAGE TRANSITION ── (12)
+   Every page opts in, so moving between pages fades the old one out and
+   rises the new one in. Browsers without support just load the page. */
+@view-transition{navigation:auto}
+::view-transition-old(root){animation:vt-out .22s ease-out both}
+::view-transition-new(root){animation:vt-in .45s var(--ease-out) both}
+@keyframes vt-out{to{opacity:0}}
+@keyframes vt-in{from{opacity:0;transform:translateY(28px)}}
+
+/* Reduced motion: keep color fades, drop movement. */
+@media (prefers-reduced-motion:reduce){
+  .btn,.btn .arr,.btn-primary::after,.work-card,.work-card .work-vis img,.tl::before,#cur,#curRing,#curLabel,.glass,.rv,.sg-item,.sg-item::before,.tool,.c-item,.c-item::before,.c-arr,.c-copied,.site-toast{transition-duration:.01ms!important;transition-delay:0ms!important}
+  .btn{--mx:0px!important;--my:0px!important}
+  .c-item:hover::after{animation:none}
+  ::view-transition-old(root),::view-transition-new(root){animation:none}
+}
+
 @media(max-width:800px){
   body{cursor:auto}
-  #cur,#curRing{display:none}
+  #cur,#curRing,#curLabel{display:none}
   /* All mobile horizontal padding sourced from --mobile-padding so every
      element on every page (homepage + case studies) lines up symmetrically. */
   nav{padding:18px var(--mobile-padding)}.nav-links{display:none}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex, nofollow"/>
+  <title>Second page — Interaction Lab</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fraunces:ital,wght@0,300;0,600;1,300;1,600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../../css/styles.css"/>
+  <link rel="stylesheet" href="lab.css"/>
+  <style>body{cursor:auto}#cur,#curRing{display:none}</style>
+</head>
+<body>
+<header class="lab-intro">
+  <h1>Second page, <em>same fade</em></h1>
+  <p>This page only exists to show the cross-page transition. Go back and watch the old page fade out and the new one rise in.</p>
+  <p style="margin-top:14px"><span class="lab-vt">Checking…</span></p>
+  <p style="margin-top:22px"><a href="index.html#s-page" class="btn btn-ghost lab-btn"><span class="arr">←</span> Back to the lab</a></p>
+</header>
+<script>
+  window.addEventListener('pageswap', e => { if (e.viewTransition) e.viewTransition.finished.catch(() => {}); });
+  document.querySelectorAll('.lab-vt').forEach(el => {
+    const ok = 'PageRevealEvent' in window;
+    el.textContent = ok ? 'This browser supports page transitions' : 'Not supported here: the page just loads';
+    el.classList.add(ok ? 'yes' : 'no');
+  });
+</script>
+</body>
+</html>

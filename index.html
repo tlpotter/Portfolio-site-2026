@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!-- Lets CSS hide reveal-on-scroll items only when JS will show them. -->
+  <script>document.documentElement.classList.add("js")</script>
 
   <!-- Microsoft Clarity (loads on every page for full-session behavior capture) -->
   <script type="text/javascript">
@@ -32,6 +34,8 @@
 <canvas id="starField"></canvas>
 <div id="cur"></div>
 <div id="curRing"></div>
+<div id="curLabel">View</div>
+<div class="site-toast" id="siteToast"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Email copied</div>
 
 <nav>
   <a href="#hero" class="nav-logo">Ted Potter</a>
@@ -60,7 +64,7 @@
       <li>8 years in product design.</li>
     </ul>
     <div class="hero-ctas">
-      <a href="#work" class="btn btn-primary">See my work →</a>
+      <a href="#work" class="btn btn-primary">See my work <span class="arr">→</span></a>
       <a href="#contact" class="btn btn-ghost">Get in touch</a>
     </div>
   </div>
@@ -73,7 +77,7 @@
        text-b, crawler, AI concept [.cs-crc], interos, vasa). Desktop placement
        comes from grid-template-areas in .work-grid, not from per-card overrides. -->
   <div class="work-grid">
-    <a href="case-study-invoca-callreview/" class="work-card featured glass">
+    <a href="case-study-invoca-callreview/" class="work-card featured glass rv">
       <div class="work-vis work-vis-top featured-vis">
         <picture><source media="(max-width: 800px)" srcset="images/home/invoca_CRC_call_detail_thumb-750w.webp" type="image/webp"><img src="images/home/invoca_CRC_call_detail_thumb.png" alt="Invoca Call Review Console" fetchpriority="high" decoding="async" width="1536" height="1024"/></picture>
       </div>
@@ -82,39 +86,39 @@
       <div class="work-title">Invoca Contact Center Workflow Redesign</div>
       <p class="work-desc">Redesigned the daily workflows contact center Sales agents and QA team rely on, helping triple the product's ARR.</p>
     </a>
-    <div class="work-text-card text-a glass">
+    <div class="work-text-card text-a glass rv">
       <div class="work-meta">Designing for AI</div>
       <p class="work-text-body">AI is only as useful as the experience around it. I've designed LLM evaluation tools, model training workflows, and conversation intelligence products that help real people make sense of what AI is doing under the hood, and trust it enough to act on it.</p>
       <p class="work-text-body">Designing for custom models means translating high complexity into simple, intuitive experiences, making AI accessible to the people who need to use it, not just the people who built it.</p>
     </div>
-    <div class="work-text-card text-b glass">
+    <div class="work-text-card text-b glass rv">
       <div class="work-meta">Designing with AI</div>
       <p class="work-text-body">I practice what I design. This site was built with Claude Code. I use Claude to write copy and generate options I can evaluate, Gemini for deep-dive research, and Figma Make to prototype fast.</p>
       <p class="work-text-body">I also run my work through multiple AI models to stress-test decisions: getting different perspectives the same way I'd pull in another designer for a crit. AI handles the production velocity so I can focus on making better decisions.</p>
     </div>
     <!-- Match Moth: links to its case study. -->
-    <a href="case-study-match-moth/" class="work-card cs-crawler glass">
+    <a href="case-study-match-moth/" class="work-card cs-crawler glass rv">
       <div class="work-vis work-vis-top"><picture><source media="(max-width: 800px)" srcset="images/home/jobcrawler_thumb-750w.webp" type="image/webp"><img src="images/home/jobcrawler_thumb.png" alt="Match Moth dashboard and mobile app over a moonlit night sky" loading="lazy" decoding="async" width="1500" height="1000"/></picture></div>
       <div class="work-meta">2026 · Personal Project · Web App</div>
       <div class="work-tags"><span class="work-tag">AI Product</span><span class="work-tag">Consumer</span><span class="work-tag">AI Evaluation</span></div>
       <div class="work-title">Match Moth Job Search with AI Evaluation</div>
       <p class="work-desc">An AI tool that runs my job search end to end: crawls a dozen sources daily, scores every role for fit, and emails a ranked shortlist each morning.</p>
     </a>
-    <a href="case-study-invoca-ai/" class="work-card cs-crc glass">
+    <a href="case-study-invoca-ai/" class="work-card cs-crc glass rv">
       <div class="work-vis work-vis-top"><picture><source media="(max-width: 800px)" srcset="images/home/invoca_ai_training_thumb-750w.webp" type="image/webp"><img src="images/home/invoca_ai_training_thumb.png" alt="AI Signal Blueprint concept" loading="lazy" decoding="async" width="1176" height="796"/></picture></div>
       <div class="work-meta">2026 · Invoca · Web App</div>
       <div class="work-tags"><span class="work-tag">AI Product</span><span class="work-tag">LLM Evaluation</span><span class="work-tag">B2B SaaS</span></div>
       <div class="work-title">AI Model Training Concept</div>
       <p class="work-desc">An end-to-end concept that made custom LLM training self-service, exposing the hidden human work behind the product.</p>
     </a>
-    <a href="case-study-interos/" class="work-card cs-interos glass">
+    <a href="case-study-interos/" class="work-card cs-interos glass rv">
       <div class="work-vis work-vis-top"><picture><source media="(max-width: 800px)" srcset="images/home/interos-thumbv2-750w.webp" type="image/webp"><img src="images/home/interos-thumbv2.png" alt="Interos homescreen mockup" style="transform-origin:right center" loading="lazy" decoding="async" width="1536" height="1024"/></picture></div>
       <div class="work-meta">2021–2022 · Interos / Neudesic · Web App</div>
       <div class="work-tags"><span class="work-tag">Enterprise</span><span class="work-tag">Data Visualization</span><span class="work-tag">B2B SaaS</span></div>
       <div class="work-title">Interos Supply Chain Risk</div>
       <p class="work-desc">Led UX projects on the risk platform enterprises relied on as Interos scaled to a $1B+ valuation.</p>
     </a>
-    <a href="case-study-vasa/" class="work-card cs-vasa glass">
+    <a href="case-study-vasa/" class="work-card cs-vasa glass rv">
       <div class="work-vis work-vis-top"><picture><source media="(max-width: 800px)" srcset="images/home/VASAmockup_thumb-750w.webp" type="image/webp"><img src="images/home/VASAmockup_thumb.webp" alt="VASA Fitness app mockup" loading="lazy" decoding="async" width="976" height="356"/></picture></div>
       <div class="work-meta">2019–2021 · VASA Fitness / Neudesic · iOS & Android</div>
       <div class="work-tags"><span class="work-tag">Consumer</span><span class="work-tag">Mobile</span><span class="work-tag">Fitness</span></div>
@@ -143,12 +147,12 @@
   <div class="sec-label">About</div>
   <h2 class="sec-title">Pull it apart.<br><em>Build it better</em></h2>
   <div class="about-grid">
-    <div class="about-card glass">
+    <div class="about-card glass rv">
       <div class="about-card-label">Bio</div>
       <p>I'm a builder at heart. The more interesting the problem, the more I want to pull it apart. Years of UX consulting taught me something valuable: every project has a wall, and it's never the wall you expected. Sometimes it's an interaction design challenge. Sometimes it's persuading the head of Product to advocate for a new process step.</p>
       <p>That generalist instinct has taken me across consumer products, enterprise B2B, SaaS, and AI — including two companies that hit unicorn valuations.</p>
     </div>
-    <div class="about-card glass">
+    <div class="about-card glass rv">
       <div class="tl"><div class="tl-yr">2022–2026</div><div><div class="tl-co">Invoca</div><div class="tl-ro">Senior UX Designer · AI & Contact Center</div><div class="tl-desc">Designed contact center workflows that drove millions in ARR, then shifted into LLM evaluation interfaces and AI model training.</div></div></div>
       <div class="tl"><div class="tl-yr">2018–2022</div><div><div class="tl-co">Neudesic</div><div class="tl-ro">Senior UX Consultant · Enterprise</div><div class="tl-desc">Led UX on million-dollar engagements for Discount Tire, VASA Fitness, Isagenix, and others.</div></div></div>
       <div class="tl"><div class="tl-yr">2014–2017</div><div><div class="tl-co">Limelight Networks</div><div class="tl-ro">Visual Designer</div><div class="tl-desc">Designed marketing and product interfaces for a global CDN and streaming platform serving major media brands.</div></div></div>
@@ -161,7 +165,7 @@
   <div class="sec-label">Skills</div>
   <h2 class="sec-title">What I'm <em>good at</em></h2>
   <div class="skills-grid">
-    <div class="sg glass">
+    <div class="sg glass rv">
       <div class="sg-head">Design</div>
       <div class="sg-items">
         <div class="sg-item">Product Design</div>
@@ -173,7 +177,7 @@
         <div class="sg-item">Prototyping</div>
       </div>
     </div>
-    <div class="sg glass">
+    <div class="sg glass rv">
       <div class="sg-head">Research</div>
       <div class="sg-items">
         <div class="sg-item">User Interviews</div>
@@ -184,7 +188,7 @@
         <div class="sg-item">Empathy Mapping</div>
       </div>
     </div>
-    <div class="sg glass">
+    <div class="sg glass rv">
       <div class="sg-head">AI & Emerging</div>
       <div class="sg-items">
         <div class="sg-item">AI Product Design</div>
@@ -196,7 +200,7 @@
         <div class="sg-item">Claude Code</div>
       </div>
     </div>
-    <div class="sg glass">
+    <div class="sg glass rv">
       <div class="sg-head">Leadership</div>
       <div class="sg-items">
         <div class="sg-item">UX Lead</div>
@@ -209,7 +213,7 @@
       </div>
     </div>
   </div>
-  <div class="tools-row glass">
+  <div class="tools-row glass rv">
     <span class="tools-lbl">Tools</span>
     <div class="tools-items">
       <span class="tool">Figma</span>
@@ -219,7 +223,7 @@
       <span class="tool">MS DevOps</span>
     </div>
   </div>
-  <div class="tools-row glass" style="margin-top:12px">
+  <div class="tools-row glass rv" style="margin-top:12px">
     <span class="tools-lbl">AI Tools</span>
     <div class="tools-items">
       <span class="tool">Claude Code</span>
@@ -232,15 +236,16 @@
 </section>
 
 <section id="contact">
-  <div class="contact-card glass">
+  <div class="contact-card glass rv">
     <div>
       <h2 class="contact-head">Let's<br><em>talk.</em></h2>
       <p class="contact-sub">Open to Senior or Staff UX design roles in enterprise, AI, or consumer. Available now.</p>
     </div>
     <div class="contact-links">
-      <a href="mailto:tedpotter23@gmail.com" class="c-item glass" style="border:1px solid rgba(255,255,255,.07)">
+      <a href="mailto:tedpotter23@gmail.com" data-copy="tedpotter23@gmail.com" class="c-item glass" style="border:1px solid rgba(255,255,255,.07)">
         <div><div class="c-lbl">Email</div><div class="c-val">tedpotter23@gmail.com</div></div>
-        <span class="c-arr">↗</span>
+        <span class="c-copied">Copied ✓</span>
+        <span class="c-arr">⧉</span>
       </a>
       <a href="https://linkedin.com/in/tedlpotter" target="_blank" rel="noopener noreferrer" class="c-item glass" style="border:1px solid rgba(255,255,255,.07)">
         <div><div class="c-lbl">LinkedIn</div><div class="c-val">linkedin.com/in/tedlpotter</div></div>

@@ -189,16 +189,98 @@
 /* ── CURSOR ── */
 const cur  = document.getElementById('cur');
 const ring = document.getElementById('curRing');
+const curLabel = document.getElementById('curLabel');   // homepage only
 let mx = window.innerWidth / 2, my = window.innerHeight / 2, rx = mx, ry = my;
 
 document.addEventListener('mousemove', e => {
   mx = e.clientX; my = e.clientY;
   cur.style.left = mx + 'px'; cur.style.top = my + 'px';
+  if (curLabel) { curLabel.style.left = mx + 'px'; curLabel.style.top = my + 'px'; }
 });
 (function animateRing() {
-  rx += (mx - rx) * .1; ry += (my - ry) * .1;
+  rx += (mx - rx) * .18; ry += (my - ry) * .18;   // tighter lag so the ring feels attached
   ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
   requestAnimationFrame(animateRing);
+})();
+// States: grow over anything clickable, tighten while pressed, hide over text
+// fields so the I-beam shows, and show "View" over a work card.
+(function(){
+  const clickable = 'a, button, [role=button], label, input, select, textarea';
+  document.addEventListener('mouseover', e => {
+    const t = e.target.closest(clickable);
+    const txt = e.target.closest('input, textarea, select');
+    ring.classList.toggle('is-link', !!t && !txt); cur.classList.toggle('is-link', !!t && !txt);
+    ring.classList.toggle('is-text', !!txt); cur.classList.toggle('is-text', !!txt);
+    if (curLabel) curLabel.classList.toggle('on', !!e.target.closest('.work-card'));
+  });
+  document.addEventListener('mousedown', () => ring.classList.add('is-down'));
+  document.addEventListener('mouseup', () => ring.classList.remove('is-down'));
+})();
+
+/* ── REVEAL ON SCROLL ── (06)
+   Each .rv rises in once. Items share a stagger within their parent. After
+   the entrance the class is dropped so hover transforms take over again. */
+(function(){
+  const els = document.querySelectorAll('.rv');
+  if (!els.length) return;
+  const byParent = new Map();
+  els.forEach(el => { const p = el.parentElement; const i = byParent.get(p) || 0; el.style.setProperty('--i', i); byParent.set(p, i + 1); });
+  const io = new IntersectionObserver(entries => entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target; io.unobserve(el);
+    el.classList.add('in');
+    const delay = parseInt(el.style.getPropertyValue('--i') || 0, 10) * 60;
+    setTimeout(() => { el.classList.remove('rv', 'in'); el.style.removeProperty('--i'); }, 700 + delay);
+  }), { threshold: 0.15 });
+  els.forEach(el => io.observe(el));
+})();
+
+/* ── COPY EMAIL ── (08) tick + toast instead of opening a mail app */
+(function(){
+  const toast = document.getElementById('siteToast');
+  document.querySelectorAll('[data-copy]').forEach(a => a.addEventListener('click', e => {
+    e.preventDefault();
+    const tick = a.querySelector('.c-copied');
+    const done = () => {
+      if (tick) tick.classList.add('on'); if (toast) toast.classList.add('on');
+      setTimeout(() => { if (tick) tick.classList.remove('on'); if (toast) toast.classList.remove('on'); }, 1600);
+    };
+    if (navigator.clipboard) navigator.clipboard.writeText(a.dataset.copy).then(done, done); else done();
+  }));
+})();
+
+/* ── PAGE TRANSITION ── (12) leaving for a page that does not opt in would
+   log an unhandled AbortError; swallow it. */
+(function(){
+  const quiet = vt => { if (vt) { vt.ready.catch(() => {}); vt.finished.catch(() => {}); vt.updateCallbackDone.catch(() => {}); } };
+  window.addEventListener('pageswap', e => quiet(e.viewTransition));
+  window.addEventListener('pagereveal', e => quiet(e.viewTransition));
+})();
+
+/* ── POINTER EFFECTS: magnetic buttons, card spotlight ── */
+/* Fine pointers only. Reduced motion gets the plain version. */
+(function(){
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  const motionOK = () => !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Buttons lean up to 6px toward the pointer and spring back on leave.
+  document.querySelectorAll('.btn').forEach(el => {
+    el.addEventListener('mousemove', e => {
+      if (!motionOK()) return;
+      const r = el.getBoundingClientRect();
+      const dx = (e.clientX - (r.left + r.width / 2)) * .25, dy = (e.clientY - (r.top + r.height / 2)) * .25;
+      el.style.setProperty('--mx', Math.max(-6, Math.min(6, dx)) + 'px');
+      el.style.setProperty('--my', Math.max(-6, Math.min(6, dy)) + 'px');
+    });
+    el.addEventListener('mouseleave', () => { el.style.setProperty('--mx', '0px'); el.style.setProperty('--my', '0px'); });
+  });
+  // Cards: one pointermove sets the two custom properties the CSS gradients read.
+  document.querySelectorAll('.work-card').forEach(card => {
+    card.addEventListener('pointermove', e => {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    });
+  });
 })();
 
 

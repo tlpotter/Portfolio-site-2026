@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex, nofollow"/>
+  <title>Interaction Lab — Ted Potter</title>
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg"/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fraunces:ital,wght@0,300;0,600;1,300;1,600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../../css/styles.css"/>
+  <link rel="stylesheet" href="lab.css"/>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="curRing"></div>
+<div id="curLabel">View</div>
+<div class="lab-toast" id="labToast"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Email copied</div>
+
+<nav class="lab-nav">
+  <a href="../../" class="lab-nav-title">Ted Potter <span>/ interaction lab</span></a>
+  <div class="lab-controls">
+    <label><input type="radio" name="cursor" id="ctl-cursor-now"> Cursor: now</label>
+    <label><input type="radio" name="cursor" id="ctl-cursor-lab" checked> Cursor: lab</label>
+    <label><input type="checkbox" id="ctl-tilt"> Card tilt</label>
+    <label><input type="checkbox" id="ctl-grain" checked> Grain</label>
+    <label><input type="checkbox" id="ctl-reduce"> Reduce motion</label>
+  </div>
+</nav>
+
+<header class="lab-intro">
+  <h1>Every small touch, <em>side by side</em></h1>
+  <p>Left is what the live site does today, using the real site CSS. Right is the same piece with the lab effects added. Nothing here uses a library. Every effect is CSS plus a few lines of JavaScript, and every one turns off for touch screens and reduced motion.</p>
+  <div class="lab-toc">
+    <a href="#s-buttons">Buttons</a><a href="#s-cursor">Cursor</a><a href="#s-cards">Work cards</a><a href="#s-nav">Nav links</a><a href="#s-title">Section titles</a><a href="#s-reveal">Scroll reveal</a><a href="#s-skills">Skills &amp; chips</a><a href="#s-contact">Contact rows</a><a href="#s-timeline">Timeline</a><a href="#s-case">Case study bits</a><a href="#s-texture">Texture &amp; depth</a><a href="#s-page">Page transition</a><a href="#s-notes">Libraries</a>
+  </div>
+</header>
+
+<!-- ───────── 1. BUTTONS ───────── -->
+<section class="lab-sec" id="s-buttons">
+  <div class="sec-label">01</div>
+  <h2 class="sec-title">Buttons</h2>
+  <p class="lab-why">Now: hover lifts 2px over 300ms and nothing happens on press. Lab: hover at 180ms ease-out, press shrinks to 97% in 120ms, the arrow nudges, the primary gets one shine sweep, and the button pulls up to 6px toward the pointer (magnetic). Press feedback is the single biggest "feels solid" change.</p>
+  <div class="lab-pair">
+    <div class="lab-col"><span class="lab-tag">Now</span>
+      <div class="lab-row">
+        <a href="#s-buttons" class="btn btn-primary">See my work →</a>
+        <a href="#s-buttons" class="btn btn-ghost">Get in touch</a>
+      </div>
+      <p class="lab-note">Click and hold. The button does not react.</p>
+    </div>
+    <div class="lab-col is-lab"><span class="lab-tag">Lab</span>
+      <div class="lab-row">
+        <a href="#s-buttons" class="btn btn-primary lab-btn lab-magnet">See my work <span class="arr">→</span></a>
+        <a href="#s-buttons" class="btn btn-ghost lab-btn lab-magnet">Get in touch</a>
+      </div>
+      <p class="lab-note">Click and hold: it presses. Move slowly around the edge: it leans toward you. <code>:active{transform:scale(.97)}</code> and one <code>mousemove</code> listener.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── 2. CURSOR ───────── -->
+<section class="lab-sec" id="s-cursor">
+  <div class="sec-label">02</div>
+  <h2 class="sec-title">Cursor</h2>
+  <p class="lab-why">Now: an orange dot with a lagging blue ring, the same everywhere. Lab: over any link the ring grows to 56px with a faint fill, the dot shrinks, and the ring tightens while you hold the mouse down. Over a work card a small "View" label rides below it. Over a text field it hides so the I-beam shows. Switch with the toggle in the top bar.</p>
+  <div class="lab-pair">
+    <div class="lab-col"><span class="lab-tag">Now</span>
+      <p class="lab-note">Choose <b>Cursor: now</b> above, then hover the link: <a href="#s-cursor" style="color:#38bdf8">a link</a>. Same ring, same size.</p>
+    </div>
+    <div class="lab-col is-lab"><span class="lab-tag">Lab</span>
+      <p class="lab-note">Choose <b>Cursor: lab</b>, then hover: <a href="#s-cursor" style="color:#38bdf8">a link</a>, this <button class="lab-replay" type="button">button</button>, and this field <input type="text" placeholder="type here" style="font:14px var(--sans);padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.04);color:#fff"></p>
+      <p class="lab-note">Ring lag is tighter too (0.18 instead of 0.10), so it feels attached rather than dragged.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── 3. WORK CARDS ───────── -->
+<section class="lab-sec" id="s-cards">
+  <div class="sec-label">03</div>
+  <h2 class="sec-title">Work cards</h2>
+  <p class="lab-why">Now: the card lifts 4px and a fixed orange glow fades in at the top. Lab: a soft blue spotlight and a thin orange border light follow the pointer, the image zooms 3.5% from its top third, an arrow slides in beside the title, and the card has a brighter top edge. Turn on <b>Card tilt</b> in the top bar for a 3° lean (subtle on purpose; most tilt demos overdo it).</p>
+  <div class="lab-pair">
+    <div class="lab-col"><span class="lab-tag">Now</span>
+      <div class="lab-cards">
+        <a href="#s-cards" class="work-card glass">
+          <div class="work-vis work-vis-top"><img src="../../images/home/invoca_CRC_call_detail_thumb.png" alt="" loading="lazy" width="1536" height="1024"></div>
+          <div class="work-meta">2023–2025 · Invoca</div>
+          <div class="work-title">Contact Center Redesign</div>
+        </a>
+        <a href="#s-cards" class="work-card glass">
+          <div class="work-vis work-vis-top"><img src="../../images/home/jobcrawler_thumb.png" alt="" loading="lazy" width="1500" height="1000"></div>
+          <div class="work-meta">2026 · Personal</div>
+          <div class="work-title">Match Moth</div>
+        </a>
+      </div>
+    </div>
+    <div class="lab-col is-lab"><span class="lab-tag">Lab</span>
+      <div class="lab-cards">
+        <a href="#s-cards" class="work-card glass lab-card" data-cursor="View">
+          <div class="work-vis work-vis-top"><img src="../../images/home/invoca_CRC_call_detail_thumb.png" alt="" loading="lazy" width="1536" height="1024"></div>
+          <div class="work-meta">2023–2025 · Invoca</div>
+          <div class="work-title">Contact Center Redesign <span class="arr">→</span></div>
+        </a>
+        <a href="#s-cards" class="work-card glass lab-card" data-cursor="View">
+          <div class="work-vis work-vis-top"><img src="../../images/home/jobcrawler_thumb.png" alt="" loading="lazy" width="1500" height="1000"></div>
+          <div class="work-meta">2026 · Personal</div>
+          <div class="work-title">Match Moth <span class="arr">→</span></div>
+        </a>
+      </div>
+      <p class="lab-note">The spotlight is two CSS custom properties, <code>--mx</code> and <code>--my</code>, set by one <code>pointermove</code>. No repaint of the card, only the gradient.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── 4. NAV LINKS ───────── -->
+<section class="lab-sec" id="s-nav">
+  <div class="sec-label">04</div>
+  <h2 class="sec-title">Nav links</h2>
+  <p class="lab-why">Now: the color changes. Lab, three options: an underline that draws in from the left; the word slides up and an orange copy slides in from below; a soft pill that glides to the link you are on and follows your hover. The pill is what Linear and Vercel use.</p>
+  <div class="lab-pair">
+    <div class="lab-col"><span class="lab-tag">Now</span>
+      <ul class="nav-links" style="padding:14px 0"><li style="opacity:1;animation:none"><a href="#s-nav">Work</a></li><li style="opacity:1;animation:none"><a href="#s-nav">About</a></li><li style="opacity:1;animation:none"><a href="#s-nav">Skills</a></li><li style="opacity:1;animation:none"><a href="#s-nav">Contact</a></li></ul>
+    </div>
+    <div class="lab-col is-lab"><span class="lab-tag">Lab</span>
+      <p class="lab-note" style="margin:0 0 4px">A. Underline draws in</p>
+      <ul class="lab-navrow"><li><a href="#s-nav">Work</a></li><li><a href="#s-nav">About</a></li><li><a href="#s-nav">Skills</a></li><li><a href="#s-nav">Contact</a></li></ul>
+      <p class="lab-note" style="margin:10px 0 4px">B. Text swap</p>
+      <ul class="lab-navrow"><li><a href="#s-nav"><span class="lab-swap"><span>Work</span><span>Work</span></span></a></li><li><a href="#s-nav"><span class="lab-swap"><span>About</span><span>About</span></span></a></li><li><a href="#s-nav"><span class="lab-swap"><span>Skills</span><span>Skills</span></span></a></li><li><a href="#s-nav"><span class="lab-swap"><span>Contact</span><span>Contact</span></span></a></li></ul>
+      <p class="lab-note" style="margin:10px 0 4px">C. Gliding pill (click to set the active one)</p>
+      <ul class="lab-navrow has-pill"><li><a href="#s-nav">Work</a></li><li><a href="#s-nav">About</a></li><li><a href="#s-nav">Skills</a></li><li><a href="#s-nav">Contact</a></li></ul>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── 5. SECTION TITLES ───────── -->
+<section class="lab-sec" id="s-title">
+  <div class="sec-label">05</div>
+  <h2 class="sec-title">Section titles</h2>
+  <p class="lab-why">Now: the label and title slide in 32px from the left over 700ms. Lab: each word rises out of a clipped line, 45ms apart, and the label's dash draws in. Same copy, same fonts. Press Replay to compare.</p>
+  <div class="lab-pair">
+    <div class="lab-col"><span class="lab-tag">Now</span>
+      <div class="sec-label">About</div>
+      <h2 class="sec-title" style="margin-bottom:0">Pull it apart.<br><em>Build it better</em></h2>
+      <button class="lab-replay" type="button">Replay</button>
+    </div>
+    <div class="lab-col is-lab"><span class="lab-tag">Lab</span>
+      <div class="lab-label">About</div>
+      <h2 class="lab-title"><span class="plain">Pull it apart.</span><br><em>Build it better</em></h2>
+      <button class="lab-replay" type="button">Replay</button>
+      <p class="lab-note">Ten lines of JS wrap each word in a span with an index. CSS does the rest with <code>transition-delay: calc(var(--i) * 45ms)</code>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── 6. SCROLL REVEAL ───────── -->
+<section class="lab-sec" id="s-reveal">
+  <div class="sec-label">06</div>
+  <h2 class="sec-title">Scroll reveal</h2>
+  <p class="lab-why">Now: cards and grids are simply there when you scroll to them. Lab: they rise 18px and fade in, 60ms apart, once. Two ways to build it: an IntersectionObserver (works everywhere), or pure CSS <code>animation-timeline: view()</code> with no JS at all (Chrome, Edge, Firefox 126+, Safari 17.2+; older browsers just show the content).</p>
+  <div class="lab-pair">
+    <div class="lab-col"><span class="lab-tag">Now</span>
+      <div class="lab-grid3">
+        <div class="lab-mini glass"><b>53</b><span>signups</span></div>
+        <div class="lab-mini glass"><b>16×</b><span>save or apply rate</span></div>
+        <div class="lab-mini glass"><b>$0.08</b><span>per user per day</span></div>
+      </div>
+    </div>
+    <div class="lab-col is-lab"><span class="lab-tag">Lab</span>
+      <div class="lab-grid3">
+        <div class="lab-mini glass lab-reveal" style="--i:0"><b>53</b><span>signups</span></div>
+        <div class="lab-mini glass lab-reveal" style="--i:1"><b>16×</b><span>save or apply rate</span></div>
+        <div class="lab-mini glass lab-reveal" style="--i:2"><b>$0.08</b><span>per user per day</span></div>
+      </div>
+      <button class="lab-replay" type="button">Replay</button>
+      <p class="lab-note" style="margin-top:22px">Native version, no JS (scroll it in and out):</p>
+      <div class="lab-grid3">
+        <div class="lab-mini glass lab-native"><b>A</b><span>animation-timeline: view()</span></div>
+        <div class="lab-mini glass lab-native"><b>B</b><span>animation-range: entry 0% 55%</span></div>
+        <div class="lab-mini glass lab-native"><b>C</b><span>inside @supports</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── 7. SKILLS & CHIPS ───────── -->
+<section class="lab-sec" id="s-skills">
+  <div class="sec-label">07</div>
+  <h2 class="sec-title">Skills &amp; chips</h2>
+  <p class="lab-why">Now: hovering a skills card brightens every line at once. Lab: only the line under your pointer lights up, shifts right, and gets a short orange dash that draws in. The other lines dim a little so the one you are on stands out. Tool chips lift 2px with a soft glow and press down on click.</p>
+  <div class="lab-pair">
+    <div class="lab-col"><span class="lab-tag">Now</span>
+      <div class="sg glass" style="max-width:300px">
+        <div class="sg-head">Design</div>
+        <div class="sg-items"><div class="sg-item">Product Design</div><div class="sg-item">Visual Design</div><div class="sg-item">Interaction Design</div><div class="sg-item">Design Systems</div><div class="sg-item">Prototyping</div></div>
+      </div>
+      <div class="tools-row glass" style="margin-top:14px"><span class="tools-lbl">Tools</span><div class="tools-items"><span class="tool">Figma</span><span class="tool">FigJam</span><span class="tool">Claude Code</span><span class="tool">Gemini</span></div></div>
+    </div>
+    <div class="lab-col is-lab"><span class="lab-tag">Lab</span>
+      <div class="sg glass lab-sg" style="max-width:300px">
+        <div class="sg-head">Design</div>
+        <div class="sg-items"><div class="sg-item">Product Design</div><div class="sg-item">Visual Design</div><div class="sg-item">Interaction Design</div><div class="sg-item">Design Systems</div><div class="sg-item">Prototyping</div></div>
+      </div>
+      <div class="tools-row glass" style="margin-top:14px"><span class="tools-lbl">Tools</span><div class="tools-items"><span class="tool lab-tool">Figma</span><span class="tool lab-tool">FigJam</span><span class="tool lab-tool">Claude Code</span><span class="tool lab-tool">Gemini</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── 8. CONTACT ROWS ───────── -->
+<section class="lab-sec" id="s-contact">
+  <div class="sec-label">08</div>
+  <h2 class="sec-title">Contact rows</h2>
+  <p class="lab-why">Now: the row shifts 4px right and the arrow moves. Lab: an orange wash sweeps in from the left, a short highlight runs around the border while you hover (a "border beam"), the arrow pops with a small overshoot, and clicking the email copies it and shows a green tick plus a toast, instead of opening a mail app nobody uses on a laptop. (LinkedIn and the resume still open normally.)</p>
+  <div class="lab-pair">
+    <div class="lab-col"><span class="lab-tag">Now</span>
+      <div class="contact-links">
+        <a href="#s-contact" class="c-item glass" style="border:1px solid rgba(255,255,255,.07)"><div><div class="c-lbl">Email</div><div class="c-val">tedpotter23@gmail.com</div></div><span class="c-arr">↗</span></a>
+        <a href="#s-contact" class="c-item glass" style="border:1px solid rgba(255,255,255,.07)"><div><div class="c-lbl">Resume</div><div class="c-val">Download PDF</div></div><span class="c-arr">↓</span></a>
+      </div>
+    </div>
+    <div class="lab-col is-lab"><span class="lab-tag">Lab</span>
+      <div class="contact-links">
+        <a href="mailto:tedpotter23@gmail.com" data-copy="tedpotter23@gmail.com" class="c-item glass lab-c" style="border:1px solid rgba(255,255,255,.07)"><div><div class="c-lbl">Email</div><div class="c-val">tedpotter23@gmail.com</div></div><span class="lab-copied">Copied ✓</span><span class="c-arr">⧉</span></a>
+        <a href="#s-contact" class="c-item glass lab-c" style="border:1px solid rgba(255,255,255,.07)"><div><div class="c-lbl">Resume</div><div class="c-val">Download PDF</div></div><span class="c-arr">↓</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── 9. TIMELINE ───────── -->
+<section class="lab-sec" id="s-timeline">
+  <div class="sec-label">09</div>
+  <h2 class="sec-title">Timeline</h2>
+  <p class="lab-why">Now: the career rows do nothing on hover. Lab: an orange bar draws down the left edge, the year and company light up, and the description lifts from 38% to 60% white. It says "this row is a thing" without making it a link.</p>
+  <div class="lab-pair">
+    <div class="lab-col"><span class="lab-tag">Now</span>
+      <div class="tl"><div class="tl-yr">2022–2026</div><div><div class="tl-co">Invoca</div><div class="tl-ro">Senior UX Designer · AI &amp; Contact Center</div><div class="tl-desc">Designed contact center workflows that drove millions in ARR, then shifted into LLM evaluation interfaces.</div></div></div>
+      <div class="tl"><div class="tl-yr">2018–2022</div><div><div class="tl-co">Neudesic</div><div class="tl-ro">Senior UX Consultant · Enterprise</div><div class="tl-desc">Led UX on million-dollar engagements for Discount Tire, VASA Fitness, Isagenix, and others.</div></div></div>
+    </div>
+    <div class="lab-col is-lab lab-tl"><span class="lab-tag">Lab</span>
+      <div class="tl"><div class="tl-yr">2022–2026</div><div><div class="tl-co">Invoca</div><div class="tl-ro">Senior UX Designer · AI &amp; Contact Center</div><div class="tl-desc">Designed contact center workflows that drove millions in ARR, then shifted into LLM evaluation interfaces.</div></div></div>
+      <div class="tl"><div class="tl-yr">2018–2022</div><div><div class="tl-co">Neudesic</div><div class="tl-ro">Senior UX Consultant · Enterprise</div><div class="tl-desc">Led UX on million-dollar engagements for Discount Tire, VASA Fitness, Isagenix, and others.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── 10. CASE STUDY BITS ───────── -->
+<section class="lab-sec" id="s-case">
+  <div class="sec-label">10</div>
+  <h2 class="sec-title">Case study bits</h2>
+  <p class="lab-why">Three things for the case study pages. Impact numbers count up when they scroll into view, with <code>tabular-nums</code> so the digits do not wobble; the digits are dim while they move and turn solid white when they land. Big images wipe in from the top as you reach them, settling from a 6% zoom. Inline links draw their underline instead of just changing color.</p>
+  <div class="lab-pair">
+    <div class="lab-col"><span class="lab-tag">Now</span>
+      <div class="lab-row" style="gap:40px;margin-bottom:22px">
+        <div><div class="cs-stat-num lab-stat">48,000</div><span class="lab-note">dead listings caught</span></div>
+        <div><div class="cs-stat-num lab-stat">170,000+</div><span class="lab-note">live listings</span></div>
+      </div>
+      <div style="border-radius:14px;overflow:hidden;aspect-ratio:3/2"><img src="../../images/home/interos-thumbv2.png" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+      <p class="lab-note">A link in body copy: <a href="#s-case" style="color:#38bdf8">matchmoth.com</a>.</p>
+    </div>
+    <div class="lab-col is-lab"><span class="lab-tag">Lab</span>
+      <div class="lab-row" style="gap:40px;margin-bottom:22px">
+        <div><div class="lab-stat" data-count="48000">0</div><span class="lab-note">dead listings caught</span></div>
+        <div><div class="lab-stat" data-count="170000" data-suffix="+">0+</div><span class="lab-note">live listings</span></div>
+      </div>
+      <div class="lab-wipe" style="border-radius:14px;overflow:hidden;aspect-ratio:3/2"><img src="../../images/home/interos-thumbv2.png" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+      <p class="lab-note">A link in body copy: <a href="#s-case" class="lab-link">matchmoth.com</a>.</p>
+      <button class="lab-replay" type="button">Replay</button>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── 11. TEXTURE & DEPTH ───────── -->
+<section class="lab-sec" id="s-texture">
+  <div class="sec-label">11</div>
+  <h2 class="sec-title">Texture &amp; depth</h2>
+  <p class="lab-why">Now: flat 5% white glass with a 6% top highlight. Lab: a top-to-bottom gradient (7% to 3.5%), a brighter 14% hairline on the top edge so the card reads as lit from above, and a very faint film grain from an SVG noise filter (no image file). Toggle <b>Grain</b> in the top bar. This is most of what separates "flat" from "premium" on dark UI.</p>
+  <div class="lab-pair">
+    <div class="lab-col"><span class="lab-tag">Now</span>
+      <div class="about-card glass"><div class="about-card-label">Bio</div><p>I'm a builder at heart. The more interesting the problem, the more I want to pull it apart.</p></div>
+    </div>
+    <div class="lab-col is-lab"><span class="lab-tag">Lab</span>
+      <div class="about-card lab-glass"><div class="about-card-label">Bio</div><p>I'm a builder at heart. The more interesting the problem, the more I want to pull it apart.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── 12. PAGE TRANSITION ───────── -->
+<section class="lab-sec" id="s-page">
+  <div class="sec-label">12</div>
+  <h2 class="sec-title">Page transition</h2>
+  <p class="lab-why">Now: clicking a case study card flashes to a white-then-dark new page. Lab: the old page fades out in 180ms and the new one fades up 8px in 260ms. This is one CSS rule, <code>@view-transition { navigation: auto }</code>, on both pages. Works in Chrome, Edge and Safari 18.2+. Firefox just loads the page as before.</p>
+  <div class="lab-pair stack">
+    <div class="lab-col is-lab"><span class="lab-tag">Lab</span>
+      <p style="margin-bottom:14px"><span class="lab-vt">Checking…</span></p>
+      <a href="two.html" class="btn btn-ghost lab-btn">Open the second page <span class="arr">→</span></a>
+      <p class="lab-note">Then use its link to come back. The old page fades, the new one rises 28px. No JS involved. If the badge above says "not supported", open this page in Chrome or Edge.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── NOTES ───────── -->
+<section class="lab-sec" id="s-notes">
+  <div class="sec-label">Notes</div>
+  <h2 class="sec-title">Libraries, if we want them</h2>
+  <p class="lab-why">Everything above is zero dependencies. Three things are nicer with a library, and they are optional:</p>
+  <div class="lab-grid3">
+    <div class="lab-mini glass"><b style="font-size:20px">Motion</b><span>motion.dev, MIT, ~5kb from a CDN. Real springs for the magnetic pull and chip pops, and exit animations (a card that shrinks away). Vanilla JS, no React needed.</span></div>
+    <div class="lab-mini glass"><b style="font-size:20px">Lenis</b><span>~3kb. Smooth, weighted scrolling. It is the standard on award sites, but it also changes how scrolling feels for everyone, so try it before committing. <a class="lab-link" href="https://lenis.darkroom.engineering/" target="_blank" rel="noopener">Live demo</a> · <a class="lab-link" href="https://github.com/darkroomengineering/lenis" target="_blank" rel="noopener">GitHub</a></span></div>
+    <div class="lab-mini glass"><b style="font-size:20px">GSAP</b><span>Free since 3.13. Only worth it for pinned, scrubbed, cinematic scroll sections. Overkill for this site today. <a class="lab-link" href="https://gsap.com/showcase/" target="_blank" rel="noopener">Showcase</a> · <a class="lab-link" href="https://gsap.com/scroll/" target="_blank" rel="noopener">ScrollTrigger demos</a></span></div>
+  </div>
+  <p class="lab-note" style="margin-top:22px">Rules used throughout, from animations.dev: under 300ms, ease-out for anything entering, only <code>transform</code> and <code>opacity</code>, press at 97% not smaller, stagger 30–80ms, no motion for touch or reduced-motion users.</p>
+</section>
+
+<footer><p>Interaction lab · not linked from the site</p><p><a href="../../" style="color:rgba(255,255,255,.5)">Back to the site</a></p></footer>
+
+<script src="lab.js"></script>
+</body>
+</html>
