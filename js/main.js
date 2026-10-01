@@ -189,13 +189,11 @@
 /* ── CURSOR ── */
 const cur  = document.getElementById('cur');
 const ring = document.getElementById('curRing');
-const curLabel = document.getElementById('curLabel');   // homepage only
 let mx = window.innerWidth / 2, my = window.innerHeight / 2, rx = mx, ry = my;
 
 document.addEventListener('mousemove', e => {
   mx = e.clientX; my = e.clientY;
   cur.style.left = mx + 'px'; cur.style.top = my + 'px';
-  if (curLabel) { curLabel.style.left = mx + 'px'; curLabel.style.top = my + 'px'; }
 });
 (function animateRing() {
   rx += (mx - rx) * .18; ry += (my - ry) * .18;   // tighter lag so the ring feels attached
@@ -203,7 +201,7 @@ document.addEventListener('mousemove', e => {
   requestAnimationFrame(animateRing);
 })();
 // States: grow over anything clickable, tighten while pressed, hide over text
-// fields so the I-beam shows, and show "View" over a work card.
+// fields so the I-beam shows.
 (function(){
   const clickable = 'a, button, [role=button], label, input, select, textarea';
   document.addEventListener('mouseover', e => {
@@ -211,7 +209,6 @@ document.addEventListener('mousemove', e => {
     const txt = e.target.closest('input, textarea, select');
     ring.classList.toggle('is-link', !!t && !txt); cur.classList.toggle('is-link', !!t && !txt);
     ring.classList.toggle('is-text', !!txt); cur.classList.toggle('is-text', !!txt);
-    if (curLabel) curLabel.classList.toggle('on', !!e.target.closest('.work-card'));
   });
   document.addEventListener('mousedown', () => ring.classList.add('is-down'));
   document.addEventListener('mouseup', () => ring.classList.remove('is-down'));
