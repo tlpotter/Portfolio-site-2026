@@ -254,22 +254,10 @@ document.addEventListener('mousemove', e => {
   window.addEventListener('pagereveal', e => quiet(e.viewTransition));
 })();
 
-/* ── POINTER EFFECTS: magnetic buttons, card spotlight ── */
-/* Fine pointers only. Reduced motion gets the plain version. */
+/* ── POINTER EFFECTS: card spotlight ── */
+/* Fine pointers only. */
 (function(){
   if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
-  const motionOK = () => !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  // Buttons lean up to 6px toward the pointer and spring back on leave.
-  document.querySelectorAll('.btn').forEach(el => {
-    el.addEventListener('mousemove', e => {
-      if (!motionOK()) return;
-      const r = el.getBoundingClientRect();
-      const dx = (e.clientX - (r.left + r.width / 2)) * .25, dy = (e.clientY - (r.top + r.height / 2)) * .25;
-      el.style.setProperty('--mx', Math.max(-6, Math.min(6, dx)) + 'px');
-      el.style.setProperty('--my', Math.max(-6, Math.min(6, dy)) + 'px');
-    });
-    el.addEventListener('mouseleave', () => { el.style.setProperty('--mx', '0px'); el.style.setProperty('--my', '0px'); });
-  });
   // Cards: one pointermove sets the two custom properties the CSS gradients read.
   document.querySelectorAll('.work-card').forEach(card => {
     card.addEventListener('pointermove', e => {
@@ -406,7 +394,7 @@ function drawPortal(canvas, opts) {
   // ── Shooting stars ──
   const shooters = [];
   setInterval(() => {
-    if (document.hidden || !opts.shooters) return;
+    if (document.hidden || !opts.shooters || shooters.length >= 2) return;
     shooters.push({
       x: Math.random() * W, y: Math.random() * H * .5,
       vx: 2 + Math.random() * 5, vy: .3 + Math.random() * 1.2,
@@ -841,6 +829,7 @@ function drawPortal(canvas, opts) {
     }
 
     // ── Shooting stars ──
+    if (!opts.shooters) shooters.length = 0;
     for (let i = shooters.length - 1; i >= 0; i--) {
       const s = shooters[i]; s.x += s.vx; s.y += s.vy; s.life -= s.decay;
       if (s.life <= 0 || s.x > W + 50) { shooters.splice(i, 1); continue; }
@@ -1626,7 +1615,7 @@ const BH_QUALITY = {
     ringCount: 9,
     starMask: true,
     upperEffectsClip: true,
-    shooters: false,
+    shooters: true,
     desktopDiscCount: 220,
     desktopStarCount: 300
   },
@@ -1643,7 +1632,7 @@ const BH_QUALITY = {
     ringCount: 7,
     starMask: false,
     upperEffectsClip: false,
-    shooters: false,
+    shooters: true,
     desktopDiscCount: 150,
     desktopStarCount: 180
   }
@@ -1745,7 +1734,9 @@ function resizeBH() {
   bhOpts.starCount     = mobile ? 80    : q.desktopStarCount;
   bhOpts.particleMult  = mobile ? 0.75  : 1.0;
   bhOpts.particleVar   = mobile ? 1.0   : 1.0;
-  bhOpts.shooters      = !mobile && q.shooters;
+  // Comets are inexpensive and should not disappear with the quality tier.
+  // Honor the viewer's motion preference on both desktop and mobile.
+  bhOpts.shooters      = q.shooters && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   bhOpts.lensing       = !mobile && q.lensing; // pixel-by-pixel GPU readback is too slow on mobile/low tier
 }
 if (bh) {
@@ -1753,6 +1744,7 @@ if (bh) {
   bhOpts.onQualityChange = (tier) => applyBHQuality(tier, { persist: true, resize: true });
   resizeBH();
   window.addEventListener('resize', resizeBH);
+  window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', resizeBH);
   drawPortal(bh, bhOpts);
 }
 
