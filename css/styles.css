@@ -111,7 +111,13 @@ nav.scrolled:hover{opacity:1}
   overflow:visible;background:transparent;z-index:3;
   pointer-events:none;
 }
-#bhCanvas{position:absolute;top:0;left:0;z-index:2}
+/* The faint backdrop tint under the hero drawing and the fade over its top
+   edge live here rather than as canvas fills (see bhOpts in main.js). Stops
+   mirror the old canvas gradient: it ran over the top half of the canvas. */
+#bhCanvas{position:absolute;top:0;left:0;z-index:2;
+  background:linear-gradient(to bottom,rgba(1,2,5,.18) 0%,rgba(2,6,16,.144) 15%,rgba(3,11,26,.099) 29%,rgba(2,9,20,.061) 36%,rgba(2,7,14,.032) 42%,rgba(2,6,10,.011) 46.5%,rgba(2,6,8,0) 50%)}
+#hero::before{content:"";position:absolute;left:0;right:0;top:0;height:54%;z-index:0;pointer-events:none;
+  background:linear-gradient(to bottom,rgba(1,2,5,.85) 0%,rgba(1,2,5,.18) 55%,rgba(1,2,5,0) 100%)}
 #starField{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none}
 
 .hero-content{--hero-text-gap:8px;position:relative;z-index:2;text-align:left;display:flex;flex-direction:column;align-items:flex-start;gap:var(--hero-text-gap);pointer-events:auto;width:calc(100% - 120px);max-width:900px;margin-inline:auto}

@@ -142,6 +142,9 @@
     const mobileStep = vw < 800 ? 2 : 1;
     const qualityStep = tier === 'low' ? 2 : 1;
     const step = mobileStep * qualityStep;
+    // One arc + fill per star. Don't merge these into Path2D buckets: a path
+    // with 2,000 subpaths falls off the GPU's circle fast path and gets
+    // rasterised in software, which measured 3-4x slower than this loop.
     for (let i = 0; i < stars.length; i += step) {
       const s = stars[i];
       s.phase += s.speed;
@@ -510,32 +513,32 @@ function drawPortal(canvas, opts) {
   buildLUT();
 
   // ── 3-pass bloom for arch rings ──
-  function drawArchRing(ox, oy, r, brightness, rC, gC, bC, pulse) {
+  function drawArchRing(c, ox, oy, r, brightness, rC, gC, bC, pulse) {
     const rr = r * pulse;
     const ry = rr * 0.34;
-    ctx.save();
-    ctx.shadowBlur = 80 * brightness;
-    ctx.shadowColor = `rgba(${rC},${gC},${bC},${brightness * .55})`;
-    ctx.strokeStyle = `rgba(${rC},${gC},${bC},${brightness * .1})`;
-    ctx.lineWidth = 22 * brightness + 5;
-    ctx.beginPath(); ctx.ellipse(ox, oy, rr, ry, 0, 0, Math.PI * 2); ctx.stroke();
-    ctx.restore();
+    c.save();
+    c.shadowBlur = 80 * brightness;
+    c.shadowColor = `rgba(${rC},${gC},${bC},${brightness * .55})`;
+    c.strokeStyle = `rgba(${rC},${gC},${bC},${brightness * .1})`;
+    c.lineWidth = 22 * brightness + 5;
+    c.beginPath(); c.ellipse(ox, oy, rr, ry, 0, 0, Math.PI * 2); c.stroke();
+    c.restore();
 
-    ctx.save();
-    ctx.shadowBlur = 28 * brightness;
-    ctx.shadowColor = `rgba(${rC},${gC},${bC},${brightness * .9})`;
-    ctx.strokeStyle = `rgba(${rC},${gC},${bC},${brightness * .5})`;
-    ctx.lineWidth = 6 * brightness + 1.5;
-    ctx.beginPath(); ctx.ellipse(ox, oy, rr, ry, 0, 0, Math.PI * 2); ctx.stroke();
-    ctx.restore();
+    c.save();
+    c.shadowBlur = 28 * brightness;
+    c.shadowColor = `rgba(${rC},${gC},${bC},${brightness * .9})`;
+    c.strokeStyle = `rgba(${rC},${gC},${bC},${brightness * .5})`;
+    c.lineWidth = 6 * brightness + 1.5;
+    c.beginPath(); c.ellipse(ox, oy, rr, ry, 0, 0, Math.PI * 2); c.stroke();
+    c.restore();
 
-    ctx.save();
-    ctx.shadowBlur = 8;
-    ctx.shadowColor = `rgba(255,248,235,${brightness})`;
-    ctx.strokeStyle = `rgba(255,252,245,${brightness * .92})`;
-    ctx.lineWidth = 1.1;
-    ctx.beginPath(); ctx.ellipse(ox, oy, rr, ry, 0, 0, Math.PI * 2); ctx.stroke();
-    ctx.restore();
+    c.save();
+    c.shadowBlur = 8;
+    c.shadowColor = `rgba(255,248,235,${brightness})`;
+    c.strokeStyle = `rgba(255,252,245,${brightness * .92})`;
+    c.lineWidth = 1.1;
+    c.beginPath(); c.ellipse(ox, oy, rr, ry, 0, 0, Math.PI * 2); c.stroke();
+    c.restore();
   }
 
   function drawPlanetGlow(ctx, px, py, radius, rC, gC, bC, alpha) {
@@ -657,25 +660,136 @@ function drawPortal(canvas, opts) {
   let cachedBg = null, cachedBgW = 0, cachedBgH = 0;
   // Static sphere gradient cache — rebuilt only when ox/oy/sR change
   let cachedSphere = null, cachedSphereKey = '';
+
+  // ── Glow sprites ──
+  // The arch rings, orbit rings, photon ring and planet trail were stroked
+  // with large shadowBlur radii every frame. Each blur is a multi-pass GPU
+  // filter; on a 2016 MacBook Pro (Intel HD 530) those passes alone held the
+  // hero under 5 fps while the JS thread sat 90% idle. The shapes only change
+  // with the layout, so they're rasterised once per geometry key and blitted.
+  // The per-ring radius pulse (at most 1.6%) and the collapse scale become one
+  // transform around the origin.
+  const dpr = () => canvas._bhDpr || 1;
+  let ringSprites = null, ringKey = '';
+  function buildRingSprites(ox, oy, minR, maxR, numRings) {
+    const margin = 110; // room for the widest shadowBlur
+    const bw = Math.ceil(maxR * 2 + margin * 2), bh = Math.ceil(maxR * 0.34 * 2 + margin * 2);
+    const bx = ox - maxR - margin, by = oy - maxR * 0.34 - margin;
+    const make = () => {
+      const c = document.createElement('canvas');
+      c.width = Math.ceil(bw * dpr()); c.height = Math.ceil(bh * dpr());
+      const x = c.getContext('2d'); x.setTransform(dpr(), 0, 0, dpr(), 0, 0); x.translate(-bx, -by);
+      return [c, x];
+    };
+    const [back, bctx] = make(), [front, fctx] = make();
+    const arch = i => {
+      const pct = i / (numRings - 1);
+      return { r: minR + (maxR - minR) * (pct * pct * .8 + pct * .2), brightness: Math.pow(1 - pct * .87, 1.3),
+               rC: Math.round(255 * (1 - pct * .95)), gC: Math.round(200 - pct * 30), bC: Math.round(90 + pct * 165) };
+    };
+    const orbitRing = (x, i, a0, a1) => {
+      const fr = fullRings[i];
+      const r = minR + (maxR - minR) * fr.radiusFrac, bright = .12 + (5 - i) * .022;
+      const rC = fr.isOrange ? 255 : 30, gC = fr.isOrange ? 110 : 180, bC = fr.isOrange ? 20 : 255;
+      x.strokeStyle = `rgba(${rC},${gC},${bC},${bright * .3})`; x.lineWidth = 1.5 + bright * 3;
+      x.beginPath(); x.ellipse(ox, oy, r, r * 0.34, 0, a0, a1); x.stroke();
+    };
+    // Back: orbit rings' top arcs, then the arch rings in full with their glow.
+    fullRings.forEach((_, i) => orbitRing(bctx, i, Math.PI, Math.PI * 2));
+    for (let i = 0; i < numRings; i++) { const g = arch(i); drawArchRing(bctx, ox, oy, g.r, g.brightness, g.rC, g.gC, g.bC, 1); }
+    // Front: bottom arcs only, drawn over the sphere.
+    fullRings.forEach((_, i) => orbitRing(fctx, i, 0, Math.PI));
+    for (let i = 0; i < numRings; i++) {
+      const g = arch(i), b = g.brightness * 0.6;
+      fctx.save();
+      fctx.strokeStyle = `rgba(${g.rC},${g.gC},${g.bC},${b * .4})`; fctx.lineWidth = 6 * b + 1.5;
+      fctx.shadowBlur = 20 * b; fctx.shadowColor = `rgba(${g.rC},${g.gC},${g.bC},${b * .8})`;
+      fctx.beginPath(); fctx.ellipse(ox, oy, g.r, g.r * 0.34, 0, 0, Math.PI); fctx.stroke();
+      fctx.restore();
+    }
+    return { back, front, bx, by, bw, bh };
+  }
+  function blitAround(img, ox, oy, scale, x, y, w, h) {
+    if (scale <= 0.001) return;
+    ctx.save(); ctx.translate(ox, oy); ctx.scale(scale, scale); ctx.translate(-ox, -oy);
+    ctx.drawImage(img, x, y, w, h); ctx.restore();
+  }
+  // Photon ring: the one shadowBlur stroke around the sphere, 52px wide.
+  let photonSprite = null, photonKey = '';
+  function buildPhotonSprite(ox, oy, sR) {
+    const m = 70, size = sR * 1.02 * 2 + m * 2, x0 = ox - size / 2, y0 = oy - size / 2;
+    const c = document.createElement('canvas');
+    c.width = c.height = Math.ceil(size * dpr());
+    const x = c.getContext('2d'); x.setTransform(dpr(), 0, 0, dpr(), 0, 0); x.translate(-x0, -y0);
+    x.shadowBlur = 52; x.shadowColor = 'rgba(255,140,20,1)';
+    x.strokeStyle = 'rgba(255,160,50,1)'; x.lineWidth = 3.2;
+    x.beginPath(); x.arc(ox, oy, sR * 1.02, 0, Math.PI * 2); x.stroke();
+    return { img: c, x: x0, y: y0, size };
+  }
+  // Soft dot for planet trails, one per colour, in place of a blurred fill.
+  const dotSprites = new Map();
+  function softDot(rC, gC, bC) {
+    const k = `${rC},${gC},${bC}`;
+    let c = dotSprites.get(k);
+    if (!c) {
+      c = document.createElement('canvas'); c.width = c.height = 64;
+      const x = c.getContext('2d'), g = x.createRadialGradient(32, 32, 0, 32, 32, 32);
+      g.addColorStop(0, `rgba(${k},1)`); g.addColorStop(.45, `rgba(${k},.55)`); g.addColorStop(1, `rgba(${k},0)`);
+      x.fillStyle = g; x.fillRect(0, 0, 64, 64);
+      dotSprites.set(k, c);
+    }
+    return c;
+  }
+  let glowSprite = null, glowKey = '';
+  function buildGlowSprite(ox, oy, sR, systemW) {
+    const sc = 0.25, c = document.createElement('canvas');
+    c.width = Math.max(1, Math.round(W * sc)); c.height = Math.max(1, Math.round(H * sc));
+    const x = c.getContext('2d'); x.scale(sc, sc);
+    const pool = x.createRadialGradient(ox, oy, 0, ox, oy, systemW * .6);
+    pool.addColorStop(0,   'rgba(0,80,160,.15)');
+    pool.addColorStop(.18, 'rgba(0,50,120,.10)');
+    pool.addColorStop(.4,  'rgba(0,150,255,.06)');
+    pool.addColorStop(.7,  'rgba(0,60,180,.02)');
+    pool.addColorStop(1,   'rgba(0,10,40,0)');
+    x.fillStyle = pool; x.fillRect(0, 0, W, H);
+    const halo = x.createRadialGradient(ox, oy, sR * 1.2, ox, oy, systemW * 0.82);
+    halo.addColorStop(0,    'rgba(0,100,220,.10)');
+    halo.addColorStop(0.18, 'rgba(0,80,200,.08)');
+    halo.addColorStop(0.38, 'rgba(10,60,180,.05)');
+    halo.addColorStop(0.62, 'rgba(5,30,120,.02)');
+    halo.addColorStop(1,    'rgba(0,10,40,0)');
+    x.fillStyle = halo; x.fillRect(0, 0, W, H);
+    return c;
+  }
   let bhVisible = true;
   let pageVisible = !document.hidden;
-  const perf = { samples: [], cooldownUntil: 0 };
-  function maybeAdaptQuality(renderCost) {
+  // Adaptive quality watches the gap between rendered frames, not the time
+  // spent inside frame(). Canvas work is rasterised on the GPU after the JS
+  // returns, so on a machine whose GPU is the bottleneck the script time stays
+  // at a few ms while the page runs at 5 fps. The old check measured script
+  // time and never demoted on exactly the machines it existed for.
+  const perf = { samples: [], cooldownUntil: 0, prev: 0, warmupUntil: 0 };
+  function maybeAdaptQuality(now) {
     if (!opts.onQualityChange || !opts.qualityTier || opts.qualityTier === 'low') return;
-    const now = performance.now();
-    if (now < perf.cooldownUntil) return;
-    perf.samples.push(renderCost);
-    if (perf.samples.length < 60) return;
+    if (!perf.warmupUntil) perf.warmupUntil = now + 2000; // skip the intro animations
+    const prev = perf.prev; perf.prev = now;
+    if (!prev || now < perf.warmupUntil || now < perf.cooldownUntil) return;
+    const dt = now - prev;
+    if (dt > 1000) return; // a tab switch or stall, not a render cost
+    perf.samples.push(dt);
+    if (perf.samples.length < 90) return;
 
     const samples = perf.samples.slice().sort((a, b) => a - b);
     const avg = perf.samples.reduce((sum, v) => sum + v, 0) / perf.samples.length;
     const p95 = samples[Math.floor(samples.length * 0.95)];
     perf.samples.length = 0;
 
+    // Judged against the tier's own target gap (16 ms high, 33 ms medium).
+    const target = opts.frameGap || 16;
     let nextTier = opts.qualityTier;
-    if (opts.qualityTier === 'high' && (avg > 18 || p95 > 28)) {
-      nextTier = (avg > 28 || p95 > 45) ? 'low' : 'medium';
-    } else if (opts.qualityTier === 'medium' && (avg > 24 || p95 > 38)) {
+    if (opts.qualityTier === 'high' && (avg > target * 1.6 || p95 > target * 2.5)) {
+      nextTier = avg > target * 3 ? 'low' : 'medium';
+    } else if (opts.qualityTier === 'medium' && (avg > target * 1.5 || p95 > target * 2.2)) {
       nextTier = 'low';
     }
 
@@ -705,7 +819,6 @@ function drawPortal(canvas, opts) {
     const minGap = opts.frameGap || (opts.lensing ? 16 : 33); // adaptive quality controls target fps
     if (now - lastFrameTime < minGap) { requestAnimationFrame(frame); return; }
     lastFrameTime = now;
-    const renderStart = performance.now();
     t += .009 * (opts.speedMult || 1); fc++;
     W = canvas._bhCssW || canvas.width; H = canvas._bhCssH || canvas.height;
     useLensing = opts.skyLayer !== false && opts.lensing === true; // re-check after resize/tier changes
@@ -735,7 +848,7 @@ function drawPortal(canvas, opts) {
     // ── Subtle backdrop tint — cached, only rebuild on resize ──
     // Keep this translucent so the crisp fixed page sky remains visible through
     // the hero instead of being replaced by a second, opaque canvas background.
-    if (!cachedBg || W !== cachedBgW || H !== cachedBgH) {
+    if (opts.backdropAlpha !== 0 && (!cachedBg || W !== cachedBgW || H !== cachedBgH)) {
       const bgA = opts.backdropAlpha !== undefined ? opts.backdropAlpha : 1;
       const bgDepth = opts.backdropDepth !== undefined ? opts.backdropDepth : 1;
       cachedBg = ctx.createLinearGradient(0, 0, 0, H * bgDepth);
@@ -748,7 +861,7 @@ function drawPortal(canvas, opts) {
       cachedBg.addColorStop(1,    'rgba(2,6,8,0)');
       cachedBgW = W; cachedBgH = H;
     }
-    ctx.fillStyle = cachedBg; ctx.fillRect(0, 0, W, H);
+    if (cachedBg) { ctx.fillStyle = cachedBg; ctx.fillRect(0, 0, W, H); }
 
     // ── Optional portal-local sky (disabled on the homepage) ──
     if (opts.skyLayer !== false) {
@@ -880,57 +993,26 @@ function drawPortal(canvas, opts) {
     const ambientGlowA = opts.ambientGlowAlpha !== undefined ? opts.ambientGlowAlpha : 1;
     ctx.save(); ctx.globalAlpha = glowA * ambientGlowA;
 
-    const pool = ctx.createRadialGradient(ox, oy, 0, ox, oy, systemW * .6);
-    pool.addColorStop(0,   `rgba(0,80,160,${.15 + Math.sin(t * .7) * .03})`);
-    pool.addColorStop(.18, `rgba(0,50,120,${.10 + Math.sin(t * .5) * .02})`);
-    pool.addColorStop(.4,  `rgba(0,150,255,${.06 + Math.sin(t * .4) * .01})`);
-    pool.addColorStop(.7,  'rgba(0,60,180,.02)');
-    pool.addColorStop(1,   'rgba(0,10,40,0)');
-    ctx.fillStyle = pool; ctx.fillRect(0, 0, W, H);
-
-    // ── Extended blue halo — behind entire graphic, outside clip ──
-    const halo = ctx.createRadialGradient(ox, oy, sR * 1.2, ox, oy, systemW * 0.82);
-    halo.addColorStop(0,    `rgba(0,100,220,${0.10 + Math.sin(t * 0.4) * 0.02})`);
-    halo.addColorStop(0.18, `rgba(0,80,200,${0.08 + Math.sin(t * 0.3) * 0.01})`);
-    halo.addColorStop(0.38, `rgba(10,60,180,${0.05 + Math.sin(t * 0.5) * 0.01})`);
-    halo.addColorStop(0.62, `rgba(5,30,120,0.02)`);
-    halo.addColorStop(1,    'rgba(0,10,40,0)');
-    ctx.fillStyle = halo; ctx.fillRect(0, 0, W, H);
+    // The pool and the extended blue halo used to be two radial gradients
+    // filled across the whole canvas every frame. They're smooth, so they're
+    // rendered once at quarter resolution and blitted with a pulsing alpha.
+    const gk = `${ox|0}_${oy|0}_${sR|0}_${systemW|0}_${W}_${H}`;
+    if (gk !== glowKey) { glowSprite = buildGlowSprite(ox, oy, sR, systemW); glowKey = gk; }
+    ctx.globalAlpha *= 1 + Math.sin(t * .55) * .15;
+    ctx.drawImage(glowSprite, 0, 0, W, H);
 
     ctx.restore();
 
     // ── Disc / rings alpha (collapsed or fading) ──
     ctx.save(); ctx.globalAlpha = discA;
 
-    // ── Rings back half (behind sphere) — top arc only ──
-    fullRings.forEach((fr, i) => {
-      fr.hotAngle += fr.hotSpeed;
-      const r      = (minR + (maxR - minR) * fr.radiusFrac) * colS;
-      const bright = .12 + (5 - i) * .022;
-      const rC     = fr.isOrange ? 255 : 30;
-      const gC     = fr.isOrange ? 110 : 180;
-      const bC     = fr.isOrange ? 20  : 255;
-      const rOval  = r * (1 + Math.sin(t * .6 + i * .5) * .01);
-      ctx.save();
-      ctx.shadowBlur  = 14 * bright * sb;
-      ctx.shadowColor = `rgba(${rC},${gC},${bC},${bright * .7})`;
-      ctx.strokeStyle = `rgba(${rC},${gC},${bC},${bright * .3})`;
-      ctx.lineWidth   = 1.5 + bright * 3;
-      ctx.beginPath(); ctx.ellipse(ox, oy, rOval, rOval * 0.34, 0, Math.PI, Math.PI * 2); ctx.stroke();
-      ctx.restore();
-    });
-
+    // ── Rings (behind sphere) — cached sprites, see buildRingSprites ──
+    fullRings.forEach(fr => { fr.hotAngle += fr.hotSpeed; });
     const numRings = opts.ringCount || 11;
-    for (let i = 0; i < numRings; i++) {
-      const pct        = i / (numRings - 1);
-      const r          = (minR + (maxR - minR) * (pct * pct * .8 + pct * .2)) * colS;
-      const brightness = Math.pow(1 - pct * .87, 1.3);
-      const pulse      = 1 + Math.sin(t * .85 + i * .42) * .016;
-      const rC         = Math.round(255 * (1 - pct * .95));
-      const gC         = Math.round(200 - pct * 30);
-      const bC         = Math.round(90 + pct * 165);
-      drawArchRing(ox, oy, r, brightness, rC, gC, bC, pulse);
-    }
+    const rk = `${ox|0}_${oy|0}_${minR|0}_${maxR|0}_${numRings}_${dpr()}`;
+    if (rk !== ringKey) { ringSprites = buildRingSprites(ox, oy, minR, maxR, numRings); ringKey = rk; }
+    const ringScale = colS * (1 + Math.sin(t * .85) * .012);
+    blitAround(ringSprites.back, ox, oy, ringScale, ringSprites.bx, ringSprites.by, ringSprites.bw, ringSprites.bh);
 
     // ── Disc back half ──
     const suckB = opts.suckBoost || 1;
@@ -1147,14 +1229,19 @@ function drawPortal(canvas, opts) {
       fg.addColorStop(.25, `rgba(255,150,30,${opacity * .75})`);
       fg.addColorStop(.65, `rgba(255,80,0,${opacity * .4})`);
       fg.addColorStop(1,   'rgba(255,40,0,0)');
-      ctx.shadowBlur  = sR * .9;
-      ctx.shadowColor = `rgba(255,130,20,${opacity * .65})`;
       // Draw organic curved flare shape using quadratic bezier sides
       ctx.beginPath();
       ctx.moveTo(b1x, b1y);
       ctx.quadraticCurveTo(cp1x, cp1y, tipX, tipY);
       ctx.quadraticCurveTo(cp2x, cp2y, b2x, b2y);
       ctx.closePath();
+      // Glow: a wide, faint stroke of the same outline in place of the old
+      // sR*.9 shadowBlur, which by itself cost about 40% of the frame on an
+      // Intel GPU (one or two flares are alive most of the time).
+      const ga = ctx.globalAlpha;
+      ctx.lineJoin = 'round'; ctx.lineWidth = baseW * 1.6;
+      ctx.strokeStyle = fg; ctx.globalAlpha = ga * .3; ctx.stroke();
+      ctx.globalAlpha = ga;
       ctx.fillStyle = fg;
       ctx.fill();
       // Secondary wispy strand — thinner, slightly offset
@@ -1180,11 +1267,10 @@ function drawPortal(canvas, opts) {
     ih.addColorStop(1,   'rgba(255,80,0,0)');
     ctx.beginPath(); ctx.arc(ox, oy, sR * 1.45 * gs, 0, Math.PI * 2); ctx.fillStyle = ih; ctx.fill();
 
-    ctx.save();
-    ctx.shadowBlur = 52; ctx.shadowColor = `rgba(255,140,20,${.98 + Math.sin(t * 2) * .02})`;
-    ctx.strokeStyle = `rgba(255,160,50,${.9 + Math.sin(t * 2.2) * .1})`;
-    ctx.lineWidth = 3.2;
-    ctx.beginPath(); ctx.arc(ox, oy, sR * 1.02, 0, Math.PI * 2); ctx.stroke();
+    const pk = `${ox|0}_${oy|0}_${sR|0}_${dpr()}`;
+    if (pk !== photonKey) { photonSprite = buildPhotonSprite(ox, oy, sR); photonKey = pk; }
+    ctx.save(); ctx.globalAlpha = sphA * (.9 + Math.sin(t * 2.2) * .1);
+    ctx.drawImage(photonSprite.img, photonSprite.x, photonSprite.y, photonSprite.size, photonSprite.size);
     ctx.restore();
 
     // ── Black sphere ──
@@ -1308,53 +1394,27 @@ function drawPortal(canvas, opts) {
     ctx.restore();
 
 
-    // ── Rings front half (in front of sphere) — bottom arc only ──
+    // ── Rings (in front of sphere) — cached sprite, plus the live hot spots ──
+    blitAround(ringSprites.front, ox, oy, ringScale, ringSprites.bx, ringSprites.by, ringSprites.bw, ringSprites.bh);
     fullRings.forEach((fr, i) => {
+      if (Math.sin(fr.hotAngle) <= 0) return; // front half only
       const r      = (minR + (maxR - minR) * fr.radiusFrac) * colS;
       const bright = .12 + (5 - i) * .022;
       const rC     = fr.isOrange ? 255 : 30;
       const gC     = fr.isOrange ? 110 : 180;
       const bC     = fr.isOrange ? 20  : 255;
-      const rOval  = r * (1 + Math.sin(t * .6 + i * .5) * .01);
+      const hx = ox + Math.cos(fr.hotAngle) * r;
+      const hy = oy + Math.sin(fr.hotAngle) * r * .44;
+      const hg = ctx.createRadialGradient(hx, hy, 0, hx, hy, r * .25);
+      hg.addColorStop(0, `rgba(255,255,255,${bright * 1.1})`);
+      hg.addColorStop(.4, `rgba(${rC},${gC},${bC},${bright * .55})`);
+      hg.addColorStop(1, 'rgba(0,0,0,0)');
       ctx.save();
-      ctx.shadowBlur  = 14 * bright * sb;
-      ctx.shadowColor = `rgba(${rC},${gC},${bC},${bright * .7})`;
-      ctx.strokeStyle = `rgba(${rC},${gC},${bC},${bright * .3})`;
-      ctx.lineWidth   = 1.5 + bright * 3;
-      ctx.beginPath(); ctx.ellipse(ox, oy, rOval, rOval * 0.34, 0, 0, Math.PI); ctx.stroke();
+      ctx.globalCompositeOperation = 'screen';
+      ctx.beginPath(); ctx.arc(hx, hy, r * .25, 0, Math.PI * 2);
+      ctx.fillStyle = hg; ctx.fill();
       ctx.restore();
-      // Hot spot front half only
-      if (Math.sin(fr.hotAngle) > 0) {
-        const hx = ox + Math.cos(fr.hotAngle) * r;
-        const hy = oy + Math.sin(fr.hotAngle) * r * .44;
-        const hg = ctx.createRadialGradient(hx, hy, 0, hx, hy, r * .25);
-        hg.addColorStop(0, `rgba(255,255,255,${bright * 1.1})`);
-        hg.addColorStop(.4, `rgba(${rC},${gC},${bC},${bright * .55})`);
-        hg.addColorStop(1, 'rgba(0,0,0,0)');
-        ctx.save();
-        ctx.globalCompositeOperation = 'screen';
-        ctx.beginPath(); ctx.arc(hx, hy, r * .25, 0, Math.PI * 2);
-        ctx.fillStyle = hg; ctx.fill();
-        ctx.restore();
-      }
     });
-    for (let i = 0; i < numRings; i++) {
-      const pct        = i / (numRings - 1);
-      const r          = (minR + (maxR - minR) * (pct * pct * .8 + pct * .2)) * colS;
-      const brightness = Math.pow(1 - pct * .87, 1.3) * 0.6;
-      const pulse      = 1 + Math.sin(t * .85 + i * .42) * .016;
-      const rC         = Math.round(255 * (1 - pct * .95));
-      const gC         = Math.round(200 - pct * 30);
-      const bC         = Math.round(90 + pct * 165);
-      const rr = r * pulse; const ry = rr * 0.34;
-      ctx.save();
-      ctx.strokeStyle = `rgba(${rC},${gC},${bC},${brightness * .4})`;
-      ctx.lineWidth = 6 * brightness + 1.5;
-      ctx.shadowBlur = 20 * brightness;
-      ctx.shadowColor = `rgba(${rC},${gC},${bC},${brightness * .8})`;
-      ctx.beginPath(); ctx.ellipse(ox, oy, rr, ry, 0, 0, Math.PI); ctx.stroke();
-      ctx.restore();
-    }
 
     ctx.restore(); // end discA
 
@@ -1392,12 +1452,10 @@ function drawPortal(canvas, opts) {
           const ageFrac = i / p.trailHistory.length;
           const a = ageFrac * (isFalling ? 0.9 : 0.7) * alpha;
           const tr = r * (0.15 + 0.85 * ageFrac);
-          ctx.save();
-          ctx.beginPath(); ctx.arc(pt.x, pt.y, tr, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(${p.rC},${p.gC},${p.bC},${a})`;
-          ctx.shadowBlur = tr * (isFalling ? 10 : 5);
-          ctx.shadowColor = `rgba(${p.rC},${p.gC},${p.bC},${a * 0.6})`;
-          ctx.fill(); ctx.restore();
+          const d = tr * (isFalling ? 3.2 : 2.6); // sprite is soft to its edge
+          ctx.save(); ctx.globalAlpha = discA * Math.min(1, a);
+          ctx.drawImage(softDot(p.rC, p.gC, p.bC), pt.x - d / 2, pt.y - d / 2, d, d);
+          ctx.restore();
         });
       }
       // H — Ring back half (behind planet)
@@ -1456,11 +1514,13 @@ function drawPortal(canvas, opts) {
     }
 
     // ── Top fade ──
-    const fade = ctx.createLinearGradient(0, 0, 0, H * .4);
-    fade.addColorStop(0, 'rgba(1,2,5,.85)'); fade.addColorStop(.55, 'rgba(1,2,5,.18)'); fade.addColorStop(1, 'rgba(1,2,5,0)');
-    ctx.fillStyle = fade; ctx.fillRect(0, 0, W, H);
+    if (opts.topFade !== false) {
+      const fade = ctx.createLinearGradient(0, 0, 0, H * .4);
+      fade.addColorStop(0, 'rgba(1,2,5,.85)'); fade.addColorStop(.55, 'rgba(1,2,5,.18)'); fade.addColorStop(1, 'rgba(1,2,5,0)');
+      ctx.fillStyle = fade; ctx.fillRect(0, 0, W, H);
+    }
 
-    maybeAdaptQuality(performance.now() - renderStart);
+    maybeAdaptQuality(now);
     requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
@@ -1669,8 +1729,11 @@ const bhOpts = {
   // same stars, galaxies, and nebulae continue naturally through the hero.
   skyLayer: false,
   constellations: false,
-  backdropAlpha: .18,
-  backdropDepth: .5,
+  // The backdrop tint and the top fade are CSS on #bhCanvas and #hero::before
+  // (styles.css). As canvas fills they were two more full-canvas passes per
+  // frame; as CSS the compositor pays for them once.
+  backdropAlpha: 0,
+  topFade: false,
   plasmaAlpha: .45,
   // Restore the dark-blue system halo at partial strength. Its translucent
   // radial gradients tint the sky without covering the fixed stars beneath.
