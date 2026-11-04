@@ -1723,12 +1723,25 @@ function resizeBH() {
   bh._bhDpr = dpr;
   const ctx2d = bh.getContext('2d');
   if (ctx2d) { ctx2d.setTransform(1,0,0,1,0,0); ctx2d.scale(dpr, dpr); }
-  bhOpts.originY  = (heroH * (mobile ? 0.86 : 0.80) + bhOpts.verticalOffset) / cssH;
-  bhOpts.sphereR       = mobile ? 0.085 : 0.048;
-  bhOpts.maxR          = mobile ? 0.72  : 0.43;
-  bhOpts.glowScale     = mobile ? 0.80  : 1.0;
-  bhOpts.discRBase     = mobile ? 0.14  : 0.048;
-  bhOpts.discLayerStep = mobile ? 0.16  : 0.045;
+  // Desktop system is 70% of its old size. Its centre is measured from the
+  // hero button: 52px of air above the outer orbit, and Select Work is
+  // pulled up to sit 95px under it (via --work-pull).
+  bhOpts.sphereR       = mobile ? 0.085 : 0.0336;
+  bhOpts.maxR          = mobile ? 0.72  : 0.301;
+  if (mobile) {
+    bhOpts.originY = (heroH * 0.86 + bhOpts.verticalOffset) / cssH;
+    document.documentElement.style.removeProperty('--work-pull');
+  } else {
+    const ctas = document.querySelector('.hero-ctas'), hc = document.querySelector('.hero-content');
+    const ctasBottom = ctas && hc ? hc.offsetTop + ctas.offsetTop + ctas.offsetHeight : heroH * 0.55;
+    const ry = Math.min(cssW, bhOpts.maxSystemWidth) * bhOpts.maxR * 0.28;   // outer orbit half-height
+    const cy = ctasBottom + 52 + ry;
+    bhOpts.originY = cy / cssH;
+    document.documentElement.style.setProperty('--work-pull', Math.round((cy + ry + 95) - 88 - heroH) + 'px');
+  }
+  bhOpts.glowScale     = mobile ? 0.80  : 0.7;
+  bhOpts.discRBase     = mobile ? 0.14  : 0.0336;
+  bhOpts.discLayerStep = mobile ? 0.16  : 0.0315;
   bhOpts.discSizeScale = mobile ? 0.85  : 1.0;
   bhOpts.discCount     = mobile ? 160   : q.desktopDiscCount;
   bhOpts.starCount     = mobile ? 80    : q.desktopStarCount;
@@ -1745,6 +1758,8 @@ if (bh) {
   resizeBH();
   window.addEventListener('resize', resizeBH);
   window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', resizeBH);
+  // The headline can rewrap once the web font lands; re-measure then.
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(resizeBH);
   drawPortal(bh, bhOpts);
 }
 
