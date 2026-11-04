@@ -114,7 +114,7 @@ nav.scrolled:hover{opacity:1}
 #bhCanvas{position:absolute;top:0;left:0;z-index:2}
 #starField{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none}
 
-.hero-content{--hero-text-gap:8px;position:relative;z-index:2;text-align:left;display:flex;flex-direction:column;align-items:flex-start;gap:var(--hero-text-gap);pointer-events:auto;width:calc(100% - 120px);max-width:900px;margin-inline:auto}
+.hero-content{--hero-text-gap:8px;position:relative;z-index:2;text-align:center;display:flex;flex-direction:column;align-items:center;gap:var(--hero-text-gap);pointer-events:auto;width:calc(100% - 120px);max-width:900px;margin-inline:auto}
 .hero-identity{font-size:16px;font-weight:500;color:#fb923c;margin:0;opacity:0;animation:up .8s ease .1s forwards}
 
 /* Eyebrow: sentence case, no pill. Title in orange, the areas in a muted
