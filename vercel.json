@@ -1,6 +1,7 @@
 {
   "redirects": [
     { "source": "/case-study-job-crawler", "destination": "/case-study-match-moth/", "permanent": true },
-    { "source": "/case-study-job-crawler/:path*", "destination": "/case-study-match-moth/:path*", "permanent": true }
+    { "source": "/case-study-job-crawler/:path*", "destination": "/case-study-match-moth/:path*", "permanent": true },
+    { "source": "/Ted_Potter_Senior_Product_Designer_Resume_B2B_SaaS.pdf", "destination": "/Ted_Potter_Senior_Product_Designer_Resume.pdf", "permanent": true }
   ]
 }
