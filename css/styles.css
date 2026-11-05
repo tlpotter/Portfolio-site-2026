@@ -126,8 +126,8 @@ nav.scrolled:hover{opacity:1}
 #starField{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none}
 
 /* Hero vertical rhythm: one 8px step, gaps grow down the stack so related
-   things sit close and the action sits apart. Eyebrow to headline 2 steps
-   (16), headline to body 3 steps (24), body to button 5 steps (40). */
+   things sit close and the action sits apart. Headline to eyebrow items
+   1.5 steps (12), eyebrow items to button 5 steps (40). */
 .hero-content{--hero-step:8px;--hero-text-gap:var(--hero-step);position:relative;z-index:2;text-align:center;display:flex;flex-direction:column;align-items:center;gap:0;pointer-events:auto;width:calc(100% - 120px);max-width:1040px;margin-inline:auto}
 .hero-identity{font-size:16px;font-weight:500;color:#fb923c;margin:0;opacity:0;animation:up .8s ease .1s forwards}
 
@@ -145,7 +145,7 @@ nav.scrolled:hover{opacity:1}
 
 .hero-name{
   font-family:var(--serif);
-  font-size:clamp(32px,4.2vw,56px);
+  font-size:clamp(27px,3.5vw,46px);
   max-width:18.5em;   /* wraps the headline onto two lines */
   text-wrap:balance;
   font-weight:600;line-height:1.57;   /* 1.12 + 40% */
@@ -156,13 +156,30 @@ nav.scrolled:hover{opacity:1}
 }
 .hero-name-secondary{display:block;font-size:clamp(28px,4vw,48px);font-style:normal;font-weight:300;line-height:1.2;letter-spacing:-.02em;margin-top:var(--hero-text-gap)}
 
-.hero-sub{
-  font-size:17px;color:rgba(255,255,255,.68);
-  max-width:640px;line-height:1.75;
-  margin:calc(var(--hero-step) * 3) 0 calc(var(--hero-step) * 5);
-  text-shadow:0 1px 20px rgba(0,0,0,.9);
+/* Eyebrow items under the headline: plain text in the body style, split by
+   a faint dot. Wraps and stays centered on narrow screens. */
+.hero-eyebrows{
+  list-style:none;padding:0;
+  display:flex;flex-wrap:wrap;justify-content:center;gap:0;
+  max-width:960px;
+  margin:calc(var(--hero-step) * 1.5) 0 calc(var(--hero-step) * 5);
   opacity:0;animation:up .9s ease .5s forwards;
 }
+.hero-eb{
+  font-size:15px;line-height:1.75;
+  color:rgba(255,255,255,.68);
+  text-shadow:0 1px 20px rgba(0,0,0,.9);
+}
+.hero-eb + .hero-eb::before{content:"·";margin:0 12px;color:rgba(255,255,255,.35)}
+/* Phones: two lines of two, with a dot only between the items on each line. */
+@media (max-width:600px){
+  .hero-eyebrows{display:grid;grid-template-columns:auto auto;justify-content:center;gap:2px 0}
+  .hero-eb{font-size:13px}
+  .hero-eb:nth-child(odd){text-align:right}
+  .hero-eb:nth-child(even){text-align:left}
+  .hero-eb:nth-child(odd)::before{content:none}
+}
+
 .hero-list{list-style:none;padding:0;margin:0 0 32px 0}
 .hero-list li{padding-left:1.2em;position:relative}
 .hero-list li::before{content:"✓";position:absolute;left:0;color:rgba(251,146,60,.7);font-size:.85em;top:.1em}
