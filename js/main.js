@@ -1723,11 +1723,11 @@ function resizeBH() {
   bh._bhDpr = dpr;
   const ctx2d = bh.getContext('2d');
   if (ctx2d) { ctx2d.setTransform(1,0,0,1,0,0); ctx2d.scale(dpr, dpr); }
-  // Desktop system is 70% of its old size. Its centre is measured from the
+  // Desktop system is 84% of its old size (doubled, then cut 40%, 2026-11-04). Its centre is measured from the
   // hero button: 52px of air above the outer orbit, and Select Work is
   // pulled up to sit 95px under it (via --work-pull).
-  bhOpts.sphereR       = mobile ? 0.085 : 0.0336;
-  bhOpts.maxR          = mobile ? 0.72  : 0.301;
+  bhOpts.sphereR       = mobile ? 0.085 : 0.0403;
+  bhOpts.maxR          = mobile ? 0.72  : 0.361;
   if (mobile) {
     bhOpts.originY = (heroH * 0.86 + bhOpts.verticalOffset) / cssH;
     document.documentElement.style.removeProperty('--work-pull');
@@ -1739,9 +1739,9 @@ function resizeBH() {
     bhOpts.originY = cy / cssH;
     document.documentElement.style.setProperty('--work-pull', Math.round((cy + ry + 95) - 88 - heroH) + 'px');
   }
-  bhOpts.glowScale     = mobile ? 0.80  : 0.7;
-  bhOpts.discRBase     = mobile ? 0.14  : 0.0336;
-  bhOpts.discLayerStep = mobile ? 0.16  : 0.0315;
+  bhOpts.glowScale     = mobile ? 0.80  : 0.84;
+  bhOpts.discRBase     = mobile ? 0.14  : 0.0403;
+  bhOpts.discLayerStep = mobile ? 0.16  : 0.0378;
   bhOpts.discSizeScale = mobile ? 0.85  : 1.0;
   bhOpts.discCount     = mobile ? 160   : q.desktopDiscCount;
   bhOpts.starCount     = mobile ? 80    : q.desktopStarCount;
