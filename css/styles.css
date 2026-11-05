@@ -19,7 +19,7 @@
   --ease-out:cubic-bezier(.23,1,.32,1);
   --ease-io:cubic-bezier(.77,0,.175,1);
 }
-html{scroll-behavior:smooth;overflow-x:hidden}
+html{overflow-x:hidden}   /* smooth scrolling is done per click in main.js, not page-wide */
 body{background:#020608;color:#eef2ff;font-family:var(--sans);font-size:18px;line-height:1.6;overflow-x:hidden;cursor:none;position:relative}
 
 /* ── CURSOR ── */
@@ -165,8 +165,8 @@ nav.scrolled:hover{opacity:1}
 .hn-in{display:inline-block;--h:0;
   color:color-mix(in srgb,#fb923c calc(var(--h) * 85%),var(--base));
   text-shadow:0 0 calc(var(--h) * 26px) rgba(251,146,60,calc(var(--h) * .6)),0 0 60px rgba(56,189,248,.3),0 2px 40px rgba(0,0,0,.8)}
-.hn-in.hn-cool{animation:hn-cool 2s ease 2.6s forwards}
-.hn-in.hn-warm{animation:hn-warm 2s ease 4s forwards}
+.hn-in.hn-cool{animation:hn-cool 1s ease 1.2s forwards}   /* starts once the phrase has risen in */
+.hn-in.hn-warm{animation:hn-warm 1s ease 1.8s forwards}   /* done by 2.8s, before the first phrase change at 3s */
 @keyframes hn-cool{to{--base:#7dd3fc}}
 @keyframes hn-warm{to{--base:#fdba74}}
 /* Reduced motion: final colors, nothing moves. */

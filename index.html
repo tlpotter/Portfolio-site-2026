@@ -4,7 +4,27 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <!-- Lets CSS hide reveal-on-scroll items only when JS will show them. -->
-  <script>document.documentElement.classList.add("js")</script>
+  <script>
+  document.documentElement.classList.add("js");
+  /* Scroll restore: the browser restores your place before the page has
+     its styles, lands in the wrong spot, then corrects. Do it ourselves
+     after the page has fully built instead. */
+  (function(){
+    if (!("scrollRestoration" in history)) return;
+    history.scrollRestoration = "manual";
+    var key = "scrollY:" + location.pathname;
+    addEventListener("pagehide", function(){ try { sessionStorage.setItem(key, String(Math.round(scrollY))); } catch (e) {} });
+    var nav = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
+    var type = nav ? nav.type : "";
+    if (type !== "reload" && type !== "back_forward") return;
+    var y = 0; try { y = +sessionStorage.getItem(key) || 0; } catch (e) {}
+    if (y <= 0 || location.hash) return;
+    addEventListener("load", function(){
+      var fonts = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
+      fonts.then(function(){ requestAnimationFrame(function(){ scrollTo(0, y); }); });
+    });
+  })();
+</script>
 
   <!-- Microsoft Clarity (loads on every page for full-session behavior capture) -->
   <script type="text/javascript">
@@ -27,7 +47,7 @@
   <meta property="og:description" content="8 years in product design spanning B2B SaaS, consumer mobile, and AI products. LLM evaluation interfaces, model training workflows, enterprise UX."/>
 
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fraunces:ital,wght@0,300;0,600;1,300;1,600&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="css/styles.css?v=20261105-ls2"/>
+  <link rel="stylesheet" href="css/styles.css?v=20261105-3s"/>
 </head>
 <body class="home">
 
@@ -188,6 +208,6 @@
   <p>© 2026</p>
 </footer>
 
-<script src="js/main.js?v=20261105-planets"></script>
+<script src="js/main.js?v=20261105-3s"></script>
 </body>
 </html>

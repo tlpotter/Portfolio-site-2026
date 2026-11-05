@@ -273,8 +273,8 @@
         requestAnimationFrame(() => requestAnimationFrame(() => next.classList.remove('in')));
       }, 750);
     };
-    // First swap at 6s, after the intro has landed.
-    setTimeout(() => { swap(); setInterval(swap, 2500); }, 6000);
+    // First swap at 3s, just after the blue and orange have landed.
+    setTimeout(() => { swap(); setInterval(swap, 2500); }, 3000);
   }
 
   // Warm trail, mouse and trackpad only.
@@ -309,6 +309,26 @@
   }, { passive: true });
   document.addEventListener('pointerleave', () => { near = false; if (!raf) raf = requestAnimationFrame(loop); });
 })();
+
+/* ── IN-PAGE LINKS ──
+   Smooth scroll only when someone clicks a link to a spot on this page
+   ("See my work", the nav). The page itself has no scroll-behavior:smooth,
+   so the browser's own scroll fixes stay instant. The address stays clean
+   (no #work), so a reload or shared link starts at the top. */
+document.addEventListener('click', e => {
+  if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+  const a = e.target.closest && e.target.closest('a[href^="#"]');
+  if (!a) return;
+  const id = decodeURIComponent(a.getAttribute('href').slice(1));
+  const el = id && document.getElementById(id);
+  if (!el) return;
+  e.preventDefault();
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+  // Move keyboard focus to the section, as a normal link jump would.
+  if (!el.hasAttribute('tabindex') && !/^(A|BUTTON|INPUT|SELECT|TEXTAREA)$/.test(el.tagName)) el.setAttribute('tabindex', '-1');
+  el.focus({ preventScroll: true });
+});
 
 /* ── NAV SCROLL FADE ── */
 (function(){
@@ -441,8 +461,8 @@ function drawPortal(canvas, opts) {
   );
 
   // Orbit speed for every particle group around the black hole (disc and
-  // the three streams). 0.5 = half the original speed. Planets are separate.
-  const PARTICLE_SPEED = 0.5;
+  // the three streams). 0.25 = a quarter of the original speed. Planets are separate.
+  const PARTICLE_SPEED = 0.25;
 
   // ── Accretion disc particles ──
   const disc = Array.from({ length: opts.discCount || 280 }, (_, i) => {
