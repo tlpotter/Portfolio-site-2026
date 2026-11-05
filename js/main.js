@@ -181,6 +181,135 @@
   els.forEach(el => io.observe(el));
 })();
 
+/* ── HERO TITLE ──
+   Builds the headline from its plain text:
+   - each word rises in, 80ms apart
+   - "complex systems" becomes a slot that cools to blue, then rotates
+     through PHRASES every 2.5s (only while the hero is on screen)
+   - "trust and use" warms to orange
+   - on a mouse or trackpad, words near the cursor heat up to orange and
+     cool back over about a second
+   Reduced motion: final colors, no rise, no rotation, no hover. */
+(function(){
+  const h = document.querySelector('.hero-name');
+  if (!h) return;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const PHRASES = ['complex systems', 'black-box models', 'enterprise platforms', 'manual processes', 'legacy interfaces', 'data dumps'];
+  const text = h.textContent.trim().replace(/\s+/g, ' ');
+  const words = text.split(' ');
+  h.setAttribute('aria-label', text);
+  h.textContent = '';
+
+  const inners = [];
+  let slot = null, k = 0, afterPeople = false, warmLeft = 3;
+  for (let i = 0; i < words.length; i++) {
+    const w = words[i];
+    const outer = document.createElement('span');
+    outer.className = 'hn-w';
+    outer.style.setProperty('--i', k++);
+    outer.setAttribute('aria-hidden', 'true');
+    const inner = document.createElement('span');
+    inner.className = 'hn-in';
+    if (w === 'complex' && words[i + 1] === 'systems') {
+      inner.classList.add('hn-cool');
+      inner.innerHTML = '<span class="hn-slot"><span class="hn-slot-ph"></span><span class="hn-slot-live">complex systems</span></span>';
+      slot = inner.firstChild;
+      i++;
+    } else {
+      if (afterPeople && warmLeft > 0 && ['trust', 'and', 'use'].includes(w)) { inner.classList.add('hn-warm'); warmLeft--; }
+      if (w === 'people') afterPeople = true;
+      inner.textContent = w;
+    }
+    outer.appendChild(inner);
+    h.appendChild(outer);
+    inners.push(inner);
+    if (w === 'them') { const br = document.createElement('br'); br.className = 'hn-br'; h.appendChild(br); }
+    if (i < words.length - 1) h.appendChild(document.createTextNode(' '));
+  }
+  h.classList.add('hn-split');
+
+  const ph = slot && slot.querySelector('.hn-slot-ph');
+  let current = PHRASES[0];
+  const fit = () => { if (!slot) return; ph.textContent = current; slot.style.width = ph.getBoundingClientRect().width + 'px'; };
+  // Hold the title at the height of its tallest phrase, so a phrase that
+  // wraps to one line fewer (on phones) never makes the page jump.
+  const lockHeight = () => {
+    if (!slot) return;
+    const tr = slot.style.transition;
+    slot.style.transition = 'none';
+    h.style.minHeight = '';
+    let max = 0;
+    PHRASES.forEach(p => { ph.textContent = p; slot.style.width = ph.getBoundingClientRect().width + 'px'; max = Math.max(max, h.getBoundingClientRect().height); });
+    h.style.minHeight = Math.ceil(max) + 'px';
+    fit();
+    void slot.offsetWidth;
+    slot.style.transition = tr;
+  };
+  lockHeight();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(lockHeight);
+  window.addEventListener('resize', lockHeight);
+
+  if (reduce) { h.classList.add('hn-static'); return; }
+
+  // Phrase rotation. The old phrase fades up and out while the slot resizes;
+  // the new one fades in once the slot has its new width, so nothing overlaps.
+  if (slot) {
+    let idx = 0, onScreen = true;
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(es => { onScreen = es[0].isIntersecting; }).observe(h);
+    }
+    const swap = () => {
+      if (!onScreen || document.hidden) return;
+      idx = (idx + 1) % PHRASES.length;
+      current = PHRASES[idx];
+      fit();
+      const old = slot.querySelector('.hn-slot-live:not(.out)');
+      if (old) { old.classList.add('out'); setTimeout(() => old.remove(), 700); }
+      const next = document.createElement('span');
+      next.className = 'hn-slot-live in';
+      next.textContent = current;
+      setTimeout(() => {
+        slot.appendChild(next);
+        requestAnimationFrame(() => requestAnimationFrame(() => next.classList.remove('in')));
+      }, 750);
+    };
+    // First swap at 6s, after the intro has landed.
+    setTimeout(() => { swap(); setInterval(swap, 2500); }, 6000);
+  }
+
+  // Warm trail, mouse and trackpad only.
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  const heat = inners.map(() => 0);
+  const R = 140;
+  let mx = -1e4, my = -1e4, near = false, raf = 0, last = 0;
+  const loop = now => {
+    raf = 0;
+    const dt = last ? Math.min(0.1, (now - last) / 1000) : 1 / 60;
+    last = now;
+    const cool = Math.exp(-dt / 0.3);   // about 4% heat left after one second
+    let any = false;
+    inners.forEach((n, i) => {
+      let target = 0;
+      if (near) {
+        const b = n.getBoundingClientRect();
+        target = Math.max(0, 1 - Math.hypot(mx - (b.left + b.width / 2), my - (b.top + b.height / 2)) / R);
+      }
+      heat[i] = Math.max(target, heat[i] * cool);
+      if (heat[i] < 0.004) heat[i] = 0; else any = true;
+      n.style.setProperty('--h', heat[i].toFixed(3));
+    });
+    if (near || any) raf = requestAnimationFrame(loop); else last = 0;
+  };
+  window.addEventListener('pointermove', e => {
+    mx = e.clientX; my = e.clientY;
+    const b = h.getBoundingClientRect();
+    const wasNear = near;
+    near = mx > b.left - R && mx < b.right + R && my > b.top - R && my < b.bottom + R;
+    if ((near || wasNear) && !raf) raf = requestAnimationFrame(loop);
+  }, { passive: true });
+  document.addEventListener('pointerleave', () => { near = false; if (!raf) raf = requestAnimationFrame(loop); });
+})();
+
 /* ── NAV SCROLL FADE ── */
 (function(){
   const nav = document.querySelector('nav');
@@ -311,12 +440,16 @@ function drawPortal(canvas, opts) {
     }))
   );
 
+  // Orbit speed for every particle group around the black hole (disc and
+  // the three streams). 0.5 = half the original speed. Planets are separate.
+  const PARTICLE_SPEED = 0.5;
+
   // ── Accretion disc particles ──
   const disc = Array.from({ length: opts.discCount || 280 }, (_, i) => {
     const layer = Math.floor(i / 70);
     return {
       angle: (i / 280) * Math.PI * 2,
-      speed: (.004586 + Math.random() * .003276) * (layer % 2 === 0 ? 1 : -1) * (1 - layer * .15),
+      speed: (.004586 + Math.random() * .003276) * (layer % 2 === 0 ? 1 : -1) * (1 - layer * .15) * PARTICLE_SPEED,
       r: (opts.discRBase || .048) + layer * (opts.discLayerStep || .045) + (Math.random() - .5) * .072,
       size: (2.7 + Math.random() * 8.1) * (opts.discSizeScale || 1),
       brightness: .3 + Math.random() * .7,
@@ -327,7 +460,7 @@ function drawPortal(canvas, opts) {
   // ── Outer light blue stream — farther orbit ring ──
   const outerStreamBlue = Array.from({ length: 300 }, (_, i) => ({
     angle: (i / 300) * Math.PI * 2 + Math.PI * 0.7,
-    speed: (.003 + Math.random() * .003) * (Math.random() > .4 ? -1 : 1),
+    speed: (.003 + Math.random() * .003) * (Math.random() > .4 ? -1 : 1) * PARTICLE_SPEED,
     r: 0.038 + Math.random() * 0.045,
     size: (0.4 + Math.pow(Math.random(), 0.5) * 4.2),
     brightness: .4 + Math.random() * .6,
@@ -337,7 +470,7 @@ function drawPortal(canvas, opts) {
   // ── Dense blue inner stream ──
   const innerStreamBlue = Array.from({ length: 228 }, (_, i) => ({
     angle: (i / 228) * Math.PI * 2 + Math.PI * 0.3,
-    speed: (.005 + Math.random() * .004) * (Math.random() > .35 ? -1 : 1),
+    speed: (.005 + Math.random() * .004) * (Math.random() > .35 ? -1 : 1) * PARTICLE_SPEED,
     r: 0.008 + Math.random() * 0.028,
     size: (0.3 + Math.pow(Math.random(), 0.5) * 4.8),
     brightness: .45 + Math.random() * .55,
@@ -347,7 +480,7 @@ function drawPortal(canvas, opts) {
   // ── Dense orange inner stream — continuous ring of particles hugging the event horizon ──
   const innerStream = Array.from({ length: 132 }, (_, i) => ({
     angle: (i / 132) * Math.PI * 2,
-    speed: (.006 + Math.random() * .004) * (Math.random() > .3 ? 1 : -1),
+    speed: (.006 + Math.random() * .004) * (Math.random() > .3 ? 1 : -1) * PARTICLE_SPEED,
     r: 0.004 + Math.random() * 0.022,   // very close to sphere surface
     size: (0.3 + Math.pow(Math.random(), 0.5) * 5.5),
     brightness: .5 + Math.random() * .5,
@@ -365,15 +498,33 @@ function drawPortal(canvas, opts) {
   // ── Orbiting planets ──
   const planets = [
     // Innermost: hot orange, fastest, motion trail — being consumed
-    { radiusFrac: 0.20, angle: 0.8,  speed:  0.0012,   sizeF: 0.256, rC: 255, gC: 110, bC: 35,  trail: true,  trailHistory: [], glow: false, ring: false,
+    { ringPct: 0.4, angle: 0.8,  speed:  0.0012,   sizeF: 0.256, rC: 255, gC: 110, bC: 35,  trail: true,  trailHistory: [], glow: false, ring: false,
       absorbState: 'normal', absorbTimer: 420, absorbProgress: 0, absorbBaseAngle: 0.8, absorbFlash: 0, absorbRipples: [] },
     // Second: teal, medium-fast, glow halo, small rings
-    { radiusFrac: 0.40, angle: 2.1,  speed: -0.0006,   sizeF: 0.184, rC: 40,  gC: 200, bC: 255, trail: false, glow: true,  ring: true, ringScale: 0.6 },
+    { ringPct: 0.6, angle: 2.1,  speed: -0.0006,   sizeF: 0.184, rC: 40,  gC: 200, bC: 255, trail: false, glow: true,  ring: true, ringScale: 0.6 },
     // Third: sandy/golden, medium-slow
-    { radiusFrac: 0.63, angle: 4.5,  speed:  0.000375, sizeF: 0.216, rC: 210, gC: 160, bC: 65,  trail: false, glow: false, ring: false },
+    { ringPct: 0.8, angle: 4.5,  speed:  0.000375, sizeF: 0.216, rC: 210, gC: 160, bC: 65,  trail: false, glow: false, ring: false },
     // Outermost: ice blue, slowest, subtle glow, full rings
-    { radiusFrac: 0.82, angle: 1.3,  speed: -0.000225, sizeF: 0.228, rC: 185, gC: 215, bC: 255, trail: false, glow: true,  ring: true, ringScale: 1.0 },
+    { ringPct: 0.9, angle: 1.3,  speed: -0.000225, sizeF: 0.228, rC: 185, gC: 215, bC: 255, trail: false, glow: true,  ring: true, ringScale: 1.0 },
   ];
+
+  // Each planet rides exactly on one of the arch rings drawn in
+  // buildRingSprites. ringPct picks the ring (0 = innermost, 1 = outermost);
+  // the ring count depends on the quality tier, so radiusFrac is worked out
+  // when the count is known. Planets never share a ring.
+  const ringFrac = pct => pct * pct * .8 + pct * .2;   // same curve as arch()
+  let planetRingN = 0;
+  const placePlanets = n => {
+    if (n === planetRingN) return;
+    planetRingN = n;
+    let prev = -1;
+    planets.forEach(p => {
+      let i = Math.max(prev + 1, Math.round(p.ringPct * (n - 1)));
+      i = Math.min(i, n - 1);
+      prev = i;
+      p.radiusFrac = ringFrac(i / (n - 1));
+    });
+  };
 
   // ── Solar flares ──
   const flares = [];
@@ -1054,6 +1205,7 @@ function drawPortal(canvas, opts) {
     // ── Rings (behind sphere) — cached sprites, see buildRingSprites ──
     fullRings.forEach(fr => { fr.hotAngle += fr.hotSpeed * k; });
     const numRings = opts.ringCount || 11;
+    placePlanets(numRings);
     const rk = `${ox|0}_${oy|0}_${minR|0}_${maxR|0}_${numRings}_${dpr()}`;
     if (rk !== ringKey) { ringSprites = buildRingSprites(ox, oy, minR, maxR, numRings); ringKey = rk; }
     const ringScale = colS * (1 + Math.sin(t * .85) * .012);
@@ -1137,7 +1289,8 @@ function drawPortal(canvas, opts) {
 
     // ── Planets — update positions (drawn after sphere below) ──
     planets.forEach(p => {
-      const baseOrbitR = (minR + (maxR - minR) * p.radiusFrac) * colS;
+      // ringScale (not colS) so planets follow the rings' slow pulse too.
+      const baseOrbitR = (minR + (maxR - minR) * p.radiusFrac) * ringScale;
 
       // ── Absorption state machine (orange planet only) ──
       if (p.absorbState !== undefined) {
@@ -1853,8 +2006,8 @@ function resizeBH() {
   const ctx2d = bh.getContext('2d');
   if (ctx2d) { ctx2d.setTransform(1,0,0,1,0,0); ctx2d.scale(dpr, dpr); }
   // Desktop system is 84% of its old size (doubled, then cut 40%, 2026-11-04). Its centre is measured from the
-  // hero button: 52px of air above the outer orbit, and Select Work is
-  // pulled up to sit 95px under it (via --work-pull).
+  // hero link: 74px of air above the outer orbit, and Select Work is
+  // pulled up to sit 74px under it (via --work-pull), so the system sits centred between them.
   bhOpts.sphereR       = mobile ? 0.085 : 0.0403;
   bhOpts.maxR          = mobile ? 0.72  : 0.361;
   if (mobile) {
@@ -1864,9 +2017,9 @@ function resizeBH() {
     const ctas = document.querySelector('.hero-ctas'), hc = document.querySelector('.hero-content');
     const ctasBottom = ctas && hc ? hc.offsetTop + ctas.offsetTop + ctas.offsetHeight : heroH * 0.55;
     const ry = Math.min(cssW, bhOpts.maxSystemWidth) * bhOpts.maxR * 0.28;   // outer orbit half-height
-    const cy = ctasBottom + 52 + ry;
+    const cy = ctasBottom + 74 + ry;
     bhOpts.originY = cy / cssH;
-    document.documentElement.style.setProperty('--work-pull', Math.round((cy + ry + 95) - 88 - heroH) + 'px');
+    document.documentElement.style.setProperty('--work-pull', Math.round((cy + ry + 74) - 88 - heroH) + 'px');
   }
   bhOpts.glowScale     = mobile ? 0.80  : 0.84;
   bhOpts.discRBase     = mobile ? 0.14  : 0.0403;

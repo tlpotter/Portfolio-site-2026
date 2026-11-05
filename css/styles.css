@@ -128,7 +128,7 @@ nav.scrolled:hover{opacity:1}
 /* Hero vertical rhythm: one 8px step, gaps grow down the stack so related
    things sit close and the action sits apart. Headline to eyebrow items
    1.5 steps (12), eyebrow items to button 5 steps (40). */
-.hero-content{--hero-step:8px;--hero-text-gap:var(--hero-step);position:relative;z-index:2;text-align:center;display:flex;flex-direction:column;align-items:center;gap:0;pointer-events:auto;width:calc(100% - 120px);max-width:1040px;margin-inline:auto}
+.hero-content{--hero-step:8px;--hero-text-gap:var(--hero-step);position:relative;z-index:2;text-align:center;display:flex;flex-direction:column;align-items:center;gap:0;pointer-events:auto;width:calc(100% - 120px);max-width:1180px;margin-inline:auto}
 .hero-identity{font-size:16px;font-weight:500;color:#fb923c;margin:0;opacity:0;animation:up .8s ease .1s forwards}
 
 /* Eyebrow: sentence case, no pill. Title in orange, the areas in a muted
@@ -146,14 +146,46 @@ nav.scrolled:hover{opacity:1}
 .hero-name{
   font-family:var(--serif);
   font-size:clamp(27px,3.5vw,46px);
-  max-width:18.5em;   /* wraps the headline onto two lines */
+  max-width:26em;   /* two lines; wide enough for the longest rotating phrase */
   text-wrap:balance;
   font-weight:600;line-height:1.57;   /* 1.12 + 40% */
-  letter-spacing:-.02em;color:#fff;
+  letter-spacing:.01em;color:#fff;
   text-shadow:0 0 60px rgba(56,189,248,.3),0 2px 40px rgba(0,0,0,.8);
   margin-bottom:0;
   opacity:0;animation:up .9s ease .3s forwards;
 }
+/* Hero title, built by main.js. Words rise in one by one. The rotating
+   phrase cools to blue, "trust and use" warms to orange, and the phrase
+   swaps every 2.5s. On hover, words near the cursor heat up to orange and
+   cool back over about a second (--h is heat, --base is the word's color). */
+@property --base{syntax:'<color>';inherits:true;initial-value:#fff}
+.hero-name.hn-split{opacity:1;animation:none}
+.hn-w{display:inline-block;opacity:0;transform:translateY(8px);animation:hn-rise 1.1s var(--ease-out) forwards;animation-delay:calc(var(--i) * 80ms + 200ms)}
+@keyframes hn-rise{to{opacity:1;transform:none}}
+.hn-in{display:inline-block;--h:0;
+  color:color-mix(in srgb,#fb923c calc(var(--h) * 85%),var(--base));
+  text-shadow:0 0 calc(var(--h) * 26px) rgba(251,146,60,calc(var(--h) * .6)),0 0 60px rgba(56,189,248,.3),0 2px 40px rgba(0,0,0,.8)}
+.hn-in.hn-cool{animation:hn-cool 2s ease 2.6s forwards}
+.hn-in.hn-warm{animation:hn-warm 2s ease 4s forwards}
+@keyframes hn-cool{to{--base:#7dd3fc}}
+@keyframes hn-warm{to{--base:#fdba74}}
+/* Reduced motion: final colors, nothing moves. */
+.hero-name.hn-static .hn-w{opacity:1;transform:none;animation:none}
+.hero-name.hn-static .hn-cool{--base:#7dd3fc;animation:none}
+.hero-name.hn-static .hn-warm{--base:#fdba74;animation:none}
+/* Rotating phrase. The slot's width eases to fit each phrase so the rest of
+   the line slides instead of jumping. A zero-width character gives it a
+   text baseline. */
+.hn-slot{display:inline-block;position:relative;white-space:nowrap;transition:width .7s var(--ease-io)}
+.hn-slot::before{content:"\200b"}
+.hn-slot-ph{visibility:hidden;position:absolute;left:0;top:0;white-space:nowrap}
+.hn-slot-live{display:inline-block;position:absolute;left:50%;top:0;white-space:nowrap;transform:translate(-50%,0);
+  transition:opacity .6s var(--ease-out),transform .6s var(--ease-out)}
+.hn-slot-live.in{opacity:0;transform:translate(-50%,.35em);transition:none}
+.hn-slot-live.out{opacity:0;transform:translate(-50%,-.35em);transition-duration:.35s}
+@media(max-width:800px){.hn-br{display:none}}
+/* Small laptops: less side padding so the longest phrase still fits on line one. */
+@media(min-width:801px) and (max-width:1000px){.hero-content{width:calc(100% - 64px)}}
 .hero-name-secondary{display:block;font-size:clamp(28px,4vw,48px);font-style:normal;font-weight:300;line-height:1.2;letter-spacing:-.02em;margin-top:var(--hero-text-gap)}
 
 /* Eyebrow items under the headline: plain text in the body style, split by
@@ -162,20 +194,20 @@ nav.scrolled:hover{opacity:1}
   list-style:none;padding:0;
   display:flex;flex-wrap:wrap;justify-content:center;gap:0;
   max-width:960px;
-  margin:calc(var(--hero-step) * 1.5) 0 calc(var(--hero-step) * 5);
-  opacity:0;animation:up .9s ease .5s forwards;
+  margin:calc(var(--hero-step) * 1.5) 0 calc(var(--hero-step) * 2.5);
+  opacity:0;animation:up 1.8s var(--ease-out) 1.4s forwards;
 }
 .hero-eb{
-  font-size:15px;line-height:1.75;
+  font-size:16.5px;line-height:1.75;
   color:rgba(255,255,255,.68);
   text-shadow:0 1px 20px rgba(0,0,0,.9);
 }
 .hero-eb + .hero-eb::before{content:"·";margin:0 12px;color:rgba(255,255,255,.35)}
 /* Phones: two lines of two, with a dot only between the items on each line. */
 @media (max-width:600px){
-  .hero-eyebrows{display:grid;grid-template-columns:auto auto;justify-content:center;gap:2px 0}
-  .hero-eb{font-size:13px}
-  .hero-eb:nth-child(odd){text-align:right}
+  .hero-eyebrows{display:grid;grid-template-columns:auto auto;justify-content:start;gap:2px 0}
+  .hero-eb{font-size:14.5px}
+  .hero-eb:nth-child(odd){text-align:left}
   .hero-eb:nth-child(even){text-align:left}
   .hero-eb:nth-child(odd)::before{content:none}
 }
@@ -191,7 +223,7 @@ nav.scrolled:hover{opacity:1}
   color:transparent;margin-bottom:8px;
 }
 
-.hero-ctas{display:flex;gap:20px;margin-top:0;opacity:0;animation:up .9s ease .65s forwards}
+.hero-ctas{display:flex;gap:20px;margin-top:0;opacity:0;animation:up 1.8s var(--ease-out) 1.8s forwards}
 /* Buttons: hover lifts in 180ms, press shrinks to 97% in 120ms. Both live in
    one transform so they never fight. */
 .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border-radius:10px;font-size:16px;font-weight:600;text-decoration:none;letter-spacing:.02em;backdrop-filter:blur(12px);position:relative;overflow:hidden;
@@ -205,6 +237,15 @@ nav.scrolled:hover{opacity:1}
 .btn-primary:hover{background:linear-gradient(135deg,rgba(251,146,60,.6),rgba(249,115,22,.6));box-shadow:0 8px 32px rgba(251,146,60,.35)}
 .btn-ghost{background:rgba(56,189,248,.06);border:1px solid rgba(56,189,248,.2);color:rgba(255,255,255,.85)}
 .btn-ghost:hover{background:rgba(56,189,248,.12);color:#fff}
+/* Hero text link: orange text, an underline that grows from the left on
+   hover, and a down arrow that nudges down toward the work. */
+.hero-link{display:inline-flex;align-items:center;gap:8px;font-size:16px;font-weight:600;letter-spacing:.02em;color:rgba(251,146,60,.95);text-decoration:none;position:relative;padding:4px 0}
+.hero-link:hover{color:#fdba74}
+.hero-link .arr{display:inline-block;transition:transform var(--t-hover) var(--ease-out)}
+.hero-link:hover .arr{animation:arr-bob .9s var(--ease-io) infinite}
+@keyframes arr-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+.hero-link:active .arr{animation:none;transform:translateY(5px)}
+.hero-link:focus-visible{outline:2px solid rgba(251,146,60,.7);outline-offset:4px;border-radius:2px}
 
 @keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
@@ -419,8 +460,9 @@ footer p{font-size:12px;color:rgba(255,255,255,.4);letter-spacing:.06em}
 
 /* Reduced motion: keep color fades, drop movement. */
 @media (prefers-reduced-motion:reduce){
-  .btn,.btn .arr,.btn-primary::after,.work-card,.work-card .work-vis img,.tl::before,#cur,#curRing,.glass,.rv,.sg-item,.sg-item::before,.tool,.c-item,.c-item::before,.c-arr,.c-copied,.site-toast{transition-duration:.01ms!important;transition-delay:0ms!important}
+  .btn,.btn .arr,.btn-primary::after,.hero-link .arr,.work-card,.work-card .work-vis img,.tl::before,#cur,#curRing,.glass,.rv,.sg-item,.sg-item::before,.tool,.c-item,.c-item::before,.c-arr,.c-copied,.site-toast{transition-duration:.01ms!important;transition-delay:0ms!important}
   .c-item:hover::after{animation:none}
+  .hero-link:hover .arr{animation:none}
   ::view-transition-old(root),::view-transition-new(root){animation:none}
 }
 
@@ -431,7 +473,7 @@ footer p{font-size:12px;color:rgba(255,255,255,.4);letter-spacing:.06em}
      element on every page (homepage + case studies) lines up symmetrically. */
   nav{padding:18px var(--mobile-padding)}.nav-links{display:none}
   section:not(#hero){padding:64px var(--mobile-padding)}
-  .hero-content{width:100%;padding:0 var(--mobile-padding)}
+  .hero-content{width:100%;padding:0 var(--mobile-padding);text-align:left;align-items:flex-start}
   .about-grid,.skills-grid{grid-template-columns:1fr}
   /* Mobile bento: single column, DOM source order. */
   .work-grid{
@@ -460,6 +502,7 @@ footer p{font-size:12px;color:rgba(255,255,255,.4);letter-spacing:.06em}
      slight horizontal overflow you were seeing. */
   .hero-ctas{flex-direction:column;align-items:stretch;gap:14px;width:100%;max-width:320px}
   .hero-ctas .btn{justify-content:center}
+  .hero-ctas .hero-link{align-self:flex-start}
   .craft-preview-grid{grid-template-columns:1fr}
 }
 
