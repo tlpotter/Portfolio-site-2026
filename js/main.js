@@ -468,7 +468,7 @@ function drawPortal(canvas, opts) {
     octx.fillRect(0, 0, ow, oh);
 
     nebulae.forEach(n => {
-      n.phase += n.speed;
+      n.phase += n.speed * k;
       const pulse = 1 + Math.sin(n.phase) * .08;
       const nx = n.nx * ow, ny = n.ny * oh;
       const rx = n.rnx * ow, ry = n.rny * oh;
@@ -484,7 +484,7 @@ function drawPortal(canvas, opts) {
     const starStep = opts.starStep || 1;
     stars.forEach((s, i) => {
       if (i % starStep) return;
-      s.phase += s.speed;
+      s.phase += s.speed * k;
       const a = s.a * (.4 + Math.sin(s.phase) * .6);
       octx.beginPath(); octx.arc(s.nx * ow, s.ny * oh, s.r, 0, Math.PI * 2);
       octx.fillStyle = `rgba(255,255,255,${a})`; octx.fill();
@@ -769,13 +769,21 @@ function drawPortal(canvas, opts) {
   // at a few ms while the page runs at 5 fps. The old check measured script
   // time and never demoted on exactly the machines it existed for.
   //
-  // Below the low tier there is one more step: if the hero still can't hold
-  // 15 fps on low for two windows in a row, the animation stops and the
-  // solar system stays on screen as a still frame (see freeze()).
-  const perf = { samples: [], cooldownUntil: 0, prev: 0, warmupUntil: 0, windowStart: 0, badLow: 0 };
+  // The steps are high -> medium -> still frame (see freeze()). There used to
+  // be an animated 'low' step between medium and the freeze, but at 15-20 fps
+  // it still read as lag on an old laptop and never went bad enough to
+  // freeze, so a machine that can't hold medium now goes straight to the
+  // still. 'low' remains only as a starting tier for very weak hardware.
+  const perf = { samples: [], cooldownUntil: 0, prev: 0, warmupUntil: 0, windowStart: 0, bad: 0 };
   function maybeAdaptQuality(now) {
     if (!opts.onQualityChange || !opts.qualityTier || opts.frozen) return;
-    if (!perf.warmupUntil) perf.warmupUntil = now + 2000; // skip the intro animations
+    // Start judging 2 s after the page has finished loading. Image decodes
+    // and font swaps during load produce 500 ms+ frames on any machine, and
+    // one window of that once froze a hero that runs fine afterwards.
+    if (!perf.warmupUntil) {
+      if (document.readyState !== 'complete') return;
+      perf.warmupUntil = now + 2000;
+    }
     const prev = perf.prev; perf.prev = now;
     if (!prev || now < perf.warmupUntil || now < perf.cooldownUntil) return;
     const dt = now - prev;
@@ -794,23 +802,22 @@ function drawPortal(canvas, opts) {
     // Judged against the tier's own target gap (16 ms high, 33 ms medium,
     // 42 ms low).
     const target = opts.frameGap || 16;
-    if (opts.qualityTier === 'low') {
-      // Under ~15 fps on average, or regular 125 ms+ hitches.
-      perf.badLow = (avg > target * 1.6 || p95 > target * 3) ? perf.badLow + 1 : 0;
-      if (perf.badLow >= 2 && !opts._warping) freeze();
+    if (opts.perfLog) opts.perfLog.push({ at: Math.round(now), tier: opts.qualityTier, n: samples.length, avg: Math.round(avg), p95: Math.round(p95) });
+    if (opts.qualityTier === 'high') {
+      if (avg > target * 1.6 || p95 > target * 2.5) {
+        perf.cooldownUntil = now + 3000; // let the resize and sprite rebuild settle
+        opts.onQualityChange('medium');
+      }
       return;
     }
-    let nextTier = opts.qualityTier;
-    if (opts.qualityTier === 'high' && (avg > target * 1.6 || p95 > target * 2.5)) {
-      nextTier = avg > target * 3 ? 'low' : 'medium';
-    } else if (opts.qualityTier === 'medium' && (avg > target * 1.5 || p95 > target * 2.2)) {
-      nextTier = 'low';
-    }
-
-    if (nextTier !== opts.qualityTier) {
-      perf.cooldownUntil = now + 3000; // let the resize and sprite rebuild settle
-      opts.onQualityChange(nextTier);
-    }
+    // Medium: under 20 fps or regular 75 ms+ hitches. Low (weak hardware
+    // start only): under 15 fps or regular 125 ms+ hitches. Two bad windows
+    // in a row freeze, so a single stall can't do it.
+    const bad = opts.qualityTier === 'medium'
+      ? (avg > target * 1.5 || p95 > target * 2.2)
+      : (avg > target * 1.6 || p95 > target * 3);
+    perf.bad = bad ? perf.bad + 1 : 0;
+    if (perf.bad >= 2 && !opts._warping) freeze();
   }
   // ── Freeze ──
   // Stops the loop and leaves one clean still frame on the canvas. Comets and
@@ -845,13 +852,19 @@ function drawPortal(canvas, opts) {
   });
 
   let lastFrameTime = 0;
+  // Motion step, in 60 fps frames. Everything that moves is scaled by it so
+  // a tier rendering at 30 fps plays at full speed rather than half speed;
+  // before this, every step down the tiers also put the animation into slow
+  // motion, which looked like lag on exactly the machines being helped.
+  let k = 1;
   function frame(now) {
     if (opts.frozen && !stillRequested) return;
     if (!bhVisible || !pageVisible) return;
     const minGap = opts.frameGap || (opts.lensing ? 16 : 33); // adaptive quality controls target fps
     if (now - lastFrameTime < minGap) { requestAnimationFrame(frame); return; }
+    k = lastFrameTime ? Math.min((now - lastFrameTime) / 16.667, 4) : 1;
     lastFrameTime = now;
-    t += .009 * (opts.speedMult || 1); fc++;
+    t += .009 * k * (opts.speedMult || 1); fc++;
     W = canvas._bhCssW || canvas.width; H = canvas._bhCssH || canvas.height;
     useLensing = opts.skyLayer !== false && opts.lensing === true; // re-check after resize/tier changes
     const sb = 0;                      // shadowBlur multiplier on particles — disabled everywhere; only sphere keeps its glow
@@ -909,7 +922,7 @@ function drawPortal(canvas, opts) {
         }
         plainCtx.clearRect(0, 0, W, H);
         nebulae.forEach(n => {
-          n.phase += n.speed;
+          n.phase += n.speed * k;
           const pulse = 1 + Math.sin(n.phase) * .08;
           const g = plainCtx.createRadialGradient(n.nx*W, n.ny*H, 0, n.nx*W, n.ny*H, n.rnx*W*pulse);
           g.addColorStop(0, `rgba(${n.color},${.08 + Math.sin(n.phase)*.02})`);
@@ -921,7 +934,7 @@ function drawPortal(canvas, opts) {
         const starStep = opts.starStep || 1;
         stars.forEach((s, i) => {
           if (i % starStep) return;
-          s.phase += s.speed;
+          s.phase += s.speed * k;
           const a = s.a * (.4 + Math.sin(s.phase) * .6);
           plainCtx.beginPath(); plainCtx.arc(s.nx * W, s.ny * H, s.r, 0, Math.PI * 2);
           plainCtx.fillStyle = `rgba(255,255,255,${a})`; plainCtx.fill();
@@ -961,7 +974,7 @@ function drawPortal(canvas, opts) {
               ctx.strokeStyle = `rgba(0,212,255,${(1 - d / 160) * .1 * lf})`; ctx.lineWidth = .5; ctx.stroke();
             }
           }
-          pts[i].phase += .006;
+          pts[i].phase += .006 * k;
           const pf = vfade(pts[i].y);
           if (pf <= 0) continue;
           const a = (.5 + Math.sin(pts[i].phase) * .3) * pf;
@@ -976,7 +989,7 @@ function drawPortal(canvas, opts) {
     // ── Shooting stars ──
     if (!opts.shooters) shooters.length = 0;
     for (let i = shooters.length - 1; i >= 0; i--) {
-      const s = shooters[i]; s.x += s.vx; s.y += s.vy; s.life -= s.decay;
+      const s = shooters[i]; s.x += s.vx * k; s.y += s.vy * k; s.life -= s.decay * k;
       if (s.life <= 0 || s.x > W + 50) { shooters.splice(i, 1); continue; }
       const sf2 = vfade(s.y);
       if (sf2 <= 0) continue;
@@ -1039,7 +1052,7 @@ function drawPortal(canvas, opts) {
     ctx.save(); ctx.globalAlpha = discA;
 
     // ── Rings (behind sphere) — cached sprites, see buildRingSprites ──
-    fullRings.forEach(fr => { fr.hotAngle += fr.hotSpeed; });
+    fullRings.forEach(fr => { fr.hotAngle += fr.hotSpeed * k; });
     const numRings = opts.ringCount || 11;
     const rk = `${ox|0}_${oy|0}_${minR|0}_${maxR|0}_${numRings}_${dpr()}`;
     if (rk !== ringKey) { ringSprites = buildRingSprites(ox, oy, minR, maxR, numRings); ringKey = rk; }
@@ -1051,7 +1064,7 @@ function drawPortal(canvas, opts) {
     ctx.save(); ctx.globalAlpha = discA * .75;
     disc.forEach((p, i) => {
       if (i % discStep) return;
-      p.angle += p.speed * (opts.speedMult || 1); p.phase += .04;
+      p.angle += p.speed * k * (opts.speedMult || 1); p.phase += .04 * k;
       const px = ox + Math.cos(p.angle) * systemW * p.r * colS;
       const py = oy + Math.sin(p.angle) * systemW * p.r * colS * .26;
       if (Math.sin(p.angle) < 0) {
@@ -1072,7 +1085,7 @@ function drawPortal(canvas, opts) {
     const isB = []; for (let i = 0; i < NB; i++) isB.push(new Path2D());
     innerStream.forEach((p, i) => {
       if (i % streamStep) return;
-      p.angle += p.speed * (opts.speedMult || 1); p.phase += .05;
+      p.angle += p.speed * k * (opts.speedMult || 1); p.phase += .05 * k;
       const px = ox + Math.cos(p.angle) * (sR + systemW * p.r * colS);
       const py = oy + Math.sin(p.angle) * (sR + systemW * p.r * colS) * .28;
       if (Math.sin(p.angle) < 0 && px >= -pad && px <= W + pad && py >= -pad && py <= H + pad) {
@@ -1089,7 +1102,7 @@ function drawPortal(canvas, opts) {
     const isbB = []; for (let i = 0; i < NB; i++) isbB.push(new Path2D());
     innerStreamBlue.forEach((p, i) => {
       if (i % streamStep) return;
-      p.angle += p.speed * (opts.speedMult || 1); p.phase += .045;
+      p.angle += p.speed * k * (opts.speedMult || 1); p.phase += .045 * k;
       const px = ox + Math.cos(p.angle) * (sR + systemW * p.r * colS);
       const py = oy + Math.sin(p.angle) * (sR + systemW * p.r * colS) * .28;
       if (Math.sin(p.angle) < 0 && px >= -pad && px <= W + pad && py >= -pad && py <= H + pad) {
@@ -1106,7 +1119,7 @@ function drawPortal(canvas, opts) {
     const osbB = []; for (let i = 0; i < NB; i++) osbB.push(new Path2D());
     outerStreamBlue.forEach((p, i) => {
       if (i % streamStep) return;
-      p.angle += p.speed * (opts.speedMult || 1) * suckB; p.phase += .035;
+      p.angle += p.speed * k * (opts.speedMult || 1) * suckB; p.phase += .035 * k;
       const px = ox + Math.cos(p.angle) * (sR + systemW * p.r * colS);
       const py = oy + Math.sin(p.angle) * (sR + systemW * p.r * colS) * .28;
       if (Math.sin(p.angle) < 0 && px >= -pad && px <= W + pad && py >= -pad && py <= H + pad) {
@@ -1129,17 +1142,17 @@ function drawPortal(canvas, opts) {
       // ── Absorption state machine (orange planet only) ──
       if (p.absorbState !== undefined) {
         if (p.absorbState === 'normal') {
-          p.absorbTimer--;
-          p.angle += p.speed * (opts.speedMult || 1) * suckB;
+          p.absorbTimer -= k;
+          p.angle += p.speed * k * (opts.speedMult || 1) * suckB;
           if (p.absorbTimer <= 0) {
             p.absorbState = 'falling';
             p.absorbProgress = 0;
             p.absorbBaseAngle = p.angle;
           }
         } else if (p.absorbState === 'falling') {
-          p.absorbProgress += 0.00133;
+          p.absorbProgress += 0.00133 * k;
           const speedBoost = 1 + p.absorbProgress * 12;
-          p.angle += p.speed * speedBoost * (opts.speedMult || 1);
+          p.angle += p.speed * k * speedBoost * (opts.speedMult || 1);
           if (p.absorbProgress >= 1) {
             p.absorbState = 'absorbed';
             p.absorbTimer = 55;
@@ -1148,9 +1161,9 @@ function drawPortal(canvas, opts) {
             p.trailHistory = [];
           }
         } else if (p.absorbState === 'absorbed') {
-          p.absorbTimer--;
-          p.absorbFlash = Math.max(0, p.absorbFlash - 0.045);
-          p.absorbRipples.forEach(rp => { rp.r += sR * 0.12; rp.a -= 0.035; });
+          p.absorbTimer -= k;
+          p.absorbFlash = Math.max(0, p.absorbFlash - 0.045 * k);
+          p.absorbRipples.forEach(rp => { rp.r += sR * 0.12 * k; rp.a -= 0.035 * k; });
           p.absorbRipples = p.absorbRipples.filter(rp => rp.a > 0);
           if (p.absorbTimer <= 0) {
             p.absorbState = 'reforming';
@@ -1158,8 +1171,8 @@ function drawPortal(canvas, opts) {
             p.angle = p.absorbBaseAngle;
           }
         } else if (p.absorbState === 'reforming') {
-          p.absorbProgress += 0.003;
-          p.angle += p.speed * (opts.speedMult || 1);
+          p.absorbProgress += 0.003 * k;
+          p.angle += p.speed * k * (opts.speedMult || 1);
           if (p.absorbProgress >= 1) {
             p.absorbState = 'normal';
             p.absorbTimer = 480 + Math.random() * 360;
@@ -1183,7 +1196,7 @@ function drawPortal(canvas, opts) {
           if (p.trailHistory.length > (p.absorbState === 'falling' ? 52 : 32)) p.trailHistory.shift();
         }
       } else {
-        p.angle += p.speed * (opts.speedMult || 1) * suckB;
+        p.angle += p.speed * k * (opts.speedMult || 1) * suckB;
         p._x = ox + Math.cos(p.angle) * baseOrbitR;
         p._y = oy + Math.sin(p.angle) * baseOrbitR * 0.34;
         p._radius = sR * p.sizeF;
@@ -1751,7 +1764,10 @@ function getInitialBHStill() {
 function getInitialBHQualityTier() {
   try {
     const saved = localStorage.getItem('bh-quality-tier');
-    if (BH_QUALITY[saved]) return saved;
+    // A saved 'low' was written by the old demotion path, which no longer
+    // exists. Ignore it: that machine starts on medium and, if it can't hold
+    // it, freezes within a few seconds and remembers that instead.
+    if (BH_QUALITY[saved] && saved !== 'low') return saved;
   } catch (_) {}
 
   const reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1867,6 +1883,8 @@ function resizeBH() {
   if (bhOpts.requestStill) bhOpts.requestStill(); // no-op unless frozen
 }
 if (bh) {
+  // ?hero=debug records each quality check in window.__bhPerfLog.
+  if (new URLSearchParams(location.search).get('hero') === 'debug') bhOpts.perfLog = window.__bhPerfLog = [];
   if (getInitialBHStill()) {
     bhQualityTier = 'low';
     bhOpts.frozen = true;
@@ -1874,7 +1892,8 @@ if (bh) {
   }
   applyBHQuality(bhQualityTier);
   bhOpts.onQualityChange = (tier) => applyBHQuality(tier, { persist: true, resize: true });
-  bhOpts.onFreeze = () => { try { localStorage.setItem(BH_STILL_KEY, String(Date.now())); } catch (_) {} };
+  // When the week is up the retry starts from the hardware tier, not a saved one.
+  bhOpts.onFreeze = () => { try { localStorage.setItem(BH_STILL_KEY, String(Date.now())); localStorage.removeItem('bh-quality-tier'); } catch (_) {} };
   resizeBH();
   window.addEventListener('resize', resizeBH);
   window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', resizeBH);
