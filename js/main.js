@@ -768,24 +768,38 @@ function drawPortal(canvas, opts) {
   // returns, so on a machine whose GPU is the bottleneck the script time stays
   // at a few ms while the page runs at 5 fps. The old check measured script
   // time and never demoted on exactly the machines it existed for.
-  const perf = { samples: [], cooldownUntil: 0, prev: 0, warmupUntil: 0 };
+  //
+  // Below the low tier there is one more step: if the hero still can't hold
+  // 15 fps on low for two windows in a row, the animation stops and the
+  // solar system stays on screen as a still frame (see freeze()).
+  const perf = { samples: [], cooldownUntil: 0, prev: 0, warmupUntil: 0, windowStart: 0, badLow: 0 };
   function maybeAdaptQuality(now) {
-    if (!opts.onQualityChange || !opts.qualityTier || opts.qualityTier === 'low') return;
+    if (!opts.onQualityChange || !opts.qualityTier || opts.frozen) return;
     if (!perf.warmupUntil) perf.warmupUntil = now + 2000; // skip the intro animations
     const prev = perf.prev; perf.prev = now;
     if (!prev || now < perf.warmupUntil || now < perf.cooldownUntil) return;
     const dt = now - prev;
     if (dt > 1000) return; // a tab switch or stall, not a render cost
+    if (!perf.samples.length) perf.windowStart = now;
     perf.samples.push(dt);
-    if (perf.samples.length < 90) return;
+    // A window is 90 frames or 3 seconds, whichever comes first. Counting
+    // frames alone meant a machine running at 5 fps waited 18 s per verdict.
+    if (perf.samples.length < 90 && !(now - perf.windowStart >= 3000 && perf.samples.length >= 8)) return;
 
     const samples = perf.samples.slice().sort((a, b) => a - b);
     const avg = perf.samples.reduce((sum, v) => sum + v, 0) / perf.samples.length;
     const p95 = samples[Math.floor(samples.length * 0.95)];
     perf.samples.length = 0;
 
-    // Judged against the tier's own target gap (16 ms high, 33 ms medium).
+    // Judged against the tier's own target gap (16 ms high, 33 ms medium,
+    // 42 ms low).
     const target = opts.frameGap || 16;
+    if (opts.qualityTier === 'low') {
+      // Under ~15 fps on average, or regular 125 ms+ hitches.
+      perf.badLow = (avg > target * 1.6 || p95 > target * 3) ? perf.badLow + 1 : 0;
+      if (perf.badLow >= 2 && !opts._warping) freeze();
+      return;
+    }
     let nextTier = opts.qualityTier;
     if (opts.qualityTier === 'high' && (avg > target * 1.6 || p95 > target * 2.5)) {
       nextTier = avg > target * 3 ? 'low' : 'medium';
@@ -794,9 +808,26 @@ function drawPortal(canvas, opts) {
     }
 
     if (nextTier !== opts.qualityTier) {
-      perf.cooldownUntil = now + 8000;
+      perf.cooldownUntil = now + 3000; // let the resize and sprite rebuild settle
       opts.onQualityChange(nextTier);
     }
+  }
+  // ── Freeze ──
+  // Stops the loop and leaves one clean still frame on the canvas. Comets and
+  // flares are cleared first so a streak isn't caught mid-flight. A still is
+  // redrawn on resize (resizing a canvas wipes it) via opts.requestStill.
+  let stillRequested = false;
+  opts.requestStill = () => {
+    if (!opts.frozen) return;
+    stillRequested = true; lastFrameTime = 0;
+    requestAnimationFrame(frame);
+  };
+  function freeze() {
+    opts.frozen = true;
+    window.__bhFrozen = true;
+    shooters.length = 0; flares.length = 0;
+    if (opts.onFreeze) opts.onFreeze();
+    opts.requestStill();
   }
   const bhIO = new IntersectionObserver(entries => {
     bhVisible = entries[0].isIntersecting;
@@ -815,6 +846,7 @@ function drawPortal(canvas, opts) {
 
   let lastFrameTime = 0;
   function frame(now) {
+    if (opts.frozen && !stillRequested) return;
     if (!bhVisible || !pageVisible) return;
     const minGap = opts.frameGap || (opts.lensing ? 16 : 33); // adaptive quality controls target fps
     if (now - lastFrameTime < minGap) { requestAnimationFrame(frame); return; }
@@ -1520,10 +1552,12 @@ function drawPortal(canvas, opts) {
       ctx.fillStyle = fade; ctx.fillRect(0, 0, W, H);
     }
 
+    if (opts.frozen) { stillRequested = false; return; }
     maybeAdaptQuality(now);
     requestAnimationFrame(frame);
   }
-  requestAnimationFrame(frame);
+  if (opts.frozen) opts.requestStill();
+  else requestAnimationFrame(frame);
 }
 
 
@@ -1539,11 +1573,11 @@ function drawPortal(canvas, opts) {
     const systemWidth = Math.min(rect.width, bhOpts.maxSystemWidth || rect.width);
     const sr = systemWidth * bhOpts.sphereR;
     const dx = e.clientX - cx, dy = e.clientY - cy;
-    canvas.style.cursor = Math.hypot(dx, dy) <= sr * 1.4 ? 'pointer' : 'default';
+    canvas.style.cursor = !bhOpts.frozen && Math.hypot(dx, dy) <= sr * 1.4 ? 'pointer' : 'default';
   });
 
   canvas.addEventListener('click', (e) => {
-    if (bhOpts._warping) return;
+    if (bhOpts._warping || bhOpts.frozen) return;
     const rect = canvas.getBoundingClientRect();
     const cx = rect.left + rect.width * 0.5;
     const cy = rect.top + rect.height * bhOpts.originY;
@@ -1698,6 +1732,22 @@ const BH_QUALITY = {
   }
 };
 
+// A frozen hero is remembered for a week. After that the animation gets
+// another try, in case the freeze came from a one-off stall rather than the
+// machine. ?hero=still forces the still frame (for checking it), and
+// ?hero=animate clears the memory, saved quality tier included.
+const BH_STILL_KEY = 'bh-hero-still';
+const BH_STILL_DAYS = 7;
+function getInitialBHStill() {
+  const param = new URLSearchParams(location.search).get('hero');
+  try {
+    if (param === 'animate') { localStorage.removeItem(BH_STILL_KEY); localStorage.removeItem('bh-quality-tier'); return false; }
+    if (param === 'still') return true;
+    const at = +localStorage.getItem(BH_STILL_KEY);
+    return at > 0 && Date.now() - at < BH_STILL_DAYS * 864e5;
+  } catch (_) { return param === 'still'; }
+}
+
 function getInitialBHQualityTier() {
   try {
     const saved = localStorage.getItem('bh-quality-tier');
@@ -1814,10 +1864,17 @@ function resizeBH() {
   // Honor the viewer's motion preference on both desktop and mobile.
   bhOpts.shooters      = q.shooters && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   bhOpts.lensing       = !mobile && q.lensing; // pixel-by-pixel GPU readback is too slow on mobile/low tier
+  if (bhOpts.requestStill) bhOpts.requestStill(); // no-op unless frozen
 }
 if (bh) {
+  if (getInitialBHStill()) {
+    bhQualityTier = 'low';
+    bhOpts.frozen = true;
+    window.__bhFrozen = true;
+  }
   applyBHQuality(bhQualityTier);
   bhOpts.onQualityChange = (tier) => applyBHQuality(tier, { persist: true, resize: true });
+  bhOpts.onFreeze = () => { try { localStorage.setItem(BH_STILL_KEY, String(Date.now())); } catch (_) {} };
   resizeBH();
   window.addEventListener('resize', resizeBH);
   window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', resizeBH);
