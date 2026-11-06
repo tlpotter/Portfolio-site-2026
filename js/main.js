@@ -215,6 +215,7 @@
       inner.innerHTML = '<span class="hn-slot"><span class="hn-slot-ph"></span><span class="hn-slot-live">complex systems</span></span>';
       slot = inner.firstChild;
       i++;
+      const mb = document.createElement('br'); mb.className = 'hn-mbr'; h.appendChild(mb);
     } else {
       if (afterPeople && warmLeft > 0 && ['trust', 'and', 'use'].includes(w)) { inner.classList.add('hn-warm'); warmLeft--; }
       if (w === 'people') afterPeople = true;
@@ -223,6 +224,7 @@
     outer.appendChild(inner);
     h.appendChild(outer);
     inners.push(inner);
+    if (inner.classList.contains('hn-cool')) { const mb = document.createElement('br'); mb.className = 'hn-mbr'; h.appendChild(mb); }
     if (w === 'them') { const br = document.createElement('br'); br.className = 'hn-br'; h.appendChild(br); }
     if (i < words.length - 1) h.appendChild(document.createTextNode(' '));
   }
@@ -2030,16 +2032,16 @@ function resizeBH() {
   // pulled up to sit 74px under it (via --work-pull), so the system sits centred between them.
   bhOpts.sphereR       = mobile ? 0.085 : 0.0403;
   bhOpts.maxR          = mobile ? 0.72  : 0.361;
-  if (mobile) {
-    bhOpts.originY = (heroH * 0.86 + bhOpts.verticalOffset) / cssH;
-    document.documentElement.style.removeProperty('--work-pull');
-  } else {
+  // Phones use the same rule with a smaller gap (48px) and section padding (64px),
+  // so the whole system sits above the fold under the hero link.
+  {
+    const gap = mobile ? 48 : 74, secPad = mobile ? 64 : 88;
     const ctas = document.querySelector('.hero-ctas'), hc = document.querySelector('.hero-content');
     const ctasBottom = ctas && hc ? hc.offsetTop + ctas.offsetTop + ctas.offsetHeight : heroH * 0.55;
     const ry = Math.min(cssW, bhOpts.maxSystemWidth) * bhOpts.maxR * 0.28;   // outer orbit half-height
-    const cy = ctasBottom + 74 + ry;
+    const cy = ctasBottom + gap + ry;
     bhOpts.originY = cy / cssH;
-    document.documentElement.style.setProperty('--work-pull', Math.round((cy + ry + 74) - 88 - heroH) + 'px');
+    document.documentElement.style.setProperty('--work-pull', Math.round((cy + ry + gap) - secPad - heroH) + 'px');
   }
   bhOpts.glowScale     = mobile ? 0.80  : 0.84;
   bhOpts.discRBase     = mobile ? 0.14  : 0.0403;

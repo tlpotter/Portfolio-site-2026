@@ -184,6 +184,8 @@ nav.scrolled:hover{opacity:1}
 .hn-slot-live.in{opacity:0;transform:translate(-50%,.35em);transition:none}
 .hn-slot-live.out{opacity:0;transform:translate(-50%,-.35em);transition-duration:.35s}
 @media(max-width:800px){.hn-br{display:none}}
+/* Phones: line breaks before and after the rotating phrase, so the lines never reflow. */
+@media(min-width:601px){.hn-mbr{display:none}}
 /* Small laptops: less side padding so the longest phrase still fits on line one. */
 @media(min-width:801px) and (max-width:1000px){.hero-content{width:calc(100% - 64px)}}
 .hero-name-secondary{display:block;font-size:clamp(28px,4vw,48px);font-style:normal;font-weight:300;line-height:1.2;letter-spacing:-.02em;margin-top:var(--hero-text-gap)}
@@ -205,11 +207,9 @@ nav.scrolled:hover{opacity:1}
 .hero-eb + .hero-eb::before{content:"·";margin:0 12px;color:rgba(255,255,255,.35)}
 /* Phones: two lines of two, with a dot only between the items on each line. */
 @media (max-width:600px){
-  .hero-eyebrows{display:grid;grid-template-columns:auto auto;justify-content:start;gap:2px 0}
-  .hero-eb{font-size:15.5px}
-  .hero-eb:nth-child(odd){text-align:left}
-  .hero-eb:nth-child(even){text-align:left}
-  .hero-eb:nth-child(odd)::before{content:none}
+  .hero-eyebrows{display:block;font-size:0}   /* font-size 0 drops the gaps from the HTML spaces */
+  .hero-eb{display:inline;font-size:15.5px}
+  .hero-eb:nth-child(3)::before{content:"\A";white-space:pre;margin:0}   /* line break in place of the dot */
 }
 
 .hero-list{list-style:none;padding:0;margin:0 0 32px 0}
@@ -278,7 +278,7 @@ html.js .rv.in{opacity:1;transform:none}
 /* The hero is a full viewport tall, but the smaller system ends well above
    its bottom. main.js measures the system and sets --work-pull so Select
    Work sits a fixed distance under it. */
-@media(min-width:801px){#work{margin-top:var(--work-pull,-148px)}}
+#work{margin-top:var(--work-pull,-148px)}
 
 /* ── ABOUT ── */
 #about{border-top:1px solid rgba(255,255,255,.04)}
@@ -473,6 +473,7 @@ footer p{font-size:12px;color:rgba(255,255,255,.4);letter-spacing:.06em}
      element on every page (homepage + case studies) lines up symmetrically. */
   nav{padding:18px var(--mobile-padding)}.nav-links{display:none}
   section:not(#hero){padding:64px var(--mobile-padding)}
+  #hero{padding-top:134px}   /* half the gap under the nav (was 200px) */
   .hero-content{width:100%;padding:0 var(--mobile-padding);text-align:left;align-items:flex-start}
   .about-grid,.skills-grid{grid-template-columns:1fr}
   /* Mobile bento: single column, DOM source order. */
