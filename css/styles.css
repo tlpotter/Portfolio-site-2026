@@ -198,7 +198,7 @@ nav.scrolled:hover{opacity:1}
   opacity:0;animation:up 1.8s var(--ease-out) 1.4s forwards;
 }
 .hero-eb{
-  font-size:16.5px;line-height:1.75;
+  font-size:18px;line-height:1.75;
   color:rgba(255,255,255,.68);
   text-shadow:0 1px 20px rgba(0,0,0,.9);
 }
@@ -206,7 +206,7 @@ nav.scrolled:hover{opacity:1}
 /* Phones: two lines of two, with a dot only between the items on each line. */
 @media (max-width:600px){
   .hero-eyebrows{display:grid;grid-template-columns:auto auto;justify-content:start;gap:2px 0}
-  .hero-eb{font-size:14.5px}
+  .hero-eb{font-size:15.5px}
   .hero-eb:nth-child(odd){text-align:left}
   .hero-eb:nth-child(even){text-align:left}
   .hero-eb:nth-child(odd)::before{content:none}
