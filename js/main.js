@@ -125,9 +125,33 @@
     speed: .003 + Math.random() * .008
   }));
 
+  // Homepage: the sky fades out once the hero has scrolled away, so the work
+  // section sits on plain black, and fades back in on the way up. Once fully
+  // faded, the loop stops drawing until the sky is needed again.
+  let asleep = false;
+  const workTitle = document.querySelector('#work .sec-title');
+  if (workTitle) {
+    let off = false, raf = 0;
+    const check = () => {
+      raf = 0;
+      const past = workTitle.getBoundingClientRect().top < window.innerHeight * 0.35;
+      if (past === off) return;
+      off = past;
+      if (!off) asleep = false;          // start drawing before it fades back in
+      sf.classList.toggle('is-off', off);
+    };
+    sf.addEventListener('transitionend', e => {
+      if (e.propertyName === 'opacity' && off) asleep = true;
+    });
+    window.addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(check); }, { passive: true });
+    window.addEventListener('resize', check, { passive: true });
+    check();
+  }
+
   let last = 0;
   (function tick(now) {
     requestAnimationFrame(tick);
+    if (asleep) return;
     const tier = window.__bhQualityTier || 'high';
     const heroActive = window.__bhHeroActive !== false;
     const gap = heroActive && tier === 'low' ? 200 : heroActive && tier === 'medium' ? 100 : 50;
@@ -406,6 +430,105 @@ document.addEventListener('mousemove', e => {
   const quiet = vt => { if (vt) { vt.ready.catch(() => {}); vt.finished.catch(() => {}); vt.updateCallbackDone.catch(() => {}); } };
   window.addEventListener('pageswap', e => quiet(e.viewTransition));
   window.addEventListener('pagereveal', e => quiet(e.viewTransition));
+})();
+
+/* ── QUOTE SLIDERS ──
+   A quote band with more than one quote shows one at a time: side arrows,
+   a "1 of 2" count, left/right keys while focus is inside, and a swipe on
+   touch. The
+   track keeps the tallest quote's height, so the page never jumps. */
+(function(){
+  const ARROW = d => `<svg viewBox="0 0 20 20" aria-hidden="true"><path d="${d}" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  document.querySelectorAll('.wband').forEach(band => {
+    const slides = [...band.querySelectorAll('.wq-track > .wq')];
+    if (slides.length < 2) return;
+    band.classList.add('is-slider');
+    band.setAttribute('aria-roledescription', 'carousel');
+    slides.forEach((sl, i) => { sl.setAttribute('role', 'group'); sl.setAttribute('aria-roledescription', 'slide'); sl.setAttribute('aria-label', `${i + 1} of ${slides.length}`); });
+
+    const controls = document.createElement('div');
+    controls.className = 'wq-controls';
+    const prev = document.createElement('button');
+    prev.type = 'button'; prev.className = 'wq-arrow wq-prev'; prev.setAttribute('aria-label', 'Previous quote');
+    prev.innerHTML = ARROW('M12.5 4.5 7 10l5.5 5.5');
+    const next = document.createElement('button');
+    next.type = 'button'; next.className = 'wq-arrow wq-next'; next.setAttribute('aria-label', 'Next quote');
+    next.innerHTML = ARROW('M7.5 4.5 13 10l-5.5 5.5');
+    controls.append(prev, next);
+    // "1 of 2" goes in the footer, after the Full quote link if the band has one.
+    let foot = band.querySelector('.wq-foot');
+    if (!foot) { foot = document.createElement('div'); foot.className = 'wq-foot'; }
+    const count = document.createElement('span');
+    count.className = 'wq-count';
+    count.setAttribute('aria-live', 'polite');
+    foot.appendChild(count);
+    band.append(controls, foot);
+
+    let cur = 0;
+    function go(i) {
+      cur = Math.max(0, Math.min(slides.length - 1, i));
+      slides.forEach((sl, j) => {
+        const on = j === cur;
+        sl.classList.toggle('is-active', on);
+        sl.classList.toggle('is-before', j < cur);
+        sl.toggleAttribute('inert', !on);
+        sl.setAttribute('aria-hidden', String(!on));
+      });
+      count.textContent = `${cur + 1} of ${slides.length}`;
+      prev.disabled = cur === 0;
+      next.disabled = cur === slides.length - 1;
+    }
+    prev.addEventListener('click', () => { go(cur - 1); if (prev.disabled) next.focus(); });
+    next.addEventListener('click', () => { go(cur + 1); if (next.disabled) prev.focus(); });
+    band.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') { go(cur + 1); e.preventDefault(); }
+      else if (e.key === 'ArrowLeft') { go(cur - 1); e.preventDefault(); }
+    });
+    let x0 = null;
+    band.addEventListener('pointerdown', e => { if (e.pointerType !== 'mouse') x0 = e.clientX; });
+    band.addEventListener('pointerup', e => {
+      if (x0 === null) return;
+      const dx = e.clientX - x0; x0 = null;
+      if (Math.abs(dx) > 50) go(cur + (dx < 0 ? 1 : -1));
+    });
+    go(0);
+  });
+})();
+
+/* ── WORK FILTER ──
+   All / B2B SaaS / AI / Consumer. A chapter shows when its data-tags include
+   the filter; a quote band shows when the chapter it follows (data-after)
+   does, so two bands never end up next to each other. */
+(function(){
+  const btns = document.querySelectorAll('.wf-btn[data-filter]');
+  const flow = document.querySelector('.work-flow');
+  if (!btns.length || !flow) return;
+  const chaps = [...flow.querySelectorAll('.chap[data-tags]')];
+  const bands = [...flow.querySelectorAll('.wband[data-after]')];
+  const head = document.querySelector('.work-head');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const show = (el, on) => {
+    if (on && el.hidden) {
+      el.hidden = false;
+      if (!reduce) {
+        el.classList.add('wf-enter');
+        el.addEventListener('animationend', () => el.classList.remove('wf-enter'), { once: true });
+      }
+    } else if (!on) el.hidden = true;
+  };
+  btns.forEach(btn => btn.addEventListener('click', () => {
+    const f = btn.dataset.filter;
+    btns.forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
+    const visible = new Set();
+    chaps.forEach(c => {
+      const on = f === 'all' || c.dataset.tags.split(' ').includes(f);
+      if (on) visible.add(c.id.replace('work-', ''));
+      show(c, on);
+    });
+    bands.forEach(b => show(b, visible.has(b.dataset.after)));
+    // If the list got shorter while scrolled into it, bring the filter back into view.
+    if (head && head.getBoundingClientRect().top < 0) head.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+  }));
 })();
 
 /* ── POINTER EFFECTS: card spotlight ── */

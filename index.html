@@ -47,7 +47,7 @@
   <meta property="og:description" content="Senior Product Designer with 10+ years of experience in B2B SaaS, enterprise, AI workflows, and consumer mobile."/>
 
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fraunces:ital,wght@0,300;0,600;1,300;1,600&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="css/styles.css?v=20261106-mob"/>
+  <link rel="stylesheet" href="css/styles.css?v=20261106-work"/>
 </head>
 <body class="home">
 
@@ -90,59 +90,167 @@
 </section>
 
 <section id="work">
-  <h2 class="sec-title">Select Work</h2>
-  <!-- Bento layout: DOM source order matches mobile stack order (featured, text-a,
-       text-b, crawler, AI concept [.cs-crc], interos, vasa). Desktop placement
-       comes from grid-template-areas in .work-grid, not from per-card overrides. -->
-  <div class="work-grid">
-    <a href="case-study-invoca-callreview/" class="work-card featured glass rv">
-      <div class="work-vis work-vis-top featured-vis">
-        <picture><source media="(max-width: 800px)" srcset="images/home/invoca_CRC_call_detail_thumb-750w.webp" type="image/webp"><img src="images/home/invoca_CRC_call_detail_thumb.png" alt="Invoca Call Review Console" fetchpriority="high" decoding="async" width="1536" height="1024"/></picture>
+  <div class="work-head">
+    <h2 class="sec-title">Select Work</h2>
+    <div class="work-filter" role="group" aria-label="Filter projects">
+      <button type="button" class="wf-btn" data-filter="all" aria-pressed="true">All</button>
+      <button type="button" class="wf-btn" data-filter="b2b" aria-pressed="false">B2B SaaS</button>
+      <button type="button" class="wf-btn" data-filter="ai" aria-pressed="false">AI</button>
+      <button type="button" class="wf-btn" data-filter="consumer" aria-pressed="false">Consumer</button>
+    </div>
+  </div>
+  <!-- Five chapters, one per project, with quote bands between them (never two
+       bands in a row). Layout: tedpotter-work-section-spec.md
+       Filter: each chapter lists its data-tags; each band names the chapter
+       it follows in data-after and hides along with it. -->
+  <div class="work-flow">
+    <article class="chap rv" id="work-01" data-tags="b2b ai">
+      <a class="chap-shot" href="case-study-invoca-callreview/" tabindex="-1" aria-hidden="true">
+        <picture><source media="(max-width: 800px)" srcset="images/home/invoca_CRC_call_detail_thumb-750w.webp" type="image/webp"><img src="images/home/invoca_CRC_call_detail_thumb.png" alt="" fetchpriority="high" decoding="async" width="1536" height="1024"/></picture>
+      </a>
+      <div class="chap-body">
+        <h3 class="chap-title">At Invoca, I rebuilt the workflow QA teams use to review every call</h3>
+        <p class="chap-pill">~3x ARR · $4–6M → $12–15M</p>
+        <p class="chap-story">Redesigned the daily workflows contact center Sales agents and QA team rely on, helping triple the product's ARR.</p>
+        <dl class="chap-spec"><dt>Product</dt><dd>Contact center QA tool</dd><dt>Type</dt><dd>B2B SaaS · Web app</dd><dt>Role</dt><dd>Senior UX Designer, UX lead</dd><dt>Timeline</dt><dd>2023–2025</dd></dl>
+        <a class="btn btn-primary chap-btn" href="case-study-invoca-callreview/">View case study</a>
       </div>
-      <div class="work-meta">2023–2025 · Invoca · Web App</div>
-      <div class="work-tags"><span class="work-tag">B2B SaaS</span><span class="work-tag">AI Product</span><span class="work-tag">Research</span></div>
-      <div class="work-title">Invoca Contact Center Workflow Redesign</div>
-      <p class="work-desc">Redesigned the daily workflows contact center Sales agents and QA team rely on, helping triple the product's ARR.</p>
-    </a>
-    <div class="work-text-card text-a glass rv">
-      <div class="work-meta">Designing for AI</div>
-      <p class="work-text-body">AI is only as useful as the experience around it. I've designed LLM evaluation tools, model training workflows, and conversation intelligence products that help real people make sense of what AI is doing under the hood, and trust it enough to act on it.</p>
-      <p class="work-text-body">Designing for custom models means translating high complexity into simple, intuitive experiences, making AI accessible to the people who need to use it, not just the people who built it.</p>
-    </div>
-    <div class="work-text-card text-b glass rv">
-      <div class="work-meta">Designing with AI</div>
-      <p class="work-text-body">I practice what I design. This site was built with Claude Code. I use Claude to write copy and generate options I can evaluate, Gemini for deep-dive research, and Figma Make to prototype fast.</p>
-      <p class="work-text-body">I also run my work through multiple AI models to stress-test decisions: getting different perspectives the same way I'd pull in another designer for a crit. AI handles the production velocity so I can focus on making better decisions.</p>
-    </div>
-    <!-- Match Moth: links to its case study. -->
-    <a href="case-study-match-moth/" class="work-card cs-crawler glass rv">
-      <div class="work-vis work-vis-top"><picture><source media="(max-width: 800px)" srcset="images/home/jobcrawler_thumb-750w.webp" type="image/webp"><img src="images/home/jobcrawler_thumb.png" alt="Match Moth dashboard and mobile app over a moonlit night sky" loading="lazy" decoding="async" width="1500" height="1000"/></picture></div>
-      <div class="work-meta">2026 · Personal Project · Web App</div>
-      <div class="work-tags"><span class="work-tag">AI Product</span><span class="work-tag">Consumer</span><span class="work-tag">AI Evaluation</span></div>
-      <div class="work-title">Match Moth Job Search with AI Evaluation</div>
-      <p class="work-desc">An AI tool that runs my job search end to end: crawls a dozen sources daily, scores every role for fit, and emails a ranked shortlist each morning.</p>
-    </a>
-    <a href="case-study-invoca-ai/" class="work-card cs-crc glass rv">
-      <div class="work-vis work-vis-top"><picture><source media="(max-width: 800px)" srcset="images/home/invoca_ai_training_thumb-750w.webp" type="image/webp"><img src="images/home/invoca_ai_training_thumb.png" alt="AI Signal Blueprint concept" loading="lazy" decoding="async" width="1176" height="796"/></picture></div>
-      <div class="work-meta">2026 · Invoca · Web App</div>
-      <div class="work-tags"><span class="work-tag">AI Product</span><span class="work-tag">LLM Evaluation</span><span class="work-tag">B2B SaaS</span></div>
-      <div class="work-title">AI Model Training Concept</div>
-      <p class="work-desc">An end-to-end concept that made custom LLM training self-service, exposing the hidden human work behind the product.</p>
-    </a>
-    <a href="case-study-interos/" class="work-card cs-interos glass rv">
-      <div class="work-vis work-vis-top"><picture><source media="(max-width: 800px)" srcset="images/home/interos-thumbv2-750w.webp" type="image/webp"><img src="images/home/interos-thumbv2.png" alt="Interos homescreen mockup" style="transform-origin:right center" loading="lazy" decoding="async" width="1536" height="1024"/></picture></div>
-      <div class="work-meta">2021–2022 · Interos / Neudesic · Web App</div>
-      <div class="work-tags"><span class="work-tag">Enterprise</span><span class="work-tag">Data Visualization</span><span class="work-tag">B2B SaaS</span></div>
-      <div class="work-title">Interos Supply Chain Risk</div>
-      <p class="work-desc">Led UX projects on the risk platform enterprises relied on as Interos scaled to a $1B+ valuation.</p>
-    </a>
-    <a href="case-study-vasa/" class="work-card cs-vasa glass rv">
-      <div class="work-vis work-vis-top"><picture><source media="(max-width: 800px)" srcset="images/home/VASAmockup_thumb-750w.webp" type="image/webp"><img src="images/home/VASAmockup_thumb.webp" alt="VASA Fitness app mockup" loading="lazy" decoding="async" width="976" height="356"/></picture></div>
-      <div class="work-meta">2019–2021 · VASA Fitness / Neudesic · iOS & Android</div>
-      <div class="work-tags"><span class="work-tag">Consumer</span><span class="work-tag">Mobile</span><span class="work-tag">Fitness</span></div>
-      <div class="work-title">VASA Fitness Mobile App</div>
-      <p class="work-desc">Unified a fragmented gym membership experience into one app: 300K installs, 4.3 stars.</p>
-    </a>
+    </article>
+    <section data-after="01" class="wband rv" aria-label="What Invoca colleagues say">
+      <div class="wq-track">
+          <figure class="wq">
+            <h3 class="wband-title">From my PM partner</h3>
+            <blockquote class="wq-text"><p>“On the Call Review Console, I watched Ted navigate a complex, high-stakes build and keep the work coherent from early concepts all the way through delivery. He has a process that scales, whether he’s starting from scratch or untangling something messy, and the whole team benefits from the clarity it creates. Ted didn’t just make those features usable. He made them feel trustworthy, which is a much harder problem to solve in AI products.”</p></blockquote>
+            <figcaption class="wq-who">
+              <img class="wq-avatar" src="images/home/quotes/erick.jpg" alt="" width="68" height="68" loading="lazy" decoding="async"/>
+              <span class="wq-id"><span class="wq-name">Erick Montes</span><span class="wq-title">Product Manager, Invoca</span><span class="wq-rel">Worked with Ted on the Call Review Console</span></span>
+            </figcaption>
+          </figure>
+          <figure class="wq">
+            <h3 class="wband-title">From my manager</h3>
+            <blockquote class="wq-text"><p>“…witnessed Ted research, create a concept for, sell to leadership, design, and shepherd the implementation of Invoca’s Call Review Console, a formative feature for our Call Center Quality Management product. … Ted’s research and ideas were highly influential on the roadmap.”</p></blockquote>
+            <figcaption class="wq-who">
+              <img class="wq-avatar" src="images/home/quotes/jon.jpg" alt="" width="68" height="68" loading="lazy" decoding="async"/>
+              <span class="wq-id"><span class="wq-name">Jon Plummer</span><span class="wq-title">Product Design &amp; UX Leader</span><span class="wq-rel">Managed Ted at Invoca</span></span>
+            </figcaption>
+          </figure>
+      </div>
+      <div class="wq-foot"><a class="wq-link" href="https://www.linkedin.com/in/tedlpotter/details/recommendations/?detailScreenTabIndex=0" target="_blank" rel="noopener noreferrer" aria-label="Full LinkedIn recommendations (opens in a new tab)">Full LinkedIn Recommendations <svg class="wq-ext" viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M9.5 2.5h4v4M13.5 2.5 7.5 8.5M11.5 9.5v4h-9v-9h4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+    </section>
+    <article class="chap rv" id="work-02" data-tags="ai consumer">
+      <a class="chap-shot" href="case-study-match-moth/" tabindex="-1" aria-hidden="true">
+        <picture><source media="(max-width: 800px)" srcset="images/home/jobcrawler_thumb-750w.webp" type="image/webp"><img src="images/home/jobcrawler_thumb.png" alt="" loading="lazy" decoding="async" width="1500" height="1000"/></picture>
+      </a>
+      <div class="chap-body">
+        <h3 class="chap-title">I designed and built an AI <span class="nowrap">job-matching</span> app whose score shows its work</h3>
+        <p class="chap-pill">Top matches 16× more likely to be saved or applied to</p>
+        <p class="chap-story">An AI tool that runs my job search end to end: crawls a dozen sources daily, scores every role for fit, and emails a ranked shortlist each morning.</p>
+        <dl class="chap-spec"><dt>Product</dt><dd>AI job-matching app</dd><dt>Type</dt><dd>Consumer · Web app · Live</dd><dt>Role</dt><dd>Product, design + build, solo</dd><dt>Timeline</dt><dd>2026</dd></dl>
+        <a class="btn btn-primary chap-btn" href="case-study-match-moth/">View case study</a>
+      </div>
+    </article>
+    <section data-after="02" class="wband rv" aria-label="What Match Moth users say">
+      <h3 class="wband-title">From a beta user</h3>
+      <div class="wq-track">
+          <figure class="wq">
+            <blockquote class="wq-text"><p>“One of Match Moth’s greatest strengths is its Competition Signal. This feature indicates how high the competition may be for a posting. This can give you an advantage to be an early applicant and dramatically improve your odds of being seen.”</p></blockquote>
+            <figcaption class="wq-who">
+              <img class="wq-avatar" src="images/home/quotes/chris.jpg" alt="" width="68" height="68" loading="lazy" decoding="async"/>
+              <span class="wq-id"><span class="wq-name">Christopher Andert</span><span class="wq-title">Senior UX / Product Designer</span></span>
+            </figcaption>
+          </figure>
+      </div>
+    </section>
+    <article class="chap rv" id="work-03" data-tags="b2b ai">
+      <a class="chap-shot" href="case-study-invoca-ai/" tabindex="-1" aria-hidden="true">
+        <picture><source media="(max-width: 800px)" srcset="images/home/invoca_ai_training_thumb-750w.webp" type="image/webp"><img src="images/home/invoca_ai_training_thumb.png" alt="" loading="lazy" decoding="async" width="1176" height="796"/></picture>
+      </a>
+      <div class="chap-body">
+        <h3 class="chap-title">At Invoca, I designed a guided way to train AI signals without analyst help</h3>
+        <p class="chap-pill">Target: replace 8 hrs of analyst setup per customer</p>
+        <p class="chap-story">An end-to-end concept that made custom LLM training self-service, exposing the hidden human work behind the product.</p>
+        <dl class="chap-spec"><dt>Product</dt><dd>AI model-training workflow</dd><dt>Type</dt><dd>B2B SaaS · Web app · Concept</dd><dt>Role</dt><dd>Senior UX Designer, design lead</dd><dt>Timeline</dt><dd>2025</dd></dl>
+        <a class="btn btn-primary chap-btn" href="case-study-invoca-ai/">View case study</a>
+      </div>
+    </article>
+    <section data-after="03" class="wband rv" aria-label="What an Invoca colleague says">
+      <h3 class="wband-title">From a team member</h3>
+      <div class="wq-track">
+          <figure class="wq">
+            <blockquote class="wq-text"><p>“Ted is the kind of designer who makes hard things look easy. … He has a clear, repeatable process for net-new product creation, or enhancement, that brings confidence to the whole team. You always know why a decision was made and where it came from.”</p></blockquote>
+            <figcaption class="wq-who">
+              <img class="wq-avatar" src="images/home/quotes/jake.jpg" alt="" width="68" height="68" loading="lazy" decoding="async"/>
+              <span class="wq-id"><span class="wq-name">Jake Rowe</span><span class="wq-title">Senior UX Designer</span><span class="wq-rel">Worked alongside Ted at Invoca</span></span>
+            </figcaption>
+          </figure>
+      </div>
+      <div class="wq-foot"><a class="wq-link" href="https://www.linkedin.com/in/tedlpotter/details/recommendations/?detailScreenTabIndex=0" target="_blank" rel="noopener noreferrer" aria-label="Full LinkedIn recommendations (opens in a new tab)">Full LinkedIn Recommendations <svg class="wq-ext" viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M9.5 2.5h4v4M13.5 2.5 7.5 8.5M11.5 9.5v4h-9v-9h4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+    </section>
+    <article class="chap rv" id="work-04" data-tags="consumer">
+      <a class="chap-shot" href="case-study-vasa/" tabindex="-1" aria-hidden="true">
+        <picture><source media="(max-width: 800px)" srcset="images/VASA/VASAmockup-750w.webp" type="image/webp"><img src="images/VASA/VASAmockup.png" alt="" loading="lazy" decoding="async" width="1800" height="1350"/></picture>
+      </a>
+      <div class="chap-body">
+        <h3 class="chap-title">For VASA, I led the team that shipped a native gym app in under 6 months</h3>
+        <p class="chap-pill">300K installs · 4.3★ across ~7,000 reviews</p>
+        <p class="chap-story">Unified a fragmented gym membership experience into one app.</p>
+        <dl class="chap-spec"><dt>Product</dt><dd>Gym member app</dd><dt>Type</dt><dd>Consumer · iOS + Android</dd><dt>Role</dt><dd>UX Lead, 10-person team</dd><dt>Timeline</dt><dd>2019–2021</dd></dl>
+        <a class="btn btn-primary chap-btn" href="case-study-vasa/">View case study</a>
+      </div>
+    </article>
+    <!-- Client quotes from the VASA case study, not LinkedIn recommendations, so no LinkedIn link. -->
+    <section data-after="04" class="wband rv" aria-label="What VASA leaders say">
+      <h3 class="wband-title">From the client</h3>
+      <div class="wq-track">
+          <figure class="wq">
+            <blockquote class="wq-text"><p>“Just got a call from our CEO/CMO/CFO who are using the app today to book classes … They said it was awesome and were super happy with it. They made an app at Starbucks with 70 developers and a bunch of other folks and couldn’t release it in the same timeframe or for the same cost.”</p></blockquote>
+            <figcaption class="wq-who">
+              <img class="wq-avatar" src="images/home/quotes/mehul.jpg" alt="" width="68" height="68" loading="lazy" decoding="async"/>
+              <span class="wq-id"><span class="wq-name">Mehul Chaudhari</span><span class="wq-title">VP of Strategy and Analysis, VASA Fitness</span><span class="wq-rel">Partnered with Ted on prioritization and Phase 2</span></span>
+            </figcaption>
+          </figure>
+          <figure class="wq">
+            <blockquote class="wq-text"><p>“Not only was Neudesic involved on the technical side, but they also became a strategic advisor on new features that we were looking to implement. … This took a lot of pressure off of our team, because we trusted that Neudesic had our best interests in mind.”</p></blockquote>
+            <figcaption class="wq-who">
+              <img class="wq-avatar" src="images/home/quotes/mindi.jpg" alt="" width="68" height="68" loading="lazy" decoding="async"/>
+              <span class="wq-id"><span class="wq-name">Mindi Bridges</span><span class="wq-title">Chief Brand and Marketing Officer, VASA Fitness</span><span class="wq-rel">Partnered with Ted on visual direction</span></span>
+            </figcaption>
+          </figure>
+      </div>
+    </section>
+    <article class="chap rv" id="work-05" data-tags="b2b">
+      <a class="chap-shot" href="case-study-interos/" tabindex="-1" aria-hidden="true">
+        <picture><source media="(max-width: 800px)" srcset="images/home/interos-thumbv2-750w.webp" type="image/webp"><img src="images/home/interos-thumbv2.png" alt="" loading="lazy" decoding="async" width="1536" height="1024"/></picture>
+      </a>
+      <div class="chap-body">
+        <h3 class="chap-title">At Interos, I turned an Excel sheet with a portal into a risk platform</h3>
+        <p class="chap-pill">Platform V2 shipped · 5 workstreams led</p>
+        <p class="chap-story">Led UX projects on the risk platform enterprises relied on as Interos scaled to a $1B+ valuation.</p>
+        <dl class="chap-spec"><dt>Product</dt><dd>Supply chain risk platform</dd><dt>Type</dt><dd>Enterprise · Web app</dd><dt>Role</dt><dd>Senior UX Designer, feature lead</dd><dt>Timeline</dt><dd>2021–2022</dd></dl>
+        <a class="btn btn-primary chap-btn" href="case-study-interos/">View case study</a>
+      </div>
+    </article>
+    <section data-after="05" class="wband rv" aria-label="What Interos leaders say">
+      <div class="wq-track">
+          <figure class="wq">
+            <h3 class="wband-title">From my manager</h3>
+            <blockquote class="wq-text"><p>“His contribution to the product was absolutely vital, being involved in most of its critical features (such as home dashboard and events). His ability to think about the long-term design strategy while also defining all incremental steps to get there is a remarkable trait, which makes him an invaluable UX design lead in any team.”</p></blockquote>
+            <figcaption class="wq-who">
+              <img class="wq-avatar" src="images/home/quotes/manuel.jpg" alt="" width="68" height="68" loading="lazy" decoding="async"/>
+              <span class="wq-id"><span class="wq-name">Manuel Lima</span><span class="wq-title">Design Leader, Author &amp; TED Speaker</span><span class="wq-rel">Managed Ted at Interos</span></span>
+            </figcaption>
+          </figure>
+          <figure class="wq">
+            <h3 class="wband-title">From the head of product</h3>
+            <blockquote class="wq-text"><p>“Ted is an accomplished designer with a keen eye for details, collaborative approach to design and leadership skills to help drive a team towards solving the right problems. … I would highly recommend Ted to any fast moving environments that need a senior designer or design leader.”</p></blockquote>
+            <figcaption class="wq-who">
+              <img class="wq-avatar" src="images/home/quotes/vinay.jpg" alt="" width="68" height="68" loading="lazy" decoding="async"/>
+              <span class="wq-id"><span class="wq-name">Vinay Kapoor</span><span class="wq-title">VP of Product, Interos</span><span class="wq-rel">Managed Ted at Interos</span></span>
+            </figcaption>
+          </figure>
+      </div>
+      <div class="wq-foot"><a class="wq-link" href="https://www.linkedin.com/in/tedlpotter/details/recommendations/?detailScreenTabIndex=0" target="_blank" rel="noopener noreferrer" aria-label="Full LinkedIn recommendations (opens in a new tab)">Full LinkedIn Recommendations <svg class="wq-ext" viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M9.5 2.5h4v4M13.5 2.5 7.5 8.5M11.5 9.5v4h-9v-9h4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+    </section>
   </div>
 </section>
 
@@ -179,10 +287,10 @@
 </section>
 
 <section id="contact">
-  <div class="contact-card glass rv">
+  <div class="contact-card rv">
     <div>
       <h2 class="contact-head">Let's talk.</h2>
-      <p class="contact-sub">Open to Senior or Staff UX design roles in enterprise, AI, or consumer. Available now.</p>
+      <p class="contact-sub">Open to Senior or Staff UX design roles in enterprise, AI, or consumer. Open to full-time or contract work. Available now.</p>
     </div>
     <div class="contact-links">
       <a href="mailto:tedpotter23@gmail.com" data-copy="tedpotter23@gmail.com" class="c-item glass" style="border:1px solid rgba(255,255,255,.07)">
@@ -208,6 +316,6 @@
   <p>© 2026</p>
 </footer>
 
-<script src="js/main.js?v=20261106-mob"></script>
+<script src="js/main.js?v=20261106-work"></script>
 </body>
 </html>
