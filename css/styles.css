@@ -448,7 +448,7 @@ img.wq-avatar{object-fit:cover;padding:0;background:#1d2128;border-color:rgba(25
   .wq-arrow[disabled]{opacity:.25}
   .wq-foot{position:static;width:100%;margin:12px 0 0;justify-content:space-between;gap:16px}
   .wq-link,.wq-count{white-space:nowrap}
-  .work-head{gap:16px}
+  .work-head{gap:16px;margin-bottom:32px}
   .work-filter{gap:4px 18px}
 }
 
