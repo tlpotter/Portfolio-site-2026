@@ -435,7 +435,7 @@ img.wq-avatar{object-fit:cover;padding:0;background:#1d2128;border-color:rgba(25
   .work-flow{gap:56px}
   .chap{grid-template-columns:1fr;gap:24px}
   .chap-shot{aspect-ratio:4/3;border-radius:12px}
-  #work .wband{padding:32px 24px 24px;margin:0 0 168px;border-radius:16px;display:flex;flex-wrap:wrap;align-items:center}
+  #work .wband{padding:32px 24px 24px;margin:0 0 56px;border-radius:16px;display:flex;flex-wrap:wrap;align-items:center}
   #work .work-flow > .wband:last-child{margin-bottom:56px}
   .wband-title{width:100%;margin-bottom:18px}
   .wq-track{width:100%}
