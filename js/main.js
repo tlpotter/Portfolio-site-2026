@@ -284,23 +284,57 @@
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(es => { onScreen = es[0].isIntersecting; }).observe(h);
     }
+    // Every timer the rotation starts is tracked, so leaving the tab can
+    // cancel all of them. Browsers slow or freeze timers, frames and CSS
+    // transitions in a hidden tab, which used to leave two phrases on top
+    // of each other on return.
+    let loop = null, frames = [], timers = [];
+    const later = (fn, ms) => { const t = setTimeout(() => { timers = timers.filter(x => x !== t); fn(); }, ms); timers.push(t); };
     const swap = () => {
       if (!onScreen || document.hidden) return;
       idx = (idx + 1) % PHRASES.length;
       current = PHRASES[idx];
       fit();
       const old = slot.querySelector('.hn-slot-live:not(.out)');
-      if (old) { old.classList.add('out'); setTimeout(() => old.remove(), 700); }
+      if (old) { old.classList.add('out'); later(() => old.remove(), 700); }
       const next = document.createElement('span');
       next.className = 'hn-slot-live in';
       next.textContent = current;
-      setTimeout(() => {
+      later(() => {
         slot.appendChild(next);
-        requestAnimationFrame(() => requestAnimationFrame(() => next.classList.remove('in')));
+        frames.push(requestAnimationFrame(() => frames.push(requestAnimationFrame(() => next.classList.remove('in')))));
       }, 750);
     };
+    const start = ms => { clearTimeout(loop); loop = setTimeout(() => { swap(); start(2500); }, ms); };
+    const stop = () => {
+      clearTimeout(loop); loop = null;
+      timers.forEach(clearTimeout); timers = [];
+      frames.forEach(cancelAnimationFrame); frames = [];
+    };
+    // Back to one phrase, fully shown, with the slot at its width.
+    const settle = () => {
+      slot.querySelectorAll('.hn-slot-live').forEach(n => n.remove());
+      const live = document.createElement('span');
+      live.className = 'hn-slot-live';
+      live.textContent = current;
+      slot.appendChild(live);
+      const tr = slot.style.transition;
+      slot.style.transition = 'none';
+      fit();
+      void slot.offsetWidth;
+      slot.style.transition = tr;
+    };
+    // Pause when the tab is hidden or the window is minimized. Resume on
+    // return with a clean phrase and a full 2.5s before the next swap.
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) { stop(); return; }
+      settle();
+      start(2500);
+    });
+    // Same when the page comes back from the browser's back/forward cache.
+    window.addEventListener('pageshow', e => { if (e.persisted) { stop(); settle(); start(2500); } });
     // First swap at 3s, just after the blue and orange have landed.
-    setTimeout(() => { swap(); setInterval(swap, 2500); }, 3000);
+    if (!document.hidden) start(3000);
   }
 
   // Warm trail, mouse and trackpad only.
